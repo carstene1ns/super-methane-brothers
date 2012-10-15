@@ -1,0 +1,21 @@
+------------------------------------------------------------------------------
+
+Fix these:
+
+(RISCOS) Sample rates incorrect
+ ---> Code design problem. RISCOS requires an Amiga note. MIKMOD requires a frequency
+
+(Win32) The "Flash White" when activating the switch in the treasure room does
+        not operate when the game is in 32 colour mode (Amiga 500 emulation)
+
+(Win32) The game options should be saved to the registry
+
+(All) The "new" keyword has been replaced by SMB_NEW, which "should" return NULL on failure.
+	However, the C++ standards, it throws an expection. A fix was put into place
+	using the METHANE_OLD_CPP_NEW flag - However this is also broken.
+
+Implement these:
+(ALL)	SPR_POWER_HARDHAT (Jump on player 2 to reduce his height)
+(ALL)	SPR_POWER_PINKFROG (Swap player 1 and player 2 for that level)
+
+------------------------------------------------------------------------------
