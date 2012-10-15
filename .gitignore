@@ -1,0 +1,14 @@
+
+# files
+
+*.dol
+*.elf
+*.o
+*.d
+*.map
+*.zip
+
+# folders
+
+build-wii/
+build-gc/

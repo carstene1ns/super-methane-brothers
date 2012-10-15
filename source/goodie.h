@@ -5,9 +5,6 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://methane.sourceforge.net/index.html              *
- * Email: rombust@postmaster.co.uk                                         *
- *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
@@ -81,7 +78,7 @@ public:
 	void FlowerGoodie( void );
 	void SausageGoodie( void );
 	int CheckPickedUp( void );
-	void ChkSpecial( int *cntptr, int toynumber, int max, char *text );
+	void ChkSpecial( int *cntptr, int toynumber, int max, const char *text );
 public:
 	int m_GFlags;
 	int m_GScore;

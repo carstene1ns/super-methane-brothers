@@ -5,21 +5,14 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://methane.sourceforge.net/index.html              *
- * Email: rombust@postmaster.co.uk                                         *
- *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
 // Methane Brothers Weapons Object (Source File)
 //------------------------------------------------------------------------------
 
-#ifdef METHANE_OLD_CPP
-#include <stdlib.h>
-#else
+#include <cstdio>
 #include <cstdlib>
-#endif
-
 #include "weapon.h"
 #include "global.h"
 #include "baddie.h"

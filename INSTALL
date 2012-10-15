@@ -1,0 +1,20 @@
+General Platform Installation Instructions
+==========================================
+
+make
+./methane
+
+Source Directory Notes
+======================
+Directory: "./" contains the readme files
+Directory: "docs" contains the HTML documentaion page
+Directory: "source" contains the main game files
+Directory: "source/data" contains the data files (in .cpp)
+Directory: "source/mikmod" contains the mikmod wrapper used by various targets
+
+If you want to create your own platform target then
+create a class called CMethDoc with doc.h as the header file.
+The source file "source/target.cpp" is the only file that
+refers to CMethDoc.
+
+Note: This game assumes sizeof(int) = sizeof(int *) = 4

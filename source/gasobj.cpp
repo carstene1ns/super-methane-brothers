@@ -5,21 +5,14 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://methane.sourceforge.net/index.html              *
- * Email: rombust@postmaster.co.uk                                         *
- *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
 // Methane Brothers Gas Object lists (Source File)
 //------------------------------------------------------------------------------
 
-#ifdef METHANE_OLD_CPP
-#include <stdlib.h>
-#else
+#include <cstdio>
 #include <cstdlib>
-#endif
-
 #include "gasobj.h"
 #include "global.h"
 #include "bitgroup.h"

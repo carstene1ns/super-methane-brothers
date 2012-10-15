@@ -5,9 +5,6 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://methane.sourceforge.net/index.html              *
- * Email: rombust@postmaster.co.uk                                         *
- *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
@@ -28,7 +25,7 @@
 
 #define NUM_STD_LEVELS	109
 
-extern char *level_text_names[NUM_STD_LEVELS];
+extern const char *level_text_names[NUM_STD_LEVELS];
 
 //------------------------------------------------------------------------------
 // Status Bar Offsets Structure
@@ -59,7 +56,7 @@ typedef struct _ENDGROUP
 	int	x_gfxoffset;
 	PARTYOFFS	**party;
 	int	y_textoffset;
-	char	*text;
+	const char	*text;
 } ENDGROUP;
 
 extern ENDGROUP	*end_items[];

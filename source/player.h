@@ -5,9 +5,6 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://methane.sourceforge.net/index.html              *
- * Email: rombust@postmaster.co.uk                                         *
- *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
@@ -110,7 +107,7 @@ public:
 	void AddScore( int value );
 	void CheckExtraLife( void );
 	void TogglePuffBlow( void );
-	void SetPlayerName(char *nptr);
+	void SetPlayerName(const char *nptr);
 
 private:
 	void InitSuck(CSuckable *pnearest);

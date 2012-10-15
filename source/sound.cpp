@@ -5,24 +5,11 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://methane.sourceforge.net/index.html              *
- * Email: rombust@postmaster.co.uk                                         *
- *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
 // Methane Brothers Sound Control (Source File)
 //------------------------------------------------------------------------------
-
-#ifdef METHANE_OLD_CPP
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#else
-#include <cstdlib>
-#include <cstdio>
-#include <cstring>
-#endif
 
 #include "sound.h"
 #include "target.h"

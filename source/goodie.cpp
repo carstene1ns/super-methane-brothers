@@ -5,21 +5,14 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://methane.sourceforge.net/index.html              *
- * Email: rombust@postmaster.co.uk                                         *
- *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
 // Methane Brothers Goodie Object (Source File)
 //------------------------------------------------------------------------------
 
-#ifdef METHANE_OLD_CPP
-#include <stdlib.h>
-#else
+#include <cstdio>
 #include <cstdlib>
-#endif
-
 #include "goodie.h"
 #include "global.h"
 #include "bitgroup.h"
@@ -834,7 +827,7 @@ void CGoodieObj::Do( void )
 //!	\param max = Number of objects to pickup before the toy explosion
 //!	\param text = Message to display
 //------------------------------------------------------------------------------
-void CGoodieObj::ChkSpecial( int *cntptr, int toynumber, int max, char *text )
+void CGoodieObj::ChkSpecial( int *cntptr, int toynumber, int max, const char *text )
 {
 	int cnt;
 	(*cntptr)++;

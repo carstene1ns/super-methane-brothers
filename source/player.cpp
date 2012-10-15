@@ -5,9 +5,6 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://methane.sourceforge.net/index.html              *
- * Email: rombust@postmaster.co.uk                                         *
- *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
@@ -1322,7 +1319,7 @@ void CPlayerObj::TogglePuffBlow( void )
 //!
 //!	\param nptr = The player name
 //------------------------------------------------------------------------------
-void CPlayerObj::SetPlayerName(char *nptr)
+void CPlayerObj::SetPlayerName(const char *nptr)
 {
 	int cnt;
 	char let;
