@@ -1,0 +1,84 @@
+Version History.
+
+The Version numbers are written as: major.minor.patch
+ major - Denotes a major release.
+ minor - A new release :-
+         An even number denotes a stable version of the game)
+         An odd number denotes a development version of the game)
+ patch - patch number of the release.
+
+The version number of the game is contained in:
+	source/game.cpp : GameVersionNumber[]
+	source/win32/mfc/methane.rc : VALUE "FileVersion"
+V1.4.8 (Released 23 April 2007)
+       Linux: Compatible with ClanLib V0.8.0
+V1.4.7 (Released 20 January 2005)
+       All: Added 2 player mode.
+       All: Changed comments to be doxygen compatible
+       Linux: Compatible with latest version of ClanLib
+       MFC: Create target for visual studio V7.0.
+V1.4.6 (Released 10 March 2003)
+       Linux: Fixed keyboard bug (yes another one!) where the Highscore table did not work (it
+        was looking for joystick 2 instead of joystick 1.)
+V1.4.5 (Released 27 January 2003)
+       Linux: Fixed keyboard bug where the left CTRL key was not detected!
+V1.4.4 (Released 15 January 2003)
+       PFJ - Alterations for C++ compliance and code changes
+       PFJ - Added new try/catch code
+       PFJ - Minor changes
+       Various minor fixes
+       Implemeted but disabled an experimental 2 player mode (see "todo")
+V1.4.3 (Released 26 January 2002)
+       Linux/Win32: Modified to use only selected mikmod audio drivers (To stop the "music.raw" file
+        being created on some computers)
+       Linux: Updated to compile with ClanLib v0.5.2 (release version)
+V1.4.2 (Released 12 January 2002)
+       Win32: Recompiled for updated mikmod driver (Now WinXP compatible)
+V1.4.1 (Released 27 August 2001)
+       Linux: Fixed timer bug
+       Win32: (Executable only) Fix mikmod driver drv_ds.c - stop driver from causing 100% cpu usage
+V1.4.0 (Released 18 August 2001)
+       Linux: Disable the ClanLib alpha channel. However the hermes library v1.3.3 is now required
+       Linux: Added install.sh installation script
+V1.3.7 (Released 20 July 2001)
+       Fixed crash bug when attempting to swap player 1 graphics on the title screen
+       Linux: High Scores now saved to /var/games/methanescores
+       Linux/Win32: Used correct MikMod driver initialisation
+       Win32: Removed the "Audio Driver Off/On" option as this was unstable
+       Win32: Fix Music Off option (Plays an empty module instead)
+       Win32: Added F1 Cheat mode (level skip) using the registry
+       Moved the sound effect that's played when ejecting a baddie to a couple of frames earlier
+       Changed the available extra lives. Extra life after every 100,000 (easier for user to predict extra life)
+V1.3.6 (Released 8 July 2001)
+       Doubled the available extra lives as the game was too hard
+       Reduced the number of initial lives from 8 to 5
+       Linux: Added pause mode (when F1 pressed disable main loop and turn screen grey)
+       Linux/Win32: Fixed the module player for not repeating the module when module has ended
+       Linux: Make game speed optional as a workaround for the timer bug.
+       Linux: Option to disable screen scaling as it does not work on 16m colour screen modes
+       Linux: Full screen option
+       Linux: Added options screen - as the console may not be available if the game was started from the GUI
+V1.3.5 (Released 27 June 2001)
+       Minor linux fixes (So it compiles on Mandrake distros - caused by a gcc-2.95 bug)
+V1.3.4 (Released 23 June 2001)
+       Included the BLOW (player 2) sprites and the 2 player powerup sprites (gfxdata3.cpp)
+       On various targets, you are able to change the player 1 to use the player 2 graphics 
+       - Note - 2 player mode is still not available. I added the graphics for completeness, if
+                somebody wanted to add 2 player mode in the future.
+       Added the GPL notice on the title screen
+       Fixed the linux keyboard bug
+       Various minor modifications
+V1.3.3 (Released 19 June 2001)
+       Added various RISCOS patches
+V1.3.2 (Released 15 June 2001)
+       Included RISCOS target. GFXDATA has been split into 2 files (required for RISCOS compiler)
+       renamed the install_xxx files to i_xxx files for 8 charactor filename programs
+       Fixed the sound effect delay bug (Linux) (By passing parameters to MikMod init)
+V1.3.1 Included Win32/MFC target. Seperated MIKMOD sound driver from the targets. Fixed minor bugs
+V1.3.0 Initial GPL release (linux) (for 2 days to get some comments)
+
+(Pre GPL version)
+V1.2 Windows 95/98/NT Version
+V1.1 (Unreleased)
+V1.0 (Unreleased)
+
