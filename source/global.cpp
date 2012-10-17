@@ -6,7 +6,6 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  * Program WebSite: http://methane.sourceforge.net/index.html              *
- * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
 
@@ -15,23 +14,6 @@
 //------------------------------------------------------------------------------
 
 #include "global.h"   
-
-#ifndef METHANE_OLD_CPP_NEW
-void * operator new(size_t size, char const* file, int line) throw(informative_bad_alloc)
-{
-	void* ptr = operator new(size, std::nothrow);
-	if (!ptr) throw informative_bad_alloc(file, line);
-	return ptr;
-}
-
-void * operator new[](size_t size, char const* file, int line) throw(informative_bad_alloc)
-{
-	void* ptr = operator new(size, std::nothrow);
-	if (!ptr) throw informative_bad_alloc(file, line);
-	return ptr;
-}
-
-#endif
 
 //------------------------------------------------------------------------------
 //! \brief (GLOBAL) Makes sure that a object coords are inside the screen

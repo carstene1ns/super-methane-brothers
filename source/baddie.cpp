@@ -6,20 +6,14 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  * Program WebSite: http://methane.sourceforge.net/index.html              *
- * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
 // Methane Brothers Baddie Objects (Source File)
 //------------------------------------------------------------------------------
-
-#ifdef METHANE_OLD_CPP
-#include <stdlib.h>
-#else
-#include <cstdlib>
-#endif
-
+#include "stdio.h"
+#include "stdlib.h"
 #include "baddie.h"
 #include "global.h"
 #include "bitgroup.h"

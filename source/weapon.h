@@ -6,7 +6,6 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  * Program WebSite: http://methane.sourceforge.net/index.html              *
- * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
 
