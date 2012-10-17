@@ -6,105 +6,24 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  * Program WebSite: http://methane.sourceforge.net/index.html              *
- * Prgram Email: rombust@postmaster.co.uk                                  *
  *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
-// The MikMod Sound Driver wrapper (Source File)
+// Sound Driver wrapper (Source File)
 //------------------------------------------------------------------------------
-
-#ifdef METHANE_MIKMOD
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include "sound.h"
 
-#include "mikmod.h"
 #include "audiodrv.h"
-
-//------------------------------------------------------------------------------
-// The Module reader
-//------------------------------------------------------------------------------
-
-static unsigned char *MR_Data = 0;	// The sample or module data
-static int MR_Length = 0;		// Length of the data
-static int MR_Offset = 0;		// Current offset within the data
-
-//------------------------------------------------------------------------------
-// Module Reader: fseek()
-//------------------------------------------------------------------------------
-static BOOL MR_Seek(struct MREADER *rptr, long offset, int code)
-{
-	if (code==SEEK_SET)
-	{
-		MR_Offset = offset;
-	}
-	else if (code==SEEK_CUR)
-	{
-		MR_Offset += offset;
-	}
-	else if (code==SEEK_END)
-	{
-		MR_Offset = MR_Length - offset;
-	}
-
-	if (MR_Offset<0) MR_Offset = 0;
-
-	return true;
-}
-//------------------------------------------------------------------------------
-// Module Reader: ftell()
-//------------------------------------------------------------------------------
-static long MR_Tell(struct MREADER *rptr)
-{
-	return MR_Offset;
-}
-//------------------------------------------------------------------------------
-// Module Reader: fread()
-//------------------------------------------------------------------------------
-static BOOL MR_Read(struct MREADER *rptr,void *dest, size_t size)
-{
-	if (MR_Offset >= (MR_Length- ( (int) size))) return false;
-	memcpy(dest, MR_Data + MR_Offset, size);
-	MR_Offset+=size;
-	return true;
-}
-//------------------------------------------------------------------------------
-// Module Reader: fget()
-//------------------------------------------------------------------------------
-static int MR_Get(struct MREADER *rptr)
-{
-	unsigned char *letptr;
-	if (MR_Offset >= (MR_Length-1)) return EOF;
-	letptr = MR_Data + MR_Offset;
-	MR_Offset++;
-	return *letptr;
-}
-//------------------------------------------------------------------------------
-// Module Reader: feof()
-//------------------------------------------------------------------------------
-static BOOL MR_Eof(struct MREADER *rptr)
-{
-	if (MR_Offset >= MR_Length) return true;
-	return false;
-}
-
-//------------------------------------------------------------------------------
-// Module Reader: Structure
-//------------------------------------------------------------------------------
-static MREADER MethaneReader = {
-	MR_Seek,
-	MR_Tell,
-	MR_Read,
-	MR_Get,
-	MR_Eof};
 
 //------------------------------------------------------------------------------
 //! \brief Sound driver constructor
 //------------------------------------------------------------------------------
-CMikModDrv::CMikModDrv()
+CAudioDrv::CAudioDrv()
 {
 	m_AudioValidFlag = 0;
 	m_DisableMusicFlag = 0;
@@ -116,7 +35,7 @@ CMikModDrv::CMikModDrv()
 //------------------------------------------------------------------------------
 //! \brief Destroy the sound driver
 //------------------------------------------------------------------------------
-CMikModDrv::~CMikModDrv()
+CAudioDrv::~CAudioDrv()
 {
 	RemoveDriver();
 }
@@ -124,57 +43,17 @@ CMikModDrv::~CMikModDrv()
 //------------------------------------------------------------------------------
 //! \brief Initialise the sound driver
 //------------------------------------------------------------------------------
-void CMikModDrv::InitDriver(void)
+void CAudioDrv::InitDriver(void)
 {
 	RemoveDriver();
 
-#ifdef WIN32	// Should be Windows
-	if (drv_ds.Name)	// Valid DS driver
-	{
-		if (drv_ds.CommandLine)	// Valid Commandline
-		{
-			drv_ds.CommandLine("buffer=14");
-		}
-		MikMod_RegisterDriver(&drv_ds);
-	}
-	MikMod_RegisterDriver(&drv_win);
-	MikMod_RegisterDriver(&drv_nos);
-#else		// Must be Linux
-	if (drv_oss.Name)	// Valid OSS driver
-	{
-		if (drv_oss.CommandLine)	// Valid Commandline
-		{
-			drv_oss.CommandLine("buffer=14,count=2");
-		}
-		MikMod_RegisterDriver(&drv_oss);
-	}
-	if (drv_alsa.Name)	// Valid ALSA driver
-	{
-		if (drv_alsa.CommandLine)	// Valid Commandline
-		{
-			drv_alsa.CommandLine("buffer=14");
-		}
-		MikMod_RegisterDriver(&drv_alsa);
-	}
-	MikMod_RegisterDriver(&drv_nos);
-#endif
-
-	// register standard tracker
-	MikMod_RegisterAllLoaders();
-
-	// Note, the md_mode flags are already set by default
-	md_mode |= DMODE_SOFT_SNDFX | DMODE_SOFT_MUSIC;
-
- 	if (MikMod_Init(""))	// Command paramenters are ignored as all drivers are registered
-	{
-		return;
-	}
+    // INIT DRIVER
 
 	InitModules();
 	InitSamples();
 
 	// get ready to play
-	MikMod_EnableOutput();
+	//EnableOutput();
 
 	m_AudioValidFlag = 1;
 }
@@ -182,20 +61,16 @@ void CMikModDrv::InitDriver(void)
 //------------------------------------------------------------------------------
 //! \brief Remove the sound driver
 //------------------------------------------------------------------------------
-void CMikModDrv::RemoveDriver(void)
+void CAudioDrv::RemoveDriver(void)
 {
 	if (!m_AudioValidFlag) return;
 
-	MikMod_DisableOutput();
+	//DisableOutput();
 	StopModule();
-	MikMod_Update();
 
 	RemoveModules();
 	RemoveSamples();
 
-	MikMod_Update();
-
-	MikMod_Exit();
 	m_AudioValidFlag = 0;
 }
 
@@ -206,8 +81,9 @@ void CMikModDrv::RemoveDriver(void)
 //!	\param pos = Sample Position to use 0 to 255
 //!	\param rate = The rate
 //------------------------------------------------------------------------------
-void CMikModDrv::PlaySample(int id, int pos, int rate)
+void CAudioDrv::PlaySample(int id, int pos, int rate)
 {
+#if 0
 	SAMPLE *snd_ptr;
 	int cid;
 	int flags;
@@ -232,8 +108,8 @@ void CMikModDrv::PlaySample(int id, int pos, int rate)
 		}
 
 		cid = Sample_Play(snd_ptr, 0, flags);
-		Voice_SetFrequency(cid, rate);
-		Voice_SetPanning(cid, pos);
+		//Voice_SetFrequency(cid, rate);
+		//Voice_SetPanning(cid, pos);
 
 		// The volume wants to be equal while panning left to right
 		volume = 256-8;
@@ -241,18 +117,20 @@ void CMikModDrv::PlaySample(int id, int pos, int rate)
 		if (pos < 0) pos = -pos;	// Check sign
 		volume = volume - pos;
 
-		Voice_SetVolume(cid, volume);
+		//Voice_SetVolume(cid, volume);
 	}
+#endif
 }
 
 //------------------------------------------------------------------------------
 //! \brief Stop the module (called from the game)
 //------------------------------------------------------------------------------
-void CMikModDrv::StopModule(void)
+void CAudioDrv::StopModule(void)
 {
+#if 0
 	if (!m_AudioValidFlag) return;
 	Player_Stop();
-
+#endif
 }
 
 //------------------------------------------------------------------------------
@@ -260,9 +138,9 @@ void CMikModDrv::StopModule(void)
 //!
 //! 	\param id = SMOD_xxx id
 //------------------------------------------------------------------------------
-void CMikModDrv::PlayModule(int id)
+void CAudioDrv::PlayModule(int id)
 {
-
+#if 0
 	MODULE *mod_ptr;
 
 	if (!m_AudioValidFlag) return;
@@ -282,14 +160,15 @@ void CMikModDrv::PlayModule(int id)
 	{
 		Player_Start(mod_ptr);
 	}
-
+#endif
 }
 
 //------------------------------------------------------------------------------
 //! \brief Remove Modules
 //------------------------------------------------------------------------------
-void CMikModDrv::RemoveModules(void)
+void CAudioDrv::RemoveModules(void)
 {
+#if 0
 	MODULE_RESOURCE_DATA *mptr;
 	int cnt;
 
@@ -302,13 +181,15 @@ void CMikModDrv::RemoveModules(void)
 			mptr->handle = 0;
 		}
 	}
+#endif
 }
 
 //------------------------------------------------------------------------------
 //! \brief Remove Samples
 //------------------------------------------------------------------------------
-void CMikModDrv::RemoveSamples(void)
+void CAudioDrv::RemoveSamples(void)
 {
+#if 0
 	SAMPLE_RESOURCE_DATA *sptr;
 	int cnt;
 
@@ -321,14 +202,16 @@ void CMikModDrv::RemoveSamples(void)
 			sptr->handle = 0;
 		}
 	}
+#endif
 }
 
 
 //------------------------------------------------------------------------------
 //! \brief Initialise the modules
 //------------------------------------------------------------------------------
-void CMikModDrv::InitModules(void)
+void CAudioDrv::InitModules(void)
 {
+#if 0
 	MODULE_RESOURCE_DATA *mptr;
 	MODULE *module;
 	int cnt;
@@ -346,13 +229,15 @@ void CMikModDrv::InitModules(void)
 			mptr->handle = module;
 		}else	mptr->handle = 0;
 	}
+#endif
 }
 
 //------------------------------------------------------------------------------
 //! \brief Initialise the samples
 //------------------------------------------------------------------------------
-void CMikModDrv::InitSamples(void)
+void CAudioDrv::InitSamples(void)
 {
+#if 0
 	SAMPLE_RESOURCE_DATA *sptr;
 	SAMPLE *sample;
 	int cnt;
@@ -374,16 +259,17 @@ void CMikModDrv::InitSamples(void)
 		}else	sptr->handle = 0;
 	}
 	// reserve voices for sound effects
-	MikMod_SetNumVoices(-1, NUM_SAMPLE_VOICES);
-
+	//SetNumVoices(-1, NUM_SAMPLE_VOICES);
+#endif
 }
 
 //------------------------------------------------------------------------------
 //! \brief Change the sign of all the samples
 //------------------------------------------------------------------------------
 static int SamplesSignedFlag = 0;
-void CMikModDrv::SignAllSamples(void)
+void CAudioDrv::SignAllSamples(void)
 {
+#if 0
 	unsigned char *ptr;
 	int len;
 	int cnt;
@@ -403,16 +289,17 @@ void CMikModDrv::SignAllSamples(void)
 			len--;
 		}
 	}
+#endif
 }
 
 //------------------------------------------------------------------------------
 //! \brief Call mikmod_update. Call this every cycle
 //------------------------------------------------------------------------------
-void CMikModDrv::Update(void)
+void CAudioDrv::Update(void)
 {
+#if 0
 	if (!m_AudioValidFlag) return;
-	MikMod_Update();
-
+#endif
 }
 
 //------------------------------------------------------------------------------
@@ -420,15 +307,13 @@ void CMikModDrv::Update(void)
 //!
 //! 	\param id = SMOD_xxx id (The module that should be playing)
 //------------------------------------------------------------------------------
-void CMikModDrv::UpdateModule(int id)
+void CAudioDrv::UpdateModule(int id)
 {
+#if 0
 	if (!Player_Active())
 	{
 		Player_SetPosition(0);
 		PlayModule(id);
 	}
+#endif
 }
-
-
-#endif // (METHANE_MIKMOD)
-

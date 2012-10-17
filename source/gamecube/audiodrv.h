@@ -6,15 +6,12 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  * Program WebSite: http://methane.sourceforge.net/index.html              *
- * Prgram Email: rombust@postmaster.co.uk                                  *
  *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
-// The MikMod Sound Driver wrapper (Header File)
+// Sound Driver wrapper (Header File)
 //------------------------------------------------------------------------------
-
-#ifdef METHANE_MIKMOD
 
 #ifndef _audiodrv_h
 #define _audiodrv_h 1
@@ -23,11 +20,11 @@
 
 #define NUM_SAMPLE_VOICES	12
 
-class CMikModDrv
+class CAudioDrv
 {
 public:
-	CMikModDrv();
-	~CMikModDrv();
+	CAudioDrv();
+	~CAudioDrv();
 	void InitDriver(void);
 	void RemoveDriver(void);
 	void PlaySample(int id, int pos, int rate);
@@ -55,4 +52,3 @@ public:
 };
 
 #endif
-#endif // (METHANE_MIKMOD)
