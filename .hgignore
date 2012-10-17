@@ -1,0 +1,6 @@
+# dont include built files
+
+.dol$
+.elf$
+.o$
+^build$
