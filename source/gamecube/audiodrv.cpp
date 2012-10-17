@@ -16,9 +16,24 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "sound.h"
+#include <gccore.h>
+#include <aesndlib.h>
+#include <gcmodplay.h>
 
+#include "sound.h"
 #include "audiodrv.h"
+
+
+// generated mod .h files
+#include "title_mod.h"
+#include "boss_mod.h"
+#include "tune1_mod.h"
+#include "tune2_mod.h"
+#include "complete_mod.h"
+#include "empty_mod.h"
+
+// the mod player
+static MODPlay methane_music;
 
 //------------------------------------------------------------------------------
 //! \brief Sound driver constructor
@@ -45,17 +60,21 @@ CAudioDrv::~CAudioDrv()
 //------------------------------------------------------------------------------
 void CAudioDrv::InitDriver(void)
 {
-	RemoveDriver();
+    RemoveDriver();
 
-    // INIT DRIVER
+    // Initialise the audio subsystem
+    AESND_Init();
 
-	InitModules();
-	InitSamples();
+    // Initialise Player
+    MODPlay_Init(&methane_music);
 
-	// get ready to play
-	//EnableOutput();
+    InitModules();
+    InitSamples();
 
-	m_AudioValidFlag = 1;
+    // get ready to play
+    //EnableOutput();
+
+    m_AudioValidFlag = 1;
 }
 
 //------------------------------------------------------------------------------
@@ -127,10 +146,9 @@ void CAudioDrv::PlaySample(int id, int pos, int rate)
 //------------------------------------------------------------------------------
 void CAudioDrv::StopModule(void)
 {
-#if 0
-	if (!m_AudioValidFlag) return;
-	Player_Stop();
-#endif
+    if (!m_AudioValidFlag) return;
+
+    MODPlay_Stop(&methane_music);
 }
 
 //------------------------------------------------------------------------------
@@ -140,27 +158,40 @@ void CAudioDrv::StopModule(void)
 //------------------------------------------------------------------------------
 void CAudioDrv::PlayModule(int id)
 {
-#if 0
-	MODULE *mod_ptr;
+    if (!m_AudioValidFlag) return;
 
-	if (!m_AudioValidFlag) return;
+    MODPlay_Stop(&methane_music);
 
-	StopModule();
+    if (m_DisableMusicFlag) id = SMOD_EMPTY;
 
-	if (m_DisableMusicFlag)
-	{
-		id = SMOD_EMPTY;
-	}
+    switch(id)
+    {
+        case SMOD_TUNE1:
+        MODPlay_SetMOD(&methane_music, tune1_mod);
+        break;
 
-	id = id - MODULE_START_NUMBER;
-	if ((id<0) || (id >= MODULE_COUNT)) return;
+        case SMOD_TUNE2:
+        MODPlay_SetMOD(&methane_music, tune2_mod);
+        break;
 
-	mod_ptr = (MODULE *) MethaneModuleData[id].handle;
-	if (mod_ptr)
-	{
-		Player_Start(mod_ptr);
-	}
-#endif
+        case SMOD_BOSS:
+        MODPlay_SetMOD(&methane_music, boss_mod);
+        break;
+
+        case SMOD_COMPLETE:
+        MODPlay_SetMOD(&methane_music, complete_mod);
+        break;
+
+        case SMOD_TITLE:
+        MODPlay_SetMOD(&methane_music, title_mod);
+        break;
+
+        default:
+        MODPlay_SetMOD(&methane_music, empty_mod);
+        break;
+    }
+
+    MODPlay_Start(&methane_music);
 }
 
 //------------------------------------------------------------------------------
@@ -168,20 +199,7 @@ void CAudioDrv::PlayModule(int id)
 //------------------------------------------------------------------------------
 void CAudioDrv::RemoveModules(void)
 {
-#if 0
-	MODULE_RESOURCE_DATA *mptr;
-	int cnt;
-
-	mptr = MethaneModuleData;
-	for (cnt=0; cnt<MODULE_COUNT; cnt++, mptr++)
-	{
-		if (mptr->handle)
-		{
-			Player_Free( (MODULE *) mptr->handle );
-			mptr->handle = 0;
-		}
-	}
-#endif
+    // not needed
 }
 
 //------------------------------------------------------------------------------
@@ -211,25 +229,7 @@ void CAudioDrv::RemoveSamples(void)
 //------------------------------------------------------------------------------
 void CAudioDrv::InitModules(void)
 {
-#if 0
-	MODULE_RESOURCE_DATA *mptr;
-	MODULE *module;
-	int cnt;
-
-	mptr = MethaneModuleData;
-
-	for (cnt=0; cnt<MODULE_COUNT; cnt++, mptr++)
-	{
-		MR_Length = mptr->length;
-		MR_Data = mptr->ptr;
-		MR_Offset = 0;
-		module = Player_LoadGeneric(&MethaneReader, 8, 0);
-		if (module)
-		{
-			mptr->handle = module;
-		}else	mptr->handle = 0;
-	}
-#endif
+    // not needed (modules are compiled in)
 }
 
 //------------------------------------------------------------------------------
@@ -297,9 +297,9 @@ void CAudioDrv::SignAllSamples(void)
 //------------------------------------------------------------------------------
 void CAudioDrv::Update(void)
 {
-#if 0
-	if (!m_AudioValidFlag) return;
-#endif
+    if (!m_AudioValidFlag) return;
+
+    // not needed, MODPlay plays by itself
 }
 
 //------------------------------------------------------------------------------
@@ -309,11 +309,6 @@ void CAudioDrv::Update(void)
 //------------------------------------------------------------------------------
 void CAudioDrv::UpdateModule(int id)
 {
-#if 0
-	if (!Player_Active())
-	{
-		Player_SetPosition(0);
-		PlayModule(id);
-	}
-#endif
+    // not really needed, MODPlay loops by itself
+    //if (!methane_music.playing) PlayModule(id);
 }
