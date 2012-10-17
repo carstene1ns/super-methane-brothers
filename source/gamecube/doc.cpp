@@ -9,6 +9,10 @@
  *                                                                         *
  ***************************************************************************/
 
+/*
+ * GameCube Port by Infact <infact quantentunnel de> 10/2012
+ */
+
 //------------------------------------------------------------------------------
 // Methane Brothers Document (Source File)
 //------------------------------------------------------------------------------
@@ -24,6 +28,10 @@
 //------------------------------------------------------------------------------
 static char TheScreen[SCR_WIDTH * SCR_HEIGHT];
 
+//------------------------------------------------------------------------------
+// Custom video mode 320 x 240
+//------------------------------------------------------------------------------
+SDL_Surface* screen = 0;
 
 //------------------------------------------------------------------------------
 //! \brief Initialise Document
@@ -99,7 +107,37 @@ void CMethDoc::RedrawMainView( int pal_change_flag )
 //------------------------------------------------------------------------------
 void CMethDoc::DrawScreen( void *screen_ptr, int paused_flag )
 {
+    METHANE_RGB *pal_ptr;
+    int cnt;
+    SDL_Color met_colors [PALETTE_SIZE];
 
+    if (SDL_MUSTLOCK(screen)) SDL_LockSurface(screen);
+
+    // Set the game palette
+    pal_ptr = m_GameTarget.m_rgbPalette;
+    for (cnt=0; cnt < PALETTE_SIZE; cnt++, pal_ptr++)
+    {
+        met_colors[cnt].r = pal_ptr->red;
+        met_colors[cnt].g = pal_ptr->green;
+        met_colors[cnt].b = pal_ptr->blue;
+    }
+    SDL_SetPalette(screen, SDL_LOGPAL|SDL_PHYSPAL, met_colors, 0, PALETTE_SIZE);
+
+    // Copy the pixels
+    char* dest_ptr = (char *) screen->pixels;
+    char* src_ptr = TheScreen + 4 * 320; // adjustment 256 -> 240 lines
+    for (int y = 0; y < 240; y++) {
+        for (int x = 0; x < 320; x++) {
+            *dest_ptr++ = *src_ptr++;
+        }
+        // Only needed, if display width > 320px
+        dest_ptr += (screen->pitch - 320);
+    }
+
+    if (SDL_MUSTLOCK(screen)) SDL_UnlockSurface(screen);
+
+    // Show the new screen
+    SDL_Flip (screen);
 }
 
 //------------------------------------------------------------------------------
@@ -164,6 +202,14 @@ void CMethDoc::UpdateModule(int id)
 //! \brief Load the high scores
 //------------------------------------------------------------------------------
 void CMethDoc::LoadScores(void)
+{
+
+}
+
+//------------------------------------------------------------------------------
+//! \brief Save the high scores
+//------------------------------------------------------------------------------
+void CMethDoc::SaveScores(void)
 {
 
 }
