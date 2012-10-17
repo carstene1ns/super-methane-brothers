@@ -125,7 +125,7 @@ void CMethDoc::DrawScreen( void *screen_ptr, int paused_flag )
 
     // Copy the pixels
     char* dest_ptr = (char *) screen->pixels;
-    char* src_ptr = TheScreen + 4 * 320; // adjustment 256 -> 240 lines
+    char* src_ptr = TheScreen + 3 * 320; // adjustment 256 -> 240 lines
     for (int y = 0; y < 240; y++) {
         for (int x = 0; x < 320; x++) {
             *dest_ptr++ = *src_ptr++;
