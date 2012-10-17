@@ -2115,6 +2115,8 @@ void CGame::TitleScreenLoop(void)
 		m_Map.Draw(m_pBitmap);
 
 		DrawScrFont( 116, GameVersionNumber, 200);
+		DrawScrFont( 130, "GAMECUBE", 220);
+		DrawScrFont( 142, "EDITION", 260);
 		DrawScrFont( 200, "GAME LICENSE:");
 		DrawScrFont( 200+12, "GNU GENERAL PUBLIC LICENSE VERSION 2");
 

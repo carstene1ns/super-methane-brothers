@@ -17,6 +17,7 @@
 // Methane brothers main source file
 //------------------------------------------------------------------------------
 
+#include <gccore.h>
 #include "SDL.h"
 #include "global.h"
 #include "doc.h"
@@ -28,7 +29,7 @@ CMethDoc Game;
 
 int main (int argc, char **argv)
 {
-    // init SDL
+    // init SDL (Video only)
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         fprintf(stderr, "Couldn't initialise SDL: %s", SDL_GetError());
         return 1;
@@ -51,11 +52,135 @@ int main (int argc, char **argv)
 
     int run = 1;
     int game_paused = 0;
+    int game_speed = 55;
+    int last_time = SDL_GetTicks();
 
     while(run)
     {
-        // just do something, so the cpu keeps calm
-        SDL_Delay(60);
+        // Get Controller state
+        JOYSTICK *jptr1;
+        JOYSTICK *jptr2;
+        jptr1 = &Game.m_GameTarget.m_Joy1;
+        jptr2 = &Game.m_GameTarget.m_Joy2;
+
+        PAD_ScanPads();
+        int bu_down, bu_up = 0;
+
+        // Player 1
+        bu_down = PAD_ButtonsDown(0);
+        bu_up = PAD_ButtonsUp(0);
+
+        // left
+        if (PAD_StickX(0) <= -56) {
+            jptr1->left = 1;
+            jptr1->right = 0;
+        } else jptr1->left = 0;
+
+        // right
+        if (PAD_StickX(0) >= 56) {
+            jptr1->left = 0;
+            jptr1->right = 1;
+        } else jptr1->right = 0;
+
+        // down
+        if ((PAD_StickY(0) <= -56) && (bu_up & PAD_BUTTON_B)) {
+            jptr1->up = 0;
+            jptr1->down = 1;
+        } else jptr1->down = 0;
+
+        // up
+        if ((PAD_StickY(0) >= 56) || (bu_down & PAD_BUTTON_B)) {
+            jptr1->up = 1;
+            jptr1->down = 0;
+        } else jptr1->up = 0;
+
+        // fire
+        if (bu_down & PAD_BUTTON_A)
+            jptr1->fire = 1;
+
+        // Switch Player sprites
+        if (bu_down & PAD_TRIGGER_Z)
+            Game.m_GameTarget.m_Game.TogglePuffBlow();
+
+        // Only Player 1 can Pause the Game
+        if (bu_down & PAD_BUTTON_START)
+            game_paused ^= 1;
+
+        // DEBUG: alter game speed + warp levels
+        if (bu_down & PAD_TRIGGER_L) {
+            game_speed += 5;
+            if (game_speed > 120) game_speed = 120;
+        }
+        if (bu_down & PAD_TRIGGER_R) {
+            game_speed -= 5;
+            if (game_speed < 20) game_speed = 20;
+        }
+        if ((PAD_SubStickX(0) > 66) && (PAD_SubStickY(0) <= -66))
+            jptr1->next_level = 1; else jptr1->next_level = 0;
+        // DEBUG: end */
+        
+        if (bu_up & PAD_BUTTON_A)
+            jptr1->fire = 0;
+
+        if ((bu_up & PAD_BUTTON_B) && (PAD_StickY(0) < 56)) {
+            jptr1->up = 0;
+            if (PAD_StickY(0) <= -56)
+                jptr1->down = 1;
+        }
+
+        // Player 2
+        bu_down = PAD_ButtonsDown(1);
+        bu_up = PAD_ButtonsUp(1);
+
+        // left
+        if (PAD_StickX(1) <= -56) {
+            jptr2->left = 1;
+            jptr2->right = 0;
+        } else jptr2->left = 0;
+
+        // right
+        if (PAD_StickX(1) >= 56) {
+            jptr2->left = 0;
+            jptr2->right = 1;
+        } else jptr2->right = 0;
+
+        // down
+        if ((PAD_StickY(1) <= -56) && (bu_up & PAD_BUTTON_B)) {
+            jptr2->up = 0;
+            jptr2->down = 1;
+        } else jptr2->down = 0;
+
+        // up
+        if ((PAD_StickY(1) >= 56) || (bu_down & PAD_BUTTON_B)) {
+            jptr2->up = 1;
+            jptr2->down = 0;
+        } else jptr2->up = 0;
+
+        // fire
+        if (bu_down & PAD_BUTTON_A)
+            jptr2->fire = 1;
+
+        if (bu_up & PAD_BUTTON_A)
+            jptr2->fire = 0;
+
+        if ((bu_up & PAD_BUTTON_B) && (PAD_StickY(1) < 56)) {
+            jptr2->up = 0;
+            if (PAD_StickY(0) <= -56)
+                jptr2->down = 1;
+        }
+
+        // Fake a key press (to pass getPlayerName screen)
+        jptr1->key = 13;
+
+        int time_diff = 0;
+        do
+        {
+            int time_now = SDL_GetTicks();
+            time_diff = time_now - last_time;
+            time_diff = game_speed - time_diff;
+            if (time_diff > 50) SDL_Delay(20);
+        } while(time_diff > 0);
+        last_time = last_time + game_speed; 
 
         Game.MainLoop(NULL, game_paused);
     }
