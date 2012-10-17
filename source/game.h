@@ -91,6 +91,7 @@ public:
 	void InitHighScreen(void);
 	HISCORES *InsertHiScore(int score, char *name);
 	void TogglePuffBlow(void);
+	void InitGetPlayerNameScreen(int player_two_flag);
 
 private:
 	int FadePalette( int offset, int size, METHANE_RGB *srcpal, int speed );
@@ -130,7 +131,6 @@ private:
 	void DrawScrFont(int ypos, const char *text, int xpos = 0);
 	void DrawHighTable(void);
 	void RedrawScrIfNeeded(void);
-	void InitGetPlayerNameScreen(int player_two_flag);
 	void GetPlayerNameLoop(void);
 	void EditName(JOYSTICK *pjoy, char *nptr);
 	void PrepareEditName(void);

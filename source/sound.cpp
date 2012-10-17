@@ -65,13 +65,6 @@ void CSoundDrv::PlayModule(int id)
 //------------------------------------------------------------------------------
 void CSoundDrv::PlaySample(int id, int pos, int rate)
 {
-	int offset;
-
-	if ( (id<SND_START_NUMBER) || (id>SND_END_NUMBER) ) return;
-	offset = id - SND_START_NUMBER;
-
-	if (!rate) rate = MethaneSampleData[offset].rate;
-
 	// Scale the position from 0 to 255
 	if (pos<0) pos = 0;
 	if (pos>=SCR_WIDTH) pos = SCR_WIDTH-1;
@@ -91,5 +84,3 @@ void CSoundDrv::UpdateModule(void)
 		GLOBAL_GameTarget->UpdateModule(m_CurrentModule);
 	}
 }
-
-

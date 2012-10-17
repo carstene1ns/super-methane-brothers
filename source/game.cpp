@@ -32,7 +32,7 @@
 //------------------------------------------------------------------------------
 // The Game Version Number
 //------------------------------------------------------------------------------
-static char GameVersionNumber[] = "VERSION 1.4.9";
+static char GameVersionNumber[] = "VERSION 1.4";
 
 #define DELAY_BEFORE_NEXT_LEVEL 140
 
@@ -2113,6 +2113,9 @@ void CGame::TitleScreenLoop(void)
 		m_Map.Draw(m_pBitmap);
 
 		DrawScrFont( 116, GameVersionNumber, 200);
+		DrawScrFont( 116+14, "GAMECUBE", 200+15);
+		DrawScrFont( 116+28, "EDITION", 200+30);
+		DrawScrFont( 116+42, "BY INFACT", 200+45);
 		DrawScrFont( 200, "GAME LICENSE:");
 		DrawScrFont( 200+12, "GNU GENERAL PUBLIC LICENSE VERSION 2");
 
