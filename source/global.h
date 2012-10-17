@@ -6,7 +6,6 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  * Program WebSite: http://methane.sourceforge.net/index.html              *
- * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
 
@@ -16,18 +15,6 @@
 
 #ifndef _global_h
 #define _global_h 1
-
-#ifndef _METH_RC
-
-#ifndef METHANE_OLD_CPP_NEW
-#include <new>
-#endif
-
-#ifndef METHANE_OLD_CPP
-//using namespace std;
-#endif
-
-#endif // _METH_RC
 
 // Standard Screen Size
 #define SCR_WIDTH	320
@@ -89,55 +76,8 @@
 
 #ifndef _METH_RC
 
-// Compatible "new" keyword
-// I (Mark Page) prefer (against recommendations!) for the "new" keyword to return 0 on error :)
-// This can be changed by uncommenting code shown below
-
-#ifdef METHANE_OLD_CPP_NEW
+// Yuck, fixme please!
 #define SMB_NEW(obj_name, obj_type) obj_name = (obj_type *) new (obj_type)
-#else
-#define SMB_NEW(obj_name, obj_type) \
-	try \
-	{ \
-		obj_name = (obj_type *) SMB_NEW_CODE (obj_type); \
-	} \
-	catch(informative_bad_alloc const& ex) \
-	{ \
-		/* Uncomment the line below to show the errors :) */ \
-		/* std::cerr << ex.what() << " in " << ex.file() << " on line " << ex.line() << '\n'; */ \
-		obj_name = NULL; \
-	}
-class informative_bad_alloc: public std::bad_alloc
-{
-public:
-	informative_bad_alloc(char const* file, int line) :m_file(file), m_line(line) {}
-
-	char const* what() const throw() 
-	{
-		return "informative_bad_alloc";
-	}
-	
-	char const* file() const 
-	{
-		return m_file;
-	}
-	
-	int line() const 
-	{
-		return m_line;
-	}
-
-private:	
-	char const* m_file;
-	int m_line;
-};
-
-extern void * operator new(size_t, char const *,int) throw(informative_bad_alloc);
-extern void * operator new[](size_t, char const*, int) throw(informative_bad_alloc);
-
-#define SMB_NEW_CODE new(__FILE__, __LINE__)
-
-#endif
 
 #endif // _METH_RC
 

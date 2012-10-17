@@ -6,7 +6,6 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  * Program WebSite: http://methane.sourceforge.net/index.html              *
- * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
 
@@ -14,12 +13,8 @@
 // Methane Brothers Object lists (Source File)
 //------------------------------------------------------------------------------
 
-#ifdef METHANE_OLD_CPP
-#include <stdlib.h>
-#else
-#include <cstdlib>
-#endif
-
+#include "stdio.h"
+#include "stdlib.h"
 #include "objlist.h"
 #include "global.h"
 #include "player.h"

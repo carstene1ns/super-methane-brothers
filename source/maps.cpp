@@ -6,7 +6,6 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  * Program WebSite: http://methane.sourceforge.net/index.html              *
- * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
 
@@ -14,13 +13,8 @@
 // Methane Brothers Maps Control (Source File)
 //------------------------------------------------------------------------------
 
-#ifdef METHANE_OLD_CPP
 #include <stdlib.h>
 #include <string.h>
-#else
-#include <cstring>
-#endif
-
 #include "global.h"
 #include "maps.h"
 #include "mapdef.h"

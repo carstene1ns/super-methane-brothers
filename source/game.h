@@ -6,7 +6,6 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  * Program WebSite: http://methane.sourceforge.net/index.html              *
- * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
 
@@ -82,7 +81,7 @@ public:
 	void SetJumpExplode(int xpos, int ypos, int dir);
 	CPlayerObj *GetPlayer( int player_object_id );
 	void InitSpriteList(void);
-	int CreateMessage(int yoffset, char *txt, int delay);
+	int CreateMessage(int yoffset, const char *txt, int delay);
 	void SetLevelName( int id );
 	void SetBossDie( int xpos, int ypos );
 	void CreateCloud( int xpos, int ypos );
@@ -129,8 +128,8 @@ private:
 	void DoGameOverLoop(void);
 	void InitNewGame(void);
 	void HighScreenLoop(void);
-	void DrawFont(int ypos, char *text);
-	void DrawScrFont(int ypos, char *text, int xpos = 0);
+	void DrawFont(int ypos, const char *text);
+	void DrawScrFont(int ypos, const char *text, int xpos = 0);
 	void DrawHighTable(void);
 	void RedrawScrIfNeeded(void);
 	void InitGetPlayerNameScreen(int player_two_flag);
