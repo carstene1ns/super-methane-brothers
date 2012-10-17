@@ -9,6 +9,10 @@
  *                                                                         *
  ***************************************************************************/
 
+/*
+ * GameCube Port by infact <infact quantentunnel de> 10/2012
+ */
+
 //------------------------------------------------------------------------------
 // Methane Brothers Document (Header File)
 //------------------------------------------------------------------------------
@@ -16,9 +20,12 @@
 #ifndef _doc_h
 #define _doc_h 1
 
+#include "SDL.h"
 #include "game.h"
 #include "target.h"
 #include "audiodrv.h"
+
+extern SDL_Surface* screen;
 
 class CMethDoc
 {
