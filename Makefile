@@ -18,7 +18,7 @@ include $(DEVKITPPC)/gamecube_rules
 TARGET		:=	methane
 BUILD		:=	build
 SOURCES		:=	source source/data source/gamecube
-DATA		:=	data/music
+DATA		:=	data/music data/sounds
 INCLUDES	:=	$(SOURCES)
 
 #---------------------------------------------------------------------------------
@@ -120,7 +120,15 @@ $(OUTPUT).elf: $(OFILES)
 %.mod.o	:	%.mod
 #---------------------------------------------------------------------------------
 	@echo $(notdir $<)
-	$(bin2o)
+	@$(bin2o)
+
+#---------------------------------------------------------------------------------
+# This rule links in the sound files
+#---------------------------------------------------------------------------------
+%.raw.o	:	%.raw
+#---------------------------------------------------------------------------------
+	@echo $(notdir $<)
+	@$(bin2o)
 
 -include $(DEPENDS)
 

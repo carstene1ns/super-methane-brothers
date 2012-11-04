@@ -86,7 +86,7 @@ void CMethDoc::RemoveSoundDriver(void)
 //------------------------------------------------------------------------------
 void CMethDoc::StartGame(void)
 {
-	m_GameTarget.StartGame();
+    m_GameTarget.StartGame();
 }
 
 //------------------------------------------------------------------------------
@@ -96,7 +96,7 @@ void CMethDoc::StartGame(void)
 //------------------------------------------------------------------------------
 void CMethDoc::RedrawMainView( int pal_change_flag )
 {
-	// Function not used
+    // Function not used
 }
 
 //------------------------------------------------------------------------------
@@ -115,17 +115,25 @@ void CMethDoc::DrawScreen( void *screen_ptr, int paused_flag )
 
     // Set the game palette
     pal_ptr = m_GameTarget.m_rgbPalette;
-    for (cnt=0; cnt < PALETTE_SIZE; cnt++, pal_ptr++)
-    {
-        met_colors[cnt].r = pal_ptr->red;
-        met_colors[cnt].g = pal_ptr->green;
-        met_colors[cnt].b = pal_ptr->blue;
+    if (!paused_flag) {
+        for (cnt=0; cnt < PALETTE_SIZE; cnt++, pal_ptr++) {
+            met_colors[cnt].r = pal_ptr->red;
+            met_colors[cnt].g = pal_ptr->green;
+            met_colors[cnt].b = pal_ptr->blue;
+        }
+    } else { // If paused - greyscale the palette
+        for (cnt=0; cnt < PALETTE_SIZE; cnt++, pal_ptr++) {
+            int cval = (pal_ptr->red + pal_ptr->green + pal_ptr->blue) / 3;
+            met_colors[cnt].r = cval;
+            met_colors[cnt].g = cval;
+            met_colors[cnt].b = cval;
+        }
     }
     SDL_SetPalette(screen, SDL_LOGPAL|SDL_PHYSPAL, met_colors, 0, PALETTE_SIZE);
 
     // Copy the pixels
     char* dest_ptr = (char *) screen->pixels;
-    char* src_ptr = TheScreen + 3 * 320; // adjustment 256 -> 240 lines
+    char* src_ptr = TheScreen + 3 * 320; // Adjustment 256 -> 240 lines
     for (int y = 0; y < 240; y++) {
         for (int x = 0; x < 320; x++) {
             *dest_ptr++ = *src_ptr++;
@@ -149,13 +157,9 @@ void CMethDoc::DrawScreen( void *screen_ptr, int paused_flag )
 void CMethDoc::MainLoop( void *screen_ptr, int paused_flag )
 {
     if (!paused_flag)
-    {
         m_GameTarget.MainLoop();
-    }
 
     DrawScreen(screen_ptr, paused_flag);
-
-    m_pAudioDrv->Update();
 }
 
 //------------------------------------------------------------------------------
@@ -195,9 +199,10 @@ void CMethDoc::PlayModule(int id)
 //------------------------------------------------------------------------------
 void CMethDoc::UpdateModule(int id)
 {
-    m_pAudioDrv->UpdateModule(id);
+    // Nothing to do, MODPlay loops by itself
 }
 
+// Not implemented yet, needs function to insert name using controller first
 //------------------------------------------------------------------------------
 //! \brief Load the high scores
 //------------------------------------------------------------------------------
