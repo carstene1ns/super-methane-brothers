@@ -71,32 +71,35 @@ int main (int argc, char **argv)
         bu_up = PAD_ButtonsUp(0);
 
         // left
-        if (PAD_StickX(0) <= -56) {
+        if (PAD_StickX(0) <= -56)
             jptr1->left = 1;
-            jptr1->right = 0;
-        } else jptr1->left = 0;
+        else
+            jptr1->left = 0;
 
         // right
-        if (PAD_StickX(0) >= 56) {
-            jptr1->left = 0;
+        if (PAD_StickX(0) >= 56)
             jptr1->right = 1;
-        } else jptr1->right = 0;
+        else
+            jptr1->right = 0;
 
         // down
-        if ((PAD_StickY(0) <= -56) && (bu_up & PAD_BUTTON_B)) {
-            jptr1->up = 0;
+        if (PAD_StickY(0) <= -56)
             jptr1->down = 1;
-        } else jptr1->down = 0;
+        else
+            jptr1->down = 0;
 
         // up
-        if ((PAD_StickY(0) >= 56) || (bu_down & PAD_BUTTON_B)) {
+        if (PAD_StickY(0) >= 56)
             jptr1->up = 1;
-            jptr1->down = 0;
-        } else jptr1->up = 0;
+        else
+            jptr1->up = 0;
 
         // fire
         if (bu_down & PAD_BUTTON_A)
             jptr1->fire = 1;
+
+        if (bu_up & PAD_BUTTON_A)
+            jptr1->fire = 0;
 
         // Switch Player sprites
         if (bu_down & PAD_TRIGGER_Z)
@@ -105,8 +108,8 @@ int main (int argc, char **argv)
         // Only Player 1 can Pause the Game
         if (bu_down & PAD_BUTTON_START)
             game_paused ^= 1;
-
-        // DEBUG: alter game speed + warp levels
+        
+        /* DEBUG: alter game speed + warp levels
         if (bu_down & PAD_TRIGGER_L) {
             game_speed += 5;
             if (game_speed > 120) game_speed = 120;
@@ -115,46 +118,37 @@ int main (int argc, char **argv)
             game_speed -= 5;
             if (game_speed < 20) game_speed = 20;
         }
-        if ((PAD_SubStickX(0) > 66) && (PAD_SubStickY(0) <= -66))
+        if ((PAD_SubStickX(0) > 60) && (PAD_SubStickY(0) <= -60))
             jptr1->next_level = 1; else jptr1->next_level = 0;
         // DEBUG: end */
-        
-        if (bu_up & PAD_BUTTON_A)
-            jptr1->fire = 0;
-
-        if ((bu_up & PAD_BUTTON_B) && (PAD_StickY(0) < 56)) {
-            jptr1->up = 0;
-            if (PAD_StickY(0) <= -56)
-                jptr1->down = 1;
-        }
 
         // Player 2
         bu_down = PAD_ButtonsDown(1);
         bu_up = PAD_ButtonsUp(1);
 
         // left
-        if (PAD_StickX(1) <= -56) {
+        if (PAD_StickX(1) <= -56)
             jptr2->left = 1;
-            jptr2->right = 0;
-        } else jptr2->left = 0;
+        else
+            jptr2->left = 0;
 
         // right
-        if (PAD_StickX(1) >= 56) {
-            jptr2->left = 0;
+        if (PAD_StickX(1) >= 56)
             jptr2->right = 1;
-        } else jptr2->right = 0;
+        else
+            jptr2->right = 0;
 
         // down
-        if ((PAD_StickY(1) <= -56) && (bu_up & PAD_BUTTON_B)) {
-            jptr2->up = 0;
+        if (PAD_StickY(1) <= -56)
             jptr2->down = 1;
-        } else jptr2->down = 0;
+        else
+            jptr2->down = 0;
 
         // up
-        if ((PAD_StickY(1) >= 56) || (bu_down & PAD_BUTTON_B)) {
+        if (PAD_StickY(1) >= 56)
             jptr2->up = 1;
-            jptr2->down = 0;
-        } else jptr2->up = 0;
+        else
+            jptr2->up = 0;
 
         // fire
         if (bu_down & PAD_BUTTON_A)
@@ -162,12 +156,6 @@ int main (int argc, char **argv)
 
         if (bu_up & PAD_BUTTON_A)
             jptr2->fire = 0;
-
-        if ((bu_up & PAD_BUTTON_B) && (PAD_StickY(1) < 56)) {
-            jptr2->up = 0;
-            if (PAD_StickY(0) <= -56)
-                jptr2->down = 1;
-        }
 
         // Fake a key press (to pass getPlayerName screen)
         jptr1->key = 13;
