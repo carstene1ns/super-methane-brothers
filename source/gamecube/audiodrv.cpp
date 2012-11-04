@@ -9,6 +9,10 @@
  *                                                                         *
  ***************************************************************************/
 
+/*
+ * GameCube Port by Infact <infact quantentunnel de> 10/2012
+ */
+
 //------------------------------------------------------------------------------
 // Sound Driver wrapper (Source File)
 //------------------------------------------------------------------------------
@@ -23,7 +27,6 @@
 #include "sound.h"
 #include "audiodrv.h"
 
-
 // generated mod .h files
 #include "title_mod.h"
 #include "boss_mod.h"
@@ -32,19 +35,68 @@
 #include "complete_mod.h"
 #include "empty_mod.h"
 
-// the mod player
+// generated pcm .h files
+#include "blow_raw.h"
+#include "bowling_raw.h"
+#include "candle_raw.h"
+#include "car_raw.h"
+#include "card_raw.h"
+#include "chicken_raw.h"
+#include "cookie_raw.h"
+#include "crying_raw.h"
+#include "day_raw.h"
+#include "die2_raw.h"
+#include "duck_raw.h"
+#include "feather_raw.h"
+#include "finlev1_raw.h"
+#include "hurry_raw.h"
+#include "marble_raw.h"
+#include "mask_raw.h"
+#include "moon_raw.h"
+#include "oil_raw.h"
+#include "pickup1_raw.h"
+#include "pstar_raw.h"
+#include "redstar_raw.h"
+#include "spiningtop_raw.h"
+#include "spit_raw.h"
+#include "splat_raw.h"
+#include "tap_raw.h"
+#include "train_raw.h"
+#include "tribble_raw.h"
+#include "turbo_raw.h"
+#include "twinkle_raw.h"
+#include "wings_raw.h"
+#include "wpotion_raw.h"
+#include "xylo_raw.h"
+
+// The mod player
 static MODPlay methane_music;
+
+// Helper function: Frees the voice if end reached
+static void VoiceCallBack(AESNDPB *pb, u32 state)
+{
+    if (state == VOICE_STATE_STOPPED)
+        AESND_FreeVoice(pb);
+}
 
 //------------------------------------------------------------------------------
 //! \brief Sound driver constructor
 //------------------------------------------------------------------------------
 CAudioDrv::CAudioDrv()
 {
-	m_AudioValidFlag = 0;
-	m_DisableMusicFlag = 0;
-	m_DisableSamplesFlag = 0;
-	m_LeftSampleCnt = 0;
-	m_RightSampleCnt = 0;
+    m_AudioValidFlag = 0;
+
+    // Disables music / sound output
+#ifdef NOMUSIC
+    m_DisableMusicFlag = 1;
+#else
+    m_DisableMusicFlag = 0;
+#endif
+#ifdef NOSOUND
+    m_DisableSamplesFlag = 1;
+#else
+    m_DisableSamplesFlag = 0;
+#endif
 }
 
 //------------------------------------------------------------------------------
@@ -52,7 +104,7 @@ CAudioDrv::CAudioDrv()
 //------------------------------------------------------------------------------
 CAudioDrv::~CAudioDrv()
 {
-	RemoveDriver();
+    RemoveDriver();
 }
 
 //------------------------------------------------------------------------------
@@ -68,12 +120,6 @@ void CAudioDrv::InitDriver(void)
     // Initialise Player
     MODPlay_Init(&methane_music);
 
-    InitModules();
-    InitSamples();
-
-    // get ready to play
-    //EnableOutput();
-
     m_AudioValidFlag = 1;
 }
 
@@ -82,15 +128,12 @@ void CAudioDrv::InitDriver(void)
 //------------------------------------------------------------------------------
 void CAudioDrv::RemoveDriver(void)
 {
-	if (!m_AudioValidFlag) return;
+    if (!m_AudioValidFlag) return;
 
-	//DisableOutput();
-	StopModule();
+    StopModule();
+    AESND_Pause(true);
 
-	RemoveModules();
-	RemoveSamples();
-
-	m_AudioValidFlag = 0;
+    m_AudioValidFlag = 0;
 }
 
 //------------------------------------------------------------------------------
@@ -102,43 +145,153 @@ void CAudioDrv::RemoveDriver(void)
 //------------------------------------------------------------------------------
 void CAudioDrv::PlaySample(int id, int pos, int rate)
 {
-#if 0
-	SAMPLE *snd_ptr;
-	int cid;
-	int flags;
-	int volume;
+    if (m_DisableSamplesFlag) return;
 
-	if (!m_AudioValidFlag) return;
+    const void *sound_ptr = NULL;
+    u32 sound_length = 0;
 
-	if (m_DisableSamplesFlag) return;
+    if (rate == 0)
+        rate = VOICE_FREQ32KHZ;
 
-	id = id - SND_START_NUMBER;
-	if ((id<0) || (id >= SND_COUNT)) return;
-	snd_ptr = (SAMPLE *) MethaneSampleData[id].handle;
-	if (snd_ptr)
-	{
-		// Assume centre position is critical (to fix fixed later)
-		if ((pos>=120) && (pos <=130))
-		{
-			flags = 0;
-		}else
-		{
-			flags = SFX_CRITICAL;
-		}
+    switch(id) {
+        case SND_CAR:
+            sound_ptr = &car_raw;
+            sound_length = car_raw_size;
+            break;
+        case SND_TRAIN:
+            sound_ptr = &train_raw;
+            sound_length = train_raw_size;
+            break;
+        case SND_DUCK:
+            sound_ptr = &duck_raw;
+            sound_length = duck_raw_size;
+            break;
+        case SND_PICKUP1:
+            sound_ptr = &pickup1_raw;
+            sound_length = pickup1_raw_size;
+            break;
+        case SND_TRIBBLE:
+            sound_ptr = &tribble_raw;
+            sound_length = tribble_raw_size;
+            break;
+        case SND_HURRY:
+            sound_ptr = &hurry_raw;
+            sound_length = hurry_raw_size;
+            break;
+        case SND_DAY:
+            sound_ptr = &day_raw;
+            sound_length = day_raw_size;
+            break;
+        case SND_CRYING:
+            sound_ptr = &crying_raw;
+            sound_length = crying_raw_size;
+            break;
+        case SND_DIE2:
+            sound_ptr = &die2_raw;
+            sound_length = die2_raw_size;
+            break;
+        case SND_SPIT:
+            sound_ptr = &spit_raw;
+            sound_length = spit_raw_size;
+            break;
+        case SND_SPLAT:
+            sound_ptr = &splat_raw;
+            sound_length = splat_raw_size;
+            break;
+        case SND_BLOW:
+            sound_ptr = &blow_raw;
+            sound_length = blow_raw_size;
+            break;
+        case SND_TWINKLE:
+            sound_ptr = &twinkle_raw;
+            sound_length = twinkle_raw_size;
+            break;
+        case SND_FINLEV1:
+            sound_ptr = &finlev1_raw;
+            sound_length = finlev1_raw_size;
+            break;
+        case SND_PSTAR:
+            sound_ptr = &pstar_raw;
+            sound_length = pstar_raw_size;
+            break;
+        case SND_XYLO:
+            sound_ptr = &xylo_raw;
+            sound_length = xylo_raw_size;
+            break;
+        case SND_CARDSOUND:
+            sound_ptr = &card_raw;
+            sound_length = card_raw_size;
+            break;
+        case SND_BOWLINGSOUND:
+            sound_ptr = &bowling_raw;
+            sound_length = bowling_raw_size;
+            break;
+        case SND_CANDLESOUND:
+            sound_ptr = &candle_raw;
+            sound_length = candle_raw_size;
+            break;
+        case SND_MARBLESOUND:
+            sound_ptr = &marble_raw;
+            sound_length = marble_raw_size;
+            break;
+        case SND_TAPSOUND:
+            sound_ptr = &tap_raw;
+            sound_length = tap_raw_size;
+            break;
+        case SND_OILSOUND:
+            sound_ptr = &oil_raw;
+            sound_length = oil_raw_size;
+            break;
+        case SND_SPININGTOPSOUND:
+            sound_ptr = &spiningtop_raw;
+            sound_length = spiningtop_raw_size;
+            break;
+        case SND_WINGSSOUND:
+            sound_ptr = &wings_raw;
+            sound_length = wings_raw_size;
+            break;
+        case SND_MOONSOUND:
+            sound_ptr = &moon_raw;
+            sound_length = moon_raw_size;
+            break;
+        case SND_MASKSOUND:
+            sound_ptr = &mask_raw;
+            sound_length = mask_raw_size;
+            break;
+        case SND_REDSTARSOUND:
+            sound_ptr = &redstar_raw;
+            sound_length = redstar_raw_size;
+            break;
+        case SND_TURBOSOUND:
+            sound_ptr = &turbo_raw;
+            sound_length = turbo_raw_size;
+            break;
+        case SND_CHICKENSOUND:
+            sound_ptr = &chicken_raw;
+            sound_length = chicken_raw_size;
+            break;
+        case SND_FEATHERSOUND:
+            sound_ptr = &feather_raw;
+            sound_length = feather_raw_size;
+            break;
+        case SND_WPOTIONSOUND:
+            sound_ptr = &wpotion_raw;
+            sound_length = wpotion_raw_size;
+            break;
+        case SND_COOKIESOUND:
+            sound_ptr = &cookie_raw;
+            sound_length = cookie_raw_size;
+            break;
+    }
 
-		cid = Sample_Play(snd_ptr, 0, flags);
-		//Voice_SetFrequency(cid, rate);
-		//Voice_SetPanning(cid, pos);
-
-		// The volume wants to be equal while panning left to right
-		volume = 256-8;
-		pos = pos - 128;	// Centre position
-		if (pos < 0) pos = -pos;	// Check sign
-		volume = volume - pos;
-
-		//Voice_SetVolume(cid, volume);
-	}
-#endif
+    // Add a voice
+    AESNDPB* this_voice = AESND_AllocateVoice(VoiceCallBack);
+    
+    // Check if voice was available
+    if (this_voice) {
+        AESND_PlayVoice(this_voice, VOICE_STEREO16, sound_ptr, sound_length, rate, 0, 0);
+        AESND_SetVoiceVolume(this_voice, 255-pos, pos);
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -147,6 +300,7 @@ void CAudioDrv::PlaySample(int id, int pos, int rate)
 void CAudioDrv::StopModule(void)
 {
     if (!m_AudioValidFlag) return;
+    if (m_DisableMusicFlag) return;
 
     MODPlay_Stop(&methane_music);
 }
@@ -159,156 +313,32 @@ void CAudioDrv::StopModule(void)
 void CAudioDrv::PlayModule(int id)
 {
     if (!m_AudioValidFlag) return;
+    if (m_DisableMusicFlag) return;
 
     MODPlay_Stop(&methane_music);
 
     if (m_DisableMusicFlag) id = SMOD_EMPTY;
 
-    switch(id)
-    {
+    switch(id) {
         case SMOD_TUNE1:
-        MODPlay_SetMOD(&methane_music, tune1_mod);
-        break;
-
+            MODPlay_SetMOD(&methane_music, tune1_mod);
+            break;
         case SMOD_TUNE2:
-        MODPlay_SetMOD(&methane_music, tune2_mod);
-        break;
-
+            MODPlay_SetMOD(&methane_music, tune2_mod);
+            break;
         case SMOD_BOSS:
-        MODPlay_SetMOD(&methane_music, boss_mod);
-        break;
-
+            MODPlay_SetMOD(&methane_music, boss_mod);
+            break;
         case SMOD_COMPLETE:
-        MODPlay_SetMOD(&methane_music, complete_mod);
-        break;
-
+            MODPlay_SetMOD(&methane_music, complete_mod);
+            break;
         case SMOD_TITLE:
-        MODPlay_SetMOD(&methane_music, title_mod);
-        break;
-
+            MODPlay_SetMOD(&methane_music, title_mod);
+            break;
         default:
-        MODPlay_SetMOD(&methane_music, empty_mod);
-        break;
+            MODPlay_SetMOD(&methane_music, empty_mod);
+            break;
     }
 
     MODPlay_Start(&methane_music);
-}
-
-//------------------------------------------------------------------------------
-//! \brief Remove Modules
-//------------------------------------------------------------------------------
-void CAudioDrv::RemoveModules(void)
-{
-    // not needed
-}
-
-//------------------------------------------------------------------------------
-//! \brief Remove Samples
-//------------------------------------------------------------------------------
-void CAudioDrv::RemoveSamples(void)
-{
-#if 0
-	SAMPLE_RESOURCE_DATA *sptr;
-	int cnt;
-
-	sptr = MethaneSampleData;
-	for (cnt=0; cnt<SND_COUNT; cnt++, sptr++)
-	{
-		if (sptr->handle)
-		{
-			Sample_Free( (SAMPLE *) sptr->handle );
-			sptr->handle = 0;
-		}
-	}
-#endif
-}
-
-
-//------------------------------------------------------------------------------
-//! \brief Initialise the modules
-//------------------------------------------------------------------------------
-void CAudioDrv::InitModules(void)
-{
-    // not needed (modules are compiled in)
-}
-
-//------------------------------------------------------------------------------
-//! \brief Initialise the samples
-//------------------------------------------------------------------------------
-void CAudioDrv::InitSamples(void)
-{
-#if 0
-	SAMPLE_RESOURCE_DATA *sptr;
-	SAMPLE *sample;
-	int cnt;
-
-	SignAllSamples();
-
-	sptr = MethaneSampleData;
-
-	for (cnt=0; cnt<SND_COUNT; cnt++, sptr++)
-	{
-		MR_Length = sptr->length;
-		MR_Data = sptr->ptr;
-		MR_Offset = 0;
-
-		sample = Sample_LoadGeneric(&MethaneReader);
-		if (sample)
-		{
-			sptr->handle = sample;
-		}else	sptr->handle = 0;
-	}
-	// reserve voices for sound effects
-	//SetNumVoices(-1, NUM_SAMPLE_VOICES);
-#endif
-}
-
-//------------------------------------------------------------------------------
-//! \brief Change the sign of all the samples
-//------------------------------------------------------------------------------
-static int SamplesSignedFlag = 0;
-void CAudioDrv::SignAllSamples(void)
-{
-#if 0
-	unsigned char *ptr;
-	int len;
-	int cnt;
-
-	// Only sign the samples once!
-	if (SamplesSignedFlag) return;
-	SamplesSignedFlag = 1;
-
-	for (cnt=0; cnt<SND_COUNT; cnt++)	// for all the samples
-	{
-		ptr = MethaneSampleData[cnt].ptr + WAVE_HEADER_SIZE;
-		len = MethaneSampleData[cnt].length - (WAVE_HEADER_SIZE + WAVE_TAIL_SIZE);
-		while(len>0)
-		{
-			*(ptr) = 0x80 - (*ptr);	// Change the sign
-			ptr++;
-			len--;
-		}
-	}
-#endif
-}
-
-//------------------------------------------------------------------------------
-//! \brief Call mikmod_update. Call this every cycle
-//------------------------------------------------------------------------------
-void CAudioDrv::Update(void)
-{
-    if (!m_AudioValidFlag) return;
-
-    // not needed, MODPlay plays by itself
-}
-
-//------------------------------------------------------------------------------
-//! \brief Update the current module (ie restart the module if it has stopped) (called from the game)
-//!
-//! 	\param id = SMOD_xxx id (The module that should be playing)
-//------------------------------------------------------------------------------
-void CAudioDrv::UpdateModule(int id)
-{
-    // not really needed, MODPlay loops by itself
-    //if (!methane_music.playing) PlayModule(id);
 }

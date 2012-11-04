@@ -9,6 +9,10 @@
  *                                                                         *
  ***************************************************************************/
 
+/*
+ * GameCube Port by Infact <infact quantentunnel de> 10/2012
+ */
+
 //------------------------------------------------------------------------------
 // Sound Driver wrapper (Header File)
 //------------------------------------------------------------------------------
@@ -17,8 +21,6 @@
 #define _audiodrv_h 1
 
 #include "snddef.h"
-
-#define NUM_SAMPLE_VOICES	12
 
 class CAudioDrv
 {
@@ -30,25 +32,9 @@ public:
 	void PlaySample(int id, int pos, int rate);
 	void StopModule(void);
 	void PlayModule(int id);
-	void Update(void);
-	void UpdateModule(int id);
-
-private:
-	void RemoveModules(void);
-	void RemoveSamples(void);
-	void InitModules(void);
-	void InitSamples(void);
-	void SignAllSamples(void);
-
-private:
-	int m_LeftSampleCnt;
-	int m_RightSampleCnt;
-
-public:
 	int m_AudioValidFlag;
 	int m_DisableMusicFlag;
 	int m_DisableSamplesFlag;
-
 };
 
 #endif

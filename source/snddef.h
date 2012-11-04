@@ -25,26 +25,6 @@
 #define CHANNEL_RIGHT	1
 
 //------------------------------------------------------------------------------
-// A fudge to insert a wave header (for MikMod)
-//------------------------------------------------------------------------------
-#define WAVE_HEADER_SIZE	58
-#define WAVE_TAIL_SIZE	1
-
-//------------------------------------------------------------------------------
-// Amiga sample rate conversions
-// PLEASE NOTE - THE VARIABLE NAMES NO LONGER MATCH THE AMIGA NOTE VALUE
-//------------------------------------------------------------------------------
-#define SRATE_1e0	8000
-#define SRATE_300	6000
-#define SRATE_a0	12000
-#define SRATE_150	10000
-#define SRATE_160	11000
-#define SRATE_170	11000
-#define SRATE_280	5000
-#define SRATE_200	7800
-#define SRATE_ae0	4000
-
-//------------------------------------------------------------------------------
 // Modules
 //------------------------------------------------------------------------------
 #define MODULE_START_NUMBER	4000
@@ -102,8 +82,4 @@
 
 #define SND_COUNT		(1 + SND_END_NUMBER - SND_START_NUMBER)
 
-extern MODULE_RESOURCE_DATA MethaneModuleData[MODULE_COUNT];
-extern SAMPLE_RESOURCE_DATA MethaneSampleData[SND_COUNT];
-
 #endif
-
