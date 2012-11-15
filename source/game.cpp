@@ -2054,7 +2054,7 @@ void CGame::DrawEndCredits(void)
 					let = let - ' ';
 					if ( (let>0) && (let<NUM_FONT_TABLE) )
 					{
-						m_Sprites.Draw( font_table[let], xpos, ypos, GFX_NOWRAP );
+						m_Sprites.Draw( font_table[(int) let], xpos, ypos, GFX_NOWRAP );
 					}
 				}
 				xpos+=16;
