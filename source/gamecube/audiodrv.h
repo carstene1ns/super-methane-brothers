@@ -24,6 +24,9 @@
 
 class CAudioDrv
 {
+private:
+	int sound_volume, music_volume;
+
 public:
 	CAudioDrv();
 	~CAudioDrv();
@@ -32,6 +35,7 @@ public:
 	void PlaySample(int id, int pos, int rate);
 	void StopModule(void);
 	void PlayModule(int id);
+	void ChangeVolume(int s, int m);
 	int m_AudioValidFlag;
 	int m_DisableMusicFlag;
 	int m_DisableSamplesFlag;

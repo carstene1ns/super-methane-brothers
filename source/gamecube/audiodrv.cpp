@@ -85,6 +85,8 @@ static void VoiceCallBack(AESNDPB *pb, u32 state)
 CAudioDrv::CAudioDrv()
 {
     m_AudioValidFlag = 0;
+    sound_volume = 10;
+    music_volume = 64;
 
     // Disables music / sound output
 #ifdef NOMUSIC
@@ -290,7 +292,17 @@ void CAudioDrv::PlaySample(int id, int pos, int rate)
     // Check if voice was available
     if (this_voice) {
         AESND_PlayVoice(this_voice, VOICE_STEREO16, sound_ptr, sound_length, rate, 0, 0);
-        AESND_SetVoiceVolume(this_voice, 255-pos, pos);
+
+        // Do volume math (with fake panning)
+        int vol_l = ((255 - pos) > 0) ? (255 - pos) : 0;
+        vol_l = (vol_l > 255) ? 255 : vol_l;
+        vol_l = (float) sound_volume * (float) vol_l / 10.0;
+        
+        int vol_r = (pos > 0) ? pos : 0;
+        vol_r = (vol_r > 255) ? 255 : vol_r;
+        vol_r = (float) sound_volume * (float) pos / 10.0;
+        
+        AESND_SetVoiceVolume(this_voice, vol_l, vol_r);
     }
 }
 
@@ -340,5 +352,16 @@ void CAudioDrv::PlayModule(int id)
             break;
     }
 
+    // Set the volume, cause it resets on every new mod
+    MODPlay_SetVolume(&methane_music, music_volume, music_volume);
     MODPlay_Start(&methane_music);
+}
+
+void CAudioDrv::ChangeVolume(int s, int m)
+{
+    sound_volume = s;
+    music_volume = m * 6.4;
+
+    // Set the volume for the current mod
+    MODPlay_SetVolume(&methane_music, music_volume, music_volume);
 }

@@ -34,7 +34,7 @@
 //------------------------------------------------------------------------------
 // The Game Version Number
 //------------------------------------------------------------------------------
-static char GameVersionNumber[] = "VERSION 1.4.9";
+static char GameVersionNumber[] = "VERSION 1.4";
 
 #define DELAY_BEFORE_NEXT_LEVEL 140
 
