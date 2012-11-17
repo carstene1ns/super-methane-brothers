@@ -31,7 +31,7 @@ static char TheScreen[SCR_WIDTH * SCR_HEIGHT];
 //------------------------------------------------------------------------------
 // Custom video mode 320 x 240
 //------------------------------------------------------------------------------
-SDL_Surface* screen = 0;
+SDL_Surface *screen = 0;
 
 //------------------------------------------------------------------------------
 //! \brief Initialise Document
@@ -116,26 +116,26 @@ void CMethDoc::DrawScreen( void *screen_ptr, int paused_flag )
     // Set the game palette
     pal_ptr = m_GameTarget.m_rgbPalette;
     if (!paused_flag) {
-        for (cnt=0; cnt < PALETTE_SIZE; cnt++, pal_ptr++) {
+        for (cnt = 0; cnt < PALETTE_SIZE; cnt++, pal_ptr++) {
             met_colors[cnt].r = pal_ptr->red;
             met_colors[cnt].g = pal_ptr->green;
             met_colors[cnt].b = pal_ptr->blue;
         }
     } else { // If paused - greyscale the palette
-        for (cnt=0; cnt < PALETTE_SIZE; cnt++, pal_ptr++) {
-            int cval = (pal_ptr->red + pal_ptr->green + pal_ptr->blue) / 3;
-            met_colors[cnt].r = cval;
-            met_colors[cnt].g = cval;
-            met_colors[cnt].b = cval;
+        for (cnt = 0; cnt < PALETTE_SIZE; cnt++, pal_ptr++) {
+            int grey = (pal_ptr->red + pal_ptr->green + pal_ptr->blue) / 6; //3 is grey, 6 is darker
+            met_colors[cnt].r = grey;
+            met_colors[cnt].g = grey;
+            met_colors[cnt].b = grey;
         }
     }
-    SDL_SetPalette(screen, SDL_LOGPAL|SDL_PHYSPAL, met_colors, 0, PALETTE_SIZE);
+    SDL_SetPalette(screen, SDL_LOGPAL, met_colors, 0, PALETTE_SIZE);
 
     // Copy the pixels
     char* dest_ptr = (char *) screen->pixels;
-    char* src_ptr = TheScreen + 3 * 320; // Adjustment 256 -> 240 lines
-    for (int y = 0; y < 240; y++) {
-        for (int x = 0; x < 320; x++) {
+    char* src_ptr = TheScreen + 4 * 320; // Adjustment 256 -> 240 lines
+    for (int y = 0; y < 240; y++) {      // by removing 4 lines at the top
+        for (int x = 0; x < 320; x++) {  // and 12 at the bottom
             *dest_ptr++ = *src_ptr++;
         }
         // Only needed, if display width > 320px
@@ -144,8 +144,9 @@ void CMethDoc::DrawScreen( void *screen_ptr, int paused_flag )
 
     if (SDL_MUSTLOCK(screen)) SDL_UnlockSurface(screen);
 
-    // Show the new screen
-    SDL_Flip (screen);
+    // If not paused, show the new screen, if paused wait for menu
+    if(!paused_flag)
+        SDL_Flip (screen);
 }
 
 //------------------------------------------------------------------------------
@@ -217,4 +218,14 @@ void CMethDoc::LoadScores(void)
 void CMethDoc::SaveScores(void)
 {
 
+}
+
+//------------------------------------------------------------------------------
+//! \brief Change the music and sound volume
+//! \param s = sound volume (0 to 10)
+//! \param m = music volume (0 to 10)
+//------------------------------------------------------------------------------
+void CMethDoc::ChangeVolume(int s, int m)
+{
+    m_pAudioDrv->ChangeVolume(s, m);
 }

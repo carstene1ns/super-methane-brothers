@@ -25,7 +25,7 @@
 #include "target.h"
 #include "audiodrv.h"
 
-extern SDL_Surface* screen;
+extern SDL_Surface *screen;
 
 class CMethDoc
 {
@@ -51,6 +51,7 @@ public:
     void StopModule(void);
     void UpdateModule(int id);
     void PlaySample(int id, int pos, int rate);
+    void ChangeVolume(int s, int m);
 
 //HIGHSCORE
     void SaveScores(void);

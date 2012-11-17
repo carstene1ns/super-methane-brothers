@@ -357,6 +357,11 @@ void CAudioDrv::PlayModule(int id)
     MODPlay_Start(&methane_music);
 }
 
+//------------------------------------------------------------------------------
+//! \brief Change the music and sound volume
+//! \param s = sound volume (0 to 10)
+//! \param m = music volume (0 to 10)
+//------------------------------------------------------------------------------
 void CAudioDrv::ChangeVolume(int s, int m)
 {
     sound_volume = s;
