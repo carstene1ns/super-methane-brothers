@@ -1,6 +1,13 @@
-# dont include built files
+# files
 
 .dol$
 .elf$
 .o$
-^build$
+.d$
+.map$
+
+# folders
+
+^build-wii$
+^build-gc$
+^_OLD$
