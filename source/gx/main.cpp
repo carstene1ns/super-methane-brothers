@@ -26,6 +26,7 @@
 #include <ogc/lwp_watchdog.h>
 #include <string.h>
 #include <malloc.h>
+#include <math.h>
 
 #include "global.h"
 #include "doc.h"
@@ -238,7 +239,7 @@ GXRModeObj * FindVideoMode()
 	if (CONF_GetAspectRatio() == CONF_ASPECT_16_9)
 		mode->viWidth = 678;
 	else
-		mode->viWidth = 672;
+		mode->viWidth = 640;
 
 	/* Center the output */
 	if (vmode_60hz)
@@ -510,6 +511,77 @@ Update_GX_Video(unsigned char *screen_buffer)
 	LWP_ResumeThread (vbthread);
 }
 
+#define PI 3.14159265f
+
+/****************************************************************************
+ * WPAD_Stick
+ *
+ * Get X/Y value from Wii Joystick (classic, nunchuk) input
+ ***************************************************************************/
+s8
+WPAD_Stick(u8 pad, u8 stick, int axis)
+{
+#ifdef HW_RVL
+	float mag = 0.0;
+	float ang = 0.0;
+
+	WPADData *wpad = WPAD_Data(pad);
+
+	switch (wpad->exp.type)
+	{
+		case WPAD_EXP_NUNCHUK:
+			if (stick == 0)
+			{
+				mag = wpad->exp.nunchuk.js.mag;
+				ang = wpad->exp.nunchuk.js.ang;
+			}
+			break;
+
+		case WPAD_EXP_CLASSIC:
+			if (stick == 0)
+			{
+				mag = wpad->exp.classic.ljs.mag;
+				ang = wpad->exp.classic.ljs.ang;
+			}
+			else
+			{
+				mag = wpad->exp.classic.rjs.mag;
+				ang = wpad->exp.classic.rjs.ang;
+			}
+			break;
+
+		default:
+			break;
+	}
+
+	/* calculate x/y value (angle need to be converted into radian) */
+	if (mag > 1.0)
+		mag = 1.0;
+	else if (mag < -1.0)
+		mag = -1.0;
+
+	double val;
+	if(axis == 0) // x-axis
+		val = mag * sin((PI * ang) / 180.0f);
+	else // y-axis
+		val = mag * cos((PI * ang) / 180.0f);
+
+	return (s8)(val * 128.0f);
+#else
+	return 0;
+#endif /* HW_RVL */
+}
+
+s8 WPAD_StickX(u8 pad, u8 stick)
+{
+	return WPAD_Stick(pad, stick, 0);
+}
+
+s8 WPAD_StickY(u8 pad, u8 stick)
+{
+	return WPAD_Stick(pad, stick, 1);
+}
+
 int main (int argc, char **argv)
 {
 	Init_GX_Video();
@@ -518,6 +590,10 @@ int main (int argc, char **argv)
 
 #ifdef HW_RVL
 	WPAD_Init();
+
+	// Read wiimote accelerometer and IR data
+	WPAD_SetDataFormat(WPAD_CHAN_ALL,WPAD_FMT_BTNS_ACC_IR);
+	WPAD_SetVRes(WPAD_CHAN_ALL, vmode->viWidth, vmode->viHeight);
 #endif /* HW_RVL */
 
 	Game.InitSoundDriver();
@@ -539,113 +615,228 @@ int main (int argc, char **argv)
 
 	while(run)
 	{
-		// Get Controller state
-		JOYSTICK *jptr1 = &Game.m_GameTarget.m_Joy1;
-		JOYSTICK *jptr2 = &Game.m_GameTarget.m_Joy2;
-
 		PAD_ScanPads();
-		int bu_down, bu_up = 0;
+#ifdef HW_RVL
+		WPAD_ScanPads();
+#endif
 
-		// Player 1
-		bu_down = PAD_ButtonsDown(0);
-		bu_up = PAD_ButtonsUp(0);
+		int bu_down, bu_held, p;
 
-		// left
-		if (PAD_StickX(0) <= -58)
-			jptr1->left = 1;
-		else
-			jptr1->left = 0;
+		//2 Player input loop
+		for (p = 0; p <= 1; p++)
+		{
+			// Get Controller state
+			JOYSTICK *jptr;
+			
+			if (p == 0)
+				jptr = &Game.m_GameTarget.m_Joy1;
+			else
+				jptr = &Game.m_GameTarget.m_Joy2;
 
-		// right
-		if (PAD_StickX(0) >= 58)
-			jptr1->right = 1;
-		else
-			jptr1->right = 0;
+			// Reset
+			jptr->left = 0;
+			jptr->right = 0;
+			jptr->down = 0;
+			jptr->up = 0;
+			jptr->fire = 0;
 
-		// down
-		if (PAD_StickY(0) <= -58)
-			jptr1->down = 1;
-		else
-			jptr1->down = 0;
+			// GC controller
+			bu_held = PAD_ButtonsHeld(p);
+			bu_down = PAD_ButtonsDown(p);
 
-		// up
-		if (PAD_StickY(0) >= 58)
-			jptr1->up = 1;
-		else
-			jptr1->up = 0;
+			// left
+			if (PAD_StickX(p) <= -58)
+				jptr->left = 1;
 
-		// fire
-		if (bu_down & PAD_BUTTON_A)
-			jptr1->fire = 1;
+			// right
+			if (PAD_StickX(p) >= 58)
+				jptr->right = 1;
 
-		if (bu_up & PAD_BUTTON_A)
-			jptr1->fire = 0;
+			// down
+			if (PAD_StickY(p) <= -58)
+				jptr->down = 1;
 
-		// Switch Player sprites
-		if (bu_down & PAD_TRIGGER_Z)
-			Game.m_GameTarget.m_Game.TogglePuffBlow();
+			// up
+			if (PAD_StickY(p) >= 58)
+				jptr->up = 1;
 
-		// Only Player 1 can Pause the Game
-		if (bu_down & PAD_BUTTON_START)
-			game_paused ^= 1;
+			// fire
+			if (bu_held & PAD_BUTTON_A)
+				jptr->fire = 1;
 
-		// DEBUG: alter game speed + warp levels
-		if (bu_down & PAD_TRIGGER_L) {
-			game_speed += 5;
-			if (game_speed > 100)
-				game_speed = 100;
+			// Player 1 only
+			if (p == 0)
+			{
+				// Switch Player sprites
+				if (bu_down & PAD_TRIGGER_Z)
+					Game.m_GameTarget.m_Game.TogglePuffBlow();
+
+				// Pause the Game
+				if (bu_down & PAD_BUTTON_START)
+					game_paused ^= 1;
+
+				// DEBUG: alter game speed + warp levels
+				if (bu_down & PAD_TRIGGER_L) {
+					game_speed += 5;
+					if (game_speed > 100)
+						game_speed = 100;
+				}
+
+				if (bu_down & PAD_TRIGGER_R) {
+					game_speed -= 5;
+					if (game_speed < 10)
+						game_speed = 10;
+				}
+
+				if ((PAD_SubStickX(p) > 60) && (PAD_SubStickY(p) <= -60))
+					jptr->next_level = 1;
+				else
+					jptr->next_level = 0;
+
+				// EXIT
+				if (bu_down & PAD_TRIGGER_Z)
+					run = 0;
+				// DEBUG: end
+			}
+
+#ifdef HW_RVL
+			bu_held = WPAD_ButtonsHeld(p);
+			bu_down = WPAD_ButtonsDown(p);
+
+			// Get to wiimote connected controller, if any
+			u32 exp_type;
+			if (WPAD_Probe(p, &exp_type) != 0)
+				exp_type = WPAD_EXP_NONE;
+
+			// Wiimote only
+			if (exp_type == WPAD_EXP_NONE)
+			{
+				// left
+				if (bu_held & WPAD_BUTTON_UP)
+					jptr->left = 1;
+
+				// right
+				if (bu_held & WPAD_BUTTON_DOWN)
+					jptr->right = 1;
+
+				// down
+				if (bu_held & WPAD_BUTTON_LEFT)
+					jptr->down = 1;
+
+				// up
+				if (bu_held & WPAD_BUTTON_RIGHT)
+					jptr->up = 1;
+
+				// fire
+				if (bu_held & WPAD_BUTTON_2)
+					jptr->fire = 1;
+			}
+
+			// Wiimote and Nunchuck shared buttons
+			if ((exp_type == WPAD_EXP_NONE) || (exp_type == WPAD_EXP_NUNCHUK))
+			{
+				// Player 1 only
+				if (p == 0)
+				{
+					// Switch Player sprites
+					if (bu_down & WPAD_BUTTON_PLUS)
+						Game.m_GameTarget.m_Game.TogglePuffBlow();
+
+					// Pause the Game
+					if (bu_down & WPAD_BUTTON_HOME)
+						game_paused ^= 1;
+
+					// DEBUG: EXIT
+					if (bu_down & WPAD_BUTTON_MINUS)
+						run = 0;
+				}
+			}
+
+			// Nunchuck / Classic controller shared joysticks
+			if ((exp_type == WPAD_EXP_NUNCHUK) || (exp_type == WPAD_EXP_CLASSIC))
+			{
+				// left
+				if (WPAD_StickX(p, 0) <= -58)
+					jptr->left = 1;
+
+				// right
+				if (WPAD_StickX(p, 0) >= 58)
+					jptr->right = 1;
+
+				// down
+				if (WPAD_StickY(p, 0) <= -58)
+					jptr->down = 1;
+
+				// up
+				if (WPAD_StickY(p, 0) >= 58)
+					jptr->up = 1;
+			}
+
+			// Nunchuck main / only
+			if (exp_type == WPAD_EXP_NUNCHUK)
+			{
+				// fire
+				if (bu_held & WPAD_NUNCHUK_BUTTON_Z)
+					jptr->fire = 1;
+
+				// Player 1 only
+				if (p == 0)
+				{
+					// Pause the Game
+					if (bu_down & WPAD_NUNCHUK_BUTTON_C)
+						game_paused ^= 1;
+				}
+				
+				// fire
+				if (bu_held & WPAD_BUTTON_B)
+					jptr->fire = 1;
+			}
+
+			// Classic Controller only
+			if (exp_type == WPAD_EXP_CLASSIC)
+			{
+				// left
+				if (bu_held & WPAD_CLASSIC_BUTTON_LEFT)
+					jptr->left = 1;
+
+				// right
+				if (bu_held & WPAD_CLASSIC_BUTTON_RIGHT)
+					jptr->right = 1;
+
+				// down
+				if (bu_held & WPAD_CLASSIC_BUTTON_DOWN)
+					jptr->down = 1;
+
+				// up
+				if (bu_held & WPAD_CLASSIC_BUTTON_UP)
+					jptr->up = 1;
+
+				// fire
+				if (bu_held & WPAD_CLASSIC_BUTTON_A)
+					jptr->fire = 1;
+
+				// Player 1 only
+				if (p == 0)
+				{
+					// Switch Player sprites
+					if (bu_down & WPAD_CLASSIC_BUTTON_PLUS)
+						Game.m_GameTarget.m_Game.TogglePuffBlow();
+
+					// Pause the Game
+					if (bu_down & WPAD_CLASSIC_BUTTON_HOME)
+						game_paused ^= 1;
+
+					// DEBUG: EXIT
+					if (bu_down & WPAD_CLASSIC_BUTTON_MINUS)
+						run = 0;
+					// DEBUG: end */
+				}
+			}
+#endif /* HW_RVL */
 		}
-		if (bu_down & PAD_TRIGGER_R) {
-			game_speed -= 5;
-			if (game_speed < 10)
-				game_speed = 10;
-		}
-		if ((PAD_SubStickX(0) > 60) && (PAD_SubStickY(0) <= -60))
-			jptr1->next_level = 1;
-		else
-			jptr1->next_level = 0;
-
-		// EXIT
-		if (bu_down & PAD_TRIGGER_Z)
-			run = 0;
-		// DEBUG: end */
-
-		// Player 2
-		bu_down = PAD_ButtonsDown(1);
-		bu_up = PAD_ButtonsUp(1);
-
-		// left
-		if (PAD_StickX(1) <= -58)
-			jptr2->left = 1;
-		else
-			jptr2->left = 0;
-
-		// right
-		if (PAD_StickX(1) >= 58)
-			jptr2->right = 1;
-		else
-			jptr2->right = 0;
-
-		// down
-		if (PAD_StickY(1) <= -58)
-			jptr2->down = 1;
-		else
-			jptr2->down = 0;
-
-		// up
-		if (PAD_StickY(1) >= 58)
-			jptr2->up = 1;
-		else
-			jptr2->up = 0;
-
-		// fire
-		if (bu_down & PAD_BUTTON_A)
-			jptr2->fire = 1;
-
-		if (bu_up & PAD_BUTTON_A)
-			jptr2->fire = 0;
 
 		// Fake a key press (to pass getPlayerName screen)
+		JOYSTICK *jptr1 = &Game.m_GameTarget.m_Joy1;
 		jptr1->key = 13;
 
 		// Add a delay
