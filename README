@@ -1,20 +1,11 @@
-This is the GameCube conversion of the Super Methane Brothers game.
+This is a stable version of the Linux conversion of the
+Super Methane Brothers game.
 
-GameCube version Notes:
+WebSite:
+http://methane.sourceforge.net/index.html
 
-Author:  Infact
-Date:    11/2012
-Website: http://bitbucket.org/infact/super-methane-brothers
-Email:   infact at quantentunnel de
-
-The port has been possible using DevkitPPC, libogc, cubeSDL, libaesnd
-and libmodplay.
-
-The original linux and windows version Notes:
-
-Author: rombust
-WebSite: http://methane.sourceforge.net/index.html
-Email: rombust at postmaster.co.uk
+Email:
+rombust at postmaster.co.uk
 
 -------------------------------------------------------
 IMPORTANT NOTE:
@@ -24,7 +15,7 @@ to release this game as GPL.
 However - THE ORIGINAL AMIGA VERSION OF SUPER METHANE BROTHERS IS
 STILL A COMMERCIAL GAME IT'S LICENCE HAS NOT CHANGED.
 
-I (Mark Page/rombust) am the programmer of the Amiga version of
+I (Mark Page) am the programmer of the Amiga version of
 Super Methane Brothers.
 -------------------------------------------------------
 
@@ -33,18 +24,17 @@ see "COPYING" for GPL licence
 
 -------------------------------------------------------
 
-Quick Instructions for the GameCube conversion
-===============================================
+Quick Instructions
+===================
 
-Press the A button on controller 1 to start the game in single player,
-press the A button on controller 2 for 2 player mode.
-Use the Stick to move around the screen.
-Tap the A button to fire gas from the gun.
-Hold the A button to suck a trapped baddie into the gun.
-Release the A button to throw the trapped baddie from the gun.
+Press the CTRL key to start the game.
+Use the cursor keys to move around the screen.
+Tap the CTRL key to fire gas from the gun.
+Hold the CTRL key to suck a trapped baddie into the gun.
+Release the CTRL key to throw the trapped baddie from the gun.
+
 Throw baddies at the wall to destroy them.
-Press START button to pause the game.
-Press Z button to switch player graphics.
 
+(Linux Only) Press Escape to quit the game
 
 See "docs/info.html" for further instructions on how to play the game.
