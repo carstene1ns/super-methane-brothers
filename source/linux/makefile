@@ -1,5 +1,5 @@
-METHANE_FLAGS = `pkg-config --cflags clanCore-0.7 clanDisplay-0.7 clanApp-0.7 clanGL-0.7`
-METHANE_LIBS = `pkg-config --libs clanCore-0.7 clanDisplay-0.7 clanApp-0.7 clanGL-0.7`
+METHANE_FLAGS = `pkg-config --cflags clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8`
+METHANE_LIBS = `pkg-config --libs clanCore-0.8 clanDisplay-0.8 clanApp-0.8 clanGL-0.8`
 
 # Remove the following two lines to disable sound
 METHANE_SND_FLAGS = -DMETHANE_MIKMOD `libmikmod-config --cflags`

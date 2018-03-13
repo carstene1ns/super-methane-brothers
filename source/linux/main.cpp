@@ -100,7 +100,7 @@ public:
 			CL_DisplayWindow window("Super Methane Brothers", SCR_WIDTH*2, SCR_HEIGHT*2);
 
 			CL_PixelBuffer pixel_screen(SCR_WIDTH, SCR_HEIGHT, SCR_WIDTH*4, CL_PixelFormat::rgba8888);
-			CL_Surface game_screen(&pixel_screen);
+			CL_Surface game_screen(pixel_screen);
 			CL_Canvas game_canvas(game_screen);
 
 			// Connect the Window close event

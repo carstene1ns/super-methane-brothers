@@ -81,7 +81,7 @@ CAPTION "About Methane"
 FONT 8, "MS Sans Serif"
 {
  CONTROL "", IDC_ICONRECT, "STATIC", SS_LEFT | WS_CHILD | WS_VISIBLE | WS_GROUP, 20, 12, 64, 56
- CONTROL "Super Methane Brothers Methane Version 1.4.7", -1, "STATIC", SS_LEFT | WS_CHILD | WS_VISIBLE | WS_GROUP, 112, 20, 164, 8
+ CONTROL "Super Methane Brothers Methane Version 1.4.8", -1, "STATIC", SS_LEFT | WS_CHILD | WS_VISIBLE | WS_GROUP, 112, 20, 164, 8
  CONTROL "The GNU General Public License V2 applies.", -1, "static", SS_LEFT | WS_CHILD | WS_VISIBLE | WS_GROUP, 112, 40, 152, 8, 0
  CONTROL "OK", IDOK, "BUTTON", BS_DEFPUSHBUTTON | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 156, 212, 50, 14
  CONTROL "Frame2", IDC_STATICFRAME1, "static", SS_ETCHEDFRAME | WS_CHILD | WS_VISIBLE, 8, 8, 360, 64
@@ -113,7 +113,7 @@ FILETYPE VFT_APP
   {
    VALUE "CompanyName", "No Name\000\000"
    VALUE "FileDescription", "Super Methane Brothers Game\000"
-   VALUE "FileVersion", "1.4.7\000\000"
+   VALUE "FileVersion", "1.4.8\000\000"
    VALUE "InternalName", "methane\000"
    VALUE "LegalCopyright", "GNU General Public License V2\000\000"
    VALUE "OriginalFilename", "methane.exe\000"
