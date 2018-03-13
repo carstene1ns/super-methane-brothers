@@ -1,0 +1,10 @@
+Set SMBGame$Dir <Obey$Dir>
+
+Iconsprites <SMBGame$Dir>.!Sprites
+
+RMEnsure QTMTracker 1.27 RMLoad <SMBGame$dir>.Modules.QTMModule
+RMEnsure QTMTracker 1.27 error You need QTMTracker 1.27 or later to run this game with sound
+
+wimpslot -min 2048K -max 2048K
+Run <SMBGame$Dir>.!RunImage
+

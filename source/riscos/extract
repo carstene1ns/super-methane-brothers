@@ -1,0 +1,76 @@
+echo Extracting Files
+set SMB_DEST_DIR adfs::4.$.!smb
+set SMB_SRC_DIR <Obey$Dir>.^.^
+set SMB_OLD_COPY_OPTIONS <Copy$Options>
+set Copy$Options afl~nqr~v~c~d~s
+echo Creating <SMB_DEST_DIR>
+cdir <SMB_DEST_DIR>
+cdir <SMB_DEST_DIR>.c++
+cdir <SMB_DEST_DIR>.h
+cdir <SMB_DEST_DIR>.o
+copy <SMB_SRC_DIR>.source.riscos.makefile <SMB_DEST_DIR>.makefile
+copy <SMB_SRC_DIR>.source.riscos.makeold <SMB_DEST_DIR>.makeold
+copy <SMB_SRC_DIR>.source.riscos.doc/h <SMB_DEST_DIR>.h.doc
+copy <SMB_SRC_DIR>.source.riscos.doc/cpp <SMB_DEST_DIR>.c++.doc
+copy <SMB_SRC_DIR>.source.gfxoff/cpp <SMB_DEST_DIR>.c++.gfxoff
+copy <SMB_SRC_DIR>.source.gfxdef/h <SMB_DEST_DIR>.h.gfxdef
+copy <SMB_SRC_DIR>.source.baddie/cpp <SMB_DEST_DIR>.c++.baddie
+copy <SMB_SRC_DIR>.source.bitdraw/cpp <SMB_DEST_DIR>.c++.bitdraw
+copy <SMB_SRC_DIR>.source.bitgroup/cpp <SMB_DEST_DIR>.c++.bitgroup
+copy <SMB_SRC_DIR>.source.bititem/cpp <SMB_DEST_DIR>.c++.bititem
+copy <SMB_SRC_DIR>.source.boss/cpp <SMB_DEST_DIR>.c++.boss
+copy <SMB_SRC_DIR>.source.game/cpp <SMB_DEST_DIR>.c++.game
+copy <SMB_SRC_DIR>.source.gasobj/cpp <SMB_DEST_DIR>.c++.gasobj
+copy <SMB_SRC_DIR>.source.global/cpp <SMB_DEST_DIR>.c++.global
+copy <SMB_SRC_DIR>.source.goodie/cpp <SMB_DEST_DIR>.c++.goodie
+copy <SMB_SRC_DIR>.source.maps/cpp <SMB_DEST_DIR>.c++.maps
+copy <SMB_SRC_DIR>.source.misc/cpp <SMB_DEST_DIR>.c++.misc
+copy <SMB_SRC_DIR>.source.objlist/cpp <SMB_DEST_DIR>.c++.objlist
+copy <SMB_SRC_DIR>.source.player/cpp <SMB_DEST_DIR>.c++.player
+copy <SMB_SRC_DIR>.source.power/cpp <SMB_DEST_DIR>.c++.power
+copy <SMB_SRC_DIR>.source.target/cpp <SMB_DEST_DIR>.c++.target
+copy <SMB_SRC_DIR>.source.suck/cpp <SMB_DEST_DIR>.c++.suck
+copy <SMB_SRC_DIR>.source.weapon/cpp <SMB_DEST_DIR>.c++.weapon
+copy <SMB_SRC_DIR>.source.target/h <SMB_DEST_DIR>.h.target
+copy <SMB_SRC_DIR>.source.baddie/h <SMB_DEST_DIR>.h.baddie
+copy <SMB_SRC_DIR>.source.bitdraw/h <SMB_DEST_DIR>.h.bitdraw
+copy <SMB_SRC_DIR>.source.bitgroup/h <SMB_DEST_DIR>.h.bitgroup
+copy <SMB_SRC_DIR>.source.bititem/h <SMB_DEST_DIR>.h.bititem
+copy <SMB_SRC_DIR>.source.boss/h <SMB_DEST_DIR>.h.boss
+copy <SMB_SRC_DIR>.source.game/h <SMB_DEST_DIR>.h.game
+copy <SMB_SRC_DIR>.source.gasobj/h <SMB_DEST_DIR>.h.gasobj
+copy <SMB_SRC_DIR>.source.global/h <SMB_DEST_DIR>.h.global
+copy <SMB_SRC_DIR>.source.goodie/h <SMB_DEST_DIR>.h.goodie
+copy <SMB_SRC_DIR>.source.maps/h <SMB_DEST_DIR>.h.maps
+copy <SMB_SRC_DIR>.source.misc/h <SMB_DEST_DIR>.h.misc
+copy <SMB_SRC_DIR>.source.objlist/h <SMB_DEST_DIR>.h.objlist
+copy <SMB_SRC_DIR>.source.objtypes/h <SMB_DEST_DIR>.h.objtypes
+copy <SMB_SRC_DIR>.source.player/h <SMB_DEST_DIR>.h.player
+copy <SMB_SRC_DIR>.source.power/h <SMB_DEST_DIR>.h.power
+copy <SMB_SRC_DIR>.source.sound/cpp <SMB_DEST_DIR>.c++.sound
+copy <SMB_SRC_DIR>.source.suck/h <SMB_DEST_DIR>.h.suck
+copy <SMB_SRC_DIR>.source.weapon/h <SMB_DEST_DIR>.h.weapon
+copy <SMB_SRC_DIR>.source.sound/h <SMB_DEST_DIR>.h.sound
+copy <SMB_SRC_DIR>.source.mapdef/h <SMB_DEST_DIR>.h.mapdef
+copy <SMB_SRC_DIR>.source.snddef/h <SMB_DEST_DIR>.h.snddef
+copy <SMB_SRC_DIR>.source.data.snddata/cpp <SMB_DEST_DIR>.c++.snddata
+copy <SMB_SRC_DIR>.source.data.gfxdata/cpp <SMB_DEST_DIR>.c++.gfxdata
+copy <SMB_SRC_DIR>.source.data.gfxdata2/cpp <SMB_DEST_DIR>.c++.gfxdata2
+copy <SMB_SRC_DIR>.source.data.gfxdata3/cpp <SMB_DEST_DIR>.c++.gfxdata3
+copy <SMB_SRC_DIR>.source.data.mapdata/cpp <SMB_DEST_DIR>.c++.mapdata
+copy <SMB_SRC_DIR>.source.riscos.swicalls/h <SMB_DEST_DIR>.h.swicalls
+copy <SMB_SRC_DIR>.source.riscos.swicalls/cpp <SMB_DEST_DIR>.c++.swicalls
+copy <SMB_SRC_DIR>.source.riscos.!boot <SMB_DEST_DIR>.!boot
+copy <SMB_SRC_DIR>.copying <SMB_DEST_DIR>.copying
+copy <SMB_SRC_DIR>.source.riscos.!sprites <SMB_DEST_DIR>.!sprites
+copy <SMB_SRC_DIR>.source.riscos.!run <SMB_DEST_DIR>.!run
+
+settype <SMB_DEST_DIR>.!sprites Sprite
+settype <SMB_DEST_DIR>.!boot Obey
+settype <SMB_DEST_DIR>.!run Obey
+
+set Copy$Options <SMB_OLD_COPY_OPTIONS>
+unset SMB_DEST_DIR
+unset SMB_SRC_DIR
+unset SMB_OLD_COPY_OPTIONS
+
