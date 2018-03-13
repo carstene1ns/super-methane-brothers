@@ -1,0 +1,66 @@
+RISCOS Installation Instructions
+================================
+
+Note: This game assumes sizeof(int) = sizeof(int *) = 4
+
+(If you don't know what RISCOS is - see http://www.riscos.com )
+
+Tested on the ACORN C/C++ compiler using the following:
+C++ - V3.1, V3.13
+C - V5.06, V5.09
+Link - V5.06, V5.08
+
+The GCC compiler may work, but it has not been tested
+
+For Audio, ensure that the QTM module has been loaded.
+See http://www.qthemusic.free-online.co.uk/
+
+To Enable Cheat Mode: Modify the line containing "(CHEAT MODE DISABLED)" in source/riscos/doc.cpp
+
+Basic Installation
+==================
+
+To extract the source code files into the standard directory structure:
+
+Copy "source.riscos.extract" to "source.riscos.create"
+Set "source.riscos.create" filetype to OBEY
+Modify "source.riscos.create" to should your needs
+Run "source.riscos.create"
+
+If you have not modified the file, the following directory structure
+will by created:
+
+    adfs::4.$.!smb.!boot
+    adfs::4.$.!smb.!run
+    adfs::4.$.!smb.!sprites
+    adfs::4.$.!smb.copying
+
+    adfs::4.$.!smb.c++.xxxxxx
+    adfs::4.$.!smb.h.xxxxxx
+    adfs::4.$.!smb.o
+    adfs::4.$.!smb.makefile
+    adfs::4.$.!smb.makeold
+
+If using C++ V3.1 : Drag "adfs::4.$.!smb.makeold" onto !AMU to create the game
+If using C++ V3.13 : Drag "adfs::4.$.!smb.makefile" onto !AMU to create the game
+
+You may need to modify "!run" if you do not have the QTM module
+
+IMPORTANT
+=========
+If you want to distribute the game executable, these files should exist:
+    adfs::4.$.!smb.!boot
+    adfs::4.$.!smb.!run
+    adfs::4.$.!smb.!sprites
+    adfs::4.$.!smb.copying
+
+    (The executable)
+    adfs::4.$.!smb.!runimage
+
+    + Any more files you wish to add
+
+DO NOT distribute the source code in the extracted RISCOS format. Instead use the
+original unmodified source code directory structure. Thank You :)
+
+The End
+

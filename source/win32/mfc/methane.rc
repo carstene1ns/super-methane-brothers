@@ -1,0 +1,154 @@
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Email: rombust@postmaster.co.uk                                         *
+ *                                                                         *
+ ***************************************************************************/
+
+//------------------------------------------------------------------------------
+// Methane Brothers Resource File
+//------------------------------------------------------------------------------
+
+#ifndef _METH_RC
+#define _METH_RC 1
+
+#include <afxres.h>
+
+#include "global.h"
+
+#define ID_TIMER_MAIN	300
+
+//------------------------------------------------------------------------------
+// Resource File Information
+//------------------------------------------------------------------------------
+#ifdef RC_INVOKED 
+IDR_MAINFRAME ICON "Methane.ico"
+
+IDR_MAINFRAME MENU 
+{
+ POPUP "&Main"
+ {
+  MENUITEM "Real &Pause", ID_APP_PAUSE
+  MENUITEM SEPARATOR
+  MENUITEM "Restart &Game", ID_APP_RESTART
+  MENUITEM "Game &Speed", ID_APP_GAMESPEED
+  MENUITEM SEPARATOR
+  MENUITEM "E&xit", ID_APP_EXIT
+ }
+
+ POPUP "&Audio"
+ {
+  MENUITEM "&Music Off", ID_APP_MUSIC
+  MENUITEM "&Sound Off", ID_APP_SOUND
+ }
+ POPUP "&Display"
+ {
+  MENUITEM "&Normal", ID_APP_ZOOM0
+  MENUITEM "&Fast Draw", ID_APP_ZOOM1
+  MENUITEM "Scale &1", ID_APP_ZOOM2
+  MENUITEM "Scale &2", ID_APP_ZOOM3
+  MENUITEM "Scale &3", ID_APP_ZOOM4
+  MENUITEM SEPARATOR
+  MENUITEM "32 &Colour Mode", ID_APP_32COL
+  MENUITEM "&Reverse Video", ID_APP_RVIDEO
+  MENUITEM "&Monochrome", ID_APP_MONO
+  MENUITEM SEPARATOR
+  MENUITEM "&Change Player Graphic", ID_APP_TOGGLE
+ }
+
+ POPUP "&Help"
+ {
+  MENUITEM "&Quick Instructions", ID_APP_HELP
+  MENUITEM "&About Methane...", ID_APP_ABOUT
+ }
+
+}
+
+STRINGTABLE
+BEGIN
+	IDR_MAINFRAME "Methane\n\n\nMethane Files (*.mth)\n.mth\nMethane.Document\nMethane Document"
+	AFX_IDS_UNTITLED "X"
+END
+
+IDD_ABOUTDLG DIALOG 0, 0, 380, 238
+STYLE DS_SYSMODAL | DS_MODALFRAME | DS_NOIDLEMSG | DS_3DLOOK | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "About Methane"
+FONT 8, "MS Sans Serif"
+{
+ CONTROL "", IDC_ICONRECT, "STATIC", SS_LEFT | WS_CHILD | WS_VISIBLE | WS_GROUP, 20, 12, 64, 56
+ CONTROL "Super Methane Brothers Methane Version 1.4.5", -1, "STATIC", SS_LEFT | WS_CHILD | WS_VISIBLE | WS_GROUP, 112, 20, 164, 8
+ CONTROL "The GNU General Public License V2 applies.", -1, "static", SS_LEFT | WS_CHILD | WS_VISIBLE | WS_GROUP, 112, 40, 152, 8, 0
+ CONTROL "OK", IDOK, "BUTTON", BS_DEFPUSHBUTTON | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 156, 212, 50, 14
+ CONTROL "Frame2", IDC_STATICFRAME1, "static", SS_ETCHEDFRAME | WS_CHILD | WS_VISIBLE, 8, 8, 360, 64
+ CONTROL "Frame3", IDC_STATICFRAME2, "static", SS_ETCHEDFRAME | WS_CHILD | WS_VISIBLE, 8, 76, 360, 132
+ CONTROL "This is a conversion of the Commodore Amiga game.I had been given permission by the company (Apache Software Ltd) to release this game as GPL.", IDC_STATICTEXT1, "static", SS_LEFT | WS_CHILD | WS_VISIBLE, 20, 84, 340, 20
+ CONTROL "Mark Page", IDC_STATICTEXT2, "static", SS_LEFT | WS_CHILD | WS_VISIBLE, 88, 144, 60, 8
+ CONTROL "Graphics", IDC_STATICTEXT3, "static", SS_LEFT | WS_CHILD | WS_VISIBLE, 20, 156, 60, 8
+ CONTROL "Lloyd Murphy, Tony Gaitskell, Debbie Sorrell", IDC_STATICTEXT4, "static", SS_LEFT | WS_CHILD | WS_VISIBLE, 88, 156, 184, 8
+ CONTROL "Music/Sound FX", IDC_STATICTEXT5, "static", SS_LEFT | WS_CHILD | WS_VISIBLE, 20, 168, 60, 8
+ CONTROL "Matthew Owens", IDC_STATICTEXT6, "static", SS_LEFT | WS_CHILD | WS_VISIBLE, 88, 168, 60, 8
+ CONTROL "Project Director (AMIGA)", IDC_STATICTEXT7, "static", SS_LEFT | WS_CHILD | WS_VISIBLE, 20, 180, 60, 8
+ CONTROL "Delvin Sorrell, Patricia Curtis", IDC_STATICTEXT8, "static", SS_LEFT | WS_CHILD | WS_VISIBLE, 88, 180, 108, 8
+ CONTROL "Sales/Marketing (AMIGA)", IDC_STATICTEXT9, "static", SS_LEFT | WS_CHILD | WS_VISIBLE, 20, 192, 60, 8
+ CONTROL "Tony King", IDC_STATICTEXT10, "static", SS_LEFT | WS_CHILD | WS_VISIBLE, 88, 192, 60, 8
+ CONTROL "Programming", IDC_STATICTEXT11, "static", SS_LEFT | WS_CHILD | WS_VISIBLE, 20, 144, 60, 8
+ CONTROL "The Apache Software Team", IDC_STATICTEXT12, "static", SS_LEFT | WS_CHILD | WS_VISIBLE, 44, 128, 136, 8
+ CONTROL "However - THE ORIGINAL AMIGA VERSION OF SUPER METHANE BROTHERS IS STILL A COMMERCIAL GAME IT'S LICENCE HAS NOT CHANGED", IDC_STATICTEXT13, "static", SS_LEFT | WS_CHILD | WS_VISIBLE, 20, 104, 344, 20
+}
+
+VERSIONINFO_1 VERSIONINFO 
+FILEVERSION 1, 1
+PRODUCTVERSION 1, 1
+FILEOS VOS_NT_WINDOWS32
+FILETYPE VFT_APP
+{
+ BLOCK "StringFileInfo"
+ {
+  BLOCK "040904E4"
+  {
+   VALUE "CompanyName", "No Name\000\000"
+   VALUE "FileDescription", "Super Methane Brothers Game\000"
+   VALUE "FileVersion", "1.4.5\000\000"
+   VALUE "InternalName", "methane\000"
+   VALUE "LegalCopyright", "GNU General Public License V2\000\000"
+   VALUE "OriginalFilename", "methane.exe\000"
+  }
+
+ }
+
+ BLOCK "VarFileInfo"
+ {
+  VALUE "Translation", 0x409, 1252
+ }
+
+}
+
+IDD_HELPDLG DIALOG 0, 0, 284, 146
+STYLE DS_SYSMODAL | DS_MODALFRAME | DS_NOIDLEMSG | DS_3DLOOK | DS_CENTER | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Instructions"
+FONT 8, "MS Sans Serif"
+{
+ CONTROL "Continue", IDCANCEL, "BUTTON", BS_PUSHBUTTON | BS_CENTER | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 116, 124, 50, 14
+}
+
+IDD_GAMESPEED DIALOG 0, 0, 139, 72
+STYLE DS_MODALFRAME | DS_3DLOOK | DS_CONTEXTHELP | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Game Speed"
+FONT 8, "MS Sans Serif"
+{
+ CONTROL "OK", IDOK, "BUTTON", BS_DEFPUSHBUTTON | BS_CENTER | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 68, 48, 50, 14
+ CONTROL "Cancel", IDCANCEL, "BUTTON", BS_PUSHBUTTON | BS_CENTER | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 12, 48, 50, 14
+ CONTROL "Game Speed 0-20 (Default = 0)", IDC_STATICTEXT11, "static", SS_CENTER | WS_CHILD | WS_VISIBLE, 4, 4, 128, 12
+ CONTROL "0", IDC_SPEEDVALUE, "edit", ES_LEFT | ES_NUMBER | WS_CHILD | WS_VISIBLE | WS_BORDER | WS_TABSTOP, 52, 20, 28, 13
+}
+
+#endif  // RC_INVOKED
+
+#endif	// _METH_RC
+
+

@@ -1,0 +1,50 @@
+------------------------------------------------------------------------------
+
+Fix these bugs:
+
+(RISCOS) Sample rates incorrect
+ ---> Code design problem. RISCOS requires an Amiga note. MIKMOD requires a frequency
+
+(Win32) The "Flash White" when activating the switch in the treasure room does
+        not operate when the game is in 32 colour mode (Amiga 500 emulation)
+
+(Win32) The game options should be saved to the registry
+
+------------------------------------------------------------------------------
+
+I "Mark Page" <rombust@postmaster.co.uk> am no longer going to develop this game.
+Instead I am only going to apply patches and fix serious bugs.
+
+********************************
+In January 2003, experimental 2 player mode was added.
+However, this is incomplete and has been disabled.
+To re-enable this feature, add:
+#define EXPERIMENTAL_2_PLAYER_MODE 1
+at the top of source/game.cpp
+
+The following code parts still require modification
+--> High Score table for player 1 and player 2
+--> void CLinkObject::Fly2Player( CPlayerObj *play ) --> need to choose closest player
+--> void CSuckable::SetExplode( void ) --> use ejected player for score
+--> void CMBugWeapon::ControlAnim( void )
+--> Bonus rooms in 2 player mode needs looking at in general
+--> Targets require joystick for player 2 : ( jptr = &Game.m_GameTarget.m_Joy2; )
+********************************
+
+If you want to develop the game futher - Here are some ideas:
+
+For the future:
+Create a new target for Win32 running the CLANLIB library
+Optional sound effect panning
+A more developer friendly graphic and sound format
+
+2 Player Mode (Simultaneously)
+Real Joystick control.
+Pause Mode (via 'P' being pressed) (like the amiga version - animated pause)
+Pause codes. (Email rombust@postmaster.co.uk if you require the codes)
+Level Number on the hiscore table
+Cheat mode enabled via a key combination
+SPR_POWER_HARDHAT (Jump on player 2 to reduce his height)
+SPR_POWER_PINKFROG (Swap player 1 and player 2 for that level)
+
+
