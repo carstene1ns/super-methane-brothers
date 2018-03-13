@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -558,11 +558,7 @@ int maxvals[GOODIE_MAX+1] =
 	};
 
 //------------------------------------------------------------------------------
-// Initialise the goodie object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the goodie object
 //------------------------------------------------------------------------------
 CGoodieObj::CGoodieObj()
 {
@@ -570,11 +566,7 @@ CGoodieObj::CGoodieObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the goodie object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the goodie object
 //------------------------------------------------------------------------------
 void CGoodieObj::Draw( void )
 {
@@ -582,11 +574,7 @@ void CGoodieObj::Draw( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the object (object members)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
 void CGoodieObj::Reset( void )
 {
@@ -598,11 +586,9 @@ void CGoodieObj::Reset( void )
 	m_ppAnimSeq = 0;
 }
 //------------------------------------------------------------------------------
-// Set the goodie to use a GOODIE_TYPE
-// On Entry:
-// 	good = pointer to the goodie list structure
-// On Exit:
-// 	Not Used
+//! \brief Set the goodie to use a GOODIE_TYPE
+//!
+//! 	\param good = pointer to the goodie list structure
 //------------------------------------------------------------------------------
 void CGoodieObj::SetStruct( GOODIE_TYPE *group )
 {
@@ -621,12 +607,7 @@ void CGoodieObj::SetStruct( GOODIE_TYPE *group )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if the object is stuck inside the wall - If it is
-//  make the object jump
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Check to see if the object is stuck inside the wall - If it is make the object jump
 //------------------------------------------------------------------------------
 void CGoodieObj::CheckStuckInWall( void )
 {
@@ -655,11 +636,7 @@ void CGoodieObj::CheckStuckInWall( void )
 
 }
 //------------------------------------------------------------------------------
-// Move the goodie - bouncing on the floor
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Move the goodie - bouncing on the floor
 //------------------------------------------------------------------------------
 void CGoodieObj::MoveGoodie( void )
 {
@@ -683,11 +660,7 @@ void CGoodieObj::MoveGoodie( void )
 	}
 }
 //------------------------------------------------------------------------------
-// Set the goodie to explode
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Set the goodie to explode
 //------------------------------------------------------------------------------
 void CGoodieObj::Explode( void )
 {
@@ -698,11 +671,7 @@ void CGoodieObj::Explode( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object driving (IE car/train)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object driving (IE car/train)
 //------------------------------------------------------------------------------
 void CGoodieObj::DriveGoodie( void )
 {
@@ -711,11 +680,7 @@ void CGoodieObj::DriveGoodie( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object flowering
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object flowering
 //------------------------------------------------------------------------------
 void CGoodieObj::FlowerGoodie( void )
 {
@@ -730,11 +695,7 @@ void CGoodieObj::FlowerGoodie( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object sausaging!
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object sausaging!
 //------------------------------------------------------------------------------
 void CGoodieObj::SausageGoodie( void )
 {
@@ -759,12 +720,11 @@ void CGoodieObj::SausageGoodie( void )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if a player has picked up this object
-// If the object has been picked up - it will be automatically be deleted
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	0 = Not Picked Up
+//! \brief Check to see if a player has picked up this object
+//!
+//! If the object has been picked up - it will be automatically be deleted
+//!
+//! 	\return 0 = Not Picked Up
 //------------------------------------------------------------------------------
 int CGoodieObj::CheckPickedUp( void )
 {
@@ -798,11 +758,7 @@ int CGoodieObj::CheckPickedUp( void )
 
 
 //------------------------------------------------------------------------------
-// Do the normal object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the normal object
 //------------------------------------------------------------------------------
 void CGoodieObj::DoNormal( void )
 {
@@ -840,11 +796,7 @@ void CGoodieObj::DoNormal( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object exploding
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object exploding
 //------------------------------------------------------------------------------
 void CGoodieObj::DoExplode( void )
 {
@@ -855,11 +807,7 @@ void CGoodieObj::DoExplode( void )
 	}
 }
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CGoodieObj::Do( void )
 {
@@ -879,14 +827,12 @@ void CGoodieObj::Do( void )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if the special bonus will occur when a toy is pickup up
-// On Entry:
-// 	cntptr = Pointer to the object counter
-//		toynumber = Toy offset number to create if the bonus occurs
-//		max = Number of objects to pickup before the toy explosion
-//		text = Message to display
-// On Exit:
-// 	Not Used
+//! \brief Check to see if the special bonus will occur when a toy is pickup up
+//!
+//! 	\param cntptr = Pointer to the object counter
+//!	\param toynumber = Toy offset number to create if the bonus occurs
+//!	\param max = Number of objects to pickup before the toy explosion
+//!	\param text = Message to display
 //------------------------------------------------------------------------------
 void CGoodieObj::ChkSpecial( int *cntptr, int toynumber, int max, char *text )
 {
@@ -908,27 +854,12 @@ void CGoodieObj::ChkSpecial( int *cntptr, int toynumber, int max, char *text )
 }
 
 //------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-
-//------------------------------------------------------------------------------
 // Object Details
 //------------------------------------------------------------------------------
 static OBJSIZE hotspot_size = {0,0,16,16};
 
 //------------------------------------------------------------------------------
-// Initialise the HotSpot object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the HotSpot object
 //------------------------------------------------------------------------------
 CHotSpotObj::CHotSpotObj()
 {
@@ -936,22 +867,14 @@ CHotSpotObj::CHotSpotObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the HotSpot object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the HotSpot object
 //------------------------------------------------------------------------------
 void CHotSpotObj::Draw( void )
 {
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CHotSpotObj::Do( void )
 {
@@ -966,18 +889,6 @@ void CHotSpotObj::Do( void )
 		DeleteObject();
 	}
 }
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-
 
 //------------------------------------------------------------------------------
 // Sucking in frames
@@ -1051,11 +962,7 @@ static int tom_explode[] =
 	};
 
 //------------------------------------------------------------------------------
-// Initialise the tomato object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the tomato object
 //------------------------------------------------------------------------------
 CTomatoObj::CTomatoObj()
 {
@@ -1064,11 +971,7 @@ CTomatoObj::CTomatoObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the tomato object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the tomato object
 //------------------------------------------------------------------------------
 void CTomatoObj::Draw( void )
 {
@@ -1078,11 +981,7 @@ void CTomatoObj::Draw( void )
 
 
 //------------------------------------------------------------------------------
-// Load the object graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the object graphics
 //------------------------------------------------------------------------------
 void CTomatoObj::LoadGfx( void )
 {
@@ -1090,11 +989,7 @@ void CTomatoObj::LoadGfx( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the object (object members)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
 void CTomatoObj::Reset( void )
 {
@@ -1113,11 +1008,7 @@ void CTomatoObj::Reset( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CTomatoObj::Do( void )
 {
@@ -1138,11 +1029,7 @@ void CTomatoObj::Do( void )
 }
 
 //------------------------------------------------------------------------------
-// Set the tomato to explode
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Set the tomato to explode
 //------------------------------------------------------------------------------
 void CTomatoObj::SetExplode( void )
 {
@@ -1153,19 +1040,6 @@ void CTomatoObj::SetExplode( void )
 	m_ExplodeFlag = 1;
 	SetAnim(tom_explode);
 }
-
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-
 
 //------------------------------------------------------------------------------
 // Sucking in frames
@@ -1226,11 +1100,7 @@ static OBJSIZE bowling_size = {2,4,28,27};
 static OBJMOVE bowling_move = {195,122,9*256,8*256,545,0x8*256,0x8*256};
 
 //------------------------------------------------------------------------------
-// Initialise the bowling object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the bowling object
 //------------------------------------------------------------------------------
 CBowlingObj::CBowlingObj()
 {
@@ -1238,11 +1108,7 @@ CBowlingObj::CBowlingObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the bowling object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the bowling object
 //------------------------------------------------------------------------------
 void CBowlingObj::Draw( void )
 {
@@ -1252,11 +1118,7 @@ void CBowlingObj::Draw( void )
 
 
 //------------------------------------------------------------------------------
-// Load the object graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the object graphics
 //------------------------------------------------------------------------------
 void CBowlingObj::LoadGfx( void )
 {
@@ -1264,11 +1126,7 @@ void CBowlingObj::LoadGfx( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the object (object members)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
 void CBowlingObj::Reset( void )
 {
@@ -1284,11 +1142,7 @@ void CBowlingObj::Reset( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CBowlingObj::Do( void )
 {
@@ -1298,30 +1152,13 @@ void CBowlingObj::Do( void )
 }
 
 //------------------------------------------------------------------------------
-// Set the bowling to explode
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Set the bowling to explode
 //------------------------------------------------------------------------------
 void CBowlingObj::SetExplode( void )
 {
 	m_SuckCmd = SUCK_NONE;
 	m_Flags = FLAG_SUCKABLE | FLAG_WEAPON;
 }
-
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-
 
 //------------------------------------------------------------------------------
 // Sucking in frames
@@ -1390,11 +1227,7 @@ static int wink_frames[NUM_WINKS] =
 	};
 
 //------------------------------------------------------------------------------
-// Initialise the block object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the block object
 //------------------------------------------------------------------------------
 CBlockObj::CBlockObj()
 {
@@ -1403,11 +1236,7 @@ CBlockObj::CBlockObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the block object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the block object
 //------------------------------------------------------------------------------
 void CBlockObj::Draw( void )
 {
@@ -1416,11 +1245,7 @@ void CBlockObj::Draw( void )
 }
 
 //------------------------------------------------------------------------------
-// Setup the object getting caught
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Setup the object getting caught
 //------------------------------------------------------------------------------
 void CBlockObj::SetupCaught( void )
 {
@@ -1428,13 +1253,8 @@ void CBlockObj::SetupCaught( void )
 	ClearBoxPos();
 }
 
-
 //------------------------------------------------------------------------------
-// Load the object graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the object graphics
 //------------------------------------------------------------------------------
 void CBlockObj::LoadGfx( void )
 {
@@ -1442,11 +1262,7 @@ void CBlockObj::LoadGfx( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the object (object members)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
 void CBlockObj::Reset( void )
 {
@@ -1464,11 +1280,7 @@ void CBlockObj::Reset( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CBlockObj::Do( void )
 {
@@ -1484,11 +1296,7 @@ void CBlockObj::Do( void )
 }
 
 //------------------------------------------------------------------------------
-// Set the collision box position
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Set the collision box position
 //------------------------------------------------------------------------------
 void CBlockObj::SetBoxPos( void )
 {
@@ -1504,12 +1312,9 @@ void CBlockObj::SetBoxPos( void )
 		m_pBox->type = 0;	// Hard Wall
 	}
 }
+
 //------------------------------------------------------------------------------
-// Clear the collision box position
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Clear the collision box position
 //------------------------------------------------------------------------------
 void CBlockObj::ClearBoxPos( void )
 {
@@ -1522,13 +1327,8 @@ void CBlockObj::ClearBoxPos( void )
 	}
 }
 
-
 //------------------------------------------------------------------------------
-// Do the block's animation
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the block's animation
 //------------------------------------------------------------------------------
 void CBlockObj::DoTheAnim( void )
 {
@@ -1547,31 +1347,13 @@ void CBlockObj::DoTheAnim( void )
 }
 
 //------------------------------------------------------------------------------
-// Set the block to explode
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Set the block to explode
 //------------------------------------------------------------------------------
 void CBlockObj::SetExplode( void )
 {
 	m_SuckCmd = SUCK_NONE;
 	m_Flags = FLAG_SUCKABLE;
 }
-
-
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-
 
 //------------------------------------------------------------------------------
 // Sucking in frames
@@ -1643,11 +1425,7 @@ static int anm_spring[] =
 	};
 
 //------------------------------------------------------------------------------
-// Initialise the spring object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the spring object
 //------------------------------------------------------------------------------
 CSpringObj::CSpringObj()
 {
@@ -1657,11 +1435,7 @@ CSpringObj::CSpringObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the spring object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the spring object
 //------------------------------------------------------------------------------
 void CSpringObj::Draw( void )
 {
@@ -1671,11 +1445,7 @@ void CSpringObj::Draw( void )
 
 
 //------------------------------------------------------------------------------
-// Load the object graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the object graphics
 //------------------------------------------------------------------------------
 void CSpringObj::LoadGfx( void )
 {
@@ -1683,11 +1453,7 @@ void CSpringObj::LoadGfx( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the object (object members)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
 void CSpringObj::Reset( void )
 {
@@ -1703,11 +1469,7 @@ void CSpringObj::Reset( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CSpringObj::Do( void )
 {
@@ -1725,11 +1487,7 @@ void CSpringObj::Do( void )
 }
 
 //------------------------------------------------------------------------------
-// Set the collision box position
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Set the collision box position
 //------------------------------------------------------------------------------
 void CSpringObj::SetBoxPos( void )
 {
@@ -1745,12 +1503,9 @@ void CSpringObj::SetBoxPos( void )
 		m_pBox->type = 1;	// Soft Wall
 	}
 }
+
 //------------------------------------------------------------------------------
-// Clear the collision box position
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Clear the collision box position
 //------------------------------------------------------------------------------
 void CSpringObj::ClearBoxPos( void )
 {
@@ -1764,11 +1519,7 @@ void CSpringObj::ClearBoxPos( void )
 }
 
 //------------------------------------------------------------------------------
-// Set the spring to explode
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Set the spring to explode
 //------------------------------------------------------------------------------
 void CSpringObj::SetExplode( void )
 {
@@ -1779,11 +1530,7 @@ void CSpringObj::SetExplode( void )
 }
 
 //------------------------------------------------------------------------------
-// Setup the object getting caught
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Setup the object getting caught
 //------------------------------------------------------------------------------
 void CSpringObj::SetupCaught( void )
 {
@@ -1791,13 +1538,8 @@ void CSpringObj::SetupCaught( void )
 	ClearBoxPos();
 }
 
-
 //------------------------------------------------------------------------------
-// Check to see if player will bounce on this object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Check to see if player will bounce on this object
 //------------------------------------------------------------------------------
 void CSpringObj::CheckBouncePlayer( void )
 {
@@ -1826,26 +1568,12 @@ void CSpringObj::CheckBouncePlayer( void )
 	}
 
 }
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
 
 static OBJSIZE skittle_size = {0,0,16,44};
 static OBJMOVE skittle_move = {195,122,9*256,8*256,545,0x8*256,0x8*256};
 
 //------------------------------------------------------------------------------
-// Initialise the skittle object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the skittle object
 //------------------------------------------------------------------------------
 CSkittleObj::CSkittleObj()
 {
@@ -1858,11 +1586,7 @@ CSkittleObj::CSkittleObj()
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CSkittleObj::Do( void )
 {
@@ -1883,26 +1607,11 @@ void CSkittleObj::Do( void )
 	}
 }
 
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-
 static OBJSIZE chickenegg_size = {4,9,23,29};
 static OBJMOVE chickenegg_move = {195,122,9*256,8*256,545,0x8*256,0x8*256};
 
 //------------------------------------------------------------------------------
-// Initialise the chickenegg object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the chickenegg object
 //------------------------------------------------------------------------------
 CChickenEggObj::CChickenEggObj()
 {
@@ -1915,11 +1624,7 @@ CChickenEggObj::CChickenEggObj()
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CChickenEggObj::Do( void )
 {
@@ -1941,25 +1646,10 @@ void CChickenEggObj::Do( void )
 
 }
 
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-
 static OBJSIZE carrydoor_size = {0,0,32,48};
 
 //------------------------------------------------------------------------------
-// Initialise the carrydoor object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the carrydoor object
 //------------------------------------------------------------------------------
 CCarryDoorObj::CCarryDoorObj()
 {
@@ -1970,24 +1660,15 @@ CCarryDoorObj::CCarryDoorObj()
 }
 
 //------------------------------------------------------------------------------
-// Load the carrydoor gfx
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the carrydoor gfx
 //------------------------------------------------------------------------------
 void CCarryDoorObj::LoadGfx(void)
 {
 	m_pGame->m_Sprites.LoadRange(SPR_DOOR_FULL, SPR_DOOR_OUTLINE );
 }
 
-
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CCarryDoorObj::Do( void )
 {
@@ -2020,26 +1701,10 @@ void CCarryDoorObj::Do( void )
 	}
 }
 
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-
 static OBJSIZE bigcheese_size = {0,0,48,22};
 
 //------------------------------------------------------------------------------
-// Initialise the bigcheese object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the bigcheese object
 //------------------------------------------------------------------------------
 CBigCheeseObj::CBigCheeseObj()
 {
@@ -2051,11 +1716,7 @@ CBigCheeseObj::CBigCheeseObj()
 }
 
 //------------------------------------------------------------------------------
-// Load the bigcheese gfx
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the bigcheese gfx
 //------------------------------------------------------------------------------
 void CBigCheeseObj::LoadGfx(void)
 {
@@ -2064,11 +1725,7 @@ void CBigCheeseObj::LoadGfx(void)
 }
 
 //------------------------------------------------------------------------------
-// Draw the goodie object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the goodie object
 //------------------------------------------------------------------------------
 void CBigCheeseObj::Draw( void )
 {
@@ -2080,11 +1737,7 @@ void CBigCheeseObj::Draw( void )
 }
 
 //------------------------------------------------------------------------------
-// Explode the big cheese into smaller cheeses
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Explode the big cheese into smaller cheeses
 //------------------------------------------------------------------------------
 void CBigCheeseObj::ExplodeCheese(void)
 {
@@ -2096,11 +1749,7 @@ void CBigCheeseObj::ExplodeCheese(void)
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CBigCheeseObj::Do( void )
 {
@@ -2129,25 +1778,10 @@ void CBigCheeseObj::Do( void )
 	}
 }
 
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-
 static OBJSIZE chest_size = {20,0,8,31};
 
 //------------------------------------------------------------------------------
-// Initialise the chest object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the chest object
 //------------------------------------------------------------------------------
 CChestObj::CChestObj()
 {
@@ -2161,11 +1795,7 @@ CChestObj::CChestObj()
 }
 
 //------------------------------------------------------------------------------
-// Load the chest gfx
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the chest gfx
 //------------------------------------------------------------------------------
 void CChestObj::LoadGfx(void)
 {
@@ -2185,11 +1815,7 @@ void CChestObj::LoadGfx(void)
 }
 
 //------------------------------------------------------------------------------
-// Draw the goodie object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the goodie object
 //------------------------------------------------------------------------------
 void CChestObj::Draw( void )
 {
@@ -2219,13 +1845,8 @@ void CChestObj::Draw( void )
 
 }
 
-
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CChestObj::Do( void )
 {
@@ -2247,11 +1868,7 @@ void CChestObj::Do( void )
 }
 
 //------------------------------------------------------------------------------
-// Release the toys from the chest
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Release the toys from the chest
 //------------------------------------------------------------------------------
 void CChestObj::ReleaseToys(void)
 {
@@ -2265,11 +1882,7 @@ void CChestObj::ReleaseToys(void)
 }
 
 //------------------------------------------------------------------------------
-// Check to see if a player has hit the chest
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Check to see if a player has hit the chest
 //------------------------------------------------------------------------------
 void CChestObj::CheckToOpen(void)
 {
@@ -2284,11 +1897,7 @@ void CChestObj::CheckToOpen(void)
 }
 
 //------------------------------------------------------------------------------
-// Check to see if the bonus level has finished
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Check to see if the bonus level has finished
 //------------------------------------------------------------------------------
 void CChestObj::CheckEndBonusLevel(void)
 {

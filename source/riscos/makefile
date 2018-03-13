@@ -3,7 +3,7 @@
 
 # Toolflags:
 CCflags = -c -depend !Depend -IC: -Otime -Ospace -throwback
-C++flags = -c -faf -depend !Depend -IC: -Otime -Ospace -throwback -DMETHANE_RISCOS
+C++flags = -c -faf -depend !Depend -IC: -Otime -Ospace -throwback -DMETHANE_RISCOS -DMETHANE_OLD_CPP_NEW -DMETHANE_OLD_CPP
 Linkflags = -aif -c++ -o $@
 ObjAsmflags = -throwback -NoCache -depend !Depend
 CMHGflags =

@@ -1,11 +1,10 @@
 Windows Installation Instructions
 =================================
 
-Optional: The MikMod library 3.1.10 (See http://www.mikmod.org)
+Optional: The MikMod library 3.1.11 (See http://mikmod.raphnet.net)
 
 This game should compile on:
-Borland C++ V5.02
-Microsoft Visual C++ V6.0 (Using Service Pack 2)
+Microsoft Visual Studio C++ V6.0 or V7.0
 
 Note: The source code files should be in the PC text format (CR,LF)
 
@@ -13,196 +12,55 @@ To Enable Cheat Mode: Modify registry key:
 [HKEY_CURRENT_USER\Software\Apache Software\(game name)\Options]
 "F1 Cheat"=dword:00000001
 
-BORLAND C++ V5.02
-=================
-Load Borland C++
-Choose Menu:File/new/project
-Enter in dialog:
- Project path and name: c:\work\gash\bcmethane (or anywhere you want)
- Target Type: Application.exe
- Platform: Win32
- Target Model: GUI
- Frameworks: Class Library, MFC V4.x
- Controls: (Nothing Selected)
- Libraries: (Nothing Selected)
- Static selected
-Click on Advanced:
- Choose - No source node
- Deselect : .rc, .def
-Click OK (to close advanced)
-Click OK (to close project dialog)
-On the project window (Project : c:\work\gash\bcmethane)
-Right click on bcmethane.exe and choose add node:
- Multiple select c:\work\methane\source\*.cpp and click open
-Right click on bcmethane.exe and choose add node:
- Multiple select c:\work\methane\source\data\*.cpp and click open
-Right click on bcmethane.exe and choose add node:
- Multiple select c:\work\methane\source\win32\mfc\*.cpp and click open
-Right click on bcmethane.exe and choose add node:
- Multiple select c:\work\methane\source\win32\mfc\*.rc and click open
-Click on menu: Options/Project to open the project options dialog
- Under Directories: Source Directories, use:
-   c:\bc5\include;c:\bc5\include\mfc;c:\work\methane\source;c:\work\methane\source\win32\mfc
- Under 32 Bit Compiler/Processor: Use
-   Pentium, double word 4 byte
- Under Compiler/Defines Add:
-   METHANE_OLD_CPP;METHANE_OLD_CPP_NEW
-Click OK to return to the project
-Click on menu: Project/Make All
-This will create: c:\work\gash\bcmethane.exe
-
-BORLAND C++ V5.02 - With Sound
-==============================
-(In addition to without sound)
-For Sound: Get LibMikMod (minimum 3.1.10 beta 2)
-First obtain an updated mmsystem.h and dsound.h and put it into
-c:\bc5\include (try the Microsoft web site)
-
-Start Borland C++
-
-Choose Menu:File/new/project
-Enter in dialog:
- Project path and name: c:\work\bcmikmod\bcmikmod
- Target Type: Static library for exe
- Platform: Win32
- Target Model: GUI
- Frameworks: NoneClass Library, MFC V4.x
- Controls: (Nothing Selected)
- Libraries: (Nothing Selected)
- Static selected
- Multithreaded selected
-Click OK (to close project dialog)
-On the project window 
-Right click on bcmikmod.exe and choose add node:
- c:\work\mikmod\mmio\*.c
- c:\work\mikmod\playercode\*.c
- c:\work\mikmod\loaders\*.c
- c:\work\mikmod\drivers\
-   "Drv_nos.c" "Drv_ds.c" "Drv_raw.c" 
-   "drv_stdout.c" "Drv_wav.c"
-Use explorer to copy
-  C:\WORK\mikmod\WIN32\mikmod_build.h
-  to c:\work\mikmod\include\mikmod_build.h
-  and to c:\work\mikmod\include\mikmod.h (yes, this is a different filename!)
-Click on menu: Options/Project to open the project options dialog
- Under Directories: Source Directories, use:
-   c:\bc5\include;c:\work\mikmod\include
- Under 32 Bit Compiler/Processor: Use
-   Pentium, double word 4 byte
- Under Compiler/Defines Add:
-   WIN32;DRV_DS;HAVE_FCNTL_H;HAVE_MALLOC_H;DHAVE_LIMITS_H
- Under Messages: Set maximum warnings to 255
-Click OK to return to the project
-Click on menu: Project/Make All
-When the errors are displayed in mmsystem.h mofify as follows:
- Add a variable on the end of their undefined structure
-
-... (Futher Instructions Not Written)
-
-Go back to bcmethane.ide
-Right click on bcmikmod.exe and choose add node:
-  c:\work\methane\source\mikmod\*.cpp
-  C:\WORK\bcmikmod\bcmikmod.lib
-Click on menu: Options/Project to open the project options dialog
-  Under Compiler/Defines Add: METHANE_MIKMOD
-  Under Directories: Source Directories, add:
-    c:\work\mikmod\include;c:\work\methane\source\mikmod
-
-Choose Menu:Project/Build All (To remove the old object files)
-
-And that is it.
-
-
-MICROSOFT VISUAL C++ V6.0
+MICROSOFT VISUAL C++
 =========================
-Start Visual C++
-Choose Menu: File/New (The new dialog opens)
- Click on Projects and click on Win32 Application
- Project Name: vcmethane
- Location: c:\work\vcmethane\vcmethane
- Platforms = Win32
-Click okay and choose and empty project and click on finish
-Click okay (to create the empty project)
-At the bottom left left of the screen there is "Classview, FileView"
-Click FileView
-Expand "vcmethane files"
-Right mouse button on source files and choose "Add files to folder"
- (Choose files of type C++ Source Files *.cpp, else the headers will also be shown)
- (Note - you may need to expand the "source files" after each action)
- Multiple select c:\work\methane\source\*.cpp and click open
-Right mouse button on source files and choose "Add files to folder"
- Multiple select c:\work\methane\source\data\*.cpp and click okan
-Right mouse button on source files and choose "Add files to folder"
- Multiple select c:\work\methane\source\win32\mfc\*.cpp and click open
-Right mouse button on "resource files" and choose "Add files to folder"
- Multiple select c:\work\methane\source\win32\mfc\*.rc and click open
-[At this point, you may want to choose: Menu - Build/"Set Active Configuration"
- to change from the Debug version to the Release version]
-Right mouse button on vcmethane files and choose settings
- General: Use MFC in static library
- C++: General: Add to project opens /Zm1000 (as the graphic source code is very large)
- C++: Code Generation : Processor = Pentium. Use run-time library = Multithreaded (debug)
-      Struct alignment = 8 bytes
- On C++ : General add to Preprocessor definitions:   METHANE_OLD_CPP METHANE_OLD_CPP_NEW
+VC7.0: Double click on source\win32\mfc\methane.sln to open the project and compile "Debug" or "Release"
+VC6.0: Double click on source\win32\mfc\methane.dsw to open the project and compile "Debug" or "Release"
 
-Click okay
-Choose Menu: Tools/options and click on Directories
- Add c:\work\methane\source
- Add c:\work\methane\source\win32\mfc
-Click okay
-Choose Menu: Build/Rebuild All
-** Note, when I do this I get a link error, if this happens:
-   Right mouse on "vcmethane files" choose settings
-   Under general, Use MFC in a shared DLL
-   Click okay. Try running the program (numerious errors occur)
-   Change MFC in a static DLL and try running the program again.
-   I think this may be a bug?
-This should create C:\WORK\vcmethane\vcmethane\Debug\vcmethane.exe
-
-MICROSOFT VISUAL C++ V6.0 - With Sound
-======================================
-(In addition to without sound)
-For Sound: Get LibMikMod (minimum 3.1.10 beta 2)
+MICROSOFT VISUAL C++ - With Sound (Instructions for VC7.0)
+==========================================================
+For Sound: Get LibMikMod (minimum 3.1.11)
 Start Visual C++
-Choose Menu: File/New
- Choose (under projects) Win32
- Project Name: vcmikmod
- Location: c:\work\vcmikmod\vcmikmod
+Choose Menu: File/New/Project
+ Choose (under Visual C++ projects) Win32 Project
+ Project Name: libmikmod
+ Location: \libmikmod-3.1.11\win32
  Platform = Win32
 Click okay
-Keep options de-selected
-Click Finish and OK to create the project
-Under fileview, expand "vcmikmod files"
-Add source files: (as before) (Remeber to keep "source files" expanded)
- c:\work\mikmod\mmio\*.c
- c:\work\mikmod\playercode\*.c
- c:\work\mikmod\loaders\*.c
- c:\work\mikmod\drivers\
+Select Application Settings --> Static library
+Select Application Settings --> MFC
+Deselect all other Application Settings.
+
+Click Finishto create the project
+Under solution fileview, add source files
+ \libmikmod-3.1.11\mmio\*.c
+ \libmikmod-3.1.11\playercode\*.c
+ \libmikmod-3.1.11\loaders\*.c
+ \libmikmod-3.1.11\drivers\
    "Drv_nos.c" "Drv_ds.c" "Drv_raw.c" 
-   "drv_stdout.c" "Drv_wav.c"
-Right mouse on vcmikmod files and choose settings
- C++: Code Generation : Processor = Pentium. Use run-time library = Multithreaded (debug)
-      Struct alignment = 8 bytes
-Add to the project opions
-  /DDRV_DS /DHAVE_FCNTL_H /DHAVE_MALLOC_H /DHAVE_LIMITS_H
-Click okay
-Choose Menu: Tools/options and click on Directories
- Add c:\work\mikmod\include
+   "drv_stdout.c" "Drv_wav.c" "Drv_win.c"
+Modify libmikmod properties (On both debug and release)
+Add to the project options (C/C++/Proprocessor/Proprocessor Definitions)
+  DRV_DS;HAVE_FCNTL_H;HAVE_MALLOC_H;HAVE_LIMITS_H
+Add to the project options (C/C++/General/Additional Include Directories)
+ Add \libmikmod-3.1.11\include
+Modify  \libmikmod-3.1.11\win32\mikmod_build.h at line 52 (after #endif)
+ #undef MIKMODAPI
+ #define MIKMODAPI
+ #under _mm_malloc
+ #under _mm_cmalloc
+ #under _mm_free
+
 Use explorer to copy
-  C:\WORK\mikmod\WIN32\mikmod_build.h
-  to c:\work\mikmod\include\mikmod_build.h
-  and to c:\work\mikmod\include\mikmod.h (yes, this is a different filename!)
+  \libmikmod-3.1.11\win32\mikmod_build.h
+  to \libmikmod-3.1.11\include\mikmod_build.h
+  and to \libmikmod-3.1.11\include\mikmod.h (yes, this is a different filename!)
 
-Choose Menu: Build/Rebuild All
+Build both the debug and release version
 
-Go back to vcmethane.dsw
-Right mouse on "vcmethane files" "source files" and add files
-  Add c:\work\methane\source\mikmod\*.cpp
-Right mouse on "vcmethane files" and choose settings
-  On C++ : General add to Preprocessor definitions: METHANE_MIKMOD
-  On Link : General add to Object/Library modules:
-    C:\WORK\vcmikmod\vcmikmod\Debug\vcmikmod.lib dsound.lib
-Choose Menu: Build/Rebuild All
+Type: copy \libmikmod-3.1.11\win32\libmikmod\debug\mikmod.lib \methane\source\win32\mfc\libmikmodD.lib
+Type: copy \libmikmod-3.1.11\win32\libmikmod\release\mikmod.lib \methane\source\win32\mfc\libmikmodR.lib
+Double click on \methane\source\win32\mfc\methane.sln to open the project and compile "DebugSound" or "ReleaseSound"
 
-And that is it.
+Enjoy!
 

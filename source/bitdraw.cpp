@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -19,11 +19,7 @@
 #include "gfxdef.h"
 
 //------------------------------------------------------------------------------
-// Constructor
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Constructor
 //------------------------------------------------------------------------------
 CBitmapDraw::CBitmapDraw()
 {
@@ -31,11 +27,7 @@ CBitmapDraw::CBitmapDraw()
 }
 
 //------------------------------------------------------------------------------
-// Destructor
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Destructor
 //------------------------------------------------------------------------------
 CBitmapDraw::~CBitmapDraw()
 {
@@ -44,11 +36,11 @@ CBitmapDraw::~CBitmapDraw()
 
 
 //------------------------------------------------------------------------------
-// Load a graphic
-// On Entry:
-// 	rid = resource id
-// On Exit:
-// 	0 = okay, else error occured
+//! \brief Load a graphic
+//!
+//! 	\param rid = resource id
+//!
+//! 	\return 0 = okay, else error occured
 //------------------------------------------------------------------------------
 int CBitmapDraw::Load(int rid)
 {
@@ -95,11 +87,7 @@ int CBitmapDraw::Load(int rid)
 }
 
 //------------------------------------------------------------------------------
-// UnLoad a graphic
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief UnLoad a graphic
 //------------------------------------------------------------------------------
 void CBitmapDraw::UnLoad(void)
 {
@@ -107,12 +95,11 @@ void CBitmapDraw::UnLoad(void)
 }
 
 //------------------------------------------------------------------------------
-// Draw a bitmap onto the screen 
-// On Entry:
-// 	dest = the screen address to draw to
-//		xpos,ypos = The position to draw to
-// On Exit:
-// 	Not Used
+//! \brief Draw a bitmap onto the screen 
+//!
+//! 	\param dest = the screen address to draw to
+//!	\param xpos = The x position to draw to
+//!	\param ypos = The y position to draw to
 //------------------------------------------------------------------------------
 void CBitmapDraw::Draw(char *dest, int xpos, int ypos )
 {
@@ -144,12 +131,11 @@ void CBitmapDraw::Draw(char *dest, int xpos, int ypos )
 }
 
 //------------------------------------------------------------------------------
-// Draw a bitmap onto the screen with an alternative colour (different colour bank)
-// On Entry:
-// 	dest = the screen address to draw to
-//		xpos,ypos = The position to draw to
-// On Exit:
-// 	Not Used
+//! \brief Draw a bitmap onto the screen with an alternative colour (different colour bank)
+//!
+//! 	\param dest = the screen address to draw to
+//!	\param xpos = The x position to draw to
+//!	\param ypos = The y position to draw to
 //------------------------------------------------------------------------------
 void CBitmapDraw::DrawColour(char *dest, int xpos, int ypos )
 {
@@ -182,12 +168,11 @@ void CBitmapDraw::DrawColour(char *dest, int xpos, int ypos )
 
 
 //------------------------------------------------------------------------------
-// Draw a bitmap onto the screen - WHITE
-// On Entry:
-// 	dest = the screen address to draw to
-//		xpos,ypos = The position to draw to
-// On Exit:
-// 	Not Used
+//! \brief Draw a bitmap onto the screen - WHITE
+//!
+//! 	\param dest = the screen address to draw to
+//!	\param xpos = The x position to draw to
+//!	\param ypos = The y position to draw to
 //------------------------------------------------------------------------------
 void CBitmapDraw::DrawWhite(char *dest, int xpos, int ypos )
 {
@@ -220,13 +205,12 @@ void CBitmapDraw::DrawWhite(char *dest, int xpos, int ypos )
 
 
 //------------------------------------------------------------------------------
-// Draw a 16x16 section of a bitmap onto the screen
-// Warning - NO validation is used
-// On Entry:
-// 	dest = the screen address to draw to
-//		block_offset = the block id to draw
-// On Exit:
-// 	Not Used
+//! \brief Draw a 16x16 section of a bitmap onto the screen
+//!
+//! Warning - NO validation is used
+//!
+//! 	\param dest = the screen address to draw to
+//!	\param block_offset = the block id to draw
 //------------------------------------------------------------------------------
 void CBitmapDraw::Draw16( char *dest, int block_offset )
 {
@@ -256,14 +240,15 @@ void CBitmapDraw::Draw16( char *dest, int block_offset )
 }
 
 //------------------------------------------------------------------------------
-// Calculate the clipping values when drawing a bitmap (Private Function)
-// On Entry:
-// 	xpos, ypos = Draw positions
-//		width,height = Where to write the width and height
-//		xmod = X source modulo
-// On Exit:
-// 	The source bitmap
-//		0 = Do not draw
+//! \brief Calculate the clipping values when drawing a bitmap (Private Function)
+//!
+//! 	\param xpos = X Draw position
+//! 	\param ypos = Y Draw position
+//!	\param width = Where to write the width
+//!	\param height = Where to write the height
+//!	\param xmod = X source modulo
+//!
+//! 	\return The source bitmap. 0 = Do not draw
 //------------------------------------------------------------------------------
 char *CBitmapDraw::CalcClip( int &xpos, int &ypos, int &width, int &height, int &xmod )
 {

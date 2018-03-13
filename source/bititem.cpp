@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -21,12 +21,9 @@
 #include "game.h"
 
 //------------------------------------------------------------------------------
-// Setup the bitmap V2
-// WARNING - YOU MUST SET UP THE m_pGame POINTER BEFORE USING ANY FUNCTIONS
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Setup the bitmap V2
+//!
+//! WARNING - YOU MUST SET UP THE m_pGame POINTER BEFORE USING ANY FUNCTIONS
 //------------------------------------------------------------------------------
 CBitmapItem::CBitmapItem()
 {
@@ -35,11 +32,7 @@ CBitmapItem::CBitmapItem()
 }
 
 //------------------------------------------------------------------------------
-// Destroy the bitmap
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Destroy the bitmap
 //------------------------------------------------------------------------------
 CBitmapItem::~CBitmapItem()
 {
@@ -51,11 +44,7 @@ CBitmapItem::~CBitmapItem()
 }
 
 //------------------------------------------------------------------------------
-// Init the bitmap item (called from the constructor)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Init the bitmap item (called from the constructor)
 //------------------------------------------------------------------------------
 void CBitmapItem::Init(void)
 {
@@ -64,11 +53,9 @@ void CBitmapItem::Init(void)
 
 }
 //------------------------------------------------------------------------------
-// Setup the bitmap 
-// On Entry:
-// 	gptr = The game pointer
-// On Exit:
-// 	Not Used
+//! \brief Setup the bitmap 
+//!
+//! 	\param gptr = The game pointer
 //------------------------------------------------------------------------------
 CBitmapItem::CBitmapItem( CGame *gptr )
 {
@@ -76,14 +63,12 @@ CBitmapItem::CBitmapItem( CGame *gptr )
 	Init();
 }
 
-
 //------------------------------------------------------------------------------
-// Draw a bitmap 
-// On Entry:
-//		xpos,ypos = Draw positions (offsets will be added to this)
-//		flags = (GFX_xxx flags) (Default = 0)
-// On Exit:
-// 	Not Used
+//! \brief Draw a bitmap 
+//!
+//!	\param xpos = X Draw position (offsets will be added to this)
+//!	\param ypos = Y Draw position (offsets will be added to this)
+//!	\param flags = (GFX_xxx flags) (Default = 0)
 //------------------------------------------------------------------------------
 void CBitmapItem::Draw(int xpos, int ypos, int flags )
 {
@@ -102,11 +87,9 @@ void CBitmapItem::Draw(int xpos, int ypos, int flags )
 }
 
 //------------------------------------------------------------------------------
-// Load a sprite
-// On Entry:
-// 	nIdResource = Resource ID
-// On Exit:
-// 	Not Used
+//! \brief Load a sprite
+//!
+//! 	\param nIdResource = Resource ID
 //------------------------------------------------------------------------------
 void CBitmapItem::Load(int nIdResource)
 {
@@ -128,12 +111,11 @@ void CBitmapItem::Load(int nIdResource)
 }
 
 //------------------------------------------------------------------------------
-// Draw a bitmap (Private) - without wrapping
-// On Entry:
-// 	xpos,ypos = sprite positions
-//		flags = (GFX_xxx flags)
-// On Exit:
-// 	Not Used
+//! \brief Draw a bitmap (Private) - without wrapping
+//!
+//! 	\param xpos = X sprite position
+//! 	\param ypos = Y sprite position
+//!	\param flags = (GFX_xxx flags)
 //------------------------------------------------------------------------------
 void CBitmapItem::DrawIt(int xpos, int ypos, int flags)
 {
@@ -152,13 +134,11 @@ void CBitmapItem::DrawIt(int xpos, int ypos, int flags)
 }
 
 //------------------------------------------------------------------------------
-// Draw a bitmap (Private)- so the sprite can displayed on side of the
-//	 screen and if clipped, also on the other side
-// On Entry:
-// 	xpos,ypos = sprite positions
-//		flags = (GFX_xxx)
-// On Exit:
-// 	Not Used
+//! \brief Draw a bitmap (Private)- so the sprite can displayed on side of the screen and if clipped, also on the other side
+//!
+//! 	\param xpos = X sprite position
+//! 	\param ypos = Y sprite position
+//!	\param flags = (GFX_xxx)
 //------------------------------------------------------------------------------
 void CBitmapItem::DrawWrap(int xpos, int ypos, int flags)
 {
@@ -189,6 +169,5 @@ void CBitmapItem::DrawWrap(int xpos, int ypos, int flags)
 		}
 	}
 	DrawIt( xpos, ypos, flags );
-
 }
 

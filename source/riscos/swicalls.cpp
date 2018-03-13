@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Project Email: rombust@postmaster.co.uk                                 *
  *                                                                         *
  ***************************************************************************/
@@ -58,12 +58,10 @@ static int KeyRepRate = 32;
 char SMB_Keybank_Buffer[SMB_KB_MAX+1];
 
 //------------------------------------------------------------------------------
-// Display a bad error
-// On Entry:
-// 	txt = The text
-//	num = The number
-// On Exit:
-// 	Not Used
+//! \brief Display a bad error
+//!
+//! 	\param txt = The text
+//!	\param num = The number
 //------------------------------------------------------------------------------
 void smb_vgfx_baderror(char *txt, int num)
 {
@@ -74,12 +72,11 @@ void smb_vgfx_baderror(char *txt, int num)
 }
 
 //------------------------------------------------------------------------------
-// Display a swi error
-// On Entry:
-// 	eptr = The swi error (0 = Ignore)
-// On Exit:
-// 	Not Used
-// Does not exit if eptr = 0;
+//! \brief Display a swi error
+//!
+//! Does not exit if eptr is not 0;
+//!
+//! 	\param eptr = The swi error (0 = Ignore)
 //------------------------------------------------------------------------------
 void swi_check(_kernel_oserror *eptr)
 {
@@ -93,11 +90,7 @@ void swi_check(_kernel_oserror *eptr)
 }
 
 //------------------------------------------------------------------------------
-// Release the all signal handlers (Private Function)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Release the all signal handlers (Private Function)
 //------------------------------------------------------------------------------
 static void smb_snd_signal_release(void)
 {
@@ -129,11 +122,9 @@ static void smb_snd_signal_release(void)
 }
 
 //------------------------------------------------------------------------------
-// The Signal Handler (Private Function)
-// On Entry:
-// 	sig = The signal number
-// On Exit:
-// 	Not Used
+//! \brief The Signal Handler (Private Function)
+//!
+//! 	\param sig = The signal number
 //------------------------------------------------------------------------------
 static void smb_snd_signal(int sig)
 {
@@ -181,13 +172,10 @@ static void smb_snd_signal(int sig)
 }
 
 //------------------------------------------------------------------------------
-// Initialise the sound library
-// This function MUST be called before using any functions of this sound library
-// Note: smb_snd_library_close MUST be called at the end of the program
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the sound library
+//!
+//! This function MUST be called before using any functions of this sound library\n
+//! Note: smb_snd_library_close MUST be called at the end of the program
 //------------------------------------------------------------------------------
 void smb_snd_library_init(void)
 {
@@ -220,12 +208,9 @@ void smb_snd_library_init(void)
 }
 
 //------------------------------------------------------------------------------
-// Close the sound library
-// This function MUST be called at the end of the program
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Close the sound library
+//!
+//! This function MUST be called at the end of the program
 //------------------------------------------------------------------------------
 void smb_snd_library_close(void)
 {
@@ -239,7 +224,6 @@ void smb_snd_library_close(void)
 
 	if (QTM_Available)
 	{
-
 		_kernel_swi( SMB_QTM_Stop , &regs , &regs );			// Do command
 
 		regs.r[0] = 0;
@@ -249,11 +233,9 @@ void smb_snd_library_close(void)
 }
 
 //------------------------------------------------------------------------------
-// Play a module
-// On Entry:
-// 	mptr = The module
-// On Exit:
-// 	Not Used
+//! \brief Play a module
+//!
+//! 	\param mptr = The module
 //------------------------------------------------------------------------------
 void smb_snd_play_module(unsigned char *mptr)
 {
@@ -277,15 +259,13 @@ void smb_snd_play_module(unsigned char *mptr)
 }
 
 //------------------------------------------------------------------------------
-// Play a sample
-// On Entry:
-// 	sptr = The sample address (logarithmic sample)
-//	len = The sample length
-//	chan = Channel number (5,6,7 or 8)
-//	note = Note number
-//	volume : 0 - 64
-// On Exit:
-// 	Not Used
+//! \brief Play a sample
+//!
+//! 	\param sptr = The sample address (logarithmic sample)
+//!	\param len = The sample length
+//!	\param chan = Channel number (5,6,7 or 8)
+//!	\param note = Note number
+//!	\param volume = volume 0 - 64
 //------------------------------------------------------------------------------
 void smb_snd_play_sample(unsigned char *sptr, int len, int chan, int note, int volume)
 {
@@ -307,11 +287,11 @@ void smb_snd_play_sample(unsigned char *sptr, int len, int chan, int note, int v
 }
 
 //------------------------------------------------------------------------------
-// Read a key within a time limit (See PRM 1-870)
-// On entry:
-//	Time to wait for in centiseconds - max 32767
-// On exit:
-//	Charactor read. ( -1 = timeout )
+//! \brief Read a key within a time limit (See PRM 1-870)
+//!
+//!	\param Time to wait for in centiseconds - max 32767
+//!
+//!	\return Charactor read. ( -1 = timeout )
 //------------------------------------------------------------------------------
 int smb_readkey( int time )
 {
@@ -327,11 +307,9 @@ int smb_readkey( int time )
 }
 
 //------------------------------------------------------------------------------
-// Looks to see if a character is in the buffer (See PRM 1-168)
-// On entry:
-//	None
-// On exit:
-//	0 = No character in buffer. x = Preview of key in buffer (not taken out)
+//! \brief Looks to see if a character is in the buffer (See PRM 1-168)
+//!
+//!	\return 0 = No character in buffer. x = Preview of key in buffer (not taken out)
 //------------------------------------------------------------------------------
 int smb_getkeyready( void )
 {
@@ -351,13 +329,12 @@ int smb_getkeyready( void )
 }
 
 //------------------------------------------------------------------------------
-// Read a character from the input stream (See PRM 1-852)
-// Note: When reading 'ABCD' from the keyboard, the character may be in
-// upper or lower case ( use key = toupper(key) (in ctype.h) ) 
-// On entry:
-//	None
-// On exit:
-//	Charactor read
+//! \brief Read a character from the input stream (See PRM 1-852)
+//!
+//! Note: When reading 'ABCD' from the keyboard, the character may be in
+//! upper or lower case ( use key = toupper(key) (in ctype.h) ) 
+//!
+//!	\return Charactor read
 //------------------------------------------------------------------------------
 int smb_getkey( void )
 {
@@ -369,15 +346,11 @@ int smb_getkey( void )
 }
 
 //------------------------------------------------------------------------------
-// Sets the keyboard repeat off.
-// Call the function ONCE at the start of the game
-// On entry:
-//	Not Used
-// On exit:
-//	Not Used
-//	Global - KeyRepValue and KeyRepRate defined.
-//
-// This has been changed by PFJ to use OS_Byte 196 and 197 instead of 11
+//! \brief Sets the keyboard repeat off.
+//!
+//! Call the function ONCE at the start of the game\n
+//! Global - KeyRepValue and KeyRepRate defined.\n
+//! This has been changed by PFJ to use OS_Byte 196 and 197 instead of 11
 //------------------------------------------------------------------------------
 void smb_keyrep_off( void )
 {
@@ -410,12 +383,9 @@ void smb_keyrep_off( void )
 }
 
 //------------------------------------------------------------------------------
-// Sets the keyboard repeat on
-// On entry:
-//	Not Used
-// On exit:
-//	Not Used
-// This has been added by PFJ
+//! \brief Sets the keyboard repeat on
+//!
+//! This has been added by PFJ
 //------------------------------------------------------------------------------
 void smb_keyrep_on( void )
 {
@@ -431,11 +401,7 @@ void smb_keyrep_on( void )
 }
 
 //------------------------------------------------------------------------------
-// Set the text cursor off (See PRM 1-714)
-// On entry:
-//	None
-// On exit:
-//	None
+//! \brief Set the text cursor off (See PRM 1-714)
 //------------------------------------------------------------------------------
 void smb_cursor_off( void )
 {
@@ -445,13 +411,12 @@ void smb_cursor_off( void )
 
 
 //------------------------------------------------------------------------------
-// A very fast vdu call
-// On entry:
-//	vdu_code = VDU Code
-//	count = Number of vdu parameters in the call
-//	Use the global VDU_Buffer[48] to store the parameter
-// On exit:
-//	None
+//! \brief A very fast vdu call
+//!
+//! Use the global VDU_Buffer[48] to store the parameter
+//!
+//!	\param vdu_code = VDU Code
+//!	\param count = Number of vdu parameters in the call
 //------------------------------------------------------------------------------
 void smb_fastvdu( int vdu_code, int count )
 {
@@ -467,11 +432,7 @@ void smb_fastvdu( int vdu_code, int count )
 	}
 }
 //------------------------------------------------------------------------------
-// Clear the graphics window (see PRM 1-564)
-// On entry:
-//	None
-// On exit:
-//	None
+//! \brief Clear the graphics window (see PRM 1-564)
 //------------------------------------------------------------------------------
 void smb_clg( void )
 {
@@ -479,11 +440,7 @@ void smb_clg( void )
 }
 
 //------------------------------------------------------------------------------
-// Wait for vertical sync (call this AFTER choosing visual page) (see PRM 1-631)
-// On entry:
-//	None
-// On exit:
-//	None
+//! \brief Wait for vertical sync (call this AFTER choosing visual page) (see PRM 1-631)
 //------------------------------------------------------------------------------
 void smb_sync( void )
 {
@@ -491,11 +448,9 @@ void smb_sync( void )
 }
 
 //------------------------------------------------------------------------------
-// Activate a screen page (see PRM 1-639)
-// On entry:
-//	n = Page to activate (1 = first page)
-// On exit:
-//	None
+//! \brief Activate a screen page (see PRM 1-639)
+//!
+//!	\param n = Page to activate (1 = first page)
 //------------------------------------------------------------------------------
 void smb_setactivepage( int n )
 {
@@ -503,11 +458,9 @@ void smb_setactivepage( int n )
 }
 
 //------------------------------------------------------------------------------
-// Display a screen page (see PRM 1-641)
-// On entry:
-//	Page to display (1 = first page)
-// On exit:
-//	None
+//! \brief Display a screen page (see PRM 1-641)
+//!
+//!	\param Page to display (1 = first page)
 //------------------------------------------------------------------------------
 void smb_setvisualpage( int n )
 {
@@ -515,13 +468,12 @@ void smb_setvisualpage( int n )
 }
 
 //------------------------------------------------------------------------------
-// Set the graphics colour. (see PRM 1-566)
-// Note: This also clears the graphics mode to 'OVERwrite'
-// On entry:
-//	Colour to use	(0-127 = foreground colour : 128-255 = background colour)
-//		(except in 256 colour mode) (BACKGROUND, defined to aptgraph.h = 128)
-// On exit:
-//	None
+//! \brief Set the graphics colour. (see PRM 1-566)
+//!
+//! Note: This also clears the graphics mode to 'OVERwrite'
+//!
+//!	\param Colour to use	(0-127 = foreground colour : 128-255 = background colour).
+//!		(except in 256 colour mode) (BACKGROUND, defined to aptgraph.h = 128)
 //------------------------------------------------------------------------------
 void smb_setgraphcol( int colour )
 {
@@ -529,18 +481,19 @@ void smb_setgraphcol( int colour )
 	VDU_Buffer[1] = colour;					// set colour
 	smb_fastvdu( 18, 2 );					// Set the colour
 }
+
 //------------------------------------------------------------------------------
-// Set the screen specifier (See PRM 5-108 5-80)
-// On Entry:
-// 	width = screen width
-//	height = screen height
-//	bpp = pixel depth (2 = 16 colour - See PRM 5-80) 
-//	framerate = frame rate Hz (-1 = Highest available) (75Hz or 60Hz)
-//	xeig = X Eig Factor (0 = None, 1 = Normal)
-//	yeig = Y Eig Factor (0 = None, 1 = Normal)
-// On Exit:
-// 	Not Used
-// (Does not exit on an error)
+//! \brief Set the screen specifier (See PRM 5-108 5-80)
+//!
+//! (Does not exit on an error)
+//!
+//! 	\param width = screen width
+//!	\param height = screen height
+//!	\param bpp = pixel depth (2 = 16 colour - See PRM 5-80) 
+//!	\param framerate = frame rate Hz (-1 = Highest available) (75Hz or 60Hz)
+//!	\param xeig = X Eig Factor (0 = None, 1 = Normal)
+//!	\param yeig = Y Eig Factor (0 = None, 1 = Normal)
+//!
 //------------------------------------------------------------------------------
 void smb_setscreen(int width, int height, int bpp, int framerate, int xeig, int yeig)
 {
@@ -589,11 +542,7 @@ void smb_setscreen(int width, int height, int bpp, int framerate, int xeig, int 
 }
 
 //------------------------------------------------------------------------------
-// Set up the standard common image screen
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Set up the standard common image screen
 //------------------------------------------------------------------------------
 void smb_view_screen( void )
 {
@@ -603,11 +552,9 @@ void smb_view_screen( void )
 }
 
 //------------------------------------------------------------------------------
-// De-allocate a layer structure
-// On Entry:
-// 	lptr = The layer (Can be null)
-// On Exit:
-// 	Not Used
+//! \brief De-allocate a layer structure
+//!
+//! 	\param lptr = The layer (Can be null)
 //------------------------------------------------------------------------------
 void smb_vgfx_layer_free(LAYER *lptr)
 {
@@ -627,18 +574,20 @@ void smb_vgfx_layer_free(LAYER *lptr)
 		free(lptr);	// Deallocate the layer
 	}
 }
+
 //------------------------------------------------------------------------------
-// Create a new sprite layer
-// This function calls smb_vgfx_layer_alloc() and smb_vgfx_layer_realise()
-// (See also: Other smb_vgfx_layer_create functions)
-// On Entry:
-//	width = Pixel width of the image in pixels
-//	height = Image height
-//	depth = Layer depth (AV_xx_COLOUR)
-//	flags: SPRINFO_xxx flags (If the flag pairs are not set, the default flags will be used)
-// On Exit:
-// 	The Layer
-//	(Does not exit on error)
+//! \brief Create a new sprite layer
+//!
+//! This function calls smb_vgfx_layer_alloc() and smb_vgfx_layer_realise()\n
+//! (See also: Other smb_vgfx_layer_create functions)\n
+//! (Does not exit on error)
+//!
+//!	\param width = Pixel width of the image in pixels
+//!	\param height = Image height
+//!	\param depth = Layer depth (AV_xx_COLOUR)
+//!	\param flags: SPRINFO_xxx flags (If the flag pairs are not set, the default flags will be used)
+//!
+//! 	\return The Layer
 //------------------------------------------------------------------------------
 LAYER *smb_vgfx_layer_create_sprite(int width, int height, int depth, int flags)
 {
@@ -826,14 +775,14 @@ LAYER *smb_vgfx_layer_create_sprite(int width, int height, int depth, int flags)
 }
 
 //------------------------------------------------------------------------------
-// Draw a sprite layer to draw screen
-// This function is a wrapper for smb_put_at_sprite()
-// On Entry:
-//	lptr = The layer to use
-//	xpos, ypos = Where to draw to
-//	gcol = See smb_put_at_sprite() in AptGraph
-// On Exit:
-//	Not Used
+//! \brief Draw a sprite layer to draw screen
+//!
+//! This function is a wrapper for smb_put_at_sprite()
+//!
+//!	\param lptr = The layer to use
+//!	\param xpos = Where to draw to X
+//!	\param ypos = Where to draw to Y
+//!	\param gcol = See smb_put_at_sprite() in AptGraph
 //------------------------------------------------------------------------------
 void smb_vgfx_sprite_draw( LAYER *lptr, int xpos, int ypos, int gcol )
 {
@@ -841,14 +790,13 @@ void smb_vgfx_sprite_draw( LAYER *lptr, int xpos, int ypos, int gcol )
 }
 
 //------------------------------------------------------------------------------
-// Put a sprite at a coordinate (see PRM 1-785)
-// On entry:
-//	sprite_info = Address of the sprites structure
-//	sprite_index = The sprite number to draw (starting from 0)
-//	x,y = X,Y Coordinate
-//	gcol = The gcol plot action (see PRM 1-753) (found in aptgraph.h)
-// On exit:
-//	Not Used
+//! \brief Put a sprite at a coordinate (see PRM 1-785)
+//!
+//!	\param sprite_info = Address of the sprites structure
+//!	\param sprite_index = The sprite number to draw (starting from 0)
+//!	\param x = X Coordinate
+//!	\param y = Y Coordinate
+//!	\param gcol = The gcol plot action (see PRM 1-753) (found in aptgraph.h)
 //------------------------------------------------------------------------------
 void smb_put_at_sprite( Sprite_id *sprite_info, int sprite_index, int x, int y, int gcol )
 {
@@ -866,17 +814,18 @@ void smb_put_at_sprite( Sprite_id *sprite_info, int sprite_index, int x, int y, 
 }
 
 //------------------------------------------------------------------------------
-// Allocate a new layer structure
-// (If the image pixel width is a multiple of words, the LAYER_WORD_ALIGNED flag is set)
-// (Note: The adress of the actual bitmap or sprite is NOT set - use the smb_vgfx_layer_create functions)
-// On Entry:
-//	width = Pixel width of the image inside the bitmap in pixels
-// 	true_word_width = Actual bitmap width in words (0 = Automatically convert the width into words)
-//	height = Layer image height
-//	depth = Layer depth (AV_16_COLOUR or AV_256_COLOUR)
-// On Exit:
-// 	The Layer (The line_table is cleared to zero)
-//	(Does not exit on error)
+//! \brief Allocate a new layer structure
+//!
+//! (If the image pixel width is a multiple of words, the LAYER_WORD_ALIGNED flag is set)\n
+//! (Note: The adress of the actual bitmap or sprite is NOT set - use the smb_vgfx_layer_create() functions)\n
+//! (Does not exit on error)
+//!
+//!	\param width = Pixel width of the image inside the bitmap in pixels
+//! 	\param true_word_width = Actual bitmap width in words (0 = Automatically convert the width into words)
+//!	\param height = Layer image height
+//!	\param depth = Layer depth (AV_16_COLOUR or AV_256_COLOUR)
+//!
+//! 	\return The Layer (The line_table is cleared to zero)
 //------------------------------------------------------------------------------
 LAYER *smb_vgfx_layer_alloc(int width, int true_word_width, int height, int depth)
 {
@@ -998,12 +947,9 @@ LAYER *smb_vgfx_layer_alloc(int width, int true_word_width, int height, int dept
 }
 
 //------------------------------------------------------------------------------
-// Restore the text and graphic window the their default state. (See PRM 1-610)
-// (Ie. Both Full Screen, Origins at 0,0)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Restore the text and graphic window the their default state. (See PRM 1-610)
+//!
+//! (Ie. Both Full Screen, Origins at 0,0)
 //------------------------------------------------------------------------------
 void smb_windrestore( void )
 {
@@ -1011,13 +957,12 @@ void smb_windrestore( void )
 }
 
 //------------------------------------------------------------------------------
-// Calculate the line table in the layer
-// (The line table pointer MUST exist)
-// On Entry:
-// 	lptr = The layer
-// On Exit:
-// 	Not Used
-//	(Does not exit on error)
+//! \brief Calculate the line table in the layer
+//!
+//! (The line table pointer MUST exist)\n
+//! (Does not exit on error)
+//!
+//! 	\return lptr = The layer
 //------------------------------------------------------------------------------
 void smb_vgfx_layer_realise(LAYER *lptr)
 {
@@ -1047,15 +992,13 @@ void smb_vgfx_layer_realise(LAYER *lptr)
 }
 
 //------------------------------------------------------------------------------
-// Set a palette entry (see PRM 1-679, 1-568)
-// On entry:
-//	logical colour (actual palette entry)
-//	mode (See PRM 1-568) (16 = Fully change colour)
-//	Red (0-255)
-//	Green (0-255)
-//	Blue (0-255)
-// On exit:
-//	None
+//! \brief Set a palette entry (see PRM 1-679, 1-568)
+//!
+//!	\param l = logical colour (actual palette entry)
+//!	\param p = mode (See PRM 1-568) (16 = Fully change colour)
+//!	\param r = Red (0-255)
+//!	\param g = Green (0-255)
+//!	\param b = Blue (0-255)
 //------------------------------------------------------------------------------
 void smb_setpalette( int l , int p ,  int r ,  int g ,  int b )
 {
@@ -1074,11 +1017,11 @@ void smb_setpalette( int l , int p ,  int r ,  int g ,  int b )
 
 
 //------------------------------------------------------------------------------
-// Scan for a key-presses (Private function) (PRM 1-863)
-// On Entry:
-//	code = The internel key code
-// On Exit:
-// 	0 = Not pressed
+//! \brief Scan for a key-presses (Private function) (PRM 1-863)
+//!
+//!	\param code = The internel key code
+//!
+//! 	\return 0 = Not pressed
 //------------------------------------------------------------------------------
 static int check_key(int code)
 {
@@ -1089,12 +1032,27 @@ static int check_key(int code)
 	_kernel_swi( OS_Byte, &regs, &regs );
 	return regs.r[1];
 }
+
 //------------------------------------------------------------------------------
-// Scan for the CTRL key (Private function) (PRM 1-883)
-// On Entry:
-//	Not Used
-// On Exit:
-// 	0 = Not pressed
+//! \brief Scan for the SHIFT key (Private function) (PRM 1-883)
+//!
+//! 	\return 0 = Not pressed
+//------------------------------------------------------------------------------
+static int check_shift(void)
+{
+	_kernel_swi_regs regs;
+
+	regs.r[0] = 202;		// Keyboard scan PRM 1-883
+	regs.r[1] = 0;
+	regs.r[2] = 255;
+	_kernel_swi( OS_Byte, &regs, &regs );
+	return (regs.r[1] & BIT3);
+}
+
+//------------------------------------------------------------------------------
+//! \brief Scan for the CTRL key (Private function) (PRM 1-883)
+//!
+//! 	\return 0 = Not pressed
 //------------------------------------------------------------------------------
 static int check_ctrl(void)
 {
@@ -1108,12 +1066,12 @@ static int check_ctrl(void)
 }
 
 //------------------------------------------------------------------------------
-// Process for a key-presses (Private function)
-// On Entry:
-//	code = The SMB_KB_xx key code
-//	flag : 0 = Key Not Pressed
-// On Exit:
-// 	Not Used
+//! \brief Process for a key-presses (Private function)
+//!
+//!	\param code = The SMB_KB_xx key code
+//!	\param flag = 0 = Key Not Pressed
+//!
+//!
 //------------------------------------------------------------------------------
 static void process_key(int code, int flag)
 {
@@ -1127,12 +1085,9 @@ static void process_key(int code, int flag)
 }
 
 //------------------------------------------------------------------------------
-// Scan for new key-presses
-// Call smb_keybank_flush before using this function
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Scan for new key-presses
+//!
+//! Call smb_keybank_flush() before using this function
 //------------------------------------------------------------------------------
 void smb_keybank_scan(void)
 {
@@ -1143,14 +1098,17 @@ void smb_keybank_scan(void)
 	process_key( SMB_KB_RIGHT, check_key(121) );
 	process_key( SMB_KB_UP, check_key(57) );
 	process_key( SMB_KB_DOWN, check_key(41) );
+
+	process_key( SMB_KB_SHIFT, check_shift() );
+	process_key( SMB_KB_A, check_key(65) );
+	process_key( SMB_KB_D, check_key(50) );
+	process_key( SMB_KB_W, check_key(33) );
+	process_key( SMB_KB_S, check_key(81) );
+
 }
 
 //------------------------------------------------------------------------------
-// Flush the keyboard bank buffer
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Flush the keyboard bank buffer
 //------------------------------------------------------------------------------
 void smb_keybank_flush(void)
 {
@@ -1158,14 +1116,15 @@ void smb_keybank_flush(void)
 }
 
 //------------------------------------------------------------------------------
-// Get the value of the centisecond timer (See PRM 1-409)
-// It is save to assume that this value won't overflow (unless the computer is left
-//	on for longer than a year!)
-// On Entry:
-// 	compval = A Value that can be added onto the system timer value.
-//			Ie. (0 = Time Now) (100 = Time next second)
-// On Exit:
-// 	System Time + compval
+//! \brief Get the value of the centisecond timer (See PRM 1-409)
+//!
+//! It is save to assume that this value won't overflow (unless the computer is left
+//!	on for longer than a year!)
+//!
+//! 	\param compval = A Value that can be added onto the system timer value.
+//!		Ie. (0 = Time Now) (100 = Time next second)
+//!
+//! 	\return System Time + compval
 //------------------------------------------------------------------------------
 unsigned int smb_gettime( unsigned int compval )
 {
@@ -1179,12 +1138,10 @@ unsigned int smb_gettime( unsigned int compval )
 }
 
 //------------------------------------------------------------------------------
-// Set the stereo position of a channel
-// On Entry:
-// 	chan = Channel number (1 to 8)
-//	value = Stereo position (-127 = Left, 128 = Right)
-// On Exit:
-// 	Not Used
+//! \brief Set the stereo position of a channel
+//!
+//! 	\param chan = Channel number (1 to 8)
+//!	\param value = Stereo position (-127 = Left, 128 = Right)
 //------------------------------------------------------------------------------
 void smb_snd_stereo(int chan, int value)
 {

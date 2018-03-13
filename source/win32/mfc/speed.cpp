@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Prgram Email: rombust@postmaster.co.uk                                  *
  *                                                                         *
  ***************************************************************************/
@@ -26,11 +26,7 @@ BEGIN_MESSAGE_MAP (CSpeedDialog, CDialog)
 END_MESSAGE_MAP ()
 
 //------------------------------------------------------------------------------
-// Initialise the dialog 
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the dialog 
 //------------------------------------------------------------------------------
 BOOL CSpeedDialog::OnInitDialog()
 {
@@ -40,11 +36,9 @@ BOOL CSpeedDialog::OnInitDialog()
 }
 
 //------------------------------------------------------------------------------
-// Exchange the data
-// On Entry:
-//		pDX
-// On Exit:
-// 	Not Used
+//! \brief Exchange the data
+//!
+//!	\param pDX = pDX
 //------------------------------------------------------------------------------
 void CSpeedDialog::DoDataExchange(CDataExchange *pDX)
 {

@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -22,6 +22,7 @@
 #include <ClanLib/core.h>
 #include <ClanLib/application.h>
 #include <ClanLib/display.h>
+#include <ClanLib/gl.h>
 
 #include "global.h"
 
@@ -48,62 +49,71 @@ public:
 	{
 		return "Super Methane Brothers";
 	}
-	void on_button_press(CL_InputDevice *device, const CL_Key &key)
+	void on_button_press(const CL_InputEvent &key)
 	{
 		LastKey = key.id;
 	}
+        void on_window_close()
+        {
+                LastKey = CL_KEY_ESCAPE;
+        }
+
 	virtual int main(int argc, char **argv)
 	{
+		// Create a console window for text-output if not available
+		CL_ConsoleWindow console("Console");
+		console.redirect_stdio();
 		try
 		{
-			// Create a console window for text-output if not available
-			CL_ConsoleWindow console("Console");
-			console.redirect_stdio();
+			std::cout << "Super Methane Brothers\n";  
+			std::cout << "Licensed using the GNU General Public License Version 2\n";  
+			std::cout << "http://methane.sourceforge.net\n";  
+			std::cout << "Instructions:\n\n";
+			std::cout << "Press Fire to start. Use keyboard to enter player names.\n";
+			std::cout << "Press Return to start game. Tap Fire to fire gas from the gun.\n";
+			std::cout << "Hold Fire to suck a trapped baddie into the gun.\n";
+			std::cout << "Release Fire to throw the trapped baddie from the gun.\n";
+			std::cout << "Throw baddies at the wall to destroy them.\n\n";
+			std::cout << "Keys:\n";  
+			std::cout << "Player One - Use Cursor keys and control (CTRL) to fire.\n";
+			std::cout << "Player Two - Use A,W,S,D and shift to fire.\n\n";
+			std::cout << "TAB:Change Graphic\n";
+			std::cout << "ESCAPE:Exit Program\n";
+			std::cout << "F1:Pause (Press any key to continue)\n";
+			std::cout << "F2:Toggle Scaling\n";
+			std::cout << "F3:Toggle Full Screen\n";
+			std::cout << "F9:Increase Game Speed (Lower frame rate)\n";
+			std::cout << "F10:Decrease Game Speed (Raise frame rate)\n";
+			std::cout << "(High Scores written to /var/games/methanescores)\n";
 
-			std::cout << "Super Methane Brothers" << std::endl;  
-			std::cout << "Licensed using the GNU General Public License Version 2" << std::endl;  
-			std::cout << "http://www.methane.fsnet.co.uk" << std::endl;  
-			std::cout << "Instructions:" << std::endl;  
-			std::cout << "Use the cursor keys to move around the screen." << std::endl;  
-			std::cout << "Tap the CTRL key to fire gas from the gun." << std::endl;  
-			std::cout << "Hold the CTRL key to suck a trapped baddie into the gun." << std::endl;  
-			std::cout << "Release the CTRL key to throw the trapped baddie from the gun" << std::endl;  
-			std::cout << "Throw baddies at the wall to destroy them." << std::endl;
-			std::cout << "Keys:" << std::endl;  
-			std::cout << "CTRL:Start Game" << std::endl;
-			std::cout << "CTRL:Create or Suck Gas" << std::endl;
-			std::cout << "CURSOR KEYS: Move Player" << std::endl;
-			std::cout << "TAB:Change Graphic" << std::endl;
-			std::cout << "ESCAPE:Exit Program" << std::endl;
-			std::cout << "F1:Pause (Press any key to continue)" << std::endl;
-			std::cout << "F2:Toggle Scaling - Use if running a 16bit (65536 colours) screen" << std::endl;
-			std::cout << "F3:Full Screen" << std::endl;
-			std::cout << "F4:800*600 Screen Mode" << std::endl;
-			std::cout << "F5:1024*768 Screen Mode" << std::endl;
-			std::cout << "F6:1152*870 Screen Mode" << std::endl;
-			std::cout << "F9:Increase Game Speed (Lower frame rate)" << std::endl;
-			std::cout << "F10:Decrease Game Speed (Raise frame rate)" << std::endl;
-			std::cout << "This game requires ClanLib (v0.6.5) and Hermes (v1.3.3) http://clanlib.org/hermes" << std::endl;
-			std::cout << "(High Scores written to /var/games/methanescores)" << std::endl;
 
 			// Initialize ClanLib base components
-			CL_SetupCore::init();
+			CL_SetupCore setupCore;
 
 			// Initialize the ClanLib display component
-			CL_SetupDisplay::init();
+			CL_SetupDisplay setupDisplay;
+
+			// Initilize the OpenGL drivers
+			CL_SetupGL setupGL;
 
 			// Set the video mode
-			CL_Display::set_videomode(SCR_WIDTH*2, SCR_HEIGHT*2, 16, false, true);
+			CL_DisplayWindow window("Super Methane Brothers", SCR_WIDTH*2, SCR_HEIGHT*2);
 
-			CL_Canvas canvas(SCR_WIDTH, SCR_HEIGHT, 1, 0xff000000, 0xff0000, 0xff00, 0);	// No alpha channel
-			CL_Surface *game_screen = CL_Surface::create_dynamic(&canvas);
+			CL_PixelBuffer pixel_screen(SCR_WIDTH, SCR_HEIGHT, SCR_WIDTH*4, CL_PixelFormat::rgba8888);
+			CL_Surface game_screen(&pixel_screen);
+			CL_Canvas game_canvas(game_screen);
 
-			CL_Slot button = CL_Input::sig_button_press().connect(this, &SuperMethaneBrothers::on_button_press);
+			// Connect the Window close event
+			CL_Slot slot_quit = window.sig_window_close().connect(this, &SuperMethaneBrothers::on_window_close);
+
+                        // Connect a keyboard handler to on_key_down()
+			CL_Slot slot_keyboard_down = CL_Keyboard::sig_key_down().connect(this, &SuperMethaneBrothers::on_button_press);
 
 			Game.InitSoundDriver();
 			Game.InitGame();
 			Game.LoadScores();
 			Game.StartGame();
+
 
 //------------------------------------------------------------------------------
 // The main game
@@ -114,10 +124,10 @@ public:
 			int game_paused = 0;
 			CL_InputBuffer mykey;
 			int quit_flag = 0;
-			int mouse_pointer_flag = 0;
-			int disable_scale_flag = 1;
-			int full_screen_first_time = 1;
+			int disable_scale_flag = 0;
+			int full_screen_flag = 0;
 			int on_options_screen = 1;
+			int option_page = 0;
 			int game_speed = 60;
 
 			LastKey = 0;
@@ -128,11 +138,14 @@ public:
 // Joystick Emulation and Video mode Control
 //------------------------------------------------------------------------------
 
-				JOYSTICK *jptr;
-				jptr = &Game.m_GameTarget.m_Joy1;
+				JOYSTICK *jptr1;
+				JOYSTICK *jptr2;
+				jptr1 = &Game.m_GameTarget.m_Joy1;
+				jptr2 = &Game.m_GameTarget.m_Joy2;
 
 				if (LastKey)
 				{
+					if (LastKey == CL_KEY_ESCAPE) quit_flag = 1;
 					if (game_paused)	// On pause
 					{
 						// Any key to continue
@@ -152,64 +165,38 @@ public:
 					{
 						if (LastKey == CL_KEY_SPACE)
 						{
-							on_options_screen = 0;	// Start the game
+							option_page++;
+							if (option_page==3)
+							{
+								on_options_screen = 0;	// Start the game
+							}
 						}
 					}
 
 				
 					// Video mode changed
-					if ( (LastKey >= CL_KEY_F2) && (LastKey <= CL_KEY_F6) )
+					if ( (LastKey >= CL_KEY_F2) && (LastKey <= CL_KEY_F3) )
 					{
-						// Restore the mouse pointer
-						// Note: The mouse pointer will not be hidden again. This is intentional
-						// as sometimes the program crashes when repeatedly switching the mouse
-						// pointer on and off
-						if ((mouse_pointer_flag!=0) && (LastKey != CL_KEY_F2))
+						if (LastKey == CL_KEY_F2)
 						{
-							mouse_pointer_flag = 0;
-							CL_MouseCursor::show();
+							disable_scale_flag = disable_scale_flag ^ 1;
 						}
-						switch (LastKey)
+						if (LastKey == CL_KEY_F3)
 						{
-							case CL_KEY_F2:
+							full_screen_flag = full_screen_flag ^ 1;
+							if (full_screen_flag)
 							{
-								disable_scale_flag = disable_scale_flag ^ 1;
-								break;
-							}
-							case CL_KEY_F3:
+								window.set_fullscreen(640,480, 16);
+								CL_Mouse::hide();
+							}else
 							{
-
-								CL_Display::set_videomode(640,480, 16, true, false);
-								if (full_screen_first_time)	// Only allow mouse pointer to be switched off once
-								{
-									full_screen_first_time = 0;
-									mouse_pointer_flag = 1;
-									CL_MouseCursor::hide();
-								}
-								break;
-							}
-							case CL_KEY_F4:
-							{
-								CL_Display::set_videomode(800, 600, 16, true, false);
-								CL_Display::set_videomode(SCR_WIDTH*2, SCR_HEIGHT*2, 16, false, true);
-								break;
-							}
-							case CL_KEY_F5:
-							{
-								CL_Display::set_videomode(1024, 768, 16, true, false);
-								CL_Display::set_videomode(SCR_WIDTH*2, SCR_HEIGHT*2, 16, false, true);
-								break;
-							}
-							case CL_KEY_F6:
-							{
-								CL_Display::set_videomode(1152, 870, 16, true, false);
-								CL_Display::set_videomode(SCR_WIDTH*2, SCR_HEIGHT*2, 16, false, true);
-								break;
+								window.set_windowed();
+								CL_Mouse::show();
 							}
 						}
-						CL_Display::clear_display();
-						CL_Display::flip_display();
-						CL_Display::clear_display();
+						CL_Display::clear(CL_Color::black);
+						window.flip();
+						CL_Display::clear(CL_Color::black);
 
 					}
 					if (LastKey == CL_KEY_F9)
@@ -223,11 +210,11 @@ public:
 						if (game_speed >200) game_speed = 200;
 					}
 
-					jptr->key = ':';	// Fake key press (required for high score table
-					if ((LastKey >= CL_KEY_A) && (LastKey <= CL_KEY_Z)) jptr->key = LastKey - CL_KEY_A + 'A';
-					if ((LastKey >= CL_KEY_0) && (LastKey <= CL_KEY_9)) jptr->key = LastKey - CL_KEY_0 + '0';
-					if (LastKey == CL_KEY_SPACE) jptr->key = ' ';
-					if (LastKey == CL_KEY_ENTER) jptr->key = 10;
+					jptr1->key = jptr2->key = ':';	// Fake key press (required for high score table
+					if ((LastKey >= CL_KEY_A) && (LastKey <= CL_KEY_Z)) jptr1->key = jptr2->key = LastKey - CL_KEY_A + 'A';
+					if ((LastKey >= CL_KEY_0) && (LastKey <= CL_KEY_9)) jptr1->key = jptr2->key = LastKey - CL_KEY_0 + '0';
+					if (LastKey == CL_KEY_SPACE) jptr1->key = jptr2->key = ' ';
+					if (LastKey == CL_KEY_ENTER) jptr1->key = jptr2->key = 10;
 					if (LastKey == CL_KEY_TAB)
 					{
 						Game.m_GameTarget.m_Game.TogglePuffBlow();
@@ -236,39 +223,50 @@ public:
 				}
 
 				if (CL_Keyboard::get_keycode(CL_KEY_ESCAPE)) quit_flag = 1;
-				if (CL_Keyboard::get_keycode(CL_KEY_LEFT)) jptr->left = 1; else jptr->left = 0;
-				if (CL_Keyboard::get_keycode(CL_KEY_RIGHT)) jptr->right = 1; else jptr->right = 0;
-				if (CL_Keyboard::get_keycode(CL_KEY_UP)) jptr->up = 1; else jptr->up = 0;
-				if (CL_Keyboard::get_keycode(CL_KEY_DOWN)) jptr->down = 1; else jptr->down = 0;
+				if (CL_Keyboard::get_keycode(CL_KEY_LEFT)) jptr1->left = 1; else jptr1->left = 0;
+				if (CL_Keyboard::get_keycode(CL_KEY_RIGHT)) jptr1->right = 1; else jptr1->right = 0;
+				if (CL_Keyboard::get_keycode(CL_KEY_UP)) jptr1->up = 1; else jptr1->up = 0;
+				if (CL_Keyboard::get_keycode(CL_KEY_DOWN)) jptr1->down = 1; else jptr1->down = 0;
 
-				if ( (CL_Keyboard::get_keycode(CL_KEY_LCTRL)) || (CL_Keyboard::get_keycode(CL_KEY_RCTRL)) )
+				if ( (CL_Keyboard::get_keycode(CL_KEY_LCONTROL)) || (CL_Keyboard::get_keycode(CL_KEY_RCONTROL)) )
 				{
-					jptr->fire = 1;
-				}else	jptr->fire = 0;
+					jptr1->fire = 1;
+				}else	jptr1->fire = 0;
 
-// (CHEAT MODE DISABLED)	if (CL_Keyboard::get_keycode(CL_KEY_F12)) jptr->next_level = 1; else jptr->next_level = 0;
+
+                                if (CL_Keyboard::get_keycode(CL_KEY_A)) jptr2->left = 1; else jptr2->left = 0;
+                                if (CL_Keyboard::get_keycode(CL_KEY_D)) jptr2->right = 1; else jptr2->right = 0;
+                                if (CL_Keyboard::get_keycode(CL_KEY_W)) jptr2->up = 1; else jptr2->up = 0;
+                                if (CL_Keyboard::get_keycode(CL_KEY_S)) jptr2->down = 1; else jptr2->down = 0;
+
+                                if ( (CL_Keyboard::get_keycode(CL_KEY_LSHIFT)) || (CL_Keyboard::get_keycode(CL_KEY_RSHIFT)) )
+                                {
+                                        jptr2->fire = 1;
+                                }else   jptr2->fire = 0;
+
+// (CHEAT MODE DISABLED)	if (CL_Keyboard::get_keycode(CL_KEY_F12)) jptr1->next_level = 1; else jptr1->next_level = 0;
 
 //------------------------------------------------------------------------------
 // Do game main loop
 //------------------------------------------------------------------------------
-				canvas.lock();
+				pixel_screen.lock();
 				if (on_options_screen)
 				{
-					Game.DisplayOptions(canvas.get_data());
+					Game.DisplayOptions( pixel_screen.get_data(), option_page);
 				}else
 				{
-					Game.MainLoop(canvas.get_data(), game_paused);
+					Game.MainLoop(pixel_screen.get_data(), game_paused);
 				}
-				canvas.unlock();
-
+				pixel_screen.unlock();
+				game_screen.set_pixeldata(pixel_screen);
 //------------------------------------------------------------------------------
 // Output the graphics
 //------------------------------------------------------------------------------
-				game_screen->reload();
 
 				if (!disable_scale_flag)
 				{
-					game_screen->put_screen(0,0,(int)CL_Display::get_width(), (int)CL_Display::get_height());
+					CL_Rect rect(0,0,(int)CL_Display::get_width(), (int)CL_Display::get_height());
+					game_screen.draw(rect);
 				}else
 				{
 					int xoff, yoff;
@@ -279,12 +277,13 @@ public:
 					xoff = (xoff >> 1) - (SCR_WIDTH >> 1);
 					yoff = (yoff >> 1) - (SCR_HEIGHT >> 1);
 
-					game_screen->put_screen(xoff,yoff,SCR_WIDTH,SCR_HEIGHT);
+					CL_Rect rect(xoff,yoff,SCR_WIDTH,SCR_HEIGHT);
+					game_screen.draw(rect);
 				}
 
 				// Flip the display, showing on the screen what we have drawed
 				// since last call to flip_display()
-				CL_Display::flip_display();
+				CL_Display::flip();
 
 //------------------------------------------------------------------------------
 // Control game speed
@@ -305,23 +304,7 @@ public:
 			}
 			Game.SaveScores();
 
-			// Restore the mouse pointer
-			if (mouse_pointer_flag)
-			{
-				mouse_pointer_flag = 0;
-				CL_MouseCursor::show();
-			}
-
 			Game.RemoveSoundDriver();
-			delete game_screen;
-
-			// De-Initialize the ClanLib display component
-			CL_SetupDisplay::deinit();
-
-			// De-Initialize ClanLib base components
-			CL_SetupCore::deinit();
-
-
 		}
 		catch(CL_Error error)
 		{

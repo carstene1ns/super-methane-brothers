@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Prgram Email: rombust@postmaster.co.uk                                  *
  *                                                                         *
  ***************************************************************************/
@@ -46,28 +46,20 @@ END_MESSAGE_MAP ()
 static char txt_options[] = "Options";
 
 //------------------------------------------------------------------------------
-// Initialise Document
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise Document
 //------------------------------------------------------------------------------
 CMethDoc::CMethDoc()
 {
 	m_Pause = 0;
 	m_pMainView = 0;
 #ifdef METHANE_MIKMOD
-	SMB_NEW(m_pMikModDrv,CMikModDrv);
+	m_pMikModDrv = new(CMikModDrv);
 #endif
 	m_GameTarget.Init(this);
 }
 
 //------------------------------------------------------------------------------
-// Destroy Document
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Destroy Document
 //------------------------------------------------------------------------------
 CMethDoc::~CMethDoc()
 {
@@ -81,11 +73,9 @@ CMethDoc::~CMethDoc()
 }
 
 //------------------------------------------------------------------------------
-// New Document
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	TRUE = Worked
+//! \brief New Document
+//!
+//! 	\return TRUE = Worked
 //------------------------------------------------------------------------------
 BOOL CMethDoc::OnNewDocument()
 {
@@ -96,11 +86,9 @@ BOOL CMethDoc::OnNewDocument()
 }
 
 //------------------------------------------------------------------------------
-// Close Document
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	TRUE = Worked
+//! \brief Close Document
+//!
+//! 	\return TRUE = Worked
 //------------------------------------------------------------------------------
 void CMethDoc::OnCloseDocument()
 {
@@ -110,17 +98,12 @@ void CMethDoc::OnCloseDocument()
 #endif
 	SaveScores();
 	CDocument::OnCloseDocument();
-
-
 }
 
-
 //------------------------------------------------------------------------------
-// Open Document  
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	TRUE = Worked
+//! \brief Open Document  
+//!
+//! 	\return TRUE = Worked
 //------------------------------------------------------------------------------
 BOOL CMethDoc::OnOpenDocument(LPCTSTR lpszPathName)
 {
@@ -131,22 +114,18 @@ BOOL CMethDoc::OnOpenDocument(LPCTSTR lpszPathName)
 }
 
 //------------------------------------------------------------------------------
-// Save The Document data to disk
-// On Entry:
-// 	ar
-// On Exit:
-// 	Not Used
+//! \brief Save The Document data to disk
+//!
+//! 	\param ar = ar
 //------------------------------------------------------------------------------
 void CMethDoc::Serialize(CArchive& ar)
 {
 }
 
 //------------------------------------------------------------------------------
-// Initialise the main game (Setup the pointers)
-// On Entry:
-// 	vptr = The Main View
-// On Exit:
-// 	Not Used
+//! \brief Initialise the main game (Setup the pointers)
+//!
+//! 	\param vptr = The Main View
 //------------------------------------------------------------------------------
 void CMethDoc::InitGame(CMethView *vptr)
 {
@@ -162,11 +141,7 @@ void CMethDoc::InitGame(CMethView *vptr)
 }
 
 //------------------------------------------------------------------------------
-// Start the main game
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Start the main game
 //------------------------------------------------------------------------------
 void CMethDoc::StartGame(void)
 {
@@ -177,11 +152,7 @@ void CMethDoc::StartGame(void)
 }
 
 //------------------------------------------------------------------------------
-// The Game Main Loop 
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief The Game Main Loop 
 //------------------------------------------------------------------------------
 void CMethDoc::MainLoop( void )
 {
@@ -197,11 +168,9 @@ void CMethDoc::MainLoop( void )
 }
 
 //------------------------------------------------------------------------------
-// Redraw the game main view
-// On Entry:
-// 	pal_change_flag : 0 = Palette not changed
-// On Exit:
-// 	Not Used
+//! \brief Redraw the game main view
+//!
+//! 	\param pal_change_flag = 0 = Palette not changed
 //------------------------------------------------------------------------------
 void CMethDoc::RedrawMainView( int pal_change_flag )
 {
@@ -213,12 +182,9 @@ void CMethDoc::RedrawMainView( int pal_change_flag )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if the game is valid - IE the major pointers are okay
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	0 - Game is NOT valid
-//		Else - Game is Okay
+//! \brief Check to see if the game is valid - IE the major pointers are okay
+//!
+//! 	\param 0 - Game is NOT valid. Else - Game is Okay
 //------------------------------------------------------------------------------
 int CMethDoc::CheckValidGame( void )
 {
@@ -233,11 +199,7 @@ int CMethDoc::CheckValidGame( void )
 }
 
 //------------------------------------------------------------------------------
-// Menu "Pause"
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Menu "Pause"
 //------------------------------------------------------------------------------
 void CMethDoc::OnAppPause()
 {
@@ -245,11 +207,7 @@ void CMethDoc::OnAppPause()
 }
 
 //------------------------------------------------------------------------------
-// Menu restart the game
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Menu restart the game
 //------------------------------------------------------------------------------
 void CMethDoc::OnAppRestart()
 {
@@ -257,11 +215,7 @@ void CMethDoc::OnAppRestart()
 }
 
 //------------------------------------------------------------------------------
-// Menu "Sound off"
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Menu "Sound off"
 //------------------------------------------------------------------------------
 void CMethDoc::OnAppSoundOff()
 {
@@ -274,11 +228,7 @@ void CMethDoc::OnAppSoundOff()
 }
 
 //------------------------------------------------------------------------------
-// Menu "Music off"
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Menu "Music off"
 //------------------------------------------------------------------------------
 void CMethDoc::OnAppMusicOff()
 {
@@ -300,11 +250,7 @@ void CMethDoc::OnAppMusicOff()
 }
 
 //------------------------------------------------------------------------------
-// Menu "Pause"
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Menu "Pause"
 //------------------------------------------------------------------------------
 void CMethDoc::OnUpdateAppPause(CCmdUI *pCmdUI)
 {
@@ -312,11 +258,7 @@ void CMethDoc::OnUpdateAppPause(CCmdUI *pCmdUI)
 }
 
 //------------------------------------------------------------------------------
-// Menu "Sound off"
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Menu "Sound off"
 //------------------------------------------------------------------------------
 void CMethDoc::OnUpdateAppSoundOff(CCmdUI *pCmdUI)
 {
@@ -329,11 +271,7 @@ void CMethDoc::OnUpdateAppSoundOff(CCmdUI *pCmdUI)
 }
 
 //------------------------------------------------------------------------------
-// Menu "Music off"
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Menu "Music off"
 //------------------------------------------------------------------------------
 void CMethDoc::OnUpdateAppMusicOff(CCmdUI *pCmdUI)
 {
@@ -346,11 +284,7 @@ void CMethDoc::OnUpdateAppMusicOff(CCmdUI *pCmdUI)
 }
 
 //------------------------------------------------------------------------------
-// Save the high scores
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Save the high scores
 //------------------------------------------------------------------------------
 void CMethDoc::SaveScores(void)
 {
@@ -371,11 +305,7 @@ void CMethDoc::SaveScores(void)
 }
 
 //------------------------------------------------------------------------------
-// Load the high scores
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the high scores
 //------------------------------------------------------------------------------
 void CMethDoc::LoadScores(void)
 {
@@ -398,11 +328,7 @@ void CMethDoc::LoadScores(void)
 }
 
 //------------------------------------------------------------------------------
-// Load the game options
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the game options
 //------------------------------------------------------------------------------
 void CMethDoc::LoadOptions(void)
 {
@@ -412,11 +338,7 @@ void CMethDoc::LoadOptions(void)
 }
 
 //------------------------------------------------------------------------------
-// Save the game options
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Save the game options
 //------------------------------------------------------------------------------
 void CMethDoc::SaveOptions(void)
 {
@@ -427,13 +349,11 @@ void CMethDoc::SaveOptions(void)
 }
 
 //------------------------------------------------------------------------------
-// Play a sample (called from the game)
-// On Entry:
-// 	id = SND_xxx id
-//	pos = Sample Position to use 0 to 255
-//	rate = The rate
-// On Exit:
-// 	Not Used
+//! \brief Play a sample (called from the game)
+//!
+//! 	\param id = SND_xxx id
+//!	\param pos = Sample Position to use 0 to 255
+//!	\param rate = The rate
 //------------------------------------------------------------------------------
 void CMethDoc::PlaySample(int id, int pos, int rate)
 {
@@ -443,11 +363,7 @@ void CMethDoc::PlaySample(int id, int pos, int rate)
 }
 
 //------------------------------------------------------------------------------
-// Stop the module (called from the game)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Stop the module (called from the game)
 //------------------------------------------------------------------------------
 void CMethDoc::StopModule(void)
 {
@@ -457,11 +373,9 @@ void CMethDoc::StopModule(void)
 }
 
 //------------------------------------------------------------------------------
-// Play a module (called from the game)
-// On Entry:
-// 	id = SMOD_xxx id
-// On Exit:
-// 	Not Used
+//! \brief Play a module (called from the game)
+//!
+//! 	\param id = SMOD_xxx id
 //------------------------------------------------------------------------------
 void CMethDoc::PlayModule(int id)
 {
@@ -471,11 +385,9 @@ void CMethDoc::PlayModule(int id)
 }
 
 //------------------------------------------------------------------------------
-// Update the current module (ie restart the module if it has stopped) (called from the game)
-// On Entry:
-// 	id = SMOD_xxx id (The module that should be playing)
-// On Exit:
-// 	Not Used
+//! \brief Update the current module (ie restart the module if it has stopped) (called from the game)
+//!
+//! 	\param id = SMOD_xxx id (The module that should be playing)
 //------------------------------------------------------------------------------
 void CMethDoc::UpdateModule(int id)
 {

@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -28,11 +28,7 @@
 #include "target.h"
 
 //------------------------------------------------------------------------------
-// Sound driver constructor
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Sound driver constructor
 //------------------------------------------------------------------------------
 CSoundDrv::CSoundDrv()
 {
@@ -40,33 +36,21 @@ CSoundDrv::CSoundDrv()
 }
 
 //------------------------------------------------------------------------------
-// Destroy the sound driver
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Destroy the sound driver
 //------------------------------------------------------------------------------
 CSoundDrv::~CSoundDrv()
 {
 }
 
 //------------------------------------------------------------------------------
-// Prepare all audio to play
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Prepare all audio to play
 //------------------------------------------------------------------------------
 void CSoundDrv::PrepareAudio(void)
 {
 }
 
 //------------------------------------------------------------------------------
-// Stop the module from playing
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Stop the module from playing
 //------------------------------------------------------------------------------
 void CSoundDrv::StopModule(void)
 {
@@ -75,11 +59,9 @@ void CSoundDrv::StopModule(void)
 }
 
 //------------------------------------------------------------------------------
-// Play the module, or restart playing the module
-// On Entry:
-// 	id = Module id (SMOD_xxx id)
-// On Exit:
-// 	Not Used
+//! \brief Play the module, or restart playing the module
+//!
+//! 	\param id = Module id (SMOD_xxx id)
 //------------------------------------------------------------------------------
 void CSoundDrv::PlayModule(int id)
 {
@@ -88,13 +70,11 @@ void CSoundDrv::PlayModule(int id)
 }
 
 //------------------------------------------------------------------------------
-// Play the sample
-// On Entry:
-// 	id = SND_xxx sound id
-//	pos = Sample Position to use 0 to SCR_WIDTH-1. (Default = SCR_WIDTH/2)
-//	rate = sound frequency (Default = 0 = Use sample default)
-// On Exit:
-// 	Not Used
+//! \brief Play the sample
+//!
+//! 	\param id = SND_xxx sound id
+//!	\param pos = Sample Position to use 0 to SCR_WIDTH-1. (Default = SCR_WIDTH/2)
+//!	\param rate = sound frequency (Default = 0 = Use sample default)
 //------------------------------------------------------------------------------
 void CSoundDrv::PlaySample(int id, int pos, int rate)
 {
@@ -115,11 +95,7 @@ void CSoundDrv::PlaySample(int id, int pos, int rate)
 }
 
 //------------------------------------------------------------------------------
-// Update the current module (ie restart the module if it has stopped)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Update the current module (ie restart the module if it has stopped)
 //------------------------------------------------------------------------------
 void CSoundDrv::UpdateModule(void)
 {

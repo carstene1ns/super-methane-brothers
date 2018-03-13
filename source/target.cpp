@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -17,8 +17,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include "target.h"
-#include "doc.h"
 
+#ifdef WIN32
+#include "win32\mfc\doc.h"
+#else
+#include "doc.h"
+#endif
 //------------------------------------------------------------------------------
 // The game target (Yuck global!)
 // Thus - Only a single GameTarget is allowed
@@ -26,11 +30,7 @@
 CGameTarget *GLOBAL_GameTarget = 0;
 
 //------------------------------------------------------------------------------
-// Constructor
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Constructor
 //------------------------------------------------------------------------------
 CGameTarget::CGameTarget()
 {
@@ -47,11 +47,9 @@ CGameTarget::CGameTarget()
 }
 
 //------------------------------------------------------------------------------
-// Initialisation
-// On Entry:
-// 	pdoc = Pointer to the document this target belongs to
-// On Exit:
-// 	Not Used
+//! \brief Initialisation
+//!
+//! 	\param pdoc = Pointer to the document this target belongs to
 //------------------------------------------------------------------------------
 void CGameTarget::Init(CMethDoc *pdoc)
 {
@@ -59,11 +57,9 @@ void CGameTarget::Init(CMethDoc *pdoc)
 }
 
 //------------------------------------------------------------------------------
-// Initialise the game
-// On Entry:
-//		sptr = The main screen bitmap (SCR_WIDTH * SCR_HEIGHT 256 colour)
-// On Exit:
-// 	Not Used
+//! \brief Initialise the game
+//!
+//!	\param sptr = The main screen bitmap (SCR_WIDTH * SCR_HEIGHT 256 colour)
 //------------------------------------------------------------------------------
 void CGameTarget::InitGame(char *sptr)
 {
@@ -71,11 +67,7 @@ void CGameTarget::InitGame(char *sptr)
 }
 
 //------------------------------------------------------------------------------
-// Redraw screen (Called by the game)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Redraw screen (Called by the game)
 //------------------------------------------------------------------------------
 void CGameTarget::RedrawScreen(void)
 {
@@ -83,11 +75,7 @@ void CGameTarget::RedrawScreen(void)
 }
 
 //------------------------------------------------------------------------------
-// Start the game
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Start the game
 //------------------------------------------------------------------------------
 void CGameTarget::StartGame(void)
 {
@@ -95,11 +83,7 @@ void CGameTarget::StartGame(void)
 }
 
 //------------------------------------------------------------------------------
-// Do the game main loop (Call every cycle)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the game main loop (Call every cycle)
 //------------------------------------------------------------------------------
 void CGameTarget::MainLoop(void)
 {
@@ -107,11 +91,7 @@ void CGameTarget::MainLoop(void)
 }
 
 //------------------------------------------------------------------------------
-// Prepare the sound driver (call before the game starts)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Prepare the sound driver (call before the game starts)
 //------------------------------------------------------------------------------
 void CGameTarget::PrepareSoundDriver(void)
 {
@@ -119,22 +99,17 @@ void CGameTarget::PrepareSoundDriver(void)
 }
 
 //------------------------------------------------------------------------------
-// Play a module (called from the game)
-// On Entry:
-// 	id = SMOD_xxx id
-// On Exit:
-// 	Not Used
+//! \brief Play a module (called from the game)
+//!
+//! 	\param id = SMOD_xxx id
 //------------------------------------------------------------------------------
 void CGameTarget::PlayModule(int id)
 {
 	m_pDoc->PlayModule(id);
 }
+
 //------------------------------------------------------------------------------
-// Stop the module (called from the game)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Stop the module (called from the game)
 //------------------------------------------------------------------------------
 void CGameTarget::StopModule(void)
 {
@@ -142,13 +117,11 @@ void CGameTarget::StopModule(void)
 }
 
 //------------------------------------------------------------------------------
-// Play a sample (called from the game)
-// On Entry:
-// 	id = SND_xxx id
-//	pos = Sample Position to use 0 to 255
-//	rate = The rate
-// On Exit:
-// 	Not Used
+//! \brief Play a sample (called from the game)
+//!
+//! 	\param id = SND_xxx id
+//!	\param pos = Sample Position to use 0 to 255
+//!	\param rate = The rate
 //------------------------------------------------------------------------------
 void CGameTarget::PlaySample(int id, int pos, int rate)
 {
@@ -156,11 +129,9 @@ void CGameTarget::PlaySample(int id, int pos, int rate)
 }
 
 //------------------------------------------------------------------------------
-// Update the current module (ie restart the module if it has stopped)
-// On Entry:
-// 	id = SMOD_xxx id (The module that should be playing)
-// On Exit:
-// 	Not Used
+//! \brief Update the current module (ie restart the module if it has stopped)
+//!
+//! 	\param id = SMOD_xxx id (The module that should be playing)
 //------------------------------------------------------------------------------
 void CGameTarget::UpdateModule(int id)
 {

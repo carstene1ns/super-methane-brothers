@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -34,12 +34,10 @@ void * operator new[](size_t size, char const* file, int line) throw(informative
 #endif
 
 //------------------------------------------------------------------------------
-// (GLOBAL) Makes sure that a object coords are inside the screen
-// On Entry:
-//		xpos = Reference to the xpos
-//		ypos = Reference to the ypos
-// On Exit:
-// 	Not Used
+//! \brief (GLOBAL) Makes sure that a object coords are inside the screen
+//!
+//!	\param xpos = Reference to the xpos
+//!	\param ypos = Reference to the ypos
 //------------------------------------------------------------------------------
 void CheckPos(int &xpos, int &ypos)
 {

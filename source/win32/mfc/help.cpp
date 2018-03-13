@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Prgram Email: rombust@postmaster.co.uk                                  *
  *                                                                         *
  ***************************************************************************/
@@ -26,11 +26,7 @@ BEGIN_MESSAGE_MAP (CHelpDialog, CDialog)
 END_MESSAGE_MAP ()
 
 //------------------------------------------------------------------------------
-// Initialise the dialog 
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the dialog 
 //------------------------------------------------------------------------------
 BOOL CHelpDialog::OnInitDialog()
 {
@@ -40,11 +36,7 @@ BOOL CHelpDialog::OnInitDialog()
 }
 
 //------------------------------------------------------------------------------
-// Draw the Dialog 
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the Dialog 
 //------------------------------------------------------------------------------
 void CHelpDialog::OnPaint()
 {
@@ -74,12 +66,13 @@ void CHelpDialog::OnPaint()
 	CRect rec;
 	rec.SetRect(24,24, 400, 250);
 	dc.DrawText("Quick Instructions\n\n"
-		"Press the CTRL key to start the game.\n"
-		"Use the cursor keys to move around the screen.\n"
-		"Tap the CTRL key to fire gas from the gun.\n"
-		"Hold the CTRL key to suck a trapped baddie into the gun.\n"
-		"Release the CTRL key to throw the trapped baddie from the gun.\n"
-		"Throw baddies at the wall to destroy them.\n",-1, &rec, 0);
+		"Press Fire to start. Use keyboard to enter player names.\n"
+		"Press Return to start game. Tap Fire to fire gas from the gun.\n"
+		"Hold Fire to suck a trapped baddie into the gun.\n"
+		"Release Fire to throw the trapped baddie from the gun.\n"
+		"Throw baddies at the wall to destroy them.\n\n"
+		"Player One - Use Cursor keys and CTRL to fire.\n"
+		"Player Two - Use A,W,S,D and shift to fire.\n",-1, &rec, 0);
 		dc.SetBkMode(oldmode);
 
 	if (old_font) dc.SelectObject(old_font);

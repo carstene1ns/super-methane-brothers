@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -73,11 +73,7 @@ static OBJSIZE gas_size = {6,8,22,24};
 static OBJMOVE gas_move = {256,100,4*256,256,100,4*256,0};
 
 //------------------------------------------------------------------------------
-// Initialise the gas object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the gas object
 //------------------------------------------------------------------------------
 CGasObj::CGasObj()
 {
@@ -85,11 +81,7 @@ CGasObj::CGasObj()
 }
 
 //------------------------------------------------------------------------------
-// Destroy the gas object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Destroy the gas object
 //------------------------------------------------------------------------------
 CGasObj::~CGasObj()
 {
@@ -101,11 +93,7 @@ CGasObj::~CGasObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the gas object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the gas object
 //------------------------------------------------------------------------------
 void CGasObj::Draw( void )
 {
@@ -127,11 +115,7 @@ void CGasObj::Draw( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the object (object members)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
 void CGasObj::Reset( void )
 {
@@ -146,11 +130,9 @@ void CGasObj::Reset( void )
 }
 
 //------------------------------------------------------------------------------
-// Setup the object object ejecting
-// On Entry:
-// 	player = player to attach to gun
-// On Exit:
-// 	Not Used
+//! \brief Setup the object object ejecting
+//!
+//! 	\param player = player to attach to gun
 //------------------------------------------------------------------------------
 void CGasObj::SetupEject( CPlayerObj *player )
 {
@@ -170,11 +152,7 @@ void CGasObj::SetupEject( CPlayerObj *player )
 }
 
 //------------------------------------------------------------------------------
-// Do the gas leaving the gun
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the gas leaving the gun
 //------------------------------------------------------------------------------
 void CGasObj::DoLeaveGun( void )
 {
@@ -210,11 +188,7 @@ void CGasObj::DoLeaveGun( void )
 }
 
 //------------------------------------------------------------------------------
-// Set the gas to fadeout
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Set the gas to fadeout
 //------------------------------------------------------------------------------
 void CGasObj::SetFade( void )
 {
@@ -224,12 +198,11 @@ void CGasObj::SetFade( void )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if the gas will collect a baddie
-// If a baddie is collected then set up the m_GasCmd
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	0 = No baddie collected
+//! \brief Check to see if the gas will collect a baddie
+//!
+//! If a baddie is collected then set up the m_GasCmd
+//!
+//! 	\return 0 = No baddie collected
 //------------------------------------------------------------------------------
 int CGasObj::CheckCollect( void )
 {
@@ -262,11 +235,7 @@ int CGasObj::CheckCollect( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the gas fading away
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the gas fading away
 //------------------------------------------------------------------------------
 void CGasObj::DoGasFade( void )
 {
@@ -279,11 +248,9 @@ void CGasObj::DoGasFade( void )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if the gas has hit the wall
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	0 = Did not hit the wall
+//! \brief Check to see if the gas has hit the wall
+//!
+//! 	\return 0 = Did not hit the wall
 //------------------------------------------------------------------------------
 int CGasObj::HitWall( void )
 {
@@ -293,11 +260,7 @@ int CGasObj::HitWall( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the gas moving away from the gun
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the gas moving away from the gun
 //------------------------------------------------------------------------------
 void CGasObj::DoGasMove( void )
 {
@@ -327,11 +290,7 @@ void CGasObj::DoGasMove( void )
 
 }
 //------------------------------------------------------------------------------
-// Release a baddie from the bubble
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Release a baddie from the bubble
 //------------------------------------------------------------------------------
 void CGasObj::ReleaseBaddie( void )
 {
@@ -344,14 +303,15 @@ void CGasObj::ReleaseBaddie( void )
 	SetFade();
 }
 //------------------------------------------------------------------------------
-// Grab a the baddie from a gas cloud, and destroy the gas cloud
-// The baddie will have the correct xpos,ypos and inertias
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	The baddie address
+//! \brief Grab a the baddie from a gas cloud, and destroy the gas cloud
+//!
+//! The baddie will have the correct xpos,ypos and inertias
+//!
+//!	\param pptr = The player that sucked the baddie
+//!
+//! 	\return The baddie address
 //------------------------------------------------------------------------------
-CSuckable *CGasObj::GrabBaddie( void )
+CSuckable *CGasObj::GrabBaddie( CPlayerObj *pptr )
 {
 	CSuckable *pobj;
 	m_pBaddie->m_OldXPos = m_pBaddie->m_XPos = m_XPos;
@@ -359,18 +319,13 @@ CSuckable *CGasObj::GrabBaddie( void )
 	m_pBaddie->m_YInert = m_pBaddie->m_XInert = 0;
 	pobj = m_pBaddie;
 	m_pBaddie = 0;		// Clear baddie pointer
+	if ( pobj) pobj->m_pPlayer = pptr;
 	SetFade();
 	return pobj;
 }
 
-
-
 //------------------------------------------------------------------------------
-// Do the gas floating around the screen
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the gas floating around the screen
 //------------------------------------------------------------------------------
 void CGasObj::DoGasFloat( void )
 {
@@ -433,11 +388,7 @@ void CGasObj::DoGasFloat( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CGasObj::Do( void )
 {
@@ -462,13 +413,6 @@ void CGasObj::Do( void )
 }
 
 //------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-
-//------------------------------------------------------------------------------
 // The Cloud Object
 //------------------------------------------------------------------------------
 
@@ -488,11 +432,7 @@ static int anm_cloud[] =
 
 
 //------------------------------------------------------------------------------
-// Initialise the cloud
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the cloud
 //------------------------------------------------------------------------------
 CCloudObj::CCloudObj()
 {
@@ -501,11 +441,7 @@ CCloudObj::CCloudObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the cloud object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the cloud object
 //------------------------------------------------------------------------------
 void CCloudObj::Draw( void )
 {
@@ -514,11 +450,10 @@ void CCloudObj::Draw( void )
 
 
 //------------------------------------------------------------------------------
-// Setup the cloud
-// On Entry:
-// 	xpos,ypos = Where to display the cloud
-// On Exit:
-// 	Not Used
+//! \brief Setup the cloud
+//!
+//! 	\param xpos = Where to display the cloud X
+//! 	\param ypos = Where to display the cloud Y
 //------------------------------------------------------------------------------
 void CCloudObj::Setup(int xpos, int ypos)
 {
@@ -526,13 +461,8 @@ void CCloudObj::Setup(int xpos, int ypos)
 	m_YPos = ypos;
 }
 
-
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CCloudObj::Do( void )
 {
@@ -542,13 +472,6 @@ void CCloudObj::Do( void )
 		DeleteObject();
 	}
 }
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 // The FireLR Object
@@ -580,11 +503,7 @@ static OBJSIZE firelr_size = { 0,0,26,13 };
 #define FIRELR_RATE 8
 
 //------------------------------------------------------------------------------
-// Initialise the firelr
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the firelr
 //------------------------------------------------------------------------------
 CFireLRObj::CFireLRObj()
 {
@@ -595,12 +514,11 @@ CFireLRObj::CFireLRObj()
 }
 
 //------------------------------------------------------------------------------
-// Setup the firelr
-// On Entry:
-// 	xpos,ypos = Where to display the firelr
-//		dir = DIR_xxx direction
-// On Exit:
-// 	Not Used
+//! \brief Setup the firelr
+//!
+//! 	\param xpos = Where to display the firelr X
+//! 	\param ypos = Where to display the firelr Y
+//!	\param dir = DIR_xxx direction
 //------------------------------------------------------------------------------
 void CFireLRObj::Setup(int xpos, int ypos, int dir)
 {
@@ -619,11 +537,7 @@ void CFireLRObj::Setup(int xpos, int ypos, int dir)
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CFireLRObj::Do( void )
 {

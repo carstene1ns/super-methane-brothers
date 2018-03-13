@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Prgram Email: rombust@postmaster.co.uk                                  *
  *                                                                         *
  ***************************************************************************/
@@ -36,11 +36,9 @@ BEGIN_MESSAGE_MAP (CMethApp, CWinApp)
 END_MESSAGE_MAP ()
 
 //------------------------------------------------------------------------------
-// Program Started 
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	TRUE = Worked
+//! \brief Program Started 
+//!
+//! 	\return TRUE = Worked
 //------------------------------------------------------------------------------
 BOOL CMethApp::InitInstance()
 {
@@ -72,11 +70,7 @@ BOOL CMethApp::InitInstance()
 }
 
 //------------------------------------------------------------------------------
-// Dialog "Help"
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Dialog "Help"
 //------------------------------------------------------------------------------
 void CMethApp::OnAppHelp()
 {
@@ -87,11 +81,7 @@ void CMethApp::OnAppHelp()
 }
 
 //------------------------------------------------------------------------------
-// Dialog "Speed"
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Dialog "Speed"
 //------------------------------------------------------------------------------
 void CMethApp::OnAppSpeed()
 {
@@ -106,11 +96,7 @@ void CMethApp::OnAppSpeed()
 }
 
 //------------------------------------------------------------------------------
-// Dialog "About"
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Dialog "About"
 //------------------------------------------------------------------------------
 void CMethApp::OnAppAbout()
 {

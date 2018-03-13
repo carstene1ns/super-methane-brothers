@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -127,9 +127,11 @@ public:
 	CPlayerObj* CheckKillPlayer( void );
 	void MoveObject_Y( void );
 	void DirFly( void );
-	void Fly2Player( CPlayerObj *play );
+	void GetFly2Player( CPlayerObj *play, int *pdiff_x, int *pdiff_y );
+
 	int ControlSpeedUp( OBJMOVE &slow_move, OBJMOVE &fast_move );
 	CLinkObject *CheckHitFlag( CObjectList &base, int flag );
+	void Fly2ClosestPlayer( void );
 public:
 	CLinkObject *m_pNext;
 	CLinkObject *m_pPrev;

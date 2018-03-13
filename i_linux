@@ -3,11 +3,9 @@ Linux Installation Instructions
 
 Note: This game assumes sizeof(int) = sizeof(int *) = 4
 
-The ClanLib v0.6.5 library is required - http://www.clanlib.org
-The Hermes v1.3.3 library is required - http://clanlib.org/hermes
- note: At the time of writing this message, The hermes v1.3.3 release is only available from cvs.
+The ClanLib v0.7.8 library is required - http://www.clanlib.org
 
-Optional: The MikMod library 3.1.10 (See http://www.mikmod.org)
+Optional: The MikMod library 3.1.11 - See http://mikmod.raphnet.net
 
 To Enable Cheat Mode: Modify the line containing "(CHEAT MODE DISABLED)" in source/linux/main.cpp
 
@@ -22,7 +20,5 @@ cd source/linux		; To go to the linux source directory
 make			; Make the program
 ./methane		; Run the program
 
-To disable audio, modify the makefile and comment out the following lines:
-MIKMOD_LIBS = `libmikmod-config --cflags` `libmikmod-config --libs`
-METHANE_FLAGS = -DMETHANE_MIKMOD
+To disable sound, modify the makefile - under "# Remove the following two lines to disable sound"
 

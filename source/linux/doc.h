@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Prgram Email: rombust@postmaster.co.uk                                  *
  *                                                                         *
  ***************************************************************************/
@@ -40,7 +40,7 @@ public:
 	void RemoveSoundDriver(void);
 	void InitSoundDriver(void);
 	void UpdateModule(int id);
-	void DisplayOptions( void *screen_ptr );
+	void DisplayOptions( void *screen_ptr, int page_no );
 	void DrawFont32Text( int *dptr, int ypos, char *tptr);
 
 	void SaveScores(void);

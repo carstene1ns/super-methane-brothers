@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -103,12 +103,9 @@ static int fixoffs[] =
 	};
 
 //------------------------------------------------------------------------------
-// Constructror
-// WARNING - YOU MUST SET UP THE m_pGame POINTER BEFORE USING ANY FUNCTIONS
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Constructror
+//!
+//! WARNING - YOU MUST SET UP THE m_pGame POINTER BEFORE USING ANY FUNCTIONS
 //------------------------------------------------------------------------------
 CBitmapGroup::CBitmapGroup()
 {
@@ -117,11 +114,7 @@ CBitmapGroup::CBitmapGroup()
 }
 
 //------------------------------------------------------------------------------
-// Initialise the bitmap group
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the bitmap group
 //------------------------------------------------------------------------------
 void CBitmapGroup::Init(void)
 {
@@ -136,11 +129,9 @@ void CBitmapGroup::Init(void)
 }
 
 //------------------------------------------------------------------------------
-// Initialise the bitmap group (constructor)
-// On Entry:
-// 	gptr = The game pointer
-// On Exit:
-// 	Not Used
+//! \brief Initialise the bitmap group (constructor)
+//!
+//! 	\param gptr = The game pointer
 //------------------------------------------------------------------------------
 CBitmapGroup::CBitmapGroup( CGame *gptr )
 {
@@ -149,11 +140,7 @@ CBitmapGroup::CBitmapGroup( CGame *gptr )
 }
 
 //------------------------------------------------------------------------------
-// Destroy the bitmap group
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Destroy the bitmap group
 //------------------------------------------------------------------------------
 CBitmapGroup::~CBitmapGroup()
 {
@@ -161,11 +148,7 @@ CBitmapGroup::~CBitmapGroup()
 }
 
 //------------------------------------------------------------------------------
-// Delete all the bitmap items in the list
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Delete all the bitmap items in the list
 //------------------------------------------------------------------------------
 void CBitmapGroup::DeleteAll(void)
 {
@@ -184,11 +167,9 @@ void CBitmapGroup::DeleteAll(void)
 }
 
 //------------------------------------------------------------------------------
-// Load a bitmap - ready to draw (Load Bitmap)
-// On Entry:
-// 	sprid = Sprite ID
-// On Exit:
-// 	Not Used
+//! \brief Load a bitmap - ready to draw (Load Bitmap)
+//!
+//! 	\param sprid = Sprite ID
 //------------------------------------------------------------------------------
 void CBitmapGroup::Load(int sprid)
 {
@@ -219,11 +200,11 @@ void CBitmapGroup::Load(int sprid)
 }
 
 //------------------------------------------------------------------------------
-// Get the bitmap item pointer
-// On Entry:
-// 	sprid = Sprite ID
-// On Exit:
-// 	The Item (0 = Error)
+//! \brief Get the bitmap item pointer
+//!
+//! 	\param sprid = Sprite ID
+//!
+//! 	\return The Item (0 = Error)
 //------------------------------------------------------------------------------
 CBitmapItem * CBitmapGroup::GetItem(int sprid)
 {
@@ -237,13 +218,12 @@ CBitmapItem * CBitmapGroup::GetItem(int sprid)
 }
 
 //------------------------------------------------------------------------------
-// Draw a bitmap 
-// On Entry:
-// 	sprid = Sprite ID
-//		xpos,ypos = Draw positions (offsets will be added to this)
-//		flags = (GFX_xxx flags) (Default = 0)
-// On Exit:
-// 	Not Used
+//! \brief Draw a bitmap 
+//!
+//! 	\param sprid = Sprite ID
+//!	\param xpos = X Draw position (offsets will be added to this)
+//!	\param ypos = Y Draw position (offsets will be added to this)
+//!	\param flags = (GFX_xxx flags) (Default = 0)
 //------------------------------------------------------------------------------
 void CBitmapGroup::Draw(int sprid, int xpos, int ypos, int flags)
 {
@@ -257,12 +237,10 @@ void CBitmapGroup::Draw(int sprid, int xpos, int ypos, int flags)
 }
 
 //------------------------------------------------------------------------------
-// Load a range of sprites 
-// On Entry:
-// 	sprid1 = start sprite id
-// 	sprid2 = end sprite id (including this)
-// On Exit:
-// 	Not Used
+//! \brief Load a range of sprites 
+//!
+//! 	\param sprid1 = start sprite id
+//! 	\param sprid2 = end sprite id (including this)
 //------------------------------------------------------------------------------
 void CBitmapGroup::LoadRange(int sprid1, int sprid2)
 {
@@ -280,11 +258,7 @@ void CBitmapGroup::LoadRange(int sprid1, int sprid2)
 }
 
 //------------------------------------------------------------------------------
-// Fix the sprite offset list
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Fix the sprite offset list
 //------------------------------------------------------------------------------
 void CBitmapGroup::FixOffsets(void)
 {
@@ -312,12 +286,13 @@ void CBitmapGroup::FixOffsets(void)
 }
 
 //------------------------------------------------------------------------------
-// Get the minimum y pos for a range of sprites
-// (Called by FixGroup())
-// On Entry:
-// 	fixptr = array containing the group of sprites
-// On Exit:
-// 	the minimum y pos
+//! \brief Get the minimum y pos for a range of sprites
+//!
+//! (Called by FixGroup())
+//!
+//! 	\param fixptr = array containing the group of sprites
+//!
+//! 	\return the minimum y pos
 //------------------------------------------------------------------------------
 int CBitmapGroup::MinGroup(int *fixptr)
 {
@@ -373,13 +348,15 @@ int CBitmapGroup::MinGroup(int *fixptr)
 	return minypos;
 
 }
+
 //------------------------------------------------------------------------------
-// Fix the offsets for a range of sprites
-// WARNING: NO VALIDATION CHECKS ARE CARRIED OUT
-// On Entry:
-// 	fixptr = array containing the group of sprites
-// On Exit:
-// 	end of the array
+//! \brief Fix the offsets for a range of sprites
+//!
+//! WARNING: NO VALIDATION CHECKS ARE CARRIED OUT
+//!
+//! 	\param fixptr = array containing the group of sprites
+//!
+//! 	\return end of the array
 //------------------------------------------------------------------------------
 int *CBitmapGroup::FixGroup(int *fixptr)
 {
@@ -437,12 +414,9 @@ int *CBitmapGroup::FixGroup(int *fixptr)
 }
 
 //------------------------------------------------------------------------------
-// Initialise the graphics purge
-// (Sets a flag on each sprite)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the graphics purge
+//!
+//! (Sets a flag on each sprite)
 //------------------------------------------------------------------------------
 void CBitmapGroup::InitPurge(void)
 {
@@ -460,12 +434,9 @@ void CBitmapGroup::InitPurge(void)
 }
 
 //------------------------------------------------------------------------------
-// Do the graphics purge
-// (Removes unused graphics)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the graphics purge
+//!
+//! (Removes unused graphics)
 //------------------------------------------------------------------------------
 void CBitmapGroup::DoPurge(void)
 {

@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -30,6 +30,7 @@
 #define MC_COMPLETED	1	// Game completed
 #define MC_TITLE	2	// On the title screen
 #define MC_HIGHSCREEN	3	// On the high score table screen
+#define MC_GETPLAYER	4	// On the get player name screen
 
 //------------------------------------------------------------------------------
 // Fade types
@@ -122,6 +123,7 @@ private:
 	void CreateBalloons(void);
 	void DrawEndCredits(void);
 	void DrawEndGfxItems(int xpos, int ypos, PARTYOFFS **party);
+	void InitNewGame(int player_two_flag);
 	void InitTitleScreen(void);
 	void TitleScreenLoop(void);
 	void DoGameOverLoop(void);
@@ -131,7 +133,11 @@ private:
 	void DrawScrFont(int ypos, char *text, int xpos = 0);
 	void DrawHighTable(void);
 	void RedrawScrIfNeeded(void);
-	void EditName( JOYSTICK *pjoy );
+	void InitGetPlayerNameScreen(int player_two_flag);
+	void GetPlayerNameLoop(void);
+	void EditName(JOYSTICK *pjoy, char *nptr);
+	void PrepareEditName(void);
+	void CheckForGameOver( void );
 
 public:
 
@@ -146,6 +152,7 @@ public:
 	CBitmapGroup	m_Sprites;
 
 	CObjectList	m_PlayerList;
+	CObjectList	m_DeadPlayerList;
 	CObjectList	m_GasList;
 	CObjectList	m_BaddieList;
 	CObjectList	m_GoodieList;
@@ -180,7 +187,6 @@ public:
 
 	int	m_GameOverFlag;
 	HISCORES m_HiScores[MAX_HISCORES];
-
 private:
 	int	m_PUP_Cnt;
 	PUPTYPE	m_PUP_Data[MAX_PUP];
@@ -192,9 +198,14 @@ private:
 	int	m_MainCommand;
 	int	m_EndYOffset;
 
-	HISCORES *m_pHiScore;
 	int	m_HiOffset;
 	int	m_ScrChgFlag;
+	int	m_TwoPlayerModeFlag;
+	char	m_PlayerNameBuff1[8];
+	char	m_PlayerNameBuff2[8];
+	int	m_EditPlayerOneNameFlag;
+	int	m_NameEditFadeUpFlag;
+
 };
 
 #endif

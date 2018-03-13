@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Project Email: rombust@postmaster.co.uk                                 *
  *                                                                         *
  ***************************************************************************/
@@ -55,17 +55,14 @@ int main( void )
 }
 
 //------------------------------------------------------------------------------
-// The program main code
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief The program main code
 //------------------------------------------------------------------------------
 void main_code(void)
 {
 	LAYER *lptr;
 	int key;
-	JOYSTICK *jptr;
+	JOYSTICK *jptr1;
+	JOYSTICK *jptr2;
 	unsigned int time_start;
 	unsigned int time_now;
 	int time_diff;
@@ -73,7 +70,7 @@ void main_code(void)
 	lptr = smb_vgfx_layer_create_sprite( SCR_WIDTH, SCR_HEIGHT, AV_256_COLOUR, 0);
 
 	printf("The GNU General Public License V2 applies to this game.\n\n");
-	printf("See: http://www.methane.fsnet.co.uk\n");
+	printf("See: http://methane.sourceforge.net\n");
 	if (QTM_Available)
 	{
 		printf("(QTM MODULE FOUND - Audio Enabled)\n");
@@ -82,10 +79,16 @@ void main_code(void)
 		printf("(QTM MODULE NOT FOUND - MUSIC/SOUND EFFECTS DISABLED)\n");
 	}
 
+	printf("Instructions:\n\n");
+	printf("Press Fire to start. Use keyboard to enter player names.\n");
+	printf("Press Return to start game. Tap Fire to fire gas from the gun.\n");
+	printf("Hold Fire to suck a trapped baddie into the gun.\n");
+	printf("Release Fire to throw the trapped baddie from the gun.\n");
+	printf("Throw baddies at the wall to destroy them.\n\n");
 	printf("Keys:\n");
-	printf("Cursor Keys = Left, Right, Up, Down\n");
-	printf("CTRL = Fire\n");
-	printf("Q = Quit (and save high scores)\n");
+	printf("Player One - Use Cursor keys and control (CTRL) to fire.\n");
+	printf("Player Two - Use A,W,S,D and shift to fire.\n\n");
+	printf("# = Quit (and save high scores)\n");
 	printf("TAB = Change player graphic during game\n");
 	//printf("F1 = Next Level (DISABLED)\n");
 
@@ -95,7 +98,8 @@ void main_code(void)
 	Game.InitGame();
 	Game.LoadScores();
 	Game.StartGame();
-	jptr = &Game.m_GameTarget.m_Joy1;
+	jptr1 = &Game.m_GameTarget.m_Joy1;
+	jptr2 = &Game.m_GameTarget.m_Joy2;
 	time_start = smb_gettime(0);
 	while(1)
 	{
@@ -104,19 +108,27 @@ void main_code(void)
 		if (smb_getkeyready())
 		{
 			key = smb_getkey();
-			if ((key == 'q') || (key == 'Q')) break;
+			if (key == '#') break;
 			if (key == '\t')
 			{
 				Game.m_GameTarget.m_Game.TogglePuffBlow();
 			}
-			jptr->key = key;
+			jptr1->key = key;
+			jptr2->key = key;
 		}
-		jptr->right = SMB_Keybank_Buffer[SMB_KB_RIGHT];
-		jptr->left = SMB_Keybank_Buffer[SMB_KB_LEFT];
-		jptr->up = SMB_Keybank_Buffer[SMB_KB_UP];
-		jptr->down = SMB_Keybank_Buffer[SMB_KB_DOWN];
-		jptr->fire = SMB_Keybank_Buffer[SMB_KB_FIRE];
-		// (CHEAT MODE DISABLED) --> jptr->next_level = SMB_Keybank_Buffer[SMB_KB_CHEAT];
+		jptr1->right = SMB_Keybank_Buffer[SMB_KB_RIGHT];
+		jptr1->left = SMB_Keybank_Buffer[SMB_KB_LEFT];
+		jptr1->up = SMB_Keybank_Buffer[SMB_KB_UP];
+		jptr1->down = SMB_Keybank_Buffer[SMB_KB_DOWN];
+		jptr1->fire = SMB_Keybank_Buffer[SMB_KB_FIRE];
+
+		jptr2->right = SMB_Keybank_Buffer[SMB_KB_D];
+		jptr2->left = SMB_Keybank_Buffer[SMB_KB_A];
+		jptr2->up = SMB_Keybank_Buffer[SMB_KB_W];
+		jptr2->down = SMB_Keybank_Buffer[SMB_KB_S];
+		jptr2->fire = SMB_Keybank_Buffer[SMB_KB_SHIFT];
+
+		// (CHEAT MODE DISABLED) --> jptr1->next_level = SMB_Keybank_Buffer[SMB_KB_CHEAT];
 		Game.MainLoop(0);
 		do
 		{
@@ -132,11 +144,7 @@ void main_code(void)
 }
 
 //------------------------------------------------------------------------------
-// Initialise Document
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise Document
 //------------------------------------------------------------------------------
 CMethDoc::CMethDoc()
 {
@@ -144,22 +152,14 @@ CMethDoc::CMethDoc()
 }
 
 //------------------------------------------------------------------------------
-// Destroy Document
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Destroy Document
 //------------------------------------------------------------------------------
 CMethDoc::~CMethDoc()
 {
 }
 
 //------------------------------------------------------------------------------
-// Initialise the game
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the game
 //------------------------------------------------------------------------------
 void CMethDoc::InitGame(void)
 {
@@ -168,11 +168,7 @@ void CMethDoc::InitGame(void)
 }
 
 //------------------------------------------------------------------------------
-// Initialise the sound driver
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the sound driver
 //------------------------------------------------------------------------------
 void CMethDoc::InitSoundDriver(void)
 {
@@ -215,23 +211,14 @@ void CMethDoc::InitSoundDriver(void)
 }
 
 //------------------------------------------------------------------------------
-// Remove the sound driver
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Remove the sound driver
 //------------------------------------------------------------------------------
 void CMethDoc::RemoveSoundDriver(void)
 {
 }
 
-
 //------------------------------------------------------------------------------
-// Start the game
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Start the game
 //------------------------------------------------------------------------------
 void CMethDoc::StartGame(void)
 {
@@ -239,11 +226,9 @@ void CMethDoc::StartGame(void)
 }
 
 //------------------------------------------------------------------------------
-// Redraw the game main view
-// On Entry:
-// 	pal_change_flag : 0 = Palette not changed
-// On Exit:
-// 	Not Used
+//! \brief Redraw the game main view
+//!
+//! 	\param pal_change_flag : 0 = Palette not changed
 //------------------------------------------------------------------------------
 void CMethDoc::RedrawMainView( int pal_change_flag )
 {
@@ -251,11 +236,9 @@ void CMethDoc::RedrawMainView( int pal_change_flag )
 }
 
 //------------------------------------------------------------------------------
-// Draw the screen
-// On Entry:
-// 	screen_ptr = UNUSED
-// On Exit:
-// 	Not Used
+//! \brief Draw the screen
+//!
+//! 	\param screen_ptr = UNUSED
 //------------------------------------------------------------------------------
 void CMethDoc::DrawScreen( void *screen_ptr )
 {
@@ -266,7 +249,7 @@ void CMethDoc::DrawScreen( void *screen_ptr )
 	int cnt;
 
 	smb_sync();	// Lock to VBL
-	smb_vgfx_sprite_draw( TheScreen, 128, 96, 0 );
+	smb_vgfx_sprite_draw( TheScreen, 128, 64, 0 );
 
 	// Set the game palette
 	pptr = m_GameTarget.m_rgbPalette;
@@ -280,11 +263,9 @@ void CMethDoc::DrawScreen( void *screen_ptr )
 }
 
 //------------------------------------------------------------------------------
-// The Game Main Loop 
-// On Entry:
-// 	screen_ptr = UNUSED
-// On Exit:
-// 	Not Used
+//! \brief The Game Main Loop 
+//!
+//! 	\param screen_ptr = UNUSED
 //------------------------------------------------------------------------------
 void CMethDoc::MainLoop( void *screen_ptr )
 {
@@ -294,13 +275,11 @@ void CMethDoc::MainLoop( void *screen_ptr )
 }
 
 //------------------------------------------------------------------------------
-// Play a sample (called from the game)
-// On Entry:
-// 	id = SND_xxx id
-//	pos = Sample Position to use 0 to 255
-//	rate = The rate
-// On Exit:
-// 	Not Used
+//! \brief Play a sample (called from the game)
+//!
+//! 	\param id = SND_xxx id
+//!	\param pos = Sample Position to use 0 to 255
+//!	\param rate = The rate
 //------------------------------------------------------------------------------
 void CMethDoc::PlaySample(int id, int pos, int rate)
 {
@@ -351,11 +330,7 @@ void CMethDoc::PlaySample(int id, int pos, int rate)
 }
 
 //------------------------------------------------------------------------------
-// Stop the module (called from the game)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Stop the module (called from the game)
 //------------------------------------------------------------------------------
 void CMethDoc::StopModule(void)
 {
@@ -363,11 +338,9 @@ void CMethDoc::StopModule(void)
 }
 
 //------------------------------------------------------------------------------
-// Play a module (called from the game)
-// On Entry:
-// 	id = SMOD_xxx id
-// On Exit:
-// 	Not Used
+//! \brief Play a module (called from the game)
+//!
+//! 	\param id = SMOD_xxx id
 //------------------------------------------------------------------------------
 void CMethDoc::PlayModule(int id)
 {
@@ -381,13 +354,10 @@ void CMethDoc::PlayModule(int id)
 
 }
 
-
 //------------------------------------------------------------------------------
-// Update the current module (ie restart the module if it has stopped) (called from the game)
-// On Entry:
-// 	id = SMOD_xxx id (The module that should be playing)
-// On Exit:
-// 	Not Used
+//! \brief Update the current module (ie restart the module if it has stopped) (called from the game)
+//!
+//! 	\param id = SMOD_xxx id (The module that should be playing)
 //------------------------------------------------------------------------------
 void CMethDoc::UpdateModule(int id)
 {
@@ -395,11 +365,7 @@ void CMethDoc::UpdateModule(int id)
 }
 
 //------------------------------------------------------------------------------
-// Load the high scores
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the high scores
 //------------------------------------------------------------------------------
 void CMethDoc::LoadScores(void)
 {
@@ -444,11 +410,7 @@ void CMethDoc::LoadScores(void)
 }
 
 //------------------------------------------------------------------------------
-// Save the high scores
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Save the high scores
 //------------------------------------------------------------------------------
 void CMethDoc::SaveScores(void)
 {

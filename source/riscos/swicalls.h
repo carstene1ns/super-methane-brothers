@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Project Email: rombust@postmaster.co.uk                                 *
  *                                                                         *
  ***************************************************************************/
@@ -55,8 +55,13 @@
 #define SMB_KB_DOWN	3
 #define SMB_KB_CHEAT	4
 #define SMB_KB_FIRE	5
+#define SMB_KB_A	6
+#define SMB_KB_D	7
+#define SMB_KB_W	8
+#define SMB_KB_S	9
+#define SMB_KB_SHIFT	10
 
-#define SMB_KB_MAX	(5)
+#define SMB_KB_MAX	(10)
 
 #define BIT0 (1<<0)
 #define BIT1 (1<<1)
