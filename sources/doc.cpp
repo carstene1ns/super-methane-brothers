@@ -96,7 +96,7 @@ void CMethDoc::DisplayOptions( CL_DisplayWindow &window, CL_Font &font, int page
 		font.draw_text(gc, 32, 2*32, "KEYS:");
 		font.draw_text(gc, 32, 4*32, "F9 INCREASE SPEED");
 		font.draw_text(gc, 32, 5*32, "F10 DECREASE SPEED");
-		font.draw_text(gc, 32, 6*32, "F11 SKIP LEVEL");
+		//font.draw_text(gc, 32, 6*32, "F11 SKIP LEVEL");
 		font.draw_text(gc, 32, 7*32, "TAB CHANGE GRAPHIC");
 		font.draw_text(gc, 32, 8*32, "ESC EXIT PROGRAM");
 	}

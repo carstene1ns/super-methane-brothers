@@ -15,8 +15,9 @@
 #include <ClanLib/core.h>
 #include <ClanLib/application.h>
 #include <ClanLib/display.h>
-#include <ClanLib/gdi.h>
+#include <ClanLib/swrender.h>
 #include <ClanLib/gl.h>
+#include <ClanLib/gl1.h>
 #include <ClanLib/sound.h>
 #include <ClanLib/mikmod.h>
 
@@ -24,7 +25,7 @@
 
 #include "doc.h"
 
-RenderTarget GLOBAL_RenderTarget = opengl;
+RenderTarget GLOBAL_RenderTarget = opengl2;
 bool GLOBAL_SoundEnable = true;
 
 //------------------------------------------------------------------------------
@@ -49,26 +50,27 @@ public:
 
 	int main(const std::vector<CL_String> &args)
 	{
-		// Create a console window for text-output if not available
-		CL_ConsoleWindow console("Console");
 		try
 		{
-			CL_SetupGL target_opengl;
-			CL_SetupGDI target_gdi;
+			CL_SetupGL target_opengl2;
+			CL_SetupGL1 target_opengl1;
+			CL_SetupSWRender target_swrender;
 
-			// Since GDI is compatible and fast - Use that as the default setting options
-			target_gdi.set_current();
+			// Since SWRender is compatible and fast - Use that as the default setting options
+			target_swrender.set_current();
 
 			if (get_options())
 			{
 				switch (GLOBAL_RenderTarget)
 				{
-					case (opengl):
-						target_opengl.set_current();
+					case (opengl2):
+						target_opengl2.set_current();
 						break;
-
-					case (gdi):
-						target_gdi.set_current();
+					case (opengl1):
+						target_opengl1.set_current();
+						break;
+					case (swrender):
+						target_swrender.set_current();
 						break;
 				}
 			}
@@ -201,7 +203,7 @@ public:
                                 }else   jptr2->fire = 0;
 
 				// (CHEAT MODE ENABLED)
-				if ((window.get_ic().get_keyboard()).get_keycode(CL_KEY_F11)) jptr1->next_level = 1; else jptr1->next_level = 0;
+				//if ((window.get_ic().get_keyboard()).get_keycode(CL_KEY_F11)) jptr1->next_level = 1; else jptr1->next_level = 0;
 
 //------------------------------------------------------------------------------
 // Do game main loop
@@ -239,6 +241,9 @@ public:
 		}
 		catch(CL_Exception& exception)
 		{
+			// Create a console window for text-output if not available
+			CL_ConsoleWindow console("Console");
+
 			CL_Console::write_line("Exception caught:");
 			CL_Console::write_line(exception.message);
 
@@ -287,16 +292,20 @@ public:
 				GLOBAL_SoundEnable = (GLOBAL_SoundEnable == false);
 			}
 
-			if ( (LastKey == 'g') || (LastKey == 'G') )
+			if ( (LastKey == 'w') || (LastKey == 'W') )
 			{
 				LastKey = 0;
-				if (GLOBAL_RenderTarget == opengl)
-				{
-					GLOBAL_RenderTarget = gdi;
-				}else
-				{
-					GLOBAL_RenderTarget = opengl;
-				}
+				GLOBAL_RenderTarget = opengl2;
+			}
+			if ( (LastKey == 'e') || (LastKey == 'E') )
+			{
+				LastKey = 0;
+				GLOBAL_RenderTarget = opengl1;
+			}
+			if ( (LastKey == 'r') || (LastKey == 'R') )
+			{
+				LastKey = 0;
+				GLOBAL_RenderTarget = swrender;
 			}
 
 			gc.clear(CL_Colorf(0.0f,0.0f,0.2f));
@@ -304,22 +313,40 @@ public:
 			int ypos = 40;
 			options_font.draw_text(gc, 10, ypos, "Global Options");
 			ypos += 50;
-			if (GLOBAL_RenderTarget == opengl)
+			if (GLOBAL_RenderTarget == opengl2)
 			{
-				options_font.draw_text(gc, 10, ypos, "OpenGL - Enabled. Press 'G' to modify");
+				options_font.draw_text(gc, 10, ypos, "OpenGL V2 - Enabled.");
 			}
 			else
 			{
-				options_font.draw_text(gc, 10, ypos, "OpenGL - Disabled. Press 'G' to modify");
+				options_font.draw_text(gc, 10, ypos, "OpenGL V2 - Disabled. Press 'W' to select");
 			}
 			ypos += 50;
-			if (GLOBAL_SoundEnable)
+			if (GLOBAL_RenderTarget == opengl1)
 			{
-				options_font.draw_text(gc, 10, ypos, "Audio - Enabled. Press 'A' to modify");
+				options_font.draw_text(gc, 10, ypos, "OpenGL V1 - Enabled.");
 			}
 			else
 			{
-				options_font.draw_text(gc, 10, ypos, "Audio - Disabled. Press 'A' to modify");
+				options_font.draw_text(gc, 10, ypos, "OpenGL V1 - Disabled. Press 'E' to select");
+			}
+			ypos += 50;
+			if (GLOBAL_RenderTarget == swrender)
+			{
+				options_font.draw_text(gc, 10, ypos, "Software Renderer - Enabled.");
+			}
+			else
+			{
+				options_font.draw_text(gc, 10, ypos, "Software Renderer - Disabled. Press 'R' to select");
+			}
+			ypos += 100;
+			if (GLOBAL_SoundEnable)
+			{
+				options_font.draw_text(gc, 10, ypos, "Audio - Enabled. Press 'A' to toggle");
+			}
+			else
+			{
+				options_font.draw_text(gc, 10, ypos, "Audio - Disabled. Press 'A' to toggle");
 			}
 
 			ypos += 100;

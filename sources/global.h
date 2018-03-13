@@ -18,8 +18,9 @@
 
 enum RenderTarget
 {
-	opengl,
-	gdi
+	opengl2,
+	opengl1,
+	swrender
 };
 
 // Standard Screen Size

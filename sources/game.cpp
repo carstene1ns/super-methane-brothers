@@ -27,11 +27,12 @@
 #include "weapon.h"
 #include "target.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 //------------------------------------------------------------------------------
 // The Game Version Number
 //------------------------------------------------------------------------------
-static char GameVersionNumber[] = "VERSION 1.5.0";
+static char GameVersionNumber[] = "VERSION 1.5.1";
 
 #define DELAY_BEFORE_NEXT_LEVEL 140
 

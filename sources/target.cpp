@@ -28,10 +28,11 @@ CGameTarget *GLOBAL_GameTarget = 0;
 const char Shader_Vertex_White[] =
 "	attribute vec4 in_position;\n"
 "	attribute vec2 in_texcoord;\n"
+"	uniform mat4 cl_ModelViewProjectionMatrix;"
 "	varying vec2 texCoord;\n"
 "	void main()\n"
 "	{\n"
-"		gl_Position = gl_ModelViewProjectionMatrix * in_position;\n"
+"		gl_Position = cl_ModelViewProjectionMatrix * in_position;\n"
 "		texCoord.xy = in_texcoord.xy;\n"
 "	}\n";
 
@@ -60,10 +61,11 @@ const char Shader_Fragment_White[] =
 const char Shader_Vertex_Standard[] =
 "	attribute vec4 in_position;\n"
 "	attribute vec2 in_texcoord;\n"
+"	uniform mat4 cl_ModelViewProjectionMatrix;"
 "	varying vec2 texCoord;\n"
 "	void main()\n"
 "	{\n"
-"		gl_Position = gl_ModelViewProjectionMatrix * in_position;\n"
+"		gl_Position = cl_ModelViewProjectionMatrix * in_position;\n"
 "		texCoord.xy = in_texcoord.xy;\n"
 "	}\n";
 
@@ -312,19 +314,19 @@ void CGameTarget::InitGame()
 		m_MOD_tune2 = CL_SoundBuffer(filename);
 	}
 
-	if (GLOBAL_RenderTarget == opengl)
+	if (GLOBAL_RenderTarget == opengl2)
 	{
 
 		CL_ShaderObject vertex_shader(gc, cl_shadertype_vertex, Shader_Vertex_White);
 		if(!vertex_shader.compile())
 		{
-			throw CL_Exception(cl_format(cl_text("Unable to compile vertex shader object: %1"), vertex_shader.get_info_log()));
+			throw CL_Exception(cl_format("Unable to compile vertex shader object: %1", vertex_shader.get_info_log()));
 		}
 
 		CL_ShaderObject fragment_shader(gc, cl_shadertype_fragment, Shader_Fragment_White);
 		if(!fragment_shader.compile())
 		{
-			throw CL_Exception(cl_format(cl_text("Unable to compile fragment shader object: %1"), fragment_shader.get_info_log()));
+			throw CL_Exception(cl_format("Unable to compile fragment shader object: %1", fragment_shader.get_info_log()));
 		}
 
 		m_Shader_DrawWhite = CL_ProgramObject(gc);
@@ -335,19 +337,19 @@ void CGameTarget::InitGame()
 
 		if (!m_Shader_DrawWhite.link())
 		{
-			throw CL_Exception(cl_format(cl_text("Unable to link program object: %1"), m_Shader_DrawWhite.get_info_log()));
+			throw CL_Exception(cl_format("Unable to link program object: %1", m_Shader_DrawWhite.get_info_log()));
 		}
 
 		vertex_shader = CL_ShaderObject(gc, cl_shadertype_vertex, Shader_Vertex_Standard);
 		if(!vertex_shader.compile())
 		{
-			throw CL_Exception(cl_format(cl_text("Unable to compile vertex shader object: %1"), vertex_shader.get_info_log()));
+			throw CL_Exception(cl_format("Unable to compile vertex shader object: %1", vertex_shader.get_info_log()));
 		}
 
 		fragment_shader = CL_ShaderObject(gc, cl_shadertype_fragment, Shader_Fragment_Standard);
 		if(!fragment_shader.compile())
 		{
-			throw CL_Exception(cl_format(cl_text("Unable to compile fragment shader object: %1"), fragment_shader.get_info_log()));
+			throw CL_Exception(cl_format("Unable to compile fragment shader object: %1", fragment_shader.get_info_log()));
 		}
 
 		m_Shader_Standard = CL_ProgramObject(gc);
@@ -358,7 +360,7 @@ void CGameTarget::InitGame()
 
 		if (!m_Shader_Standard.link())
 		{
-			throw CL_Exception(cl_format(cl_text("Unable to link program object: %1"), m_Shader_Standard.get_info_log()));
+			throw CL_Exception(cl_format("Unable to link program object: %1", m_Shader_Standard.get_info_log()));
 		}
 	}
 }
@@ -623,7 +625,7 @@ void CGameTarget::Draw(int dest_xpos, int dest_ypos, int width, int height, int 
 
 	CL_Rectf source = CL_Rectf(texture_xpos, texture_ypos, (texture_xpos+width), (texture_ypos+height));
 
-	if (GLOBAL_RenderTarget == opengl)
+	if (GLOBAL_RenderTarget == opengl2)
 	{
 		gc.set_texture(0, m_Texture[texture_number]);
 
@@ -684,5 +686,5 @@ void CGameTarget::Draw(int dest_xpos, int dest_ypos, int width, int height, int 
 		image.draw(gc, dest);
 	}
 
-}
+} 
 

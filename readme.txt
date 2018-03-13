@@ -1,4 +1,4 @@
-This is the ClanLib 2.1 version of the Super Methane Brothers game.
+This is the ClanLib 2.2 version of the Super Methane Brothers game.
 
 Linux
   make
