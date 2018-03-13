@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -48,11 +48,7 @@ static OBJSIZE	cb_col_bottom = {0x05,0x5A,(0x5C)-(0x05),(0x65)-(0x5A)};
 #define CLOWNBOSS_OUCH		1
 
 //------------------------------------------------------------------------------
-// Initialise the number rising object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the number rising object
 //------------------------------------------------------------------------------
 CClownBoss::CClownBoss()
 {
@@ -69,11 +65,7 @@ CClownBoss::CClownBoss()
 }
 
 //------------------------------------------------------------------------------
-// Draw the number rising object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the number rising object
 //------------------------------------------------------------------------------
 void CClownBoss::Draw( void )
 {
@@ -104,11 +96,7 @@ void CClownBoss::Draw( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the collision detection between player and object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the collision detection between player and object
 //------------------------------------------------------------------------------
 void CClownBoss::CollisionCheck( void )
 {
@@ -124,11 +112,7 @@ void CClownBoss::CollisionCheck( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the collision detection between tomatos and this object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the collision detection between tomatos and this object
 //------------------------------------------------------------------------------
 void CClownBoss::TomatoCollision( void )
 {
@@ -151,12 +135,12 @@ void CClownBoss::TomatoCollision( void )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if a tomato hit this objects head
-// On Entry:
-// 	tobj = Tomato Object
-//		pcb = The collision box
-// On Exit:
-// 	0 = No collision occured
+//! \brief Check to see if a tomato hit this objects head
+//!
+//! 	\param tobj = Tomato Object
+//!	\param pcb = The collision box
+//!
+//! 	\return 0 = No collision occured
 //------------------------------------------------------------------------------
 int CClownBoss::HitHead( CTomatoObj *tobj, OBJSIZE *pcb )
 {
@@ -190,12 +174,12 @@ int CClownBoss::HitHead( CTomatoObj *tobj, OBJSIZE *pcb )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if a tomato hit this objects body
-// On Entry:
-// 	tobj = Tomato Object
-//		pcb = The collision box
-// On Exit:
-// 	0 = No collision occured
+//! \brief Check to see if a tomato hit this objects body
+//!
+//! 	\param tobj = Tomato Object
+//!	\param pcb = The collision box
+//!
+//! 	\return 0 = No collision occured
 //------------------------------------------------------------------------------
 int CClownBoss::HitBody( CTomatoObj *tobj, OBJSIZE *pcb )
 {
@@ -209,11 +193,7 @@ int CClownBoss::HitBody( CTomatoObj *tobj, OBJSIZE *pcb )
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CClownBoss::Do( void )
 {
@@ -241,18 +221,13 @@ void CClownBoss::Do( void )
 }
 
 //------------------------------------------------------------------------------
-// Load the object graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the object graphics
 //------------------------------------------------------------------------------
 void CClownBoss::LoadGfx( void )
 {
 	m_pGame->m_Sprites.LoadRange(SPR_CB_LEFTPART, SPR_CB_DAY3);
 	m_pGame->m_Sprites.LoadRange(SPR_COMP_01, SPR_COMP_20);
 }
-
 
 //------------------------------------------------------------------------------
 // CrabBoss
@@ -322,11 +297,7 @@ CRABPAT crab_pattern[]=
 #define PIPE_UP			4	// Move pipe back up
 
 //------------------------------------------------------------------------------
-// Initialise the number rising object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the number rising object
 //------------------------------------------------------------------------------
 CCrabBoss::CCrabBoss()
 {
@@ -349,11 +320,7 @@ CCrabBoss::CCrabBoss()
 }
 
 //------------------------------------------------------------------------------
-// Draw the number rising object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the number rising object
 //------------------------------------------------------------------------------
 void CCrabBoss::Draw( void )
 {
@@ -399,11 +366,7 @@ void CCrabBoss::Draw( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the collision detection between player and object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the collision detection between player and object
 //------------------------------------------------------------------------------
 void CCrabBoss::CollisionCheck( void )
 {
@@ -417,11 +380,7 @@ void CCrabBoss::CollisionCheck( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the crabboss pattern
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the crabboss pattern
 //------------------------------------------------------------------------------
 void CCrabBoss::DoPattern( void )
 {
@@ -461,11 +420,9 @@ void CCrabBoss::DoPattern( void )
 }
 
 //------------------------------------------------------------------------------
-// Move the crab boss up
-// On Entry:
-// 	destpos = dest y position
-// On Exit:
-// 	Not Used
+//! \brief Move the crab boss up
+//!
+//! 	\param destpos = dest y position
 //------------------------------------------------------------------------------
 void CCrabBoss::PatUp( int destpos )
 {
@@ -474,11 +431,9 @@ void CCrabBoss::PatUp( int destpos )
 }
 
 //------------------------------------------------------------------------------
-// Move the crab boss down
-// On Entry:
-// 	destpos = dest y position
-// On Exit:
-// 	Not Used
+//! \brief Move the crab boss down
+//!
+//! 	\param destpos = dest y position
 //------------------------------------------------------------------------------
 void CCrabBoss::PatDown( int destpos )
 {
@@ -489,11 +444,9 @@ void CCrabBoss::PatDown( int destpos )
 }
 
 //------------------------------------------------------------------------------
-// Move the crab boss left
-// On Entry:
-// 	destpos = dest x position
-// On Exit:
-// 	Not Used
+//! \brief Move the crab boss left
+//!
+//! 	\param destpos = dest x position
 //------------------------------------------------------------------------------
 void CCrabBoss::PatLeft( int destpos )
 {
@@ -503,11 +456,9 @@ void CCrabBoss::PatLeft( int destpos )
 }
 
 //------------------------------------------------------------------------------
-// Move the crab boss right
-// On Entry:
-// 	destpos = dest x position
-// On Exit:
-// 	Not Used
+//! \brief Move the crab boss right
+//!
+//! 	\param destpos = dest x position
 //------------------------------------------------------------------------------
 void CCrabBoss::PatRight( int destpos )
 {
@@ -517,11 +468,7 @@ void CCrabBoss::PatRight( int destpos )
 }
 
 //------------------------------------------------------------------------------
-// Make the crab boss baddie
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Make the crab boss baddie
 //------------------------------------------------------------------------------
 void CCrabBoss::PatDump( void )
 {
@@ -598,11 +545,7 @@ void CCrabBoss::PatDump( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the collision detection between the baddie and this object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the collision detection between the baddie and this object
 //------------------------------------------------------------------------------
 void CCrabBoss::BossCollision( void )
 {
@@ -626,12 +569,12 @@ void CCrabBoss::BossCollision( void )
 
 
 //------------------------------------------------------------------------------
-// Check to see if a spike hit this objects head
-// On Entry:
-// 	tobj = spike Object
-//		pcb = The collision box
-// On Exit:
-// 	0 = No collision occured
+//! \brief Check to see if a spike hit this objects head
+//!
+//! 	\param tobj = spike Object
+//!	\param pcb = The collision box
+//!
+//! 	\return 0 = No collision occured
 //------------------------------------------------------------------------------
 int CCrabBoss::HitHead( CSpikeObj *tobj, OBJSIZE *pcb )
 {
@@ -665,12 +608,12 @@ int CCrabBoss::HitHead( CSpikeObj *tobj, OBJSIZE *pcb )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if a spike hit this objects body
-// On Entry:
-// 	tobj = Spike Object
-//		pcb = The collision box
-// On Exit:
-// 	0 = No collision occured
+//! \brief Check to see if a spike hit this objects body
+//!
+//! 	\param tobj = Spike Object
+//!	\param pcb = The collision box
+//!
+//! 	\return 0 = No collision occured
 //------------------------------------------------------------------------------
 int CCrabBoss::HitBody( CSpikeObj *tobj, OBJSIZE *pcb )
 {
@@ -683,13 +626,8 @@ int CCrabBoss::HitBody( CSpikeObj *tobj, OBJSIZE *pcb )
 	return 0;
 }
 
-
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CCrabBoss::Do( void )
 {
@@ -716,11 +654,7 @@ void CCrabBoss::Do( void )
 }
 
 //------------------------------------------------------------------------------
-// Load the object graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the object graphics
 //------------------------------------------------------------------------------
 void CCrabBoss::LoadGfx( void )
 {
@@ -787,11 +721,7 @@ static CLKFRAMES clock_large[CLOCK_B_FRMS] =
 #define CLOCKBOSS_OUCH		1
 
 //------------------------------------------------------------------------------
-// Initialise the number rising object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the number rising object
 //------------------------------------------------------------------------------
 CClockBoss::CClockBoss()
 {
@@ -809,11 +739,7 @@ CClockBoss::CClockBoss()
 }
 
 //------------------------------------------------------------------------------
-// Draw the number rising object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the number rising object
 //------------------------------------------------------------------------------
 void CClockBoss::Draw( void )
 {
@@ -849,11 +775,7 @@ void CClockBoss::Draw( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the collision detection between player and object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the collision detection between player and object
 //------------------------------------------------------------------------------
 void CClockBoss::CollisionCheck( void )
 {
@@ -865,11 +787,7 @@ void CClockBoss::CollisionCheck( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the collision detection between bowling ball and this object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the collision detection between bowling ball and this object
 //------------------------------------------------------------------------------
 void CClockBoss::BallCollision( void )
 {
@@ -890,12 +808,12 @@ void CClockBoss::BallCollision( void )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if a bowling ball hit this objects head
-// On Entry:
-// 	tobj = bowling ball Object
-//		pcb = The collision box
-// On Exit:
-// 	0 = No collision occured
+//! \brief Check to see if a bowling ball hit this objects head
+//!
+//! 	\param tobj = bowling ball Object
+//!	\param pcb = The collision box
+//!
+//! 	\return 0 = No collision occured
 //------------------------------------------------------------------------------
 int CClockBoss::HitHead( CBowlingObj *tobj, OBJSIZE *pcb )
 {
@@ -929,12 +847,12 @@ int CClockBoss::HitHead( CBowlingObj *tobj, OBJSIZE *pcb )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if a bowling ball hit this objects body
-// On Entry:
-// 	tobj = bowling ball Object
-//		pcb = The collision box
-// On Exit:
-// 	0 = No collision occured
+//! \brief Check to see if a bowling ball hit this objects body
+//!
+//! 	\param tobj = bowling ball Object
+//!	\param pcb = The collision box
+//!
+//! 	\return 0 = No collision occured
 //------------------------------------------------------------------------------
 int CClockBoss::HitBody( CBowlingObj *tobj, OBJSIZE *pcb )
 {
@@ -948,11 +866,7 @@ int CClockBoss::HitBody( CBowlingObj *tobj, OBJSIZE *pcb )
 }
 
 //------------------------------------------------------------------------------
-// Control the clock hands
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Control the clock hands
 //------------------------------------------------------------------------------
 void CClockBoss::ControlHands( void )
 {
@@ -968,11 +882,7 @@ void CClockBoss::ControlHands( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CClockBoss::Do( void )
 {
@@ -999,11 +909,7 @@ void CClockBoss::Do( void )
 }
 
 //------------------------------------------------------------------------------
-// Load the object graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the object graphics
 //------------------------------------------------------------------------------
 void CClockBoss::LoadGfx( void )
 {
@@ -1096,11 +1002,7 @@ static SUCKFRAMES suck_lboss_frames=
 	};
 
 //------------------------------------------------------------------------------
-// Initialise the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the object
 //------------------------------------------------------------------------------
 CEndBoss::CEndBoss()
 {
@@ -1121,11 +1023,7 @@ CEndBoss::CEndBoss()
 }
 
 //------------------------------------------------------------------------------
-// Destroy the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Destroy the object
 //------------------------------------------------------------------------------
 CEndBoss::~CEndBoss()
 {
@@ -1135,11 +1033,7 @@ CEndBoss::~CEndBoss()
 }
 
 //------------------------------------------------------------------------------
-// Draw the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the object
 //------------------------------------------------------------------------------
 void CEndBoss::Draw( void )
 {
@@ -1192,11 +1086,7 @@ void CEndBoss::Draw( void )
 }
 
 //------------------------------------------------------------------------------
-// Setup the object getting caught
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Setup the object getting caught
 //------------------------------------------------------------------------------
 void CEndBoss::SetupCaught( void )
 {
@@ -1216,13 +1106,8 @@ void CEndBoss::SetupCaught( void )
 	}
 }
 
-
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CEndBoss::Do( void )
 {
@@ -1255,11 +1140,7 @@ void CEndBoss::Do( void )
 }
 
 //------------------------------------------------------------------------------
-// Load the object graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the object graphics
 //------------------------------------------------------------------------------
 void CEndBoss::LoadGfx( void )
 {
@@ -1269,11 +1150,9 @@ void CEndBoss::LoadGfx( void )
 }
 
 //------------------------------------------------------------------------------
-// Setup the object
-// On Entry:
-// 	seg = segment number (0-7)
-// On Exit:
-// 	Not Used
+//! \brief Setup the object
+//!
+//! 	\param seg = segment number (0-7)
 //------------------------------------------------------------------------------
 void CEndBoss::Setup( int seg )
 {
@@ -1281,11 +1160,7 @@ void CEndBoss::Setup( int seg )
 }
 
 //------------------------------------------------------------------------------
-// Control do dah day in the back of the train
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Control do dah day in the back of the train
 //------------------------------------------------------------------------------
 void CEndBoss::ControlDay( void )
 {
@@ -1306,11 +1181,7 @@ void CEndBoss::ControlDay( void )
 }
 
 //------------------------------------------------------------------------------
-// Set the object to explode
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Set the object to explode
 //------------------------------------------------------------------------------
 void CEndBoss::SetExplode( void )
 {
@@ -1333,25 +1204,12 @@ void CEndBoss::SetExplode( void )
 	CSuckable::SetExplode();
 }
 
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-
 //------------------------------------------------------------------------------
 // The KillBossObj Object
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-// Initialise the KillBossObj
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the KillBossObj
 //------------------------------------------------------------------------------
 CKillBossObj::CKillBossObj()
 {
@@ -1362,11 +1220,7 @@ CKillBossObj::CKillBossObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the object
 //------------------------------------------------------------------------------
 void CKillBossObj::Draw( void )
 {
@@ -1397,11 +1251,7 @@ void CKillBossObj::Draw( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CKillBossObj::Do( void )
 {

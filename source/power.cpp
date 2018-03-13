@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -84,11 +84,7 @@ static int anim_power_spin[]=
 #define IMMUNE_FROM_POTION	600
 
 //------------------------------------------------------------------------------
-// Initialise the power_up
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the power_up
 //------------------------------------------------------------------------------
 CPowerUpObj::CPowerUpObj()
 {
@@ -99,11 +95,7 @@ CPowerUpObj::CPowerUpObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the spring object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the spring object
 //------------------------------------------------------------------------------
 void CPowerUpObj::Draw( void )
 {
@@ -114,11 +106,9 @@ void CPowerUpObj::Draw( void )
 }
 
 //------------------------------------------------------------------------------
-// Setup the power_up
-// On Entry:
-// 	type = Power up type (PUP_xxx)
-// On Exit:
-// 	Not Used
+//! \brief Setup the power_up
+//!
+//! 	\param type = Power up type (PUP_xxx)
 //------------------------------------------------------------------------------
 void CPowerUpObj::Setup(int type)
 {
@@ -244,11 +234,7 @@ void CPowerUpObj::Setup(int type)
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CPowerUpObj::Do( void )
 {
@@ -424,11 +410,9 @@ void CPowerUpObj::Do( void )
 }
 
 //------------------------------------------------------------------------------
-// Convert baddies into an object type
-// On Entry:
-// 	objtype = The OBJ_xxx type
-// On Exit:
-// 	Not Used
+//! \brief Convert baddies into an object type
+//!
+//! 	\param objtype = The OBJ_xxx type
 //------------------------------------------------------------------------------
 void CPowerUpObj::ConvertBaddies( int objtype )
 {
@@ -470,12 +454,9 @@ void CPowerUpObj::ConvertBaddies( int objtype )
 	}
 
 }
+
 //------------------------------------------------------------------------------
-// Cookie - Destroy All Baddies
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Cookie - Destroy All Baddies
 //------------------------------------------------------------------------------
 void CPowerUpObj::DestroyAllBaddies(void)
 {

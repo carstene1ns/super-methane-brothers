@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -41,11 +41,7 @@
 #define STD_HEIGHT		24
 
 //------------------------------------------------------------------------------
-// Initialise the suckable object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the suckable object
 //------------------------------------------------------------------------------
 CSuckable::CSuckable()
 {
@@ -53,11 +49,7 @@ CSuckable::CSuckable()
 }
 
 //------------------------------------------------------------------------------
-// Reset the object (object members)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
 void CSuckable::Reset( void )
 {
@@ -66,13 +58,11 @@ void CSuckable::Reset( void )
 	m_SuckCmd = SUCK_NONE;
 	m_Release_YOff = 0;
 	m_DieScore = m_DieScoreFrame = 0;
+	m_pPlayer = 0;
 }
+
 //------------------------------------------------------------------------------
-// Setup the object getting caught
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Setup the object getting caught
 //------------------------------------------------------------------------------
 void CSuckable::SetupCaught( void )
 {
@@ -83,11 +73,7 @@ void CSuckable::SetupCaught( void )
 }
 
 //------------------------------------------------------------------------------
-// Setup the object getting sucked up to the gun
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Setup the object getting sucked up to the gun
 //------------------------------------------------------------------------------
 void CSuckable::SetupSuck( void )
 {
@@ -99,12 +85,12 @@ void CSuckable::SetupSuck( void )
 }
 
 //------------------------------------------------------------------------------
-// Suck a baddie to the gun
-// On Entry:
-// 	gun_xpos,gun_ypos = Where to go to
-// On Exit:
-// 	0 = Still Sucking
-//		Else = At the gun
+//! \brief Suck a baddie to the gun
+//!
+//! 	\param gun_xpos = Where to go to X
+//! 	\param gun_ypos = Where to go to Y
+//!
+//! 	\return 0 = Still Sucking. Else = At the gun
 //------------------------------------------------------------------------------
 int CSuckable::SuckBaddie( int gun_xpos, int gun_ypos )
 {
@@ -218,13 +204,13 @@ int CSuckable::SuckBaddie( int gun_xpos, int gun_ypos )
 
 }
 //------------------------------------------------------------------------------
-// Suck a baddie inside the gun. Note m_SuckFrmCnt should be '0', the
-//  first time this function is called
-// On Entry:
-// 	gun_xpos,gun_ypos = Gun offsets
-//		dir = player facing direction
-// On Exit:
-// 	Not Used
+//! \brief Suck a baddie inside the gun.
+//!
+//! Note m_SuckFrmCnt should be '0', the  first time this function is called
+//!
+//! 	\param gun_xpos = Gun offset X
+//! 	\param gun_ypos = Gun offset Y
+//!	\param dir = player facing direction
 //------------------------------------------------------------------------------
 void CSuckable::EnterBaddie( int gun_xpos, int gun_ypos, int dir )
 {
@@ -250,11 +236,7 @@ void CSuckable::EnterBaddie( int gun_xpos, int gun_ypos, int dir )
 }
 
 //------------------------------------------------------------------------------
-// Draw the baddie being sucked
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the baddie being sucked
 //------------------------------------------------------------------------------
 void CSuckable::DrawSuck( void )
 {
@@ -262,12 +244,10 @@ void CSuckable::DrawSuck( void )
 }
 
 //------------------------------------------------------------------------------
-// Set a baddie rolling out of a gun
-// On Entry:
-// 	dir = direction of roll
-//		rollsize = roll distance
-// On Exit:
-// 	Not Used
+//! \brief Set a baddie rolling out of a gun
+//!
+//! 	\param dir = direction of roll
+//!	\param rollsize = roll distance
 //------------------------------------------------------------------------------
 void CSuckable::SetRoll( int dir, int rollsize )
 {
@@ -303,12 +283,9 @@ void CSuckable::SetRoll( int dir, int rollsize )
 }
 
 //------------------------------------------------------------------------------
-// Set the baddie to explode into million of toys
-// The object will be deleted
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Set the baddie to explode into million of toys
+//!
+//! The object will be deleted
 //------------------------------------------------------------------------------
 void CSuckable::SetExplode( void )
 {
@@ -318,11 +295,8 @@ void CSuckable::SetExplode( void )
 
 	if (m_DieScore)
 	{
-		CPlayerObj *play1;
-		play1 = m_pGame->GetPlayer(OBJ_PLAYER_ONE);
-		if (play1) play1->AddScore( m_DieScore );
+		if (m_pPlayer) m_pPlayer->AddScore( m_DieScore );
 		m_pGame->MakeNumRise( m_XPos, m_YPos, m_DieScoreFrame );
-
 	}
 
 	if (m_Type==OBJ_JUMP)	// Special Case?
@@ -339,12 +313,10 @@ void CSuckable::SetExplode( void )
 }
 
 //------------------------------------------------------------------------------
-// Draw the suck frames
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	0 = No Suck frames to draw
-//		Else = The suck frames have been drawn
+//! \brief Draw the suck frames
+//!
+//! 	\return 0 = No Suck frames to draw\n
+//!		Else = The suck frames have been drawn
 //------------------------------------------------------------------------------
 int CSuckable::RunDrawSuck( void )
 {
@@ -360,12 +332,11 @@ int CSuckable::RunDrawSuck( void )
 }
 
 //------------------------------------------------------------------------------
-// Test the rolling baddie against the wall
-// xpos will be set to the wall edge if hit
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	0 = Wall not hit
+//! \brief Test the rolling baddie against the wall
+//!
+//! xpos will be set to the wall edge if hit
+//!
+//! 	\return 0 = Wall not hit
 //------------------------------------------------------------------------------
 int CSuckable::TestRollWall( void )
 {
@@ -400,11 +371,7 @@ int CSuckable::TestRollWall( void )
 
 
 //------------------------------------------------------------------------------
-// Do the rolling code
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the rolling code
 //------------------------------------------------------------------------------
 void CSuckable::DoSuckRoll( void )
 {
@@ -448,11 +415,7 @@ void CSuckable::DoSuckRoll( void )
 
 }
 //------------------------------------------------------------------------------
-// Release the baddie from the rolling state - to it's normal state
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Release the baddie from the rolling state - to it's normal state
 //------------------------------------------------------------------------------
 void CSuckable::ReleaseFromRoll( void )
 {
@@ -464,12 +427,10 @@ void CSuckable::ReleaseFromRoll( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the suck code
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	0 = No Suck code present
-//		Else = The suck code has been complete
+//! \brief Do the suck code
+//!
+//! 	\return 0 = No Suck code present\n
+//!		Else = The suck code has been complete
 //------------------------------------------------------------------------------
 int CSuckable::RunDoSuck( void )
 {
@@ -489,12 +450,9 @@ int CSuckable::RunDoSuck( void )
 }
 
 //------------------------------------------------------------------------------
-// Check the baddie hitting oil - If it has, slow it down
-// (Note: The baddies movement MUST be reset before this function is called
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Check the baddie hitting oil - If it has, slow it down
+//!
+//! (Note: The baddies movement MUST be reset before this function is called
 //------------------------------------------------------------------------------
 void CSuckable::CheckOil( void )
 {
@@ -507,12 +465,9 @@ void CSuckable::CheckOil( void )
 }
 
 //------------------------------------------------------------------------------
-// Check the baddie hitting a players weapon (IE water)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	0 = Okay
-//		Else Baddie was deleted
+//! \brief Check the baddie hitting a players weapon (IE water)
+//!
+//! 	\return 0 = Okay. Else Baddie was deleted
 //------------------------------------------------------------------------------
 int CSuckable::CheckExtra(void)
 {
@@ -524,27 +479,27 @@ int CSuckable::CheckExtra(void)
 		SetExplode();
 		return 1;
 	}
-	CPlayerObj *play1;
-	play1 = m_pGame->GetPlayer(OBJ_PLAYER_ONE);
-	if (play1->m_Command == PCMD_NORMAL)
+	CPlayerObj *pptr;
+	pptr = (CPlayerObj *) m_pGame->m_PlayerList.m_pFirst;
+	while(pptr)
 	{
-		if (play1->m_Mask)
+		if (pptr->m_Command == PCMD_NORMAL)
 		{
-			if (play1->m_Dir != m_Dir)	// Facing in different directions?
+			if (pptr->m_Mask)
 			{
-				m_Dir = play1->m_Dir;	// Turn the object around
+				if (pptr->m_Dir != m_Dir)	// Facing in different directions?
+				{
+					m_Dir = pptr->m_Dir;	// Turn the object around
+				}
 			}
 		}
+		pptr = (CPlayerObj *) pptr->m_pNext;
 	}
 	return 0;
 }
 
 //------------------------------------------------------------------------------
-// Prepare the baddie gliding down the screen in level initialisation
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Prepare the baddie gliding down the screen in level initialisation
 //------------------------------------------------------------------------------
 void CSuckable::PrepareGlide(void)
 {
@@ -555,11 +510,7 @@ void CSuckable::PrepareGlide(void)
 }
 
 //------------------------------------------------------------------------------
-// Do the baddie gliding down the screen
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the baddie gliding down the screen
 //------------------------------------------------------------------------------
 void CSuckable::DoGlide(void)
 {

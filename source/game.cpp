@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -43,7 +43,7 @@
 //------------------------------------------------------------------------------
 // The Game Version Number
 //------------------------------------------------------------------------------
-static char GameVersionNumber[] = "VERSION 1.4.5";
+static char GameVersionNumber[] = "VERSION 1.4.7";
 
 #define DELAY_BEFORE_NEXT_LEVEL 140
 
@@ -58,11 +58,7 @@ static char GameVersionNumber[] = "VERSION 1.4.5";
 #define HISCREEN_SHOW_DELAY 100
 
 //------------------------------------------------------------------------------
-// Game Constructor
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Game Constructor
 //------------------------------------------------------------------------------
 CGame::CGame()
 {
@@ -73,25 +69,23 @@ CGame::CGame()
 	for (cnt=0; cnt<MAX_HISCORES; cnt++, hs++)
 	{
 		hs->score = 0;
-		hs->name[0] = 'M';
-		hs->name[1] = 'A';
-		hs->name[2] = 'R';
-		hs->name[3] = 'K';
+		hs->name[0] = ' ';
+		hs->name[1] = ' ';
+		hs->name[2] = ' ';
+		hs->name[3] = ' ';
 	}
-	m_pHiScore = 0;
 	m_HiOffset = 0;
 }
 
 //------------------------------------------------------------------------------
-// Initialise the main game (setup the pointers)
-// (This function MUST be called before other CGame functions)
-// On Entry:
-// 	tptr = The main target
-//		sptr = The main screen bitmap
-//		jptr1 = Joystick 1
-//		jptr2 = Joystick 2
-// On Exit:
-// 	Not Used
+//! \brief Initialise the main game (setup the pointers)
+//!
+//! (This function MUST be called before other CGame functions)
+//!
+//! 	\param tptr = The main target
+//!	\param sptr = The main screen bitmap
+//!	\param jptr1 = Joystick 1
+//!	\param jptr2 = Joystick 2
 //------------------------------------------------------------------------------
 void CGame::Init(CGameTarget *tptr, char *sptr, JOYSTICK *jptr1, JOYSTICK *jptr2)
 {
@@ -107,11 +101,7 @@ void CGame::Init(CGameTarget *tptr, char *sptr, JOYSTICK *jptr1, JOYSTICK *jptr2
 }
 
 //------------------------------------------------------------------------------
-// Start the main game 
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Start the main game 
 //------------------------------------------------------------------------------
 void CGame::StartGame(void)
 {
@@ -122,11 +112,7 @@ void CGame::StartGame(void)
 }
 
 //------------------------------------------------------------------------------
-// The Program Main Loop 
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief The Program Main Loop 
 //------------------------------------------------------------------------------
 void CGame::MainLoop(void)
 {
@@ -148,6 +134,9 @@ void CGame::MainLoop(void)
 			case (MC_HIGHSCREEN):
 				HighScreenLoop();
 				return;
+			case (MC_GETPLAYER):
+				GetPlayerNameLoop();
+				return;
 		}
 	}
 
@@ -155,11 +144,7 @@ void CGame::MainLoop(void)
 }
 
 //------------------------------------------------------------------------------
-// The Game Loop
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief The Game Loop
 //------------------------------------------------------------------------------
 void CGame::GameLoop(void)
 {
@@ -180,6 +165,7 @@ void CGame::GameLoop(void)
 	CheckComplete();
 	CheckDooDahDay();
 	CheckExtras();
+	CheckForGameOver();
 	if (m_MainCommand!=MC_GAME) return;	// Exit now when completed
 
 	m_FontList.DoAll();
@@ -209,14 +195,13 @@ void CGame::GameLoop(void)
 }
 
 //------------------------------------------------------------------------------
-// Start a link object (PRIVATE - USED BY ::StartFRKObject())
-// On Entry:
-//		ptr = Pointer to the object
-// 	type = object type (OBJ_xxx) - Define in objtypes.h
-//		xpos,ypos = Positions
-//		objlist = Object list base to attach to
-// On Exit:
-// 	Not Used
+//! \brief Start a link object (PRIVATE - USED BY ::StartFRKObject())
+//!
+//!	\param ptr = Pointer to the object
+//! 	\param type = object type (OBJ_xxx) - Define in objtypes.h
+//!	\param xpos = X Position
+//!	\param ypos = Y Position
+//!	\param objlist = Object list base to attach to
 //------------------------------------------------------------------------------
 void CGame::InitFrkObject(CLinkObject *ptr, int type, int xpos, int ypos, CObjectList *objlist)
 {
@@ -226,12 +211,11 @@ void CGame::InitFrkObject(CLinkObject *ptr, int type, int xpos, int ypos, CObjec
 }
 
 //------------------------------------------------------------------------------
-// Start a FRK (sprite) Object
-// On Entry:
-// 	type = FRK type (as FRK_xxx) - Defined in objtypes.h
-//		xpos,ypos = Positions
-// On Exit:
-// 	Not Used
+//! \brief Start a FRK (sprite) Object
+//!
+//! 	\param type = FRK type (as FRK_xxx) - Defined in objtypes.h
+//!	\param xpos = X Position
+//!	\param ypos = Y Position
 //------------------------------------------------------------------------------
 void CGame::StartFRKObject(int type, int xpos, int ypos)
 {
@@ -408,7 +392,6 @@ void CGame::StartFRKObject(int type, int xpos, int ypos)
 		}
 		case (FRK_PLAYER2):
 		{
-#ifdef EXPERIMENTAL_2_PLAYER_MODE
 			CPlayerObj *play2;
 			play2 = GetPlayer(OBJ_PLAYER_TWO);
 			if (play2)
@@ -417,7 +400,6 @@ void CGame::StartFRKObject(int type, int xpos, int ypos)
 				play2->m_OrigXPos = play2->m_OldXPos = play2->m_XPos = xpos;
 				play2->m_OrigYPos = play2->m_OldYPos = play2->m_YPos = ypos;
 			}
-#endif
 			break;
 		}
 		case (FRK_CLOWNBOSS):
@@ -696,23 +678,19 @@ void CGame::StartFRKObject(int type, int xpos, int ypos)
 }
 
 //------------------------------------------------------------------------------
-// Initialise the powerup list (used by MakePowerUp and UsePowerUp)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the powerup list (used by MakePowerUp and UsePowerUp)
 //------------------------------------------------------------------------------
 void CGame::InitPowerUp(void)
 {
 	m_PUP_Cnt = 0;
 }
+
 //------------------------------------------------------------------------------
-// Make a powerup (called from startfrkobject())
-// On Entry:
-//		type = PUP_xxx power up types
-//		xpos,ypos = Positions
-// On Exit:
-// 	Not Used
+//! \brief Make a powerup (called from startfrkobject())
+//!
+//!	\param type = PUP_xxx power up types
+//!	\param xpos = X Position
+//!	\param ypos = Y Position
 //------------------------------------------------------------------------------
 void CGame::MakePowerUp(int type, int xpos, int ypos)
 {
@@ -728,12 +706,9 @@ void CGame::MakePowerUp(int type, int xpos, int ypos)
 	pptr->ypos = ypos;
 
 }
+
 //------------------------------------------------------------------------------
-// Choose which powerup to use in the level
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Choose which powerup to use in the level
 //------------------------------------------------------------------------------
 void CGame::UsePowerUp(void)
 {
@@ -772,11 +747,7 @@ void CGame::UsePowerUp(void)
 }
 
 //------------------------------------------------------------------------------
-// Create a new number rise object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Create a new number rise object
 //------------------------------------------------------------------------------
 void CGame::MakeNumRise(int xpos, int ypos, int frame)
 {
@@ -795,11 +766,7 @@ void CGame::MakeNumRise(int xpos, int ypos, int frame)
 
 
 //------------------------------------------------------------------------------
-// Load the goodie graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the goodie graphics
 //------------------------------------------------------------------------------
 void CGame::LoadGoodieGfx( void )
 {
@@ -814,14 +781,15 @@ void CGame::LoadGoodieGfx( void )
 }
 
 //------------------------------------------------------------------------------
-// Make a random goodie (VERSION 1)
-// (Note: gtype is not validated)
-// On Entry:
-// 	xpos,ypos = Initial Coords
-//		gtype = Goodie Type (IE GOODIE_TOYS)
-//		xinert,yinert = Initial Inertias
-// On Exit:
-// 	Not Used
+//! \brief Make a random goodie (VERSION 1)
+//!
+//! (Note: gtype is not validated)
+//!
+//! 	\param xpos = X Initial Coord
+//! 	\param ypos = Y Initial Coord
+//!	\param gtype = Goodie Type (IE GOODIE_TOYS)
+//!	\param xinert = X Initial Inertia
+//!	\param yinert = Y Initial Inertia
 //------------------------------------------------------------------------------
 void CGame::RandGoodie(int xpos, int ypos, int gtype, int xinert, int yinert)
 {
@@ -836,16 +804,15 @@ void CGame::RandGoodie(int xpos, int ypos, int gtype, int xinert, int yinert)
 	MakeGoodie(xpos, ypos, gtype, gid, xinert, yinert);
 }
 
-
 //------------------------------------------------------------------------------
-// Make a random goodie (VERSION 2)
-// (Note: gtype is not validated)
-// On Entry:
-// 	xpos,ypos = Initial Coords
-//		gtype = Goodie Type (IE GOODIE_TOYS)
-//		dir = Direction to fly off to (0=RIGHT, Else LEFT) (NOT DIR_LEFT!)
-// On Exit:
-// 	Not Used
+//! \brief Make a random goodie (VERSION 2)
+//!
+//! (Note: gtype is not validated)
+//!
+//! 	\param xpos = X Initial Coord
+//! 	\param ypos = Y Initial Coord
+//!	\param gtype = Goodie Type (IE GOODIE_TOYS)
+//!	\param dir = Direction to fly off to (0=RIGHT, Else LEFT) (NOT DIR_LEFT!)
 //------------------------------------------------------------------------------
 void CGame::RandGoodie(int xpos, int ypos, int gtype, int dir)
 {
@@ -865,16 +832,18 @@ void CGame::RandGoodie(int xpos, int ypos, int gtype, int dir)
 
 	RandGoodie(xpos, ypos, gtype, xinert, yinert);
 }
+
 //------------------------------------------------------------------------------
-// Make a goodie
-// (Note: gtype, gid variables are not validated)
-// On Entry:
-// 	xpos,ypos = Initial Coords
-//		gtype = Goodie Type (IE GOODIE_TOYS)
-//		gid = Goodie ID (IE Less than MAX_TOYS)
-//		xinert,yinert = Initial Inertias
-// On Exit:
-// 	Not Used
+//! \brief Make a goodie
+//!
+//! (Note: gtype, gid variables are not validated)
+//!
+//! 	\param xpos = X Initial Coord
+//! 	\param ypos = Y Initial Coord
+//!	\param gtype = Goodie Type (IE GOODIE_TOYS)
+//!	\param gid = Goodie ID (IE Less than MAX_TOYS)
+//!	\param xinert = X Initial Inertia
+//!	\param yinert = Y Initial Inertia
 //------------------------------------------------------------------------------
 void CGame::MakeGoodie(int xpos, int ypos, int gtype, int gid, int xinert, int yinert)
 {
@@ -902,12 +871,12 @@ void CGame::MakeGoodie(int xpos, int ypos, int gtype, int gid, int xinert, int y
 }
 
 //------------------------------------------------------------------------------
-// Create a small 'Jump'
-// On Entry:
-// 	xpos, ypos = start position
-//		xinert, yinert = initial inertias
-// On Exit:
-// 	Not Used
+//! \brief Create a small 'Jump'
+//!
+//! 	\param xpos = X start position
+//!	\param ypos = Y start position
+//!	\param xinert = X initital inertia 
+//!	\param yinert = Y initial inertia
 //------------------------------------------------------------------------------
 void CGame::CreateSmallJump(int xpos, int ypos, int xinert, int yinert)
 {
@@ -929,12 +898,11 @@ void CGame::CreateSmallJump(int xpos, int ypos, int xinert, int yinert)
 }
 
 //------------------------------------------------------------------------------
-// Set a large 'Jump' to explode another smaller 'Jumps'
-// On Entry:
-// 	xpos, ypos = start position
-//		dir = Direction to fly off to (0=RIGHT, Else LEFT) (NOT DIR_LEFT!)
-// On Exit:
-// 	Not Used
+//! \brief Set a large 'Jump' to explode another smaller 'Jumps'
+//!
+//! 	\param xpos = X start position
+//!	\param ypos = Y start position
+//!	\param dir = Direction to fly off to (0=RIGHT, Else LEFT) (NOT DIR_LEFT!)
 //------------------------------------------------------------------------------
 void CGame::SetJumpExplode(int xpos, int ypos, int dir)
 {
@@ -956,13 +924,11 @@ void CGame::SetJumpExplode(int xpos, int ypos, int dir)
 }
 
 //------------------------------------------------------------------------------
-// Gets the address of a player
-// On Entry:
-//	player_object_id = The player OBJ_PLAYER_xxx id
-// 	Not Used
-// On Exit:
-//		The Player
-//		0 = Not Found
+//! \brief Gets the address of a player
+//!
+//!	\param player_object_id = The player OBJ_PLAYER_xxx id
+//!
+//!	\return The Player. 0 = Not Found
 //------------------------------------------------------------------------------
 CPlayerObj *CGame::GetPlayer( int player_object_id)
 {
@@ -981,13 +947,10 @@ CPlayerObj *CGame::GetPlayer( int player_object_id)
 }
 
 //------------------------------------------------------------------------------
-// Initialise the sprites for the map
-// NOTE: The Player Objects must already exist.
-// The sprite graphics are also loaded
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the sprites for the map
+//!
+//! NOTE: The Player Objects must already exist.\n
+//! The sprite graphics are also loaded
 //------------------------------------------------------------------------------
 void CGame::InitSpriteList(void)
 {
@@ -1074,12 +1037,10 @@ void CGame::InitSpriteList(void)
 }
 
 //------------------------------------------------------------------------------
-// Draw a player information (ie score, lives)
-// On Entry:
-// 	pobj = player to show. (0 = No Player)
-//		play = player status offset structure
-// On Exit:
-// 	Not Used
+//! \brief Draw a player information (ie score, lives)
+//!
+//! 	\param pobj = player to show. (0 = No Player)
+//!	\param play = player status offset structure
 //------------------------------------------------------------------------------
 void CGame::DrawPlayerInfo( CPlayerObj *pobj, PLAYER_STATUS *play )
 {
@@ -1136,15 +1097,13 @@ void CGame::DrawPlayerInfo( CPlayerObj *pobj, PLAYER_STATUS *play )
 }
 
 //------------------------------------------------------------------------------
-// Draw the players information (ie score, lives)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the players information (ie score, lives)
 //------------------------------------------------------------------------------
 void CGame::DrawPlayersInfo(void)
 {
 	CPlayerObj *play;
+	int lower;
+	int upper;
 
 	play = GetPlayer(OBJ_PLAYER_ONE);
 	DrawPlayerInfo( play,&pstat1 );
@@ -1152,17 +1111,30 @@ void CGame::DrawPlayersInfo(void)
 	play = GetPlayer(OBJ_PLAYER_TWO);
 	DrawPlayerInfo( play,&pstat2 );
 
-	m_Sprites.Draw( SPR_FNT_Y8 , CREDIT_XOFF, PLAY_YOFF - m_PanelOrigin, GFX_NOWRAP );
+	// Draw level number
+	if ((!m_BonusLevelFlag) && (m_LevelNumber < 100))
+	{
+		upper = m_LevelNumber / 10;
+		lower = m_LevelNumber % 10;
+		if (upper == 0)	// Single digit level number
+		{
+			m_Sprites.Draw( SPR_FNT_Y1 + lower - 1 , CREDIT_XOFF, PLAY_YOFF - m_PanelOrigin, GFX_NOWRAP );
+		}else
+		{
+			m_Sprites.Draw( SPR_FNT_Y1 + upper - 1 , CREDIT_XOFF - 4, PLAY_YOFF - m_PanelOrigin, GFX_NOWRAP );
+			m_Sprites.Draw( SPR_FNT_Y1 + lower - 1 , CREDIT_XOFF + 4, PLAY_YOFF - m_PanelOrigin, GFX_NOWRAP );
+		}
+	}
 }
 
 //------------------------------------------------------------------------------
-// Display a rainbox font message onto the screen
-// On Entry:
-// 	yoffset = Y offset of the font
-//		txt = Text to display
-//		delay = Message delay (in frames)
-// On Exit:
-// 	the next charactor delay
+//! \brief Display a rainbox font message onto the screen
+//!
+//! 	\param yoffset = Y offset of the font
+//!	\param txt = Text to display
+//!	\param delay = Message delay (in frames)
+//!
+//! 	\return the next charactor delay
 //------------------------------------------------------------------------------
 int CGame::CreateMessage(int yoffset, char *txt, int delay)
 {
@@ -1173,7 +1145,7 @@ int CGame::CreateMessage(int yoffset, char *txt, int delay)
 	int offset;
 	CRFontObj *robj;
 
-	txtlen = ::strlen(txt);
+	txtlen = (int) ::strlen(txt);
 
 	xwidth = txtlen << 3;		// (*16, /2)
 	xoffset = (SCR_WIDTH/2) - xwidth;
@@ -1198,11 +1170,9 @@ int CGame::CreateMessage(int yoffset, char *txt, int delay)
 }
 
 //------------------------------------------------------------------------------
-// Display a level message (Called when a new level starts)
-// On Entry:
-// 	id = Level ID (1-100)
-// On Exit:
-// 	Not Used
+//! \brief Display a level message (Called when a new level starts)
+//!
+//! 	\param id = Level ID (1-100)
 //------------------------------------------------------------------------------
 void CGame::SetLevelName( int id )
 {
@@ -1224,11 +1194,7 @@ void CGame::SetLevelName( int id )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if the level has been completed
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Check to see if the level has been completed
 //------------------------------------------------------------------------------
 void CGame::CheckComplete(void)
 {
@@ -1313,7 +1279,10 @@ void CGame::CheckComplete(void)
 		{
 			if (pobj->m_AtTopFlag)
 			{
-				nextlev = 1;
+				if (nextlev == 0) nextlev = 1;
+			}else
+			{
+				nextlev = 2;	// Not at top (note, the other player may be at the top)
 			}
 		}
 
@@ -1321,7 +1290,7 @@ void CGame::CheckComplete(void)
 
 	}
 
-	if (nextlev)
+	if (nextlev == 1)
 	{
 		CheckForEgg();
 		NextLevel();
@@ -1329,11 +1298,7 @@ void CGame::CheckComplete(void)
 }
 
 //------------------------------------------------------------------------------
-// Go to the next level
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Go to the next level
 //------------------------------------------------------------------------------
 void CGame::NextLevel(void)
 {
@@ -1412,12 +1377,9 @@ void CGame::NextLevel(void)
 }
 
 //------------------------------------------------------------------------------
-// Has the level has been completed (all baddies removed)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	0 = Not Completed
-//		Else = Has been Completed
+//! \brief Has the level has been completed (all baddies removed)
+//!
+//! 	\return 0 = Not Completed. Else = Has been Completed
 //------------------------------------------------------------------------------
 int CGame::IsComplete(void)
 {
@@ -1463,11 +1425,10 @@ int CGame::IsComplete(void)
 }
 
 //------------------------------------------------------------------------------
-// Create the stuff when a boss is defeated
-// On Entry:
-// 	xpos, ypos = Position of "doo dah day"
-// On Exit:
-// 	Not Used
+//! \brief Create the stuff when a boss is defeated
+//!
+//! 	\param xpos = X Position of "doo dah day"
+//! 	\param ypos = Y Position of "doo dah day"
 //------------------------------------------------------------------------------
 void CGame::SetBossDie( int xpos, int ypos )
 {
@@ -1497,11 +1458,10 @@ void CGame::SetBossDie( int xpos, int ypos )
 }
 
 //------------------------------------------------------------------------------
-// Create a gas cloud to appear then disappear
-// On Entry:
-// 	xpos,ypos = Where to display it
-// On Exit:
-// 	Not Used
+//! \brief Create a gas cloud to appear then disappear
+//!
+//! 	\param xpos = X where to display it
+//! 	\param ypos = Y Where to display it
 //------------------------------------------------------------------------------
 void CGame::CreateCloud( int xpos, int ypos )
 {
@@ -1517,11 +1477,7 @@ void CGame::CreateCloud( int xpos, int ypos )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if doo dah day should appear if the player takes too long
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Check to see if doo dah day should appear if the player takes too long
 //------------------------------------------------------------------------------
 void CGame::CheckDooDahDay(void)
 {
@@ -1579,11 +1535,7 @@ void CGame::CheckDooDahDay(void)
 }
 
 //------------------------------------------------------------------------------
-// Check for extra things
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Check for extra things
 //------------------------------------------------------------------------------
 void CGame::CheckExtras(void)
 {
@@ -1614,12 +1566,10 @@ void CGame::CheckExtras(void)
 }
 
 //------------------------------------------------------------------------------
-// Draw a rainbow font directly to the screen
-// On Entry:
-// 	ypos = Y offset
-//		text = Text to draw
-// On Exit:
-// 	Not Used
+//! \brief Draw a rainbow font directly to the screen
+//!
+//! 	\param ypos = Y offset
+//!	\param text = Text to draw
 //------------------------------------------------------------------------------
 void CGame::DrawFont(int ypos, char *text)
 {
@@ -1628,7 +1578,7 @@ void CGame::DrawFont(int ypos, char *text)
 	int	cnt;
 	int	offset;
 
-	len = ::strlen(text);
+	len = (int) ::strlen(text);
 	xoffset = (SCR_WIDTH/2) - (len*8);
 	for (cnt=0; cnt<len; cnt++)
 	{
@@ -1643,13 +1593,11 @@ void CGame::DrawFont(int ypos, char *text)
 }
 
 //------------------------------------------------------------------------------
-// Draw a screen title font directly to the screen
-// On Entry:
-// 	ypos = Y offset
-//	text = Text to draw
-//	xpos : X offset. If 0 = Centre text
-// On Exit:
-// 	Not Used
+//! \brief Draw a screen title font directly to the screen
+//!
+//! 	\param ypos = Y offset
+//!	\param text = Text to draw
+//!	\param xpos = X offset. If 0 = Centre text
 //------------------------------------------------------------------------------
 void CGame::DrawScrFont(int ypos, char *text, int xpos)
 {
@@ -1660,7 +1608,7 @@ void CGame::DrawScrFont(int ypos, char *text, int xpos)
 	char	let;
 
 
-	len = ::strlen(text);
+	len = (int) ::strlen(text);
 	if (xpos)
 	{
 		xoffset = xpos;
@@ -1690,11 +1638,7 @@ void CGame::DrawScrFont(int ypos, char *text, int xpos)
 }
 
 //------------------------------------------------------------------------------
-// Check for extra things version2 (called in a different place)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Check for extra things version2 (called in a different place)
 //------------------------------------------------------------------------------
 void CGame::CheckExtras2(void)
 {
@@ -1707,11 +1651,9 @@ void CGame::CheckExtras2(void)
 }
 
 //------------------------------------------------------------------------------
-// Set all the baddies to be angry / normal
-// On Entry:
-// 	flag: 0 = NOT angry. Else Angry
-// On Exit:
-// 	Not Used
+//! \brief Set all the baddies to be angry / normal
+//!
+//! 	\param flag = 0 = NOT angry. Else Angry
 //------------------------------------------------------------------------------
 void CGame::SetAngryBaddies(int flag)
 {
@@ -1735,11 +1677,9 @@ void CGame::SetAngryBaddies(int flag)
 }
 
 //------------------------------------------------------------------------------
-// Set the player to go to a bonus level
-// On Entry:
-// 	lvl_id = BLEV_xxx level id
-// On Exit:
-// 	Not Used
+//! \brief Set the player to go to a bonus level
+//!
+//! 	\param lvl_id = BLEV_xxx level id
 //------------------------------------------------------------------------------
 void CGame::SetBonusLevel( int lvl_id )
 {
@@ -1748,11 +1688,7 @@ void CGame::SetBonusLevel( int lvl_id )
 }
 
 //------------------------------------------------------------------------------
-// Enter a bonus level
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Enter a bonus level
 //------------------------------------------------------------------------------
 void CGame::EnterBonusLevel(void)
 {
@@ -1839,12 +1775,11 @@ void CGame::EnterBonusLevel(void)
 }
 
 //------------------------------------------------------------------------------
-// Make a treasure box (chest) - Used by bonus rooms
-// On Entry:
-// 	xpos,ypos
-//		rtype = GOODIE_xxx to release from the treasure box
-// On Exit:
-// 	Not Used
+//! \brief Make a treasure box (chest) - Used by bonus rooms
+//!
+//! 	\param xpos = xpos
+//! 	\param ypos = ypos
+//!	\param rtype = GOODIE_xxx to release from the treasure box
 //------------------------------------------------------------------------------
 void CGame::SetTreasure(int xpos, int ypos, int rtype)
 {
@@ -1860,11 +1795,9 @@ void CGame::SetTreasure(int xpos, int ypos, int rtype)
 }
 
 //------------------------------------------------------------------------------
-// Count the number of baddies on the level
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	The number of baddies
+//! \brief Count the number of baddies on the level
+//!
+//! 	\return The number of baddies
 //------------------------------------------------------------------------------
 int CGame::CountBaddies(void)
 {
@@ -1899,11 +1832,7 @@ int CGame::CountBaddies(void)
 }
 
 //------------------------------------------------------------------------------
-// Check to see if the players should be egged (ie player missed the card)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Check to see if the players should be egged (ie player missed the card)
 //------------------------------------------------------------------------------
 void CGame::CheckForEgg(void)
 {
@@ -1932,11 +1861,9 @@ void CGame::CheckForEgg(void)
 }
 
 //------------------------------------------------------------------------------
-// Play a tune. If it is already playing - continue
-// On Entry:
-// 	id = SMOD_xxx id
-// On Exit:
-// 	Not Used
+//! \brief Play a tune. If it is already playing - continue
+//!
+//! 	\param id = SMOD_xxx id
 //------------------------------------------------------------------------------
 void CGame::PlayModule(int id)
 {
@@ -1949,11 +1876,7 @@ void CGame::PlayModule(int id)
 }
 
 //------------------------------------------------------------------------------
-// Reset the palette back to normal
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the palette back to normal
 //------------------------------------------------------------------------------
 void CGame::PalReset(void)
 {
@@ -1961,11 +1884,9 @@ void CGame::PalReset(void)
 }
 
 //------------------------------------------------------------------------------
-// Control the colour fading
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	0 = Do not run the game main loop
+//! \brief Control the colour fading
+//!
+//! 	\return 0 = Do not run the game main loop
 //------------------------------------------------------------------------------
 int CGame::ControlFade(void)
 {
@@ -2020,11 +1941,7 @@ int CGame::ControlFade(void)
 }
 
 //------------------------------------------------------------------------------
-// The Completed game screen - main loop
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief The Completed game screen - main loop
 //------------------------------------------------------------------------------
 void CGame::CompletedLoop(void)
 {
@@ -2070,11 +1987,7 @@ void CGame::CompletedLoop(void)
 
 
 //------------------------------------------------------------------------------
-// Create the balloons for the completed screen
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Create the balloons for the completed screen
 //------------------------------------------------------------------------------
 void CGame::CreateBalloons(void)
 {
@@ -2094,12 +2007,11 @@ void CGame::CreateBalloons(void)
 }
 
 //------------------------------------------------------------------------------
-// Draw the graphic items in the end credits
-// On Entry:
-// 	xpos,ypos = Original Offsets
-//		party = party group
-// On Exit:
-// 	Not Used
+//! \brief Draw the graphic items in the end credits
+//!
+//! 	\param xpos = X Original Offset
+//! 	\param ypos = Y Original Offset
+//!	\param party = party group
 //------------------------------------------------------------------------------
 void CGame::DrawEndGfxItems(int xpos, int ypos, PARTYOFFS **party)
 {
@@ -2114,11 +2026,7 @@ void CGame::DrawEndGfxItems(int xpos, int ypos, PARTYOFFS **party)
 }
 
 //------------------------------------------------------------------------------
-// Draw the end credits
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the end credits
 //------------------------------------------------------------------------------
 void CGame::DrawEndCredits(void)
 {
@@ -2167,11 +2075,7 @@ void CGame::DrawEndCredits(void)
 }
 
 //------------------------------------------------------------------------------
-// Initialise the title screen
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the title screen
 //------------------------------------------------------------------------------
 void CGame::InitTitleScreen(void)
 {
@@ -2192,18 +2096,14 @@ void CGame::InitTitleScreen(void)
 }
 
 //------------------------------------------------------------------------------
-// The title screen main loop
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief The title screen main loop
 //------------------------------------------------------------------------------
 void CGame::TitleScreenLoop(void)
 {
 	m_MainCounter++;
 	if ( (m_pJoy1->fire) || (m_pJoy2->fire) )	// Game start?
 	{
-		InitNewGame();
+		InitGetPlayerNameScreen(m_pJoy2->fire);
 		return;
 	}
 
@@ -2214,7 +2114,6 @@ void CGame::TitleScreenLoop(void)
 	}
 	if (m_MainCounter > HISCREEN_SHOW_DELAY)	// Finished showing hiscores
 	{
-		m_pHiScore = 0;
 		InitHighScreen();
 	}
 
@@ -2228,18 +2127,13 @@ void CGame::TitleScreenLoop(void)
 		DrawScrFont( 200, "GAME LICENSE:");
 		DrawScrFont( 200+12, "GNU GENERAL PUBLIC LICENSE VERSION 2");
 
-		DrawScrFont( 232, "HTTP://WWW.METHANE.FSNET.CO.UK" );
+		DrawScrFont( 232, "HTTP://METHANE.SOURCEFORGE.NET" );
 		m_pGameTarget->RedrawScreen();
 	}
-
 }
 
 //------------------------------------------------------------------------------
-// Initialise the game over (Called from the player object)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the game over (Called from the player object)
 //------------------------------------------------------------------------------
 void CGame::InitGameOver(void)
 {
@@ -2250,11 +2144,7 @@ void CGame::InitGameOver(void)
 }
 
 //------------------------------------------------------------------------------
-// Do the game over loop
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the game over loop
 //------------------------------------------------------------------------------
 void CGame::DoGameOverLoop(void)
 {
@@ -2269,30 +2159,18 @@ void CGame::DoGameOverLoop(void)
 	if (m_GameOverFlag > GAMEOVER_DELAY)
 	{
 		CPlayerObj *pobj;
-		pobj = (CPlayerObj *) m_PlayerList.m_pFirst;
+		pobj = (CPlayerObj *) m_DeadPlayerList.m_pFirst;
 		while (pobj)
 		{
-			m_pHiScore = InsertHiScore(pobj->m_Score,"");
-
-			// pobj = (CPlayerObj *) pobj->m_pNext;
-			break; // -- NOT CODED -- 
+			InsertHiScore(pobj->m_Score,pobj->m_Name);
+			pobj = (CPlayerObj *) pobj->m_pNext;
 		}
-		if (m_pHiScore)
-		{
-			InitHighScreen();
-		}else
-		{
-			InitTitleScreen();
-		}
+		InitHighScreen();
 	}
 }
 
 //------------------------------------------------------------------------------
-// A new game is about to start
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief A new game is about to start
 //------------------------------------------------------------------------------
 void CGame::InitNewGame(void)
 {
@@ -2311,31 +2189,31 @@ void CGame::InitNewGame(void)
 
 	// Reset the player
 	m_PlayerList.DeleteAll();
+	m_DeadPlayerList.DeleteAll();
 	SMB_NEW(pobj,CPlayerObj);
 	if (pobj)
 	{
 		m_PlayerList.Attach(pobj,OBJ_PLAYER_ONE, this);
+		pobj->SetPlayerName(m_PlayerNameBuff1);
 	}
 
-#ifdef EXPERIMENTAL_2_PLAYER_MODE
-	SMB_NEW(pobj,CPlayerObj);
-	if (pobj)
+	if (m_TwoPlayerModeFlag)
 	{
-		m_PlayerList.Attach(pobj,OBJ_PLAYER_TWO, this);
-		pobj->TogglePuffBlow();
+		SMB_NEW(pobj,CPlayerObj);
+		if (pobj)
+		{
+			m_PlayerList.Attach(pobj,OBJ_PLAYER_TWO, this);
+			pobj->SetPlayerName(m_PlayerNameBuff2);
+			pobj->TogglePuffBlow();
+		}
 	}
-#endif
 
 	InitSpriteList();
 
 }
 
 //------------------------------------------------------------------------------
-// Initialise the high score table screen
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the high score table screen
 //------------------------------------------------------------------------------
 void CGame::InitHighScreen(void)
 {
@@ -2359,13 +2237,12 @@ void CGame::InitHighScreen(void)
 }
 
 //------------------------------------------------------------------------------
-// Insert the hiscore into the highscore table
-// On Entry:
-// 	score = The score
-//		name = Persons name (null terminated)
-// On Exit:
-// 	The hiscore
-//		0 = Score was too low to go into the hiscore table
+//! \brief Insert the hiscore into the highscore table
+//!
+//! 	\param score = The score
+//!	\param name = Persons name (null terminated)
+//!
+//! 	\return The hiscore. 0 = Score was too low to go into the hiscore table
 //------------------------------------------------------------------------------
 HISCORES *CGame::InsertHiScore(int score, char *name)
 {
@@ -2401,11 +2278,7 @@ HISCORES *CGame::InsertHiScore(int score, char *name)
 }
 
 //------------------------------------------------------------------------------
-// Draw the high score table
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the high score table
 //------------------------------------------------------------------------------
 void CGame::DrawHighTable(void)
 {
@@ -2426,11 +2299,7 @@ void CGame::DrawHighTable(void)
 }
 
 //------------------------------------------------------------------------------
-// Redraw the screen only when needed
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Redraw the screen only when needed
 //------------------------------------------------------------------------------
 void CGame::RedrawScrIfNeeded(void)
 {
@@ -2446,125 +2315,44 @@ void CGame::RedrawScrIfNeeded(void)
 }
 
 //------------------------------------------------------------------------------
-// Edit the player high score name
-// m_pHiScore must be valid
-// On Entry:
-// 	pjoy = The joystick (eg m_pjoy)
-// On Exit:
-// 	Not Used
-//------------------------------------------------------------------------------
-void CGame::EditName(JOYSTICK *pjoy)
-{
-	char key;
-	key = pjoy->key;
-
-	if (key)
-	{
-		pjoy->key = 0;
-		if ( ((key>='A') && (key<='Z')) ||
-			((key>='a') && (key<='z')) ||
-			((key>='0') && (key<='9')) ||
-			(key==' ') )
-		{
-			m_pHiScore->name[m_HiOffset] = toupper(key);
-			m_HiOffset++;
-			if (m_HiOffset>=4) m_HiOffset = 0;
-		}else
-		{
-			if (pjoy->left)
-			{
-				m_HiOffset--;
-				if (m_HiOffset<0) m_HiOffset = 3;
-			}
-			if (pjoy->right)
-			{
-				m_HiOffset++;
-				if (m_HiOffset>=4) m_HiOffset = 0;
-			}
-
-		}
-		m_MainCounter = 4;
-
-		if ( (key==10) || (key==13) )	// Finished editing?
-		{
-			m_ScrChgFlag = 1;
-			m_pHiScore = 0;
-			m_MainCounter = HISCREEN_SHOW_DELAY;
-			pjoy->fire = 0;
-		}
-
-	}
-}
-
-//------------------------------------------------------------------------------
-// The high score screen main loop
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief The high score screen main loop
 //------------------------------------------------------------------------------
 void CGame::HighScreenLoop(void)
 {
-	char let;
-
 	m_MainCounter++;
 
 	m_Map.Draw(m_pBitmap);
 
-	let = 0;
-	if (m_pHiScore)
+	if ( (m_pJoy1->fire) || (m_pJoy2->fire) )	// Game start?
 	{
-		EditName(m_pJoy2);
+		InitGetPlayerNameScreen(m_pJoy2->fire);
+		return;
 	}
-	if (m_pHiScore)
-	{
-		DrawFont( 16*3, "ENTER YOUR NAME" );
 
-		// Flash the cursor
-		if (m_MainCounter&4)
-		{
-			let = m_pHiScore->name[m_HiOffset];
-			m_pHiScore->name[m_HiOffset] = '#';
-		}
-		if (!(m_MainCounter&3))
-		{
-			m_ScrChgFlag = 1;
-		}
-	}else
+	if (m_MainCounter == HISCREEN_SHOW_DELAY)	// Finished showing hiscores
 	{
-		if (m_pJoy2->fire)	// Game start?
-		{
-			InitNewGame();
-			return;
-		}
-
-		if (m_MainCounter == HISCREEN_SHOW_DELAY)	// Finished showing hiscores
-		{
-			m_FadeType = FADE_BLACK;
-			m_FadeFlag = FADE_FLAG_WAIT;
-		}
-		if (m_MainCounter > HISCREEN_SHOW_DELAY)	// Finished showing hiscores
-		{
-			InitTitleScreen();
-		}
+		m_FadeType = FADE_BLACK;
+		m_FadeFlag = FADE_FLAG_WAIT;
+	}
+	if (m_MainCounter > HISCREEN_SHOW_DELAY)	// Finished showing hiscores
+	{
+		InitTitleScreen();
 	}
 
 	DrawHighTable();
-
-	if (let) m_pHiScore->name[m_HiOffset] = let;
 
 	RedrawScrIfNeeded();
 
 }
 
 //------------------------------------------------------------------------------
-// Fade a colour
-// On Entry:
-// 	col_dest = Destination colour
-// 	col_current = Current colour
-//		speed = Fade speed
-// On Exit:
-// 	The new colour
+//! \brief Fade a colour
+//!
+//! 	\param col_dest = Destination colour
+//! 	\param col_current = Current colour
+//!	\param speed = Fade speed
+//!
+//! 	\return The new colour
 //------------------------------------------------------------------------------
 unsigned char CGame::FadeColour( int col_dest, int col_current, int speed )
 {
@@ -2581,15 +2369,14 @@ unsigned char CGame::FadeColour( int col_dest, int col_current, int speed )
 }
 
 //------------------------------------------------------------------------------
-// Fade the palette
-// On Entry:
-//		offset = colour offset
-//		size = how many entries (must be less than the length of PALETTE_SIZE)
-// 	srcpal = What to fade it to
-//		speed = Fade speed 1 (slow) to 256 (fast)
-// On Exit:
-// 	0 = Still fading
-//		Else Fade Completed
+//! \brief Fade the palette
+//!
+//!	\param offset = colour offset
+//!	\param size = how many entries (must be less than the length of PALETTE_SIZE)
+//! 	\param srcpal = What to fade it to
+//!	\param speed = Fade speed 1 (slow) to 256 (fast)
+//!
+//! 	\return 0 = Still fading. Else Fade Completed
 //------------------------------------------------------------------------------
 int CGame::FadePalette( int offset, int size, METHANE_RGB *srcpal, int speed )
 {
@@ -2636,15 +2423,16 @@ int CGame::FadePalette( int offset, int size, METHANE_RGB *srcpal, int speed )
 }
 
 //------------------------------------------------------------------------------
-// Fade the palette Version 2
-// On Entry:
-//		offset = colour offset
-//		size = how many entries (must be less than the length of PALETTE_SIZE)
-// 	red,green,blue = Colour to fade to
-//		speed = Fade speed 1 (slow) to 256 (fast)
-// On Exit:
-// 	0 = Still fading
-//		Else Fade Completed
+//! \brief Fade the palette Version 2
+//!
+//!	\param offset = colour offset
+//!	\param size = how many entries (must be less than the length of PALETTE_SIZE)
+//! 	\param red = Colour to fade to
+//! 	\param green = Colour to fade to
+//! 	\param blue = Colour to fade to
+//!	\param speed = Fade speed 1 (slow) to 256 (fast)
+//!
+//! 	\return 0 = Still fading. Else Fade Completed
 //------------------------------------------------------------------------------
 int CGame::FadePaletteTo( int offset, int size, unsigned char red,
 	unsigned char green,unsigned char blue, int speed )
@@ -2692,11 +2480,7 @@ int CGame::FadePaletteTo( int offset, int size, unsigned char red,
 }
 
 //------------------------------------------------------------------------------
-// Toggle the Puff and Blow graphics.
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Toggle the Puff and Blow graphics.
 //------------------------------------------------------------------------------
 void CGame::TogglePuffBlow(void)
 {
@@ -2710,4 +2494,185 @@ void CGame::TogglePuffBlow(void)
 	}
 }
 
+//------------------------------------------------------------------------------
+//! \brief Initialise the get player name screen
+//!
+//!	\param player_two_flag = 0 for one player, else two players
+//------------------------------------------------------------------------------
+void CGame::InitGetPlayerNameScreen(int player_two_flag)
+{
+	int cnt;
+
+	m_TwoPlayerModeFlag = player_two_flag;
+	m_Map.LoadBlockSet(SPR_ENDBLOX_DATA);
+	m_MainCommand = MC_GETPLAYER;
+	m_Map.GetMap(BLEV_HIGHMAP);
+	m_FadeType = FADE_BLACK;
+	m_FadeFlag = FADE_FLAG_WAIT;
+	m_NameEditFadeUpFlag = 1;
+	
+	PlayModule(SMOD_TITLE);
+
+	m_Sprites.LoadRange(SPR_RFONT_0, SPR_RFONT_CURSOR);
+
+	m_ScrChgFlag = 1;
+	m_MainCounter = 0;
+	m_EditPlayerOneNameFlag = 1;
+
+	for (cnt=0; cnt<4; cnt++)
+	{
+		m_PlayerNameBuff1[cnt] = '?';
+		m_PlayerNameBuff2[cnt] = '?';
+	}
+	m_PlayerNameBuff1[cnt] = 0;
+	m_PlayerNameBuff2[cnt] = 0;
+	PrepareEditName();
+}
+
+//------------------------------------------------------------------------------
+//! \brief Prepare editing name
+//------------------------------------------------------------------------------
+void CGame::PrepareEditName(void)
+{
+	m_HiOffset = 0;
+	m_pJoy1->key = 0;
+	m_pJoy2->key = 0;
+	m_pJoy1->fire = 0;
+	m_pJoy2->fire = 0;
+
+
+}
+
+//------------------------------------------------------------------------------
+//! \brief The get player name screen main loop
+//------------------------------------------------------------------------------
+void CGame::GetPlayerNameLoop(void)
+{
+	char *nptr;
+	char let;
+	m_MainCounter++;
+
+	m_Map.Draw(m_pBitmap);
+
+	if (m_NameEditFadeUpFlag)
+	{
+		m_FadeType = FADE_NORMAL;
+		m_FadeFlag = FADE_FLAG_CONTINUE;
+		m_NameEditFadeUpFlag = 0;
+	}
+
+	if (m_pJoy2->fire)
+	{
+		m_TwoPlayerModeFlag = 1;
+	}
+
+	if (!m_TwoPlayerModeFlag)
+	{
+		DrawFont( 16*1, "ONE PLAYER MODE" );
+	}else
+	{
+		DrawFont( 16*1, "TWO PLAYER MODE" );
+	}
+
+	if (m_EditPlayerOneNameFlag)
+	{
+		DrawFont( 16*4, "PLAYER ONE");
+		nptr = m_PlayerNameBuff1;
+	}else
+	{
+		DrawFont( 16*4, "PLAYER TWO");
+		nptr = m_PlayerNameBuff2;
+	}
+	DrawFont( 16*5, "ENTER NAME" );
+
+	// Flash the cursor
+	let = nptr[m_HiOffset];
+	if (m_MainCounter&4)
+	{
+		nptr[m_HiOffset] = '#';
+	}
+	if (!(m_MainCounter&3))
+	{
+		m_ScrChgFlag = 1;
+	}
+
+	DrawFont( 16*9, nptr );
+	nptr[m_HiOffset] = let;
+
+	RedrawScrIfNeeded();
+
+	EditName(m_pJoy1, nptr);	// Easier to edit name using player 1
+}
+
+//------------------------------------------------------------------------------
+//! \brief Edit the player high score name
+//!
+//! 	\param pjoy = The joystick (eg m_pjoy)
+//!	\param nptr = The player name
+//------------------------------------------------------------------------------
+void CGame::EditName(JOYSTICK *pjoy, char *nptr)
+{
+	char key;
+	key = pjoy->key;
+
+	if (key)
+	{
+		m_ScrChgFlag = 1;
+		pjoy->key = 0;
+		if ( ((key>='A') && (key<='Z')) ||
+			((key>='a') && (key<='z')) ||
+			((key>='0') && (key<='9')) ||
+			(key==' ') )
+		{
+			nptr[m_HiOffset] = toupper(key);
+			m_HiOffset++;
+			if (m_HiOffset>=4) m_HiOffset = 0;
+		}else
+		{
+			if (pjoy->left)
+			{
+				m_HiOffset--;
+				if (m_HiOffset<0) m_HiOffset = 3;
+			}
+			if (pjoy->right)
+			{
+				m_HiOffset++;
+				if (m_HiOffset>=4) m_HiOffset = 0;
+			}
+
+		}
+		m_MainCounter = 4;
+
+		if ( (key==10) || (key==13) )	// Finished editing?
+		{
+			m_MainCounter = HISCREEN_SHOW_DELAY;
+			pjoy->fire = 0;
+
+			// Is the second player name required
+			if ( (m_EditPlayerOneNameFlag) && (m_TwoPlayerModeFlag) )
+			{
+				// Copy the name
+				m_EditPlayerOneNameFlag = 0;	// Edit player 2 name
+				PrepareEditName();
+				m_FadeType = FADE_BLACK;
+				m_FadeFlag = FADE_FLAG_WAIT;
+				m_NameEditFadeUpFlag = 1;
+			}else
+			{
+				InitNewGame();
+			}
+		}
+	}
+}
+
+//------------------------------------------------------------------------------
+//! \brief Test to see if "Game Over" needs to be displayed
+//------------------------------------------------------------------------------
+void CGame::CheckForGameOver( void )
+{
+	if (m_GameOverFlag) return;
+	if (m_PlayerList.m_pFirst) return;	// Player still alive
+
+	InitGameOver();
+}
 

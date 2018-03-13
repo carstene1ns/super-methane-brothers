@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Prgram Email: rombust@postmaster.co.uk                                  *
  *                                                                         *
  ***************************************************************************/
@@ -29,11 +29,11 @@ BEGIN_MESSAGE_MAP (CMainFrame, CFrameWnd)
 END_MESSAGE_MAP ()
 
 //------------------------------------------------------------------------------
-// Frame Window Created 
-// On Entry:
-// 	lpcs
-// On Exit:
-// 	0 = Worked
+//! \brief Frame Window Created 
+//!
+//! 	lpcs = lpcs
+//!
+//! 	\return 0 = Worked
 //------------------------------------------------------------------------------
 int CMainFrame::OnCreate (LPCREATESTRUCT lpcs)
 {
@@ -44,20 +44,18 @@ int CMainFrame::OnCreate (LPCREATESTRUCT lpcs)
 #ifdef METHANE_MIKMOD
 	MessageBox(	"Super Methane Brothers is about to start.\n\n"
 				"The GNU General Public License V2 applies to this game.\n\n"
-				"System Requirements: Desktop set to 256 colours. DirectX Installed (for audio)\n\n"
 				"For the game instructions, use Help/Quick-Instructions on the menu bar.\n\n"
-				"Web Page: http://www.methane.fsnet.co.uk\n\n"
-				"NOTE: On NT Machines, increase \"Game Speed\" on the menu as 0 may be too fast\n\n"
+				"Web Page: http://methane.sourceforge.net\n\n"
+				"NOTE: On NT Machines, increase \"Game Speed\" from 0 to 2 if the game is too fast\n\n"
 				,"READ THIS NOW!!!" );
 #else
 
 	MessageBox(	"Super Methane Brothers is about to start.\n\n"
 				"The GNU General Public License V2 applies to this game.\n\n"
-				"System Requirements: Desktop set to 256 colours.\n\n"
 				"Sound has been disabled from this version of the game.\n\n"
 				"For the game instructions, use Help/Quick-Instructions on the menu bar.\n\n"
-				"Web Page: http://www.methane.fsnet.co.uk\n\n"
-				"NOTE: On NT Machines, increase \"Game Speed\" on the menu as 0 may be too fast\n\n"
+				"Web Page: http://methane.sourceforge.net\n\n"
+				"NOTE: On NT Machines, increase \"Game Speed\" from 0 to 2 if the game is too fast\n\n"
 				,"READ THIS NOW!!!" );
 #endif
 	CClientDC dc(this);
@@ -103,7 +101,9 @@ int CMainFrame::OnCreate (LPCREATESTRUCT lpcs)
 }
 
 //------------------------------------------------------------------------------
-// Remove this flag to remove " - Untitled" from the frame's caption
+//! \brief Remove this flag to remove " - Untitled" from the frame's caption
+//!	\param cs = cs
+//!	\return bool
 //------------------------------------------------------------------------------
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs) 
 {

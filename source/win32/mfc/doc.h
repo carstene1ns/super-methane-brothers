@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Prgram Email: rombust@postmaster.co.uk                                  *
  *                                                                         *
  ***************************************************************************/
@@ -34,7 +34,7 @@ class CMethDoc : public CDocument
 	DECLARE_DYNCREATE (CMethDoc)
 
 private:
-	CheckValidGame( void );
+	int CheckValidGame( void );
 	CMethDoc();
 	~CMethDoc();
 

@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -47,7 +47,7 @@ public:
 	int  HitWall( void );
 	int  CheckCollect( void );
 	void ReleaseBaddie( void );
-	CSuckable *GrabBaddie( void );
+	CSuckable *GrabBaddie( CPlayerObj *pptr );
 public:
 	CPlayerObj *m_pPlayer;
 	CSuckable *m_pBaddie;

@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Prgram Email: rombust@postmaster.co.uk                                  *
  *                                                                         *
  ***************************************************************************/
@@ -102,11 +102,7 @@ static MREADER MethaneReader = {
 	MR_Eof};
 
 //------------------------------------------------------------------------------
-// Sound driver constructor
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Sound driver constructor
 //------------------------------------------------------------------------------
 CMikModDrv::CMikModDrv()
 {
@@ -118,11 +114,7 @@ CMikModDrv::CMikModDrv()
 }
 
 //------------------------------------------------------------------------------
-// Destroy the sound driver
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Destroy the sound driver
 //------------------------------------------------------------------------------
 CMikModDrv::~CMikModDrv()
 {
@@ -130,15 +122,10 @@ CMikModDrv::~CMikModDrv()
 }
 
 //------------------------------------------------------------------------------
-// Initialise the sound driver
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the sound driver
 //------------------------------------------------------------------------------
 void CMikModDrv::InitDriver(void)
 {
-
 	RemoveDriver();
 
 #ifdef WIN32	// Should be Windows
@@ -172,7 +159,6 @@ void CMikModDrv::InitDriver(void)
 	MikMod_RegisterDriver(&drv_nos);
 #endif
 
-
 	// register standard tracker
 	MikMod_RegisterAllLoaders();
 
@@ -194,11 +180,7 @@ void CMikModDrv::InitDriver(void)
 }
 
 //------------------------------------------------------------------------------
-// Remove the sound driver
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Remove the sound driver
 //------------------------------------------------------------------------------
 void CMikModDrv::RemoveDriver(void)
 {
@@ -218,13 +200,11 @@ void CMikModDrv::RemoveDriver(void)
 }
 
 //------------------------------------------------------------------------------
-// Play a sample (called from the game)
-// On Entry:
-// 	id = SND_xxx id
-//	pos = Sample Position to use 0 to 255
-//	rate = The rate
-// On Exit:
-// 	Not Used
+//! \brief Play a sample (called from the game)
+//!
+//! 	\param id = SND_xxx id
+//!	\param pos = Sample Position to use 0 to 255
+//!	\param rate = The rate
 //------------------------------------------------------------------------------
 void CMikModDrv::PlaySample(int id, int pos, int rate)
 {
@@ -266,11 +246,7 @@ void CMikModDrv::PlaySample(int id, int pos, int rate)
 }
 
 //------------------------------------------------------------------------------
-// Stop the module (called from the game)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Stop the module (called from the game)
 //------------------------------------------------------------------------------
 void CMikModDrv::StopModule(void)
 {
@@ -280,11 +256,9 @@ void CMikModDrv::StopModule(void)
 }
 
 //------------------------------------------------------------------------------
-// Play a module (called from the game)
-// On Entry:
-// 	id = SMOD_xxx id
-// On Exit:
-// 	Not Used
+//! \brief Play a module (called from the game)
+//!
+//! 	\param id = SMOD_xxx id
 //------------------------------------------------------------------------------
 void CMikModDrv::PlayModule(int id)
 {
@@ -312,11 +286,7 @@ void CMikModDrv::PlayModule(int id)
 }
 
 //------------------------------------------------------------------------------
-// Remove Modules
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Remove Modules
 //------------------------------------------------------------------------------
 void CMikModDrv::RemoveModules(void)
 {
@@ -335,11 +305,7 @@ void CMikModDrv::RemoveModules(void)
 }
 
 //------------------------------------------------------------------------------
-// Remove Samples
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Remove Samples
 //------------------------------------------------------------------------------
 void CMikModDrv::RemoveSamples(void)
 {
@@ -359,11 +325,7 @@ void CMikModDrv::RemoveSamples(void)
 
 
 //------------------------------------------------------------------------------
-// Initialise the modules
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the modules
 //------------------------------------------------------------------------------
 void CMikModDrv::InitModules(void)
 {
@@ -387,11 +349,7 @@ void CMikModDrv::InitModules(void)
 }
 
 //------------------------------------------------------------------------------
-// Initialise the samples
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the samples
 //------------------------------------------------------------------------------
 void CMikModDrv::InitSamples(void)
 {
@@ -421,11 +379,7 @@ void CMikModDrv::InitSamples(void)
 }
 
 //------------------------------------------------------------------------------
-// Change the sign of all the samples
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Change the sign of all the samples
 //------------------------------------------------------------------------------
 static int SamplesSignedFlag = 0;
 void CMikModDrv::SignAllSamples(void)
@@ -452,11 +406,7 @@ void CMikModDrv::SignAllSamples(void)
 }
 
 //------------------------------------------------------------------------------
-// Call mikmod_update. Call this every cycle
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Call mikmod_update. Call this every cycle
 //------------------------------------------------------------------------------
 void CMikModDrv::Update(void)
 {
@@ -466,11 +416,9 @@ void CMikModDrv::Update(void)
 }
 
 //------------------------------------------------------------------------------
-// Update the current module (ie restart the module if it has stopped) (called from the game)
-// On Entry:
-// 	id = SMOD_xxx id (The module that should be playing)
-// On Exit:
-// 	Not Used
+//! \brief Update the current module (ie restart the module if it has stopped) (called from the game)
+//!
+//! 	\param id = SMOD_xxx id (The module that should be playing)
 //------------------------------------------------------------------------------
 void CMikModDrv::UpdateModule(int id)
 {

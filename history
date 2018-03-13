@@ -11,9 +11,17 @@ The version number of the game is contained in:
 	source/game.cpp : GameVersionNumber[]
 	source/win32/mfc/methane.rc : VALUE "FileVersion"
 
-V1.4.5 (Released 27 January 2002)
+V1.4.7 (Released 20 January 2005)
+       All: Added 2 player mode.
+       All: Changed comments to be doxygen compatible
+       Linux: Compatible with latest version of ClanLib
+       MFC: Create target for visual studio V7.0.
+V1.4.6 (Released 10 March 2003)
+       Linux: Fixed keyboard bug (yes another one!) where the Highscore table did not work (it
+        was looking for joystick 2 instead of joystick 1.)
+V1.4.5 (Released 27 January 2003)
        Linux: Fixed keyboard bug where the left CTRL key was not detected!
-V1.4.4 (Released 15 January 2002)
+V1.4.4 (Released 15 January 2003)
        PFJ - Alterations for C++ compliance and code changes
        PFJ - Added new try/catch code
        PFJ - Minor changes

@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -85,6 +85,7 @@ public:
 	void DoGlide(void);
 public:
 	SUCKFRAMES	*m_pSuckFrames;
+	CPlayerObj	*m_pPlayer;	//!< Player that sucked this object
 	int	m_SFrame;
 	int	m_BadXPosFract;
 	int	m_BadYPosFract;

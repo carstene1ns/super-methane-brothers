@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -204,11 +204,7 @@ static int cycle_table[NUM_CYCLES] =
 	
 
 //------------------------------------------------------------------------------
-// Create a new map 
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Create a new map 
 //------------------------------------------------------------------------------
 CMap::CMap()
 {
@@ -217,11 +213,7 @@ CMap::CMap()
 }
 
 //------------------------------------------------------------------------------
-// Zero all the map data
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Zero all the map data
 //------------------------------------------------------------------------------
 void CMap::ZeroMap(void)
 {
@@ -233,11 +225,9 @@ void CMap::ZeroMap(void)
 }
 
 //------------------------------------------------------------------------------
-// Load a standard map into memory
-// On Entry:
-// 	mapid = The map id
-// On Exit:
-// 	Not Used
+//! \brief Load a standard map into memory
+//!
+//! 	\param mapid = The map id
 //------------------------------------------------------------------------------
 void CMap::GetMap( int mapid )
 {
@@ -256,13 +246,11 @@ void CMap::GetMap( int mapid )
 }
 
 //------------------------------------------------------------------------------
-// Load the map resource entry into memory
-// On Entry:
-// 	id = resource id
-//	dest = Where to write to
-//	len = Length of the destination (in bytes)
-// On Exit:
-// 	Not Used
+//! \brief Load the map resource entry into memory
+//!
+//! 	\param id = resource id
+//!	\param dest = Where to write to
+//!	\param len = Length of the destination (in bytes)
 //------------------------------------------------------------------------------
 void CMap::LoadData(int id, void *dest, int len)
 {
@@ -278,11 +266,9 @@ void CMap::LoadData(int id, void *dest, int len)
 }
 
 //------------------------------------------------------------------------------
-// Load a map into memory. The Map is converted from amiga to pc
-// On Entry:
-// 	id = resource id
-// On Exit:
-// 	Not Used
+//! \brief Load a map into memory. The Map is converted from amiga to pc
+//!
+//! 	\param id = resource id
 //------------------------------------------------------------------------------
 void CMap::LoadMap( int id )
 {
@@ -291,14 +277,12 @@ void CMap::LoadMap( int id )
 	Amiga2PC( m_MapData, MAP_SIZE );
 }
 
-
 //------------------------------------------------------------------------------
-// Load a FRK (sprite position) file into memory.
-// The file is converted from amiga to pc
-// On Entry:
-// 	id = resource id
-// On Exit:
-// 	Not Used
+//! \brief Load a FRK (sprite position) file into memory.
+//!
+//! The file is converted from amiga to pc
+//!
+//! 	\param id = resource id
 //------------------------------------------------------------------------------
 void CMap::LoadFrk( int id )
 {
@@ -309,11 +293,9 @@ void CMap::LoadFrk( int id )
 }
 
 //------------------------------------------------------------------------------
-// Load a map wind file into memory.
-// On Entry:
-// 	id = resource id
-// On Exit:
-// 	Not Used
+//! \brief Load a map wind file into memory.
+//!
+//! 	\param id = resource id
 //------------------------------------------------------------------------------
 void CMap::LoadWind( int id )
 {
@@ -322,12 +304,11 @@ void CMap::LoadWind( int id )
 }
 
 //------------------------------------------------------------------------------
-// Load a box_data into memory. The box_data is converted from amiga to pc
-// (This contains the collision boxes)
-// On Entry:
-// 	id = resource id
-// On Exit:
-// 	Not Used
+//! \brief Load a box_data into memory. The box_data is converted from amiga to pc
+//!
+//! (This contains the collision boxes)
+//!
+//! 	\param id = resource id
 //------------------------------------------------------------------------------
 void CMap::LoadBox( int id )
 {
@@ -360,12 +341,9 @@ void CMap::LoadBox( int id )
 }
 
 //------------------------------------------------------------------------------
-// Extend the box screen edges 
-// (to fix comparing problems when an object is moving off screen)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Extend the box screen edges 
+//!
+//! (to fix comparing problems when an object is moving off screen)
 //------------------------------------------------------------------------------
 void CMap::ExtendBox( void )
 {
@@ -393,13 +371,10 @@ void CMap::ExtendBox( void )
 }
 
 //------------------------------------------------------------------------------
-// Sort the boxes, so type '0' are first
-// (to fix problems - which I cannot currently remember) (will I coded it years ago!)
-// This uses a slow sort algorithm - A fast one is not needed
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Sort the boxes, so type '0' are first
+//!
+//! (to fix problems - which I cannot currently remember) (well I coded it years ago!)\n
+//! This uses a slow sort algorithm - A fast one is not needed
 //------------------------------------------------------------------------------
 void CMap::SortBox( void )
 {
@@ -432,14 +407,11 @@ void CMap::SortBox( void )
 
 }
 
-
 //------------------------------------------------------------------------------
-// Convert Amiga Short to PC Short by swapping the bytes
-// On Entry:
-// 	data = pointer to the data to convert
-//		items = number of items to convert
-// On Exit:
-// 	Not Used
+//! \brief Convert Amiga Short to PC Short by swapping the bytes
+//!
+//! 	\param data = pointer to the data to convert
+//!	\param items = number of items to convert
 //------------------------------------------------------------------------------
 void CMap::Amiga2PC(short *data, int items)
 {
@@ -457,14 +429,12 @@ void CMap::Amiga2PC(short *data, int items)
 	}
 }
 
-
 //------------------------------------------------------------------------------
-// Draw the map onto the screen (Coded for speed - not safety)
-// (using the damage list)
-// On Entry:
-// 	sptr = The screen address to draw to
-// On Exit:
-// 	Not Used
+//! \brief Draw the map onto the screen (Coded for speed - not safety)
+//!
+//! (using the damage list)
+//!
+//! 	\param sptr = The screen address to draw to
 //------------------------------------------------------------------------------
 void CMap::Draw( char *sptr )
 {
@@ -494,11 +464,9 @@ void CMap::Draw( char *sptr )
 }
 
 //------------------------------------------------------------------------------
-// Load the block set the map will use
-// On Entry:
-// 	rid = The block set graphic id
-// On Exit:
-// 	Not Used
+//! \brief Load the block set the map will use
+//!
+//! 	\param rid = The block set graphic id
 //------------------------------------------------------------------------------
 void CMap::LoadBlockSet( int rid )
 {
@@ -506,11 +474,7 @@ void CMap::LoadBlockSet( int rid )
 }
 
 //------------------------------------------------------------------------------
-// Damage the entire map
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Damage the entire map
 //------------------------------------------------------------------------------
 void CMap::DamageAll(void)
 {
@@ -523,12 +487,12 @@ void CMap::DamageAll(void)
 }
 
 //------------------------------------------------------------------------------
-// Damage a part of the map
-// On Entry:
-// 	xpos,ypos
-//		width,height = Size (In pixels)
-// On Exit:
-// 	Not Used
+//! \brief Damage a part of the map
+//!
+//! 	\param xpos = xpos
+//!	\param ypos = ypos
+//!	\param width = width size (In pixels)
+//!	\param height = height size (In pixels)
 //------------------------------------------------------------------------------
 void CMap::Damage(int xpos, int ypos, int width, int height)
 {
@@ -568,17 +532,16 @@ void CMap::Damage(int xpos, int ypos, int width, int height)
 	}
 }
 
-
 //------------------------------------------------------------------------------
-// Check to see if an object will move down into a wall
-// On Entry:
-// 	xpos = object xpos (bottom) (on pixel)
-// 	ypos = object ypos (at foot) (on pixel)
-//		width = object width
-//		ydelta = object (ypos - last_ypos) (Should be +'ve)
-// On Exit:
-// 	The topmost pixel ypos of the wall. (Subtract 1 for above the wall)
-//		CBM_NOTINWALL = Did not hit a wall
+//! \brief Check to see if an object will move down into a wall
+//!
+//! 	\param xpos = object xpos (bottom) (on pixel)
+//! 	\param ypos = object ypos (at foot) (on pixel)
+//!	\param width = object width
+//!	\param ydelta = object (ypos - last_ypos) (Should be +'ve)
+//!
+//! 	\return The topmost pixel ypos of the wall. (Subtract 1 for above the wall)\n
+//!		CBM_NOTINWALL = Did not hit a wall
 //------------------------------------------------------------------------------
 int CMap::CheckDown(int xpos, int ypos, int width, int ydelta)
 {
@@ -609,16 +572,16 @@ int CMap::CheckDown(int xpos, int ypos, int width, int ydelta)
 }
 
 //------------------------------------------------------------------------------
-// Check to see if an object will move up into a wall
-// On Entry:
-// 	xpos = object xpos (on pixel)
-// 	ypos = object ypos (at foot) (on pixel)
-//		width = object width
-//		ydelta = object (ypos - last_ypos) (Should be -'ve)
-//		hardwallflag: (Default = 0) 1 = Disable jump though wall
-// On Exit:
-// 	The bottom pixel ypos of the wall. (Add 1 for below the wall)
-//		CBM_NOTINWALL = Did not hit a wall
+//! \brief Check to see if an object will move up into a wall
+//!
+//! 	\param xpos = object xpos (on pixel)
+//! 	\param ypos = object ypos (at foot) (on pixel)
+//!	\param width = object width
+//!	\param ydelta = object (ypos - last_ypos) (Should be -'ve)
+//!	\param hardwallflag = (Default = 0) 1 = Disable jump though wall
+//!
+//! 	\return The bottom pixel ypos of the wall. (Add 1 for below the wall)\n
+//!		CBM_NOTINWALL = Did not hit a wall
 //------------------------------------------------------------------------------
 int CMap::CheckUp(int xpos, int ypos, int width, int ydelta, int hardwallflag)
 {
@@ -652,16 +615,16 @@ int CMap::CheckUp(int xpos, int ypos, int width, int ydelta, int hardwallflag)
 }
 
 //------------------------------------------------------------------------------
-// Check to see if an object will move left into a wall
-// On Entry:
-// 	xpos = object xpos (on pixel)
-// 	ypos = object ypos (at head) (on pixel)
-//		height = object height
-//		xdelta = object (xpos - last_xpos) (Should be -'ve)
-//		hardwallflag: (Default = 0) 1 = Disable jump though wall
-// On Exit:
-// 	The rightmost pixel xpos of the wall. (Add 1 for the right the wall)
-//		CBM_NOTINWALL = Did not hit a wall
+//! \brief Check to see if an object will move left into a wall
+//!
+//! 	\param xpos = object xpos (on pixel)
+//! 	\param ypos = object ypos (at head) (on pixel)
+//!	\param height = object height
+//!	\param xdelta = object (xpos - last_xpos) (Should be -'ve)
+//!	\param hardwallflag = (Default = 0) 1 = Disable jump though wall
+//!
+//! 	\return The rightmost pixel xpos of the wall. (Add 1 for the right the wall)\n
+//!		CBM_NOTINWALL = Did not hit a wall
 //------------------------------------------------------------------------------
 int CMap::CheckLeft(int xpos, int ypos, int height, int xdelta, int hardwallflag)
 {
@@ -693,18 +656,17 @@ int CMap::CheckLeft(int xpos, int ypos, int height, int xdelta, int hardwallflag
 	return CBM_NOTINWALL;
 }
 
-
 //------------------------------------------------------------------------------
-// Check to see if an object will move right into a wall
-// On Entry:
-// 	xpos = object xpos (right of object) (on pixel)
-// 	ypos = object ypos (at head) (on pixel)
-//		height = object height
-//		xdelta = object (xpos - last_xpos) (Should be +'ve)
-//		hardwallflag: (Default = 0) 1 = Disable jump though wall
-// On Exit:
-// 	The leftmost pixel xpos of the wall. (Subtract 1 for the right the wall)
-//		CBM_NOTINWALL = Did not hit a wall
+//! \brief Check to see if an object will move right into a wall
+//!
+//! 	\param xpos = object xpos (right of object) (on pixel)
+//! 	\param ypos = object ypos (at head) (on pixel)
+//!	\param height = object height
+//!	\param xdelta = object (xpos - last_xpos) (Should be +'ve)
+//!	\param hardwallflag = (Default = 0) 1 = Disable jump though wall
+//!
+//! 	\return The leftmost pixel xpos of the wall. (Subtract 1 for the right the wall)\n
+//!		CBM_NOTINWALL = Did not hit a wall
 //------------------------------------------------------------------------------
 int CMap::CheckRight(int xpos, int ypos, int height, int xdelta, int hardwallflag)
 {
@@ -737,16 +699,15 @@ int CMap::CheckRight(int xpos, int ypos, int height, int xdelta, int hardwallfla
 }
 
 //------------------------------------------------------------------------------
-// Check to see if an object is touching a wall
-// On Entry:
-// 	xpos = object xpos (right of object) (on pixel)
-// 	ypos = object ypos (at head) (on pixel)
-//		width = object width
-//		height = object height
-//		hardwallflag: (Default = 0) 1 = Disable jump though wall
-// On Exit:
-// 	0 = Did not hit the wall
-//		Else = Box Hit
+//! \brief Check to see if an object is touching a wall
+//!
+//! 	\param xpos = object xpos (right of object) (on pixel)
+//! 	\param ypos = object ypos (at head) (on pixel)
+//!	\param width = object width
+//!	\param height = object height
+//!	\param hardwallflag = (Default = 0) 1 = Disable jump though wall
+//!
+//! 	\return 0 = Did not hit the wall. Else = Box Hit
 //------------------------------------------------------------------------------
 BOXPOS *CMap::CheckHitWall(int xpos, int ypos, int width, int height, int hardwallflag)
 {
@@ -774,14 +735,15 @@ BOXPOS *CMap::CheckHitWall(int xpos, int ypos, int width, int height, int hardwa
 }
 
 //------------------------------------------------------------------------------
-// Get the x position of the left edge of wall
-// This takes account of the screen edges fix (PORTED FROM THE AMIGA VERSION!)
-// Note: This function assumes that a wall at the edge of the screen
-//  has a wall at the other side of the screen. (A fix!)
-// On Entry:
-// 	bpos = Box Pointer
-// On Exit:
-// 	the x pos value - 1
+//! \brief Get the x position of the left edge of wall
+//!
+//! This takes account of the screen edges fix (PORTED FROM THE AMIGA VERSION!)\n
+//! Note: This function assumes that a wall at the edge of the screen\n
+//!  has a wall at the other side of the screen. (A fix!)\n
+//!
+//! 	\param bpos = Box Pointer
+//!
+//! 	\return the x pos value - 1
 //------------------------------------------------------------------------------
 int CMap::GetLeftEdge(BOXPOS *bpos)
 {
@@ -795,14 +757,15 @@ int CMap::GetLeftEdge(BOXPOS *bpos)
 }
 
 //------------------------------------------------------------------------------
-// Get the x position of the right edge of wall
-// This takes account of the screen edges fix (PORTED FROM THE AMIGA VERSION!)
-// Note: This function assumes that a wall at the edge of the screen
-//  has a wall at the other side of the screen. (A fix!)
-// On Entry:
-// 	bpos = Box Pointer
-// On Exit:
-// 	the x pos value + 1
+//! \brief Get the x position of the right edge of wall
+//!
+//! This takes account of the screen edges fix (PORTED FROM THE AMIGA VERSION!)\n
+//! Note: This function assumes that a wall at the edge of the screen\n
+//!  has a wall at the other side of the screen. (A fix!)
+//!
+//! 	\param bpos = Box Pointer
+//!
+//! 	\return the x pos value + 1
 //------------------------------------------------------------------------------
 int CMap::GetRightEdge(BOXPOS *bpos)
 {
@@ -815,13 +778,11 @@ int CMap::GetRightEdge(BOXPOS *bpos)
 }
 
 //------------------------------------------------------------------------------
-// Get a new collision box
-// The box is cleared to zero
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	The box
-//		0 = Error occured (too many boxes on screen)
+//! \brief Get a new collision box
+//!
+//! The box is cleared to zero
+//!
+//! 	\return The box. 0 = Error occured (too many boxes on screen)
 //------------------------------------------------------------------------------
 BOXPOS *CMap::GetBox( void )
 {
@@ -838,11 +799,7 @@ BOXPOS *CMap::GetBox( void )
 }
 
 //------------------------------------------------------------------------------
-// Cycle the map borders
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Cycle the map borders
 //------------------------------------------------------------------------------
 void CMap::CycleBorder(void)
 {
@@ -870,11 +827,9 @@ void CMap::CycleBorder(void)
 }
 
 //------------------------------------------------------------------------------
-// Load the swap map (the alternate map used by the switch)
-// On Entry:
-// 	mapid = The map id
-// On Exit:
-// 	Not Used
+//! \brief Load the swap map (the alternate map used by the switch)
+//!
+//! 	\param mapid = The map id
 //------------------------------------------------------------------------------
 void CMap::LoadSwapMap( int mapid )
 {

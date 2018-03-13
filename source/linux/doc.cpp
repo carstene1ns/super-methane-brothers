@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -44,11 +44,7 @@ static char HighScoreFileName[] = "/var/games/methanescores";
 #define HighScoreLoadBufferSize (MAX_HISCORES * 64)
 
 //------------------------------------------------------------------------------
-// Initialise Document
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise Document
 //------------------------------------------------------------------------------
 CMethDoc::CMethDoc()
 {
@@ -61,11 +57,7 @@ CMethDoc::CMethDoc()
 }
 
 //------------------------------------------------------------------------------
-// Destroy Document
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Destroy Document
 //------------------------------------------------------------------------------
 CMethDoc::~CMethDoc()
 {
@@ -79,11 +71,7 @@ CMethDoc::~CMethDoc()
 }
 
 //------------------------------------------------------------------------------
-// Initialise the game
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the game
 //------------------------------------------------------------------------------
 void CMethDoc::InitGame(void)
 {
@@ -92,11 +80,7 @@ void CMethDoc::InitGame(void)
 }
 
 //------------------------------------------------------------------------------
-// Initialise the sound driver
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the sound driver
 //------------------------------------------------------------------------------
 void CMethDoc::InitSoundDriver(void)
 {
@@ -106,11 +90,7 @@ void CMethDoc::InitSoundDriver(void)
 }
 
 //------------------------------------------------------------------------------
-// Remove the sound driver
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Remove the sound driver
 //------------------------------------------------------------------------------
 void CMethDoc::RemoveSoundDriver(void)
 {
@@ -119,13 +99,8 @@ void CMethDoc::RemoveSoundDriver(void)
 #endif
 }
 
-
 //------------------------------------------------------------------------------
-// Start the game
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Start the game
 //------------------------------------------------------------------------------
 void CMethDoc::StartGame(void)
 {
@@ -133,11 +108,9 @@ void CMethDoc::StartGame(void)
 }
 
 //------------------------------------------------------------------------------
-// Redraw the game main view
-// On Entry:
-// 	pal_change_flag : 0 = Palette not changed
-// On Exit:
-// 	Not Used
+//! \brief Redraw the game main view
+//!
+//! 	\param pal_change_flag : 0 = Palette not changed
 //------------------------------------------------------------------------------
 void CMethDoc::RedrawMainView( int pal_change_flag )
 {
@@ -145,12 +118,10 @@ void CMethDoc::RedrawMainView( int pal_change_flag )
 }
 
 //------------------------------------------------------------------------------
-// Draw the screen
-// On Entry:
-// 	screen_ptr = 32 bit per pixel screen
-//	paused_flag : 0 = Game not paused
-// On Exit:
-// 	Not Used
+//! \brief Draw the screen
+//!
+//! 	\param screen_ptr = 32 bit per pixel screen
+//!	\param paused_flag = 0 = Game not paused
 //------------------------------------------------------------------------------
 void CMethDoc::DrawScreen( void *screen_ptr, int paused_flag )
 {
@@ -183,7 +154,7 @@ void CMethDoc::DrawScreen( void *screen_ptr, int paused_flag )
 			green = mptr->green;
 			blue = mptr->blue; 
 			colour = (red << 24) | (green << 16) | (blue << 8);
-			*(tptr++) = colour;
+			*(tptr++) = colour | 0xff;
 		}
 
 	}else		// If paused - grey scale the palette
@@ -197,7 +168,7 @@ void CMethDoc::DrawScreen( void *screen_ptr, int paused_flag )
 			int cval = (red + green + blue) / 3;
 			red = cval;
 			colour = (red << 24) | (red << 16) | (red << 8);
-			*(tptr++) = colour;
+			*(tptr++) = colour | 0xff;
 		}
 	}
 
@@ -217,12 +188,10 @@ void CMethDoc::DrawScreen( void *screen_ptr, int paused_flag )
 }
 
 //------------------------------------------------------------------------------
-// The Game Main Loop 
-// On Entry:
-// 	screen_ptr = 32 bit per pixel screen
-//	paused_flag : 0 = Game not paused
-// On Exit:
-// 	Not Used
+//! \brief The Game Main Loop 
+//!
+//! 	\param screen_ptr = 32 bit per pixel screen
+//!	\param paused_flag = 0 = Game not paused
 //------------------------------------------------------------------------------
 void CMethDoc::MainLoop( void *screen_ptr, int paused_flag )
 {
@@ -238,13 +207,11 @@ void CMethDoc::MainLoop( void *screen_ptr, int paused_flag )
 }
 
 //------------------------------------------------------------------------------
-// Play a sample (called from the game)
-// On Entry:
-// 	id = SND_xxx id
-//	pos = Sample Position to use 0 to 255
-//	rate = The rate
-// On Exit:
-// 	Not Used
+//! \brief Play a sample (called from the game)
+//!
+//! 	\param id = SND_xxx id
+//!	\param pos = Sample Position to use 0 to 255
+//!	\param rate = The rate
 //------------------------------------------------------------------------------
 void CMethDoc::PlaySample(int id, int pos, int rate)
 {
@@ -254,11 +221,7 @@ void CMethDoc::PlaySample(int id, int pos, int rate)
 }
 
 //------------------------------------------------------------------------------
-// Stop the module (called from the game)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Stop the module (called from the game)
 //------------------------------------------------------------------------------
 void CMethDoc::StopModule(void)
 {
@@ -268,11 +231,9 @@ void CMethDoc::StopModule(void)
 }
 
 //------------------------------------------------------------------------------
-// Play a module (called from the game)
-// On Entry:
-// 	id = SMOD_xxx id
-// On Exit:
-// 	Not Used
+//! \brief Play a module (called from the game)
+//!
+//! 	\param id = SMOD_xxx id
 //------------------------------------------------------------------------------
 void CMethDoc::PlayModule(int id)
 {
@@ -282,11 +243,9 @@ void CMethDoc::PlayModule(int id)
 }
 
 //------------------------------------------------------------------------------
-// Update the current module (ie restart the module if it has stopped) (called from the game)
-// On Entry:
-// 	id = SMOD_xxx id (The module that should be playing)
-// On Exit:
-// 	Not Used
+//! \brief Update the current module (ie restart the module if it has stopped) (called from the game)
+//!
+//! 	\param id = SMOD_xxx id (The module that should be playing)
 //------------------------------------------------------------------------------
 void CMethDoc::UpdateModule(int id)
 {
@@ -296,42 +255,67 @@ void CMethDoc::UpdateModule(int id)
 }
 
 //------------------------------------------------------------------------------
-// The Display Options screen
-// On Entry:
-// 	screen_ptr = 32 bit per pixel screen
-// On Exit:
-// 	Not Used
+//! \brief The Display Options screen
+//!
+//! 	\param screen_ptr = 32 bit per pixel screen
+//!	\param page_no	= Instruction page number
 //------------------------------------------------------------------------------
-void CMethDoc::DisplayOptions( void *screen_ptr )
+void CMethDoc::DisplayOptions( void *screen_ptr, int page_no )
 {
 	int *dptr;
+	int cnt;
+
 	dptr = (int *) screen_ptr;
 
-	DrawFont32Text( dptr, 0*16, "INSTRUCTIONS:");
-	DrawFont32Text( dptr, 2*16, "CTRL:START GAME");
-	DrawFont32Text( dptr, 3*16, "CTRL:CREATE/SUCK GAS");
-	DrawFont32Text( dptr, 4*16, "CURSOR:MOVE PLAYER");
-	DrawFont32Text( dptr, 5*16, "TAB:CHANGE GRAPHIC");
-	DrawFont32Text( dptr, 6*16, "ESCAPE:EXIT PROGRAM");
-	DrawFont32Text( dptr, 7*16, "F1:PAUSE");
-	DrawFont32Text( dptr, 8*16, "F2:TOGGLE SCALING");
-	DrawFont32Text( dptr, 9*16, "F3:FULL SCREEN");
-	DrawFont32Text( dptr, 10*16, "F4:800'600 MODE");
-	DrawFont32Text( dptr, 11*16, "F5:1024'768 MODE");
-	DrawFont32Text( dptr, 12*16, "F6:1152'870 MODE");
-	DrawFont32Text( dptr, 13*16, "F9,F10:GAME SPEED");
+	// Clear the screen
+	for (cnt=0; cnt<(SCR_WIDTH * SCR_HEIGHT); cnt++)
+	{
+		dptr[cnt] = 0xff;
+	}
+
+	if (page_no == 0)
+	{
+		DrawFont32Text( dptr, 0*16, "INSTRUCTIONS:");
+		DrawFont32Text( dptr, 2*16, "FIRE TO START");
+		DrawFont32Text( dptr, 3*16, "TYPE PLAYER NAMES");
+		DrawFont32Text( dptr, 4*16, "TAP FIRE TO GAS");
+		DrawFont32Text( dptr, 5*16, "HOLD FIRE TO SUCK");
+		DrawFont32Text( dptr, 6*16, "RELEASE FIRE THROW");
+		DrawFont32Text( dptr, 7*16, "THROW AT THE WALL");
+	}
+	if (page_no == 1)
+	{
+		DrawFont32Text( dptr, 0*16, "PLAYER ONE:");
+		DrawFont32Text( dptr, 2*16, "USE CURSOR KEYS");
+		DrawFont32Text( dptr, 3*16, "CTRL TO FIRE.");
+		DrawFont32Text( dptr, 6*16, "PLAYER TWO:");
+		DrawFont32Text( dptr, 8*16, "USE A W S D");
+		DrawFont32Text( dptr, 9*16, "SHIFT TO FIRE");
+
+	}
+	if (page_no == 2)
+	{
+		DrawFont32Text( dptr, 0*16, "KEYS:");
+		DrawFont32Text( dptr, 1*16, "");
+		DrawFont32Text( dptr, 2*16, "F1 PAUSE");
+		DrawFont32Text( dptr, 3*16, "F2 SCALING");
+		DrawFont32Text( dptr, 4*16, "F3 FULL SCREEN");
+		DrawFont32Text( dptr, 5*16, "F9 INCREASE SPEED");
+		DrawFont32Text( dptr, 6*16, "F10 DECREASE SPEED");
+		DrawFont32Text( dptr, 7*16, "TAB CHANGE GRAPHIC");
+		DrawFont32Text( dptr, 8*16, "ESC EXIT PROGRAM");
+	}
 
 	DrawFont32Text( dptr, 15*16, "(PRESS SPACE)");
 
 }
+
 //------------------------------------------------------------------------------
-// Draw the 32 colour font text (for the options screen)
-// On Entry:
-// 	dptr = 32 bit per pixel screen
-//	ypos = Font y pos in pixels
-//	tptr = The text
-// On Exit:
-// 	Not Used
+//! \brief Draw the 32 colour font text (for the options screen)
+//!
+//! 	\param dptr = 32 bit per pixel screen
+//!	\param ypos = Font y pos in pixels
+//!	\param tptr = The text
 //------------------------------------------------------------------------------
 void CMethDoc::DrawFont32Text( int *dptr, int ypos, char *tptr)
 {
@@ -382,7 +366,7 @@ void CMethDoc::DrawFont32Text( int *dptr, int ypos, char *tptr)
 			{
 				for (cnt=0; cnt<width; cnt++)
 				{
-					*(wptr++) = palette[( *(fptr++) )];
+					*(wptr++) = palette[( *(fptr++) )] | 0xff;
 				}
 				wptr+= offset;
 			}
@@ -394,11 +378,7 @@ void CMethDoc::DrawFont32Text( int *dptr, int ypos, char *tptr)
 }
 
 //------------------------------------------------------------------------------
-// Load the high scores
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the high scores
 //------------------------------------------------------------------------------
 void CMethDoc::LoadScores(void)
 {
@@ -443,11 +423,7 @@ void CMethDoc::LoadScores(void)
 }
 
 //------------------------------------------------------------------------------
-// Save the high scores
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Save the high scores
 //------------------------------------------------------------------------------
 void CMethDoc::SaveScores(void)
 {

@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -105,11 +105,7 @@ static OBJMOVE bug_move_slow = {160,160/2,4*256,11*256,285,11*256,11*256};
 static OBJMOVE bug_move_fast = {0x2a0,0x100,6*256,0xf*256,0x1d0,0xf*256,0xf*256};
 
 //------------------------------------------------------------------------------
-// Initialise the bug object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the bug object
 //------------------------------------------------------------------------------
 CBugObj::CBugObj()
 {
@@ -117,11 +113,7 @@ CBugObj::CBugObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the bug object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the bug object
 //------------------------------------------------------------------------------
 void CBugObj::Draw( void )
 {
@@ -131,11 +123,7 @@ void CBugObj::Draw( void )
 
 
 //------------------------------------------------------------------------------
-// Load the object graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the object graphics
 //------------------------------------------------------------------------------
 void CBugObj::LoadGfx( void )
 {
@@ -143,11 +131,7 @@ void CBugObj::LoadGfx( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the object (object members)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
 void CBugObj::Reset( void )
 {
@@ -168,11 +152,7 @@ void CBugObj::Reset( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CBugObj::Do( void )
 {
@@ -191,17 +171,6 @@ void CBugObj::Do( void )
 	MoveObject();
 	AnimateXInert(anm_bug_left, anm_bug_right);
 }
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 // Animation
@@ -279,11 +248,7 @@ static OBJMOVE whirly_move_slow = {300,300/2,3*256,300,300/2,3*256,0};
 static OBJMOVE whirly_move_fast = {320,320/2,4*256,320,320/2,4*256,0};
 
 //------------------------------------------------------------------------------
-// Initialise the whirly object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the whirly object
 //------------------------------------------------------------------------------
 CWhirlyObj::CWhirlyObj()
 {
@@ -291,11 +256,7 @@ CWhirlyObj::CWhirlyObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the whirly object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the whirly object
 //------------------------------------------------------------------------------
 void CWhirlyObj::Draw( void )
 {
@@ -305,11 +266,7 @@ void CWhirlyObj::Draw( void )
 
 
 //------------------------------------------------------------------------------
-// Load the object graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the object graphics
 //------------------------------------------------------------------------------
 void CWhirlyObj::LoadGfx( void )
 {
@@ -317,11 +274,7 @@ void CWhirlyObj::LoadGfx( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the object (object members)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
 void CWhirlyObj::Reset( void )
 {
@@ -346,11 +299,7 @@ void CWhirlyObj::Reset( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CWhirlyObj::Do( void )
 {
@@ -365,17 +314,6 @@ void CWhirlyObj::Do( void )
 
 	AnimateDir(anm_whirly_left, anm_whirly_right, 256);
 }
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 // Animation
@@ -452,11 +390,7 @@ static OBJSIZE doofus_size = {2,1,26,23};
 static OBJMOVE doofus_move = {130,130/2,2*256,130,130/2,2*256,0};
 
 //------------------------------------------------------------------------------
-// Initialise the doofus object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the doofus object
 //------------------------------------------------------------------------------
 CDoofusObj::CDoofusObj()
 {
@@ -464,11 +398,7 @@ CDoofusObj::CDoofusObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the doofus object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the doofus object
 //------------------------------------------------------------------------------
 void CDoofusObj::Draw( void )
 {
@@ -476,13 +406,8 @@ void CDoofusObj::Draw( void )
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
 }
 
-
 //------------------------------------------------------------------------------
-// Load the object graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the object graphics
 //------------------------------------------------------------------------------
 void CDoofusObj::LoadGfx( void )
 {
@@ -490,11 +415,7 @@ void CDoofusObj::LoadGfx( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the object (object members)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
 void CDoofusObj::Reset( void )
 {
@@ -516,11 +437,7 @@ void CDoofusObj::Reset( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CDoofusObj::Do( void )
 {
@@ -529,24 +446,12 @@ void CDoofusObj::Do( void )
 
 	CheckKillPlayer();
 
-	Fly2Player(m_pGame->GetPlayer(OBJ_PLAYER_ONE));
+	Fly2ClosestPlayer();
 
 	MoveObject();
 
 	AnimateDir(anm_doofus_left, anm_doofus_right, 256);
 }
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-
 
 //------------------------------------------------------------------------------
 // Sucking in frames
@@ -654,11 +559,7 @@ OBJMOVE jump_move = {130,130/2,5*256,14*256,175,14*256,14*256};
 OBJSIZE jump_smallsize = {8,0,8,15};
 
 //------------------------------------------------------------------------------
-// Initialise the jump object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the jump object
 //------------------------------------------------------------------------------
 CJumpObj::CJumpObj()
 {
@@ -666,11 +567,7 @@ CJumpObj::CJumpObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the jump object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the jump object
 //------------------------------------------------------------------------------
 void CJumpObj::Draw( void )
 {
@@ -678,13 +575,8 @@ void CJumpObj::Draw( void )
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
 }
 
-
 //------------------------------------------------------------------------------
-// Load the object graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the object graphics
 //------------------------------------------------------------------------------
 void CJumpObj::LoadGfx( void )
 {
@@ -692,11 +584,7 @@ void CJumpObj::LoadGfx( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the object (object members)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
 void CJumpObj::Reset( void )
 {
@@ -719,11 +607,9 @@ void CJumpObj::Reset( void )
 }
 
 //------------------------------------------------------------------------------
-// Control the jump - Another Exact AMIGA conversion !!!
-// On Entry:
-// 	frmoffset = frame offset
-// On Exit:
-// 	Not Used
+//! \brief Control the jump - Another Exact AMIGA conversion !!!
+//!
+//! 	\param frmoffset = frame offset
 //------------------------------------------------------------------------------
 void CJumpObj::DoJump( int frmoffset )
 {
@@ -779,11 +665,7 @@ void CJumpObj::DoJump( int frmoffset )
 
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CJumpObj::Do( void )
 {
@@ -812,17 +694,6 @@ void CJumpObj::Do( void )
 	MoveObject();
 
 }
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 // Animation
@@ -897,11 +768,7 @@ static OBJMOVE mbug_move_slow = {130,130/2,3*256,11*256,265,11*256,11*256};
 static OBJMOVE mbug_move_fast = {0x282,130/2,8*256,11*256,265,11*256,11*256};
 
 //------------------------------------------------------------------------------
-// Initialise the mbug object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the mbug object
 //------------------------------------------------------------------------------
 CMBugObj::CMBugObj()
 {
@@ -909,11 +776,7 @@ CMBugObj::CMBugObj()
 }
 
 //------------------------------------------------------------------------------
-// Destroy the mbug object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Destroy the mbug object
 //------------------------------------------------------------------------------
 CMBugObj::~CMBugObj()
 {
@@ -926,11 +789,7 @@ CMBugObj::~CMBugObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the mbug object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the mbug object
 //------------------------------------------------------------------------------
 void CMBugObj::Draw( void )
 {
@@ -940,11 +799,7 @@ void CMBugObj::Draw( void )
 
 
 //------------------------------------------------------------------------------
-// Load the object graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the object graphics
 //------------------------------------------------------------------------------
 void CMBugObj::LoadGfx( void )
 {
@@ -952,11 +807,7 @@ void CMBugObj::LoadGfx( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the object (object members)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
 void CMBugObj::Reset( void )
 {
@@ -976,12 +827,9 @@ void CMBugObj::Reset( void )
 	m_pSuckFrames = &suck_mbug_frames;
 	m_pWeapon = 0;
 }
+
 //------------------------------------------------------------------------------
-// Check to see if the weapon needs to be created
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Check to see if the weapon needs to be created
 //------------------------------------------------------------------------------
 void CMBugObj::CheckWeapon( void )
 {
@@ -999,11 +847,7 @@ void CMBugObj::CheckWeapon( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CMBugObj::Do( void )
 {
@@ -1023,17 +867,6 @@ void CMBugObj::Do( void )
 	CheckWeapon();
 
 }
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 // Defines
@@ -1119,11 +952,7 @@ static OBJMOVE clown_move_slow = {160,160/2,4*256,12*256,256,12*256,12*256};
 static OBJMOVE clown_move_fast = {0x2a0,0x100,6*256,0xf*256,256,0xf*256,0xf*256};
 
 //------------------------------------------------------------------------------
-// Initialise the clown object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the clown object
 //------------------------------------------------------------------------------
 CClownObj::CClownObj()
 {
@@ -1131,11 +960,7 @@ CClownObj::CClownObj()
 }
 
 //------------------------------------------------------------------------------
-// Destroy the clown object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Destroy the clown object
 //------------------------------------------------------------------------------
 CClownObj::~CClownObj()
 {
@@ -1147,11 +972,7 @@ CClownObj::~CClownObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the clown object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the clown object
 //------------------------------------------------------------------------------
 void CClownObj::Draw( void )
 {
@@ -1161,11 +982,7 @@ void CClownObj::Draw( void )
 
 
 //------------------------------------------------------------------------------
-// Load the object graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the object graphics
 //------------------------------------------------------------------------------
 void CClownObj::LoadGfx( void )
 {
@@ -1173,11 +990,7 @@ void CClownObj::LoadGfx( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the object (object members)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
 void CClownObj::Reset( void )
 {
@@ -1201,13 +1014,13 @@ void CClownObj::Reset( void )
 	m_pWeapon = 0;
 }
 //------------------------------------------------------------------------------
-// Check to see if the clown should shoot at the player
-// (NOTE: Like the amiga version, this function does not take account of
-//  screen wrapping)
-// On Entry:
-// 	play = player to test with
-// On Exit:
-// 	0 = Not going to shoot
+//! \brief Check to see if the clown should shoot at the player
+//!
+//! \note (NOTE: Like the amiga version, this function does not take account of screen wrapping)
+//!
+//! 	\param play = player to test with
+//!
+//! 	\return 0 = Not going to shoot
 //------------------------------------------------------------------------------
 int CClownObj::CheckToShoot( CPlayerObj *play )
 {
@@ -1249,11 +1062,7 @@ int CClownObj::CheckToShoot( CPlayerObj *play )
 }
 
 //------------------------------------------------------------------------------
-// Walk the clown object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Walk the clown object
 //------------------------------------------------------------------------------
 void CClownObj::WalkClown( void )
 {
@@ -1282,11 +1091,7 @@ void CClownObj::WalkClown( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CClownObj::Do( void )
 {
@@ -1306,19 +1111,6 @@ void CClownObj::Do( void )
 			break;
 	}
 }
-
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-
 
 //------------------------------------------------------------------------------
 // Animation
@@ -1397,11 +1189,7 @@ static OBJMOVE dwarf_move_slow = {365,260,4*256,11*256,265,11*256,11*256};
 static OBJMOVE dwarf_move_fast = {0x200,0x104,8*256,11*256,265,11*256,11*256};
 
 //------------------------------------------------------------------------------
-// Initialise the dwarf object (Including allocating the hammer object)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the dwarf object (Including allocating the hammer object)
 //------------------------------------------------------------------------------
 CDwarfObj::CDwarfObj()
 {
@@ -1410,11 +1198,7 @@ CDwarfObj::CDwarfObj()
 }
 
 //------------------------------------------------------------------------------
-// Destroy the dwarf object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Destroy the dwarf object
 //------------------------------------------------------------------------------
 CDwarfObj::~CDwarfObj()
 {
@@ -1427,11 +1211,7 @@ CDwarfObj::~CDwarfObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the dwarf object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the dwarf object
 //------------------------------------------------------------------------------
 void CDwarfObj::Draw( void )
 {
@@ -1456,13 +1236,8 @@ void CDwarfObj::Draw( void )
 	}
 }
 
-
 //------------------------------------------------------------------------------
-// Load the object graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the object graphics
 //------------------------------------------------------------------------------
 void CDwarfObj::LoadGfx( void )
 {
@@ -1470,11 +1245,7 @@ void CDwarfObj::LoadGfx( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the object (object members)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
 void CDwarfObj::Reset( void )
 {
@@ -1496,13 +1267,13 @@ void CDwarfObj::Reset( void )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if the dwarf should shoot at the player
-// (NOTE: Like the amiga version, this function does not take account of
-//  screen wrapping)
-// On Entry:
-// 	play = player to test with
-// On Exit:
-// 	0 = Not going to shoot
+//! \brief Check to see if the dwarf should shoot at the player
+//!
+//! \note (NOTE: Like the amiga version, this function does not take account of screen wrapping)
+//!
+//! 	\param play = player to test with
+//!
+//! 	\return 0 = Not going to shoot
 //------------------------------------------------------------------------------
 int CDwarfObj::CheckToShoot( CPlayerObj *play )
 {
@@ -1537,13 +1308,8 @@ int CDwarfObj::CheckToShoot( CPlayerObj *play )
 	return 0;
 }
 
-
 //------------------------------------------------------------------------------
-// Walk the dwarf
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Walk the dwarf
 //------------------------------------------------------------------------------
 void CDwarfObj::WalkDwarf( void )
 {
@@ -1569,12 +1335,9 @@ void CDwarfObj::WalkDwarf( void )
 		}
 	}
 }
+
 //------------------------------------------------------------------------------
-// Setup the object getting caught
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Setup the object getting caught
 //------------------------------------------------------------------------------
 void CDwarfObj::SetupCaught( void )
 {
@@ -1589,11 +1352,7 @@ void CDwarfObj::SetupCaught( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CDwarfObj::Do( void )
 {
@@ -1625,18 +1384,6 @@ void CDwarfObj::Do( void )
 	WalkDwarf();
 
 }
-
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 // Animation
@@ -1715,11 +1462,7 @@ static OBJMOVE zoom_move_slow = {240,240/2,9*256,11*256,565,11*256,11*256};
 static OBJMOVE zoom_move_fast = {0x3f0,240/2,9*256,11*256,565,11*256,11*256};
 
 //------------------------------------------------------------------------------
-// Initialise the zoom object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the zoom object
 //------------------------------------------------------------------------------
 CZoomObj::CZoomObj()
 {
@@ -1727,11 +1470,7 @@ CZoomObj::CZoomObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the zoom object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the zoom object
 //------------------------------------------------------------------------------
 void CZoomObj::Draw( void )
 {
@@ -1739,13 +1478,8 @@ void CZoomObj::Draw( void )
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
 }
 
-
 //------------------------------------------------------------------------------
-// Load the object graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the object graphics
 //------------------------------------------------------------------------------
 void CZoomObj::LoadGfx( void )
 {
@@ -1753,11 +1487,7 @@ void CZoomObj::LoadGfx( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the object (object members)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
 void CZoomObj::Reset( void )
 {
@@ -1778,11 +1508,7 @@ void CZoomObj::Reset( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CZoomObj::Do( void )
 {
@@ -1799,19 +1525,6 @@ void CZoomObj::Do( void )
 	MoveObject();
 	AnimateXInert(anm_zoom_left, anm_zoom_right);
 }
-
-
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 // Defines
@@ -1892,11 +1605,7 @@ static OBJMOVE spike_move = {130,130/2,7*256,9*256,296,9*256,9*256};
 static OBJMOVE spike_movebig = {130,130/2,7*256,12*256,195,12*256,12*256};
 
 //------------------------------------------------------------------------------
-// Initialise the spike object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the spike object
 //------------------------------------------------------------------------------
 CSpikeObj::CSpikeObj()
 {
@@ -1904,11 +1613,7 @@ CSpikeObj::CSpikeObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the spike object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the spike object
 //------------------------------------------------------------------------------
 void CSpikeObj::Draw( void )
 {
@@ -1917,12 +1622,11 @@ void CSpikeObj::Draw( void )
 }
 
 //------------------------------------------------------------------------------
-// Setup a spike object - when ejected from the crabboss
-// On Entry:
-// 	dir = the direction (DIR_LEFT,DIR_RIGHT)
-//		xpos,ypos = the x,y positions
-// On Exit:
-// 	Not Used
+//! \brief Setup a spike object - when ejected from the crabboss
+//!
+//! 	\param dir = the direction (DIR_LEFT,DIR_RIGHT)
+//!	\param xpos = the x position
+//!	\param ypos = the y position
 //------------------------------------------------------------------------------
 void CSpikeObj::Setup( int dir, int xpos, int ypos )
 {
@@ -1933,11 +1637,7 @@ void CSpikeObj::Setup( int dir, int xpos, int ypos )
 }
 
 //------------------------------------------------------------------------------
-// Load the object graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the object graphics
 //------------------------------------------------------------------------------
 void CSpikeObj::LoadGfx( void )
 {
@@ -1945,11 +1645,7 @@ void CSpikeObj::LoadGfx( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the object (object members)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
 void CSpikeObj::Reset( void )
 {
@@ -1969,12 +1665,9 @@ void CSpikeObj::Reset( void )
 	m_pSuckFrames = &suck_spike_frames;
 	m_Length = 0;
 }
+
 //------------------------------------------------------------------------------
-// Do the spike on the ground (AN EXACT AMIGA CONVERSION)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the spike on the ground (AN EXACT AMIGA CONVERSION)
 //------------------------------------------------------------------------------
 void CSpikeObj::SpikeOnGround( void )
 {
@@ -2008,23 +1701,16 @@ void CSpikeObj::SpikeOnGround( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the spike in the air (AN EXACT AMIGA CONVERSION)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the spike in the air (AN EXACT AMIGA CONVERSION)
 //------------------------------------------------------------------------------
 void CSpikeObj::SpikeInAir( void )
 {
 	if (m_Seq_Offset >= 2) m_Seq_Offset = 0;
 	else m_Seq_Offset = 1;
 }
+
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CSpikeObj::Do( void )
 {
@@ -2055,17 +1741,6 @@ void CSpikeObj::Do( void )
 	}
 
 }
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 // Defines
@@ -2147,11 +1822,7 @@ static OBJSIZE sucker_size = {4,2,0x19,0x19};
 static OBJMOVE sucker_move = {130,130/2,1,9*256,296,9*256,9*256};
 
 //------------------------------------------------------------------------------
-// Initialise the sucker object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the sucker object
 //------------------------------------------------------------------------------
 CSuckerObj::CSuckerObj()
 {
@@ -2159,11 +1830,7 @@ CSuckerObj::CSuckerObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the sucker object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the sucker object
 //------------------------------------------------------------------------------
 void CSuckerObj::Draw( void )
 {
@@ -2171,13 +1838,8 @@ void CSuckerObj::Draw( void )
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
 }
 
-
 //------------------------------------------------------------------------------
-// Load the object graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the object graphics
 //------------------------------------------------------------------------------
 void CSuckerObj::LoadGfx( void )
 {
@@ -2185,11 +1847,7 @@ void CSuckerObj::LoadGfx( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the object (object members)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
 void CSuckerObj::Reset( void )
 {
@@ -2209,12 +1867,9 @@ void CSuckerObj::Reset( void )
 	m_pSuckFrames = &suck_sucker_frames;
 	m_Direction = SUCK_DIR_DOWN;
 }
+
 //------------------------------------------------------------------------------
-// Move the sucker right
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Move the sucker right
 //------------------------------------------------------------------------------
 void CSuckerObj::SuckMoveRight( void )
 {
@@ -2239,11 +1894,7 @@ void CSuckerObj::SuckMoveRight( void )
 }
 
 //------------------------------------------------------------------------------
-// Move the sucker left
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Move the sucker left
 //------------------------------------------------------------------------------
 void CSuckerObj::SuckMoveLeft( void )
 {
@@ -2269,11 +1920,7 @@ void CSuckerObj::SuckMoveLeft( void )
 }
 
 //------------------------------------------------------------------------------
-// Move the sucker down
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Move the sucker down
 //------------------------------------------------------------------------------
 void CSuckerObj::SuckMoveDown( void )
 {
@@ -2313,11 +1960,7 @@ void CSuckerObj::SuckMoveDown( void )
 }
 
 //------------------------------------------------------------------------------
-// Move the sucker up
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Move the sucker up
 //------------------------------------------------------------------------------
 void CSuckerObj::SuckMoveUp( void )
 {
@@ -2342,11 +1985,7 @@ void CSuckerObj::SuckMoveUp( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the sucker movement
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the sucker movement
 //------------------------------------------------------------------------------
 void CSuckerObj::MoveSucker( void )
 {
@@ -2382,11 +2021,7 @@ void CSuckerObj::MoveSucker( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CSuckerObj::Do( void )
 {

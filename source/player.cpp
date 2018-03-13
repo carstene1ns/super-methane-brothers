@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -63,7 +63,6 @@
 #define IMMUNE_AFTER_KILL 60		// Number of frames the player is immune for
 
 #define PLAYERLIVES	(5)		// Number of lives the player has
-//#define PLAYERLIVES	(25)		// Number of lives the player has
 
 #define MAX_SCORE	(999999999)
 
@@ -209,23 +208,16 @@ PLAYER_GFX_FRAMES SMBGFX_Blow = {
 	};
 
 //------------------------------------------------------------------------------
-// Initialise the player object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the player object
 //------------------------------------------------------------------------------
 CPlayerObj::CPlayerObj()
 {
 	Reset();
+	SetPlayerName("");
 }
 
 //------------------------------------------------------------------------------
-// Destroy the player object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Destroy the player object
 //------------------------------------------------------------------------------
 CPlayerObj::~CPlayerObj()
 {
@@ -233,11 +225,7 @@ CPlayerObj::~CPlayerObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the player object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the player object
 //------------------------------------------------------------------------------
 void CPlayerObj::Draw( void )
 {
@@ -257,11 +245,7 @@ void CPlayerObj::Draw( void )
 }
 
 //------------------------------------------------------------------------------
-// Draw the player - During normal gameplay
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the player - During normal gameplay
 //------------------------------------------------------------------------------
 void CPlayerObj::DrawNormal( void )
 {
@@ -305,11 +289,7 @@ void CPlayerObj::DrawNormal( void )
 }
 
 //------------------------------------------------------------------------------
-// Load the player graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the player graphics
 //------------------------------------------------------------------------------
 void CPlayerObj::LoadGfx( void )
 {
@@ -322,13 +302,10 @@ void CPlayerObj::LoadGfx( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the player object (object members)
-// (Used when game restarts)
-// This function calls ResetAll()
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the player object (object members)
+//!
+//! (Used when game restarts)\n
+//! This function calls ResetAll()
 //------------------------------------------------------------------------------
 void CPlayerObj::Reset( void )
 {
@@ -347,11 +324,9 @@ void CPlayerObj::Reset( void )
 }
 
 //------------------------------------------------------------------------------
-// Get the joystick depending on player one or player two
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	The joystick
+//! \brief Get the joystick depending on player one or player two
+//!
+//! 	\return The joystick
 //------------------------------------------------------------------------------
 JOYSTICK *CPlayerObj::GetJoy(void)
 {
@@ -364,11 +339,7 @@ JOYSTICK *CPlayerObj::GetJoy(void)
 }
 
 //------------------------------------------------------------------------------
-// Move the player using the joystick values
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Move the player using the joystick values
 //------------------------------------------------------------------------------
 void CPlayerObj::MovePlayer( void )
 {
@@ -447,11 +418,7 @@ void CPlayerObj::MovePlayer( void )
 
 }
 //------------------------------------------------------------------------------
-// Control the player animation
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Control the player animation
 //------------------------------------------------------------------------------
 void CPlayerObj::ControlAnim( void )
 {
@@ -473,12 +440,10 @@ void CPlayerObj::ControlAnim( void )
 }
 
 //------------------------------------------------------------------------------
-// Control the gun animation
-// On Entry:
-// 	old_inertx = old inertia value x
-// 	old_inerty = old inertia value y
-// On Exit:
-// 	Not Used
+//! \brief Control the gun animation
+//!
+//! 	\param old_inertx = old inertia value x
+//! 	\param old_inerty = old inertia value y
 //------------------------------------------------------------------------------
 void CPlayerObj::GunAnim( int old_inertx, int old_inerty )
 {
@@ -535,12 +500,9 @@ void CPlayerObj::GunAnim( int old_inertx, int old_inerty )
 	}
 
 }
+
 //------------------------------------------------------------------------------
-// Eject the gas from the gun
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Eject the gas from the gun
 //------------------------------------------------------------------------------
 void CPlayerObj::EjectGas(void)
 {
@@ -568,11 +530,7 @@ void CPlayerObj::EjectGas(void)
 }
 
 //------------------------------------------------------------------------------
-// Check to see if able to suck a baddie
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Check to see if able to suck a baddie
 //------------------------------------------------------------------------------
 void CPlayerObj::CheckSuck( void )
 {
@@ -678,14 +636,15 @@ void CPlayerObj::CheckSuck( void )
 	}
 
 }
+
 //------------------------------------------------------------------------------
-// Check to see if an object is closer to this than another object
-// On Entry:
-// 	pobj1 = Object 1 (MUST EXIST)
-//		pobj2 = Object 2 (Can be zero)
-//		xpos = This object xpos origin
-// On Exit:
-// 	The closest
+//! \brief Check to see if an object is closer to this than another object
+//!
+//! 	\param pobj1 = Object 1 (MUST EXIST)
+//!	\param pobj2 = Object 2 (Can be zero)
+//!	\param xpos = This object xpos origin
+//!
+//! 	\return The closest
 //------------------------------------------------------------------------------
 CSuckable *CPlayerObj::CheckClose(CSuckable *pobj1,CSuckable *pobj2, int xpos)
 {
@@ -707,11 +666,9 @@ CSuckable *CPlayerObj::CheckClose(CSuckable *pobj1,CSuckable *pobj2, int xpos)
 }
 
 //------------------------------------------------------------------------------
-// Initialise the sucking into the suck
-// On Entry:
-// 	pnearest = Baddie to suck
-// On Exit:
-// 	Not Used
+//! \brief Initialise the sucking into the suck
+//!
+//! 	\param pnearest = Baddie to suck
 //------------------------------------------------------------------------------
 void CPlayerObj::InitSuck(CSuckable *pnearest)
 {
@@ -719,7 +676,7 @@ void CPlayerObj::InitSuck(CSuckable *pnearest)
 	{
 		CGasObj *pgasobj;
 		pgasobj = (CGasObj *) pnearest;
-		m_pBaddie = pgasobj->GrabBaddie();
+		m_pBaddie = pgasobj->GrabBaddie(this);
 
 	}else	// Sucking an object?
 	{
@@ -730,12 +687,9 @@ void CPlayerObj::InitSuck(CSuckable *pnearest)
 	}
 	SetupSuckBaddie();
 }
+
 //------------------------------------------------------------------------------
-// Setup suck a baddie to the gun
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Setup suck a baddie to the gun
 //------------------------------------------------------------------------------
 void CPlayerObj::SetupSuckBaddie( void )
 {
@@ -744,12 +698,12 @@ void CPlayerObj::SetupSuckBaddie( void )
 }
 
 //------------------------------------------------------------------------------
-// Calculate the offset at the gun - taking the players direction
-//  into account. (Used for sucking a baddie into the gun)
-// On Entry:
-// 	gun_xpos, gun_ypos (REFERENCE) - Where to store the coords
-// On Exit:
-// 	Not Used
+//! \brief Calculate the offset at the gun - taking the players direction into account.
+//!
+//! (Used for sucking a baddie into the gun)
+//!
+//! 	/param gun_xpos - Where to store the coord X (REFERENCE)
+//! 	/param gun_ypos - Where to store the coord Y (REFERENCE)
 //------------------------------------------------------------------------------
 void CPlayerObj::CalcSuckGun( int &gun_xpos, int &gun_ypos )
 {
@@ -763,11 +717,7 @@ void CPlayerObj::CalcSuckGun( int &gun_xpos, int &gun_ypos )
 }
 
 //------------------------------------------------------------------------------
-// Suck a baddie to the gun
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Suck a baddie to the gun
 //------------------------------------------------------------------------------
 void CPlayerObj::SuckBaddie( void )
 {
@@ -782,12 +732,9 @@ void CPlayerObj::SuckBaddie( void )
 	}
 
 }
+
 //------------------------------------------------------------------------------
-// Suck a baddie inside the gun
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Suck a baddie inside the gun
 //------------------------------------------------------------------------------
 void CPlayerObj::EnterBaddie( void )
 {
@@ -851,11 +798,7 @@ void CPlayerObj::EnterBaddie( void )
 }
 
 //------------------------------------------------------------------------------
-// Control the players gun
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Control the players gun
 //------------------------------------------------------------------------------
 void CPlayerObj::ControlGun( void )
 {
@@ -908,11 +851,7 @@ void CPlayerObj::ControlGun( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the player object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the player object
 //------------------------------------------------------------------------------
 void CPlayerObj::Do( void )
 {
@@ -931,12 +870,9 @@ void CPlayerObj::Do( void )
 			break;
 	}
 }
+
 //------------------------------------------------------------------------------
-// Do the player - During normal gameplay
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the player - During normal gameplay
 //------------------------------------------------------------------------------
 void CPlayerObj::DoNormal( void )
 {
@@ -984,11 +920,7 @@ void CPlayerObj::DoNormal( void )
 }
 
 //------------------------------------------------------------------------------
-// Delete the baddie if it is held in the players gun
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Delete the baddie if it is held in the players gun
 //------------------------------------------------------------------------------
 void CPlayerObj::DeleteBaddie( void )
 {
@@ -1000,12 +932,9 @@ void CPlayerObj::DeleteBaddie( void )
 }
 
 //------------------------------------------------------------------------------
-// Release the baddie from the players gun
-// (Used when the player dies)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Release the baddie from the players gun
+//!
+//! (Used when the player dies)
 //------------------------------------------------------------------------------
 void CPlayerObj::ReleaseBaddie( void )
 {
@@ -1021,13 +950,10 @@ void CPlayerObj::ReleaseBaddie( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the player standard settings
-// (Used when progressing to the next level)
-// - Reset the player position and size
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the player standard settings
+//!
+//! (Used when progressing to the next level)\n
+//! - Reset the player position and size
 //------------------------------------------------------------------------------
 void CPlayerObj::ResetStd( void )
 {
@@ -1096,13 +1022,10 @@ void CPlayerObj::ResetStd( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the player settings
-// (Used when the player is killed)
-// This function calls ResetStd()
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the player settings
+//!
+//! (Used when the player is killed)\n
+//! This function calls ResetStd()
 //------------------------------------------------------------------------------
 void CPlayerObj::ResetAll( void )
 {
@@ -1116,11 +1039,7 @@ void CPlayerObj::ResetAll( void )
 }
 
 //------------------------------------------------------------------------------
-// Initialise the player when it enters a new level
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the player when it enters a new level
 //------------------------------------------------------------------------------
 void CPlayerObj::NewLevel( void )
 {
@@ -1130,11 +1049,7 @@ void CPlayerObj::NewLevel( void )
 }
 
 //------------------------------------------------------------------------------
-// Kill the player - IE loose a live
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Kill the player - IE loose a live
 //------------------------------------------------------------------------------
 void CPlayerObj::KillPlayer( void )
 {
@@ -1153,11 +1068,7 @@ void CPlayerObj::KillPlayer( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the player - During dying
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the player - During dying
 //------------------------------------------------------------------------------
 void CPlayerObj::DoDie( void )
 {
@@ -1175,7 +1086,8 @@ void CPlayerObj::DoDie( void )
 			m_Lives = 0;
 			if (m_DeadPause == (DEATHPAUSE+10))	// Only do once after a delay
 			{
-				m_pGame->InitGameOver();
+				UnLink();	// Unlink this player
+				m_pGame->m_DeadPlayerList.Attach(this, m_Type, m_pGame);	// Link back in
 			}
 		}else
 		{
@@ -1192,11 +1104,7 @@ void CPlayerObj::DoDie( void )
 }
 
 //------------------------------------------------------------------------------
-// Draw the player - During dying
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the player - During dying
 //------------------------------------------------------------------------------
 void CPlayerObj::DrawDie( void )
 {
@@ -1215,11 +1123,7 @@ void CPlayerObj::DrawDie( void )
 }
 
 //------------------------------------------------------------------------------
-// Set the player rising up, out of the screen
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Set the player rising up, out of the screen
 //------------------------------------------------------------------------------
 void CPlayerObj::SetRiseUp( void )
 {
@@ -1242,13 +1146,10 @@ void CPlayerObj::SetRiseUp( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the player rising up, out of the screen
-// NOTE - THE VALUES IN THIS FUNCTION have been set to the 'best looking'
-//  graphic results - Ajust them - it looks daft (ie. a sinus table is needed)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the player rising up, out of the screen
+//!
+//! NOTE - THE VALUES IN THIS FUNCTION have been set to the 'best looking'
+//!  graphic results - Ajust them - it looks daft (ie. a sinus table is needed)
 //------------------------------------------------------------------------------
 void CPlayerObj::DoRiseUp( void )
 {
@@ -1285,12 +1186,9 @@ void CPlayerObj::DoRiseUp( void )
 }
 
 //------------------------------------------------------------------------------
-// Draw the player rising up, out of the screen
-// Very yucky code!!! - but it works
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the player rising up, out of the screen
+//!
+//! Very yucky code!!! - but it works
 //------------------------------------------------------------------------------
 void CPlayerObj::DrawRiseUp( void )
 {
@@ -1330,11 +1228,7 @@ void CPlayerObj::DrawRiseUp( void )
 }
 
 //------------------------------------------------------------------------------
-// Control the number above the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Control the number above the object
 //------------------------------------------------------------------------------
 void CPlayerObj::ControlTimer( void )
 {
@@ -1367,11 +1261,7 @@ void CPlayerObj::ControlTimer( void )
 }
 
 //------------------------------------------------------------------------------
-// Initialise the number above the player
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the number above the player
 //------------------------------------------------------------------------------
 void CPlayerObj::InitTimer( void )
 {
@@ -1384,11 +1274,9 @@ void CPlayerObj::InitTimer( void )
 }
 
 //------------------------------------------------------------------------------
-// Add score to the player
-// On Entry:
-// 	value = Score to add
-// On Exit:
-// 	Not Used
+//! \brief Add score to the player
+//!
+//! 	\param value = Score to add
 //------------------------------------------------------------------------------
 void CPlayerObj::AddScore( int value )
 {
@@ -1397,11 +1285,7 @@ void CPlayerObj::AddScore( int value )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if the player should gain an extra life
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Check to see if the player should gain an extra life
 //------------------------------------------------------------------------------
 void CPlayerObj::CheckExtraLife( void )
 {
@@ -1418,11 +1302,7 @@ void CPlayerObj::CheckExtraLife( void )
 }
 
 //------------------------------------------------------------------------------
-// Toggle the Puff and Blow graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Toggle the Puff and Blow graphics
 //------------------------------------------------------------------------------
 void CPlayerObj::TogglePuffBlow( void )
 {
@@ -1437,5 +1317,24 @@ void CPlayerObj::TogglePuffBlow( void )
 	}
 }
 
-
+//------------------------------------------------------------------------------
+//! \brief Set the player name
+//!
+//!	\param nptr = The player name
+//------------------------------------------------------------------------------
+void CPlayerObj::SetPlayerName(char *nptr)
+{
+	int cnt;
+	char let;
+	for (cnt=0; cnt<4;cnt++)
+	{
+		let = *nptr;
+		if (let == 0)	// Pad the player name with blanks
+		{
+			let = ' ';
+		}else nptr++;
+		m_Name[cnt] = let;
+	}
+	m_Name[cnt] = 0;
+}
 

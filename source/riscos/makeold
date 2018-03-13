@@ -13,7 +13,7 @@ LIBS       = C:o.c++lib C:o.stubs
         squeeze !RunImage
 
 .c++.o :
-        c++ -c -faf -throwback -IC: -DMETHANE_RISCOS -DMETHANE_OLD_CPP -DMETHANE_OLD_CPP -DMETHANE_OLD_CPP_NEW c++.$*
+        c++ -c -faf -throwback -IC: -DMETHANE_RISCOS -DMETHANE_OLD_CPP -DMETHANE_OLD_CPP_NEW c++.$*
 
 o.doc : c++.doc
 o.swicalls : c++.swicalls

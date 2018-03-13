@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -110,6 +110,7 @@ public:
 	void AddScore( int value );
 	void CheckExtraLife( void );
 	void TogglePuffBlow( void );
+	void SetPlayerName(char *nptr);
 
 private:
 	void InitSuck(CSuckable *pnearest);
@@ -155,6 +156,7 @@ public:
 	int	m_EggFlag;
 	int	m_EggOffset;
 	int	m_EggFrame;
+	char	m_Name[8];
 private:
 	int	m_DeadPause;
 	int	m_GrappleXPos;

@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -28,11 +28,7 @@
 #include "objtypes.h"
 
 //------------------------------------------------------------------------------
-// Initialise the link object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the link object
 //------------------------------------------------------------------------------
 CLinkObject::CLinkObject()
 {
@@ -42,11 +38,7 @@ CLinkObject::CLinkObject()
 }
 
 //------------------------------------------------------------------------------
-// Destroy the link object (calls unlink)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Destroy the link object (calls unlink)
 //------------------------------------------------------------------------------
 CLinkObject::~CLinkObject()
 {
@@ -54,12 +46,9 @@ CLinkObject::~CLinkObject()
 }
 
 //------------------------------------------------------------------------------
-// Reset the link object - by clearing it's data members
-// (Object links are not cleared)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the link object - by clearing it's data members
+//!
+//! (Object links are not cleared)
 //------------------------------------------------------------------------------
 void CLinkObject::Reset( void )
 {
@@ -76,11 +65,7 @@ void CLinkObject::Reset( void )
 }
 
 //------------------------------------------------------------------------------
-// Delete this object. (Use this is preference of clearing obj_type)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Delete this object. (Use this is preference of clearing obj_type)
 //------------------------------------------------------------------------------
 void CLinkObject::DeleteObject(void)
 {
@@ -92,12 +77,9 @@ void CLinkObject::DeleteObject(void)
 }
 
 //------------------------------------------------------------------------------
-// Do an object (objects main loop) (VIRTUAL)
-// DOES NOTHING
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do an object (objects main loop) (VIRTUAL)
+//!
+//! DOES NOTHING
 //------------------------------------------------------------------------------
 void CLinkObject::Do(void)
 {
@@ -105,12 +87,9 @@ void CLinkObject::Do(void)
 }
 
 //------------------------------------------------------------------------------
-// Draw an object (VIRTUAL)
-// DRAWS m_Frame
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw an object (VIRTUAL)
+//!
+//! DRAWS m_Frame
 //------------------------------------------------------------------------------
 void CLinkObject::Draw(void)
 {
@@ -119,15 +98,12 @@ void CLinkObject::Draw(void)
 }
 
 //------------------------------------------------------------------------------
-// Unlink the link object
-// WARNING: Remember to destroy this object manually if the 'calling function'
-//  does not call LinkBefore()/LinkAfter() - Else memory leaks will occur
-// Only use this function to destroy an object if the main objectlist
-//  is also being cleared.
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Unlink the link object
+//!
+//! WARNING: Remember to destroy this object manually if the 'calling function'
+//!  does not call LinkBefore()/LinkAfter() - Else memory leaks will occur\n
+//! Only use this function to destroy an object if the main objectlist
+//!  is also being cleared.
 //------------------------------------------------------------------------------
 void CLinkObject::UnLink( void )
 {
@@ -153,13 +129,10 @@ void CLinkObject::UnLink( void )
 }
 
 //------------------------------------------------------------------------------
-// Link this object to the start of the object list
-// This function uses m_pListBase to attach to
-// (This object MUST already be unlinked)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Link this object to the start of the object list
+//!
+//! This function uses m_pListBase to attach to\n
+//! (This object MUST already be unlinked)
 //------------------------------------------------------------------------------
 void CLinkObject::Link( void )
 {
@@ -177,12 +150,11 @@ void CLinkObject::Link( void )
 
 
 //------------------------------------------------------------------------------
-// Link this link object before an object
-// (This object must already be unlinked)
-// On Entry:
-// 	linkto = what to link to (must be a valid object)
-// On Exit:
-// 	Not Used
+//! \brief Link this link object before an object
+//!
+//! (This object must already be unlinked)
+//!
+//! 	\param linkto = what to link to (must be a valid object)
 //------------------------------------------------------------------------------
 void CLinkObject::LinkBefore( CLinkObject *linkto )
 {
@@ -201,12 +173,11 @@ void CLinkObject::LinkBefore( CLinkObject *linkto )
 }
 
 //------------------------------------------------------------------------------
-// Link this link object after an object
-// (This object must already be unlinked)
-// On Entry:
-// 	linkto = what to link to (must be a valid object)
-// On Exit:
-// 	Not Used
+//! \brief Link this link object after an object
+//!
+//! (This object must already be unlinked)
+//!
+//! 	\param linkto = what to link to (must be a valid object)
 //------------------------------------------------------------------------------
 void CLinkObject::LinkAfter( CLinkObject *linkto )
 {
@@ -221,14 +192,13 @@ void CLinkObject::LinkAfter( CLinkObject *linkto )
 
 	}
 }
+
 //------------------------------------------------------------------------------
-// Animate the object using the X inertia as the anim rate
-// On Entry:
-// 	seq_left = anim facing left
-// 	seq_right = anim facing right
-//		scale (OPTIONAL, DEFAULT = 2) = Inertia Scale (Bit shift right)
-// On Exit:
-// 	Not Used
+//! \brief Animate the object using the X inertia as the anim rate
+//!
+//! 	\param seq_left = anim facing left
+//! 	\param seq_right = anim facing right
+//!	\param scale (OPTIONAL, DEFAULT = 2) = Inertia Scale (Bit shift right)
 //------------------------------------------------------------------------------
 void CLinkObject::AnimateXInert( int *seq_left, int *seq_right, int scale )
 {
@@ -241,15 +211,14 @@ void CLinkObject::AnimateXInert( int *seq_left, int *seq_right, int scale )
 }
 
 //------------------------------------------------------------------------------
-// Animate an object, taking account of the direction
-// If the animation frame changes, the m_Seq_Offset is set to zero
-// On Entry:
-// 	seq_left = anim facing left
-// 	seq_right = anim facing right
-//		rate = animation rate (256 = full speed). (8 Bit Fraction)
-//		flags (optional). ANMFLG_NORESTART = Don't clear offset if anim changed
-// On Exit:
-// 	Not Used
+//! \brief Animate an object, taking account of the direction
+//!
+//! If the animation frame changes, the m_Seq_Offset is set to zero
+//!
+//! 	\param seq_left = anim facing left
+//! 	\param seq_right = anim facing right
+//!	\param rate = animation rate (256 = full speed). (8 Bit Fraction)
+//!	\param flags (optional). ANMFLG_NORESTART = Don't clear offset if anim changed
 //------------------------------------------------------------------------------
 void CLinkObject::AnimateDir( int *seq_left, int *seq_right, int rate, int flags )
 {
@@ -274,12 +243,11 @@ void CLinkObject::AnimateDir( int *seq_left, int *seq_right, int rate, int flags
 }
 
 //------------------------------------------------------------------------------
-// Set a new animation to be displayed so that
-//  the animation will start straight away at the next animate() call
-// On Entry:
-// 	seq_ptr = address of the sequence
-// On Exit:
-// 	Not Used
+//! \brief Set a new animation to be displayed so that
+//!
+//!  the animation will start straight away at the next animate() call
+//!
+//! 	\param seq_ptr = address of the sequence
 //------------------------------------------------------------------------------
 void CLinkObject::SetAnim(int *seq_ptr)
 {
@@ -290,13 +258,12 @@ void CLinkObject::SetAnim(int *seq_ptr)
 }
 
 //------------------------------------------------------------------------------
-// Animate an object
-// If sequence = 0, then this function does nothing
-// m_State flags used: ANM_RESTART
-// On Entry:
-// 	rate = anim rate (256 = full speed). (8 Bit Fraction)
-// On Exit:
-// 	Not Used
+//! \brief Animate an object
+//!
+//! If sequence = 0, then this function does nothing\n
+//! m_State flags used: ANM_RESTART
+//!
+//! 	\param rate = anim rate (256 = full speed). (8 Bit Fraction)
 //------------------------------------------------------------------------------
 void CLinkObject::Animate( int rate )
 {
@@ -337,11 +304,7 @@ void CLinkObject::Animate( int rate )
 
 
 //------------------------------------------------------------------------------
-// Set an object to move left
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Set an object to move left
 //------------------------------------------------------------------------------
 void CLinkObject::SetMoveLeft( void )
 {
@@ -354,11 +317,7 @@ void CLinkObject::SetMoveLeft( void )
 }
 
 //------------------------------------------------------------------------------
-// Set an object to move right
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Set an object to move right
 //------------------------------------------------------------------------------
 void CLinkObject::SetMoveRight( void )
 {
@@ -372,11 +331,7 @@ void CLinkObject::SetMoveRight( void )
 
 
 //------------------------------------------------------------------------------
-// Set an object to move up (Sets m_Y_Flag)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Set an object to move up (Sets m_Y_Flag)
 //------------------------------------------------------------------------------
 void CLinkObject::SetMoveUp( void )
 {
@@ -389,11 +344,7 @@ void CLinkObject::SetMoveUp( void )
 }
 
 //------------------------------------------------------------------------------
-// Set an object to move down
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Set an object to move down
 //------------------------------------------------------------------------------
 void CLinkObject::SetMoveDown( void )
 {
@@ -405,11 +356,7 @@ void CLinkObject::SetMoveDown( void )
 }
 
 //------------------------------------------------------------------------------
-// Move the object using the inertias (Y Axis)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Move the object using the inertias (Y Axis)
 //------------------------------------------------------------------------------
 void CLinkObject::DoYInertia( void )
 {
@@ -435,11 +382,7 @@ void CLinkObject::DoYInertia( void )
 }
 
 //------------------------------------------------------------------------------
-// Move the object using the inertias (X Axis)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Move the object using the inertias (X Axis)
 //------------------------------------------------------------------------------
 void CLinkObject::DoXInertia( void )
 {
@@ -464,13 +407,10 @@ void CLinkObject::DoXInertia( void )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if the object can move in the Y axis, without hitting a wall
-// The oldxpos, xpos, oldypos, ypos members are used for the check
-// m_State flags used: UP,DOWN
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Check to see if the object can move in the Y axis, without hitting a wall
+//!
+//! The oldxpos, xpos, oldypos, ypos members are used for the check\n
+//! m_State flags used: UP,DOWN
 //------------------------------------------------------------------------------
 void CLinkObject::DoYCheck( void )
 {
@@ -506,13 +446,10 @@ void CLinkObject::DoYCheck( void )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if the object can move in the X axis, without hitting a wall
-// The oldxpos, xpos, oldypos, ypos members are used for the check
-// m_State flags used: LEFT,RIGHT
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Check to see if the object can move in the X axis, without hitting a wall
+//!
+//! The oldxpos, xpos, oldypos, ypos members are used for the check\n
+//! m_State flags used: LEFT,RIGHT
 //------------------------------------------------------------------------------
 void CLinkObject::DoXCheck( void )
 {
@@ -541,13 +478,10 @@ void CLinkObject::DoXCheck( void )
 }
 
 //------------------------------------------------------------------------------
-// Move the object using it's inertia values
-// This function calls ::CheckPos on completion
-// m_State flags used: LEFT,RIGHT,UP,DOWN
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Move the object using it's inertia values
+//!
+//! This function calls ::CheckPos on completion\n
+//! m_State flags used: LEFT,RIGHT,UP,DOWN
 //------------------------------------------------------------------------------
 void CLinkObject::MoveObject( void )
 {
@@ -587,13 +521,10 @@ void CLinkObject::MoveObject( void )
 }
 
 //------------------------------------------------------------------------------
-// Move the object using it's Y inertia values
-// This function calls ::CheckPos on completion
-// m_State flags used: UP,DOWN
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Move the object using it's Y inertia values
+//!
+//! This function calls ::CheckPos() on completion\n
+//! m_State flags used: UP,DOWN
 //------------------------------------------------------------------------------
 void CLinkObject::MoveObject_Y( void )
 {
@@ -607,12 +538,10 @@ void CLinkObject::MoveObject_Y( void )
 
 
 //------------------------------------------------------------------------------
-// Check to see if an object will move down into a wall
-// On Entry:
-// 	Not Used
-// On Exit:
-//		New m_YPos to place the object
-//		CBM_NOTINWALL = Did not hit a wall
+//! \brief Check to see if an object will move down into a wall
+//!
+//!	\return New m_YPos to place the object\n
+//!		CBM_NOTINWALL = Did not hit a wall
 //------------------------------------------------------------------------------
 int CLinkObject::CheckDown( void )
 {
@@ -628,12 +557,10 @@ int CLinkObject::CheckDown( void )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if an object will move up into a wall
-// On Entry:
-// 	Not Used
-// On Exit:
-//		New m_YPos to place the object
-//		CBM_NOTINWALL = Did not hit a wall
+//! \brief Check to see if an object will move up into a wall
+//!
+//!	\return New m_YPos to place the object\n
+//!	CBM_NOTINWALL = Did not hit a wall
 //------------------------------------------------------------------------------
 int CLinkObject::CheckUp( void )
 {
@@ -648,12 +575,10 @@ int CLinkObject::CheckUp( void )
 
 }
 //------------------------------------------------------------------------------
-// Check to see if an object will move left into a wall
-// On Entry:
-// 	Not Used
-// On Exit:
-//		New m_XPos to place the object
-//		CBM_NOTINWALL = Did not hit a wall
+//! \brief Check to see if an object will move left into a wall
+//!
+//!	\return New m_XPos to place the object\n
+//!	CBM_NOTINWALL = Did not hit a wall
 //------------------------------------------------------------------------------
 int CLinkObject::CheckLeft( void )
 {
@@ -669,12 +594,10 @@ int CLinkObject::CheckLeft( void )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if an object will move right into a wall
-// On Entry:
-// 	Not Used
-// On Exit:
-//		New m_XPos to place the object
-//		CBM_NOTINWALL = Did not hit a wall
+//! \brief Check to see if an object will move right into a wall
+//!
+//!	\return New m_XPos to place the object\n
+//!	CBM_NOTINWALL = Did not hit a wall
 //------------------------------------------------------------------------------
 int CLinkObject::CheckRight( void )
 {
@@ -688,12 +611,11 @@ int CLinkObject::CheckRight( void )
 	return xp;
 
 }
+
 //------------------------------------------------------------------------------
-// Check to see if an object has hit a wall
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	0 = Did not hit a wall
+//! \brief Check to see if an object has hit a wall
+//!
+//! 	\return 0 = Did not hit a wall
 //------------------------------------------------------------------------------
 BOXPOS *CLinkObject::CheckHitWall( void )
 {
@@ -703,13 +625,14 @@ BOXPOS *CLinkObject::CheckHitWall( void )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if an object has hit this one - Taking account of the
-//  screen wrapping.
-// On Entry:
-//		b_x1,b_y1 = Offset coordinates
-//		b_width, b_height = Object width, height
-// On Exit:
-//		0 = No Collision occured
+//! \brief Check to see if an object has hit this one - Taking account of the screen wrapping.
+//!
+//!	\param b_x1 = Offset coordinate X
+//!	\param b_y1 = Offset coordinate Y
+//!	\param b_width = Object width
+//!	\param b_height = Object height
+//!
+//!	\return 0 = No Collision occured
 //------------------------------------------------------------------------------
 int CLinkObject::CheckHit(int b_x1,int b_y1, int b_width, int b_height )
 {
@@ -781,13 +704,13 @@ bsr_ch_loop:;
 
 
 }
+
 //------------------------------------------------------------------------------
-// Check to see if an object has hit this one - Taking account of the
-//  screen wrapping.
-// On Entry:
-// 	pobj = object to check with
-// On Exit:
-//		0 = No Collision occured
+//! \brief Check to see if an object has hit this one - Taking account of the  screen wrapping.
+//!
+//! 	\param pobj = object to check with
+//!
+//!	\return 0 = No Collision occured
 //------------------------------------------------------------------------------
 int CLinkObject::CheckHit( CLinkObject *pobj )
 {
@@ -797,11 +720,9 @@ int CLinkObject::CheckHit( CLinkObject *pobj )
 
 
 //------------------------------------------------------------------------------
-// Set the object size members
-// On Entry:
-// 	zsize (REFERENCE) = Size Structure
-// On Exit:
-// 	Not Used
+//! \brief Set the object size members
+//!
+//! 	\param zsize = Size Structure (REFERENCE)
 //------------------------------------------------------------------------------
 void CLinkObject::InitSize( OBJSIZE &zsize )
 {
@@ -812,11 +733,9 @@ void CLinkObject::InitSize( OBJSIZE &zsize )
 }
 
 //------------------------------------------------------------------------------
-// Set the object movement members
-// On Entry:
-// 	zmove (REFERENCE) = Movement Structure
-// On Exit:
-// 	Not Used
+//! \brief Set the object movement members
+//!
+//! 	\param zmove = Movement Structure (REFERENCE)
 //------------------------------------------------------------------------------
 void CLinkObject::InitMovement( OBJMOVE &zmove )
 {
@@ -830,11 +749,7 @@ void CLinkObject::InitMovement( OBJMOVE &zmove )
 }
 
 //------------------------------------------------------------------------------
-// Move the object left and right, turning at walls
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Move the object left and right, turning at walls
 //------------------------------------------------------------------------------
 void CLinkObject::DirWalk( void )
 {
@@ -851,11 +766,7 @@ void CLinkObject::DirWalk( void )
 }
 
 //------------------------------------------------------------------------------
-// Fly the object left and right, up and down, turning at walls
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Fly the object left and right, up and down, turning at walls
 //------------------------------------------------------------------------------
 void CLinkObject::DirFly( void )
 {
@@ -886,15 +797,12 @@ void CLinkObject::DirFly( void )
 
 
 //------------------------------------------------------------------------------
-// Jump towards the player if the player is above this object
-// The jump occurs randomly
-// On Entry:
-// 	rndmask = bitmask to determine the random interval
-//			ie. 31 is '1 in 32 chance'
-//		yoff = offset added to the player object
-//			which is used to compare the y position (try 8)
-// On Exit:
-// 	Not Used
+//! \brief Jump towards the player if the player is above this object
+//!
+//! The jump occurs randomly
+//!
+//! 	\param rndmask = bitmask to determine the random interval. ie. 31 is '1 in 32 chance'
+//!	\param yoff = offset added to the player object which is used to compare the y position (try 8)
 //------------------------------------------------------------------------------
 void CLinkObject::Jump2Player( int rndmask, int yoff )
 {
@@ -921,11 +829,11 @@ void CLinkObject::Jump2Player( int rndmask, int yoff )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if an object has collided with the player object
-// On Entry:
-// 	immune_flag: (Default = 0) 1 = Do not collide if the player is immune
-// On Exit:
-// 	Pointer to the link object (IE the player)
+//! \brief Check to see if an object has collided with the player object
+//!
+//! 	\param immune_flag = (Default = 0) 1 = Do not collide if the player is immune
+//!
+//! 	\return Pointer to the link object (IE the player)
 //------------------------------------------------------------------------------
 CPlayerObj* CLinkObject::HitPlayer( int immune_flag )
 {
@@ -957,12 +865,11 @@ CPlayerObj* CLinkObject::HitPlayer( int immune_flag )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if an object has collided with the player object
-// If a collision has occured - Kill the player
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Pointer to the link object (IE the player)
+//! \brief Check to see if an object has collided with the player object
+//!
+//! If a collision has occured - Kill the player
+//!
+//! 	\return Pointer to the link object (IE the player)
 //------------------------------------------------------------------------------
 CPlayerObj* CLinkObject::CheckKillPlayer( void )
 {
@@ -976,16 +883,19 @@ CPlayerObj* CLinkObject::CheckKillPlayer( void )
 }
 
 //------------------------------------------------------------------------------
-// Fly the object towards the player
-// On Entry:
-// 	play = Player to fly towards
-// On Exit:
-// 	Not Used
+//! \brief Get the fly object towards the player coords
+//!
+//! 	\param play = Player to fly towards
+//!	\param pdiff_x = On Return: The x diff
+//!	\param pdiff_y = On Return: The y diff
 //------------------------------------------------------------------------------
-void CLinkObject::Fly2Player( CPlayerObj *play )
+void CLinkObject::GetFly2Player( CPlayerObj *play, int *pdiff_x, int *pdiff_y )
 {
 	int thisx,thisy;
 	int playx,playy;
+
+	if (pdiff_x) *pdiff_x = 9999;
+	if (pdiff_y) *pdiff_y = 9999;
 
 	if (play)
 	{
@@ -1029,41 +939,20 @@ void CLinkObject::Fly2Player( CPlayerObj *play )
 			}
 		}
 
-		if (thisx)		// Move in X Axis?
-		{
-			if (thisx>0)
-			{
-				SetMoveLeft();
-			}else
-			{
-				SetMoveRight();
-			}
-		}
-
-		if (thisy)		// Move in Y Axis?
-		{
-			if (thisy>0)
-			{
-				SetMoveUp();
-			}else
-			{
-				SetMoveDown();
-			}
-		}
-
+		if (pdiff_x) *pdiff_x = thisx;
+		if (pdiff_y) *pdiff_y = thisy;
 	}
 
 
 }
 
 //------------------------------------------------------------------------------
-// Control the baddie speeding up when angry (uses STATE_ANGRY)
-// On Entry:
-// 	slow_move = Normal Movement rate
-//		fast_move = Fast Movement rate
-// On Exit:
-// 	0 = Normal Movement
-//		Else object is angry
+//! \brief Control the baddie speeding up when angry (uses STATE_ANGRY)
+//!
+//! 	\param slow_move = Normal Movement rate
+//!	\param fast_move = Fast Movement rate
+//!
+//! 	\return 0 = Normal Movement. Else object is angry
 //------------------------------------------------------------------------------
 int CLinkObject::ControlSpeedUp( OBJMOVE &slow_move, OBJMOVE &fast_move )
 {
@@ -1077,13 +966,12 @@ int CLinkObject::ControlSpeedUp( OBJMOVE &slow_move, OBJMOVE &fast_move )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if this object has hit an object of a certain flag type
-// On Entry:
-//		base = Object list base to search for
-// 	flag = FLAG_xxx bits to check for
-// On Exit:
-// 	0 = Not Hit
-//		Else the object collided with this one
+//! \brief Check to see if this object has hit an object of a certain flag type
+//!
+//!	\param base = Object list base to search for
+//! 	\param flag = FLAG_xxx bits to check for
+//!
+//! 	\return 0 = Not Hit. Else the object collided with this one
 //------------------------------------------------------------------------------
 CLinkObject *CLinkObject::CheckHitFlag( CObjectList &base, int flag )
 {
@@ -1102,17 +990,8 @@ CLinkObject *CLinkObject::CheckHitFlag( CObjectList &base, int flag )
 	return 0;
 }
 
-
-//******************************************************************************
-// The Object List Connection Code :-
-//******************************************************************************
-
 //------------------------------------------------------------------------------
-// Initialise the object list
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the object list
 //------------------------------------------------------------------------------
 CObjectList::CObjectList()
 {
@@ -1120,11 +999,7 @@ CObjectList::CObjectList()
 }
 
 //------------------------------------------------------------------------------
-// Destroy the object list
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Destroy the object list
 //------------------------------------------------------------------------------
 CObjectList::~CObjectList()
 {
@@ -1132,11 +1007,7 @@ CObjectList::~CObjectList()
 }
 
 //------------------------------------------------------------------------------
-// Delete all the objects in the objectlist
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Delete all the objects in the objectlist
 //------------------------------------------------------------------------------
 void CObjectList::DeleteAll( void )
 {
@@ -1154,13 +1025,11 @@ void CObjectList::DeleteAll( void )
 }
 
 //------------------------------------------------------------------------------
-// Attach a object to the list (object will be linked in at the start)
-// On Entry:
-//		objptr = object to attach
-// 	type = object type
-//		gptr = Main Game Object
-// On Exit:
-// 	Not Used
+//! \brief Attach a object to the list (object will be linked in at the start)
+//!
+//!	\param objptr = object to attach
+//! 	\param type = object type
+//!	\param gptr = Main Game Object
 //------------------------------------------------------------------------------
 void CObjectList::Attach(CLinkObject *objptr, int type, CGame *gptr )
 {
@@ -1179,13 +1048,10 @@ void CObjectList::Attach(CLinkObject *objptr, int type, CGame *gptr )
 }
 
 //------------------------------------------------------------------------------
-// Draw all the objects in the list
-// Calls CLinkObject->Draw.
-// DO NOT CLEAR m_Type
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw all the objects in the list
+//!
+//! Calls CLinkObject->Draw()\n
+//! DO NOT CLEAR m_Type
 //------------------------------------------------------------------------------
 void CObjectList::DrawAll( void )
 {
@@ -1203,13 +1069,10 @@ void CObjectList::DrawAll( void )
 }
 
 //------------------------------------------------------------------------------
-// Do all the objects in the list
-// Calls CLinkObject->Do.
-// Clear m_Type to delete an object (the object will be automaticaly unlinked)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do all the objects in the list
+//!
+//! Calls CLinkObject->Do()\n
+//! Clear m_Type to delete an object (the object will be automaticaly unlinked)
 //------------------------------------------------------------------------------
 void CObjectList::DoAll( void )
 {
@@ -1230,11 +1093,9 @@ void CObjectList::DoAll( void )
 }
 
 //------------------------------------------------------------------------------
-// Find the first occurance of an object type
-// On Entry:
-// 	type = object to find
-// On Exit:
-// 	Not Used
+//! \brief Find the first occurance of an object type
+//!
+//! 	\param type = object to find
 //------------------------------------------------------------------------------
 CLinkObject *CObjectList::FindFirst(int type)
 {
@@ -1250,4 +1111,59 @@ CLinkObject *CObjectList::FindFirst(int type)
 	return 0;
 }
 
+//------------------------------------------------------------------------------
+//! \brief Fly to the closest player
+//------------------------------------------------------------------------------
+void CLinkObject::Fly2ClosestPlayer( void )
+{
+	CPlayerObj *pobj;
+	int diff_x;
+	int diff_y;
+	int diff;
+	int max_diff_x = 0x7fffffff;
+	int max_diff_y = 0x7fffffff;
+	int max_diff = 0x7fffffff;
+	CLinkObject *max_pobj = 0;
+
+	pobj = (CPlayerObj *) m_pGame->m_PlayerList.m_pFirst;
+	while (pobj)
+	{
+		GetFly2Player( pobj, &diff_x, &diff_y );
+		diff = (diff_x * diff_x) + (diff_y * diff_y);
+		if (diff < max_diff)	// Get closest player
+		{
+			max_diff_x = diff_x;
+			max_diff_y = diff_y;
+			max_diff = diff;
+			max_pobj = pobj;
+		}
+
+		pobj = (CPlayerObj *) pobj->m_pNext;
+	}	
+	if (max_pobj)
+	{
+		if (max_diff_x)		// Move in X Axis?
+		{
+			if (max_diff_x>0)
+			{
+				SetMoveLeft();
+			}else
+			{
+				SetMoveRight();
+			}
+		}
+
+		if (max_diff_y)		// Move in Y Axis?
+		{
+			if (max_diff_y>0)
+			{
+				SetMoveUp();
+			}else
+			{
+				SetMoveDown();
+			}
+		}
+
+	}
+}
 

@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Prgram Email: rombust@postmaster.co.uk                                  *
  *                                                                         *
  ***************************************************************************/
@@ -51,11 +51,7 @@ BEGIN_MESSAGE_MAP(CMethView, CView)
 END_MESSAGE_MAP()
 
 //------------------------------------------------------------------------------
-// Methview has been created.
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Methview has been created.
 //------------------------------------------------------------------------------
 CMethView::CMethView()
 {
@@ -70,11 +66,7 @@ CMethView::CMethView()
 }
 
 //------------------------------------------------------------------------------
-// View has been initially updated 
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief View has been initially updated 
 //------------------------------------------------------------------------------
 void CMethView::OnInitialUpdate()
 {
@@ -94,11 +86,7 @@ void CMethView::OnInitialUpdate()
 }
 
 //------------------------------------------------------------------------------
-// Destroy View
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Destroy View
 //------------------------------------------------------------------------------
 void CMethView::OnDestroy()
 {
@@ -111,11 +99,9 @@ void CMethView::OnDestroy()
 }
 
 //------------------------------------------------------------------------------
-// Program Main Timer
-// On Entry:
-// 	nTimerID = Timer Resource ID
-// On Exit:
-// 	Not Used
+//! \brief Program Main Timer
+//!
+//! 	\param nTimerID = Timer Resource ID
 //------------------------------------------------------------------------------
 void CMethView::OnTimer( UINT nTimerID )
 {
@@ -131,11 +117,9 @@ void CMethView::OnTimer( UINT nTimerID )
 }
 
 //------------------------------------------------------------------------------
-// View to be ReDrawn 
-// On Entry:
-// 	pDC
-// On Exit:
-// 	Not Used
+//! \brief View to be ReDrawn 
+//!
+//! 	\param pDC = pDC
 //------------------------------------------------------------------------------
 void CMethView::OnDraw (CDC* pDC)
 {
@@ -143,11 +127,7 @@ void CMethView::OnDraw (CDC* pDC)
 }
 
 //------------------------------------------------------------------------------
-// Update the current screen
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Update the current screen
 //------------------------------------------------------------------------------
 void CMethView::UpdateScreen(void)
 {
@@ -299,12 +279,10 @@ void CMethView::UpdateScreen(void)
 }
 
 //------------------------------------------------------------------------------
-// Get the palette address - only if it is being used
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	The palette
-//		0 = Error
+//! \brief Get the palette address - only if it is being used
+//!
+//! 	\return The palette\n
+//!		0 = Error
 //------------------------------------------------------------------------------
 CPalette* CMethView::GetPalette()
 {
@@ -351,11 +329,7 @@ BOOL CMethView::OnQueryNewPalette()
 }
 
 //------------------------------------------------------------------------------
-// Delete the palette
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Delete the palette
 //------------------------------------------------------------------------------
 void CMethView::DeletePalette(void)
 {
@@ -364,11 +338,7 @@ void CMethView::DeletePalette(void)
 }
 
 //------------------------------------------------------------------------------
-// Create the palette
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Create the palette
 //------------------------------------------------------------------------------
 void CMethView::CreatePalette(void)
 {
@@ -394,11 +364,7 @@ void CMethView::CreatePalette(void)
 }
 
 //------------------------------------------------------------------------------
-// Create the main screen bitmap
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Create the main screen bitmap
 //------------------------------------------------------------------------------
 void CMethView::CreateBitmap(void)
 {
@@ -450,11 +416,7 @@ void CMethView::CreateBitmap(void)
 }
 
 //------------------------------------------------------------------------------
-// Delete the bitmap
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Delete the bitmap
 //------------------------------------------------------------------------------
 void CMethView::DeleteBitmap(void)
 {
@@ -481,12 +443,10 @@ void CMethView::DeleteBitmap(void)
 }
 
 //------------------------------------------------------------------------------
-// Process a keyboard stroke
-// On Entry:
-// 	nChar = key pressed
-//		flag : 1 = down, 0 = up
-// On Exit:
-// 	Not Used
+//! \brief Process a keyboard stroke
+//!
+//! 	\param nChar = key pressed
+//!	\param flag = 1 = down, 0 = up
 //------------------------------------------------------------------------------
 void CMethView::KeyPress(UINT nChar, int flag)
 {
@@ -519,6 +479,36 @@ void CMethView::KeyPress(UINT nChar, int flag)
 			break;
 		}
 
+		case ('a'):
+		case ('A'):
+		{
+			pDoc->m_GameTarget.m_Joy2.left = flag;
+			break;
+		}
+		case ('d'):
+		case ('D'):
+		{
+			pDoc->m_GameTarget.m_Joy2.right = flag;
+			break;
+		}
+		case ('w'):
+		case ('W'):
+		{
+			pDoc->m_GameTarget.m_Joy2.up = flag;
+			break;
+		}
+		case ('s'):
+		case ('S'):
+		{
+			pDoc->m_GameTarget.m_Joy2.down = flag;
+			break;
+		}
+		case (VK_SHIFT):
+		{
+			pDoc->m_GameTarget.m_Joy2.fire = flag;
+			break;
+		}
+
 		case (VK_F1):
 		{
 
@@ -534,40 +524,34 @@ void CMethView::KeyPress(UINT nChar, int flag)
 }
 
 //------------------------------------------------------------------------------
-// Keyboard Up
-// On Entry:
-// 	nChar
-//		nRepCnt
-//		nFlags
-// On Exit:
-// 	Not Used
+//! \brief Keyboard Up
+//!
+//! 	\param nChar = nChar
+//!	\param nRepCnt = nRepCnt
+//!	\param nFlags = nFlags
 //------------------------------------------------------------------------------
 void CMethView::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	KeyPress(nChar, 0);
 }
+
 //------------------------------------------------------------------------------
-// Keyboard Down
-// On Entry:
-// 	nChar
-//		nRepCnt
-//		nFlags
-// On Exit:
-// 	Not Used
+//! \brief Keyboard Down
+//!
+//! 	\param nChar = nChar
+//!	\param nRepCnt = nRepCnt
+//!	\param nFlags = nFlags
 //------------------------------------------------------------------------------
 void CMethView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	CMethDoc* pDoc = GetDocument ();		// Get the document
  	pDoc->m_GameTarget.m_Joy1.key = nChar;
+ 	pDoc->m_GameTarget.m_Joy2.key = nChar;
 	KeyPress(nChar, 1);
 }
 
 //------------------------------------------------------------------------------
-// Menu "Zoom"
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Menu "Zoom"
 //------------------------------------------------------------------------------
 void CMethView::OnAppZoom(UINT nID)
 {
@@ -581,8 +565,6 @@ void CMethView::OnAppZoom(UINT nID)
 		{
 			win->MoveWindow(320,256, 320+8, 256+46);
 			CenterWindow();
-			//MoveWindow(0,0, 320, 256+64);
-			//ModifyStyleEx(0, WS_EX_TRANSPARENT);
 		}
 	}
 
@@ -590,11 +572,7 @@ void CMethView::OnAppZoom(UINT nID)
 }
 
 //------------------------------------------------------------------------------
-// Menu "32Colour mode"
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Menu "32Colour mode"
 //------------------------------------------------------------------------------
 void CMethView::OnApp32Col()
 {
@@ -603,11 +581,7 @@ void CMethView::OnApp32Col()
 }
 
 //------------------------------------------------------------------------------
-// Menu "Reverse Video"
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Menu "Reverse Video"
 //------------------------------------------------------------------------------
 void CMethView::OnAppRVideo()
 {
@@ -615,11 +589,7 @@ void CMethView::OnAppRVideo()
 }
 
 //------------------------------------------------------------------------------
-// Menu "Monochrome"
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Menu "Monochrome"
 //------------------------------------------------------------------------------
 void CMethView::OnAppMono()
 {
@@ -628,11 +598,7 @@ void CMethView::OnAppMono()
 }
 
 //------------------------------------------------------------------------------
-// Menu "Toggle" player graphic
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Menu "Toggle" player graphic
 //------------------------------------------------------------------------------
 void CMethView::OnAppToggle()
 {
@@ -642,13 +608,8 @@ void CMethView::OnAppToggle()
 	pDoc->m_GameTarget.m_Game.TogglePuffBlow();
 }
 
-
 //------------------------------------------------------------------------------
-// Menu "Zoom"
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Menu "Zoom"
 //------------------------------------------------------------------------------
 void CMethView::OnUpdateAppZoom(CCmdUI *pCmdUI)
 {
@@ -662,11 +623,7 @@ void CMethView::OnUpdateAppZoom(CCmdUI *pCmdUI)
 }
 
 //------------------------------------------------------------------------------
-// Menu "32 colour mode"
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Menu "32 colour mode"
 //------------------------------------------------------------------------------
 void CMethView::OnUpdateApp32Col(CCmdUI *pCmdUI)
 {
@@ -674,11 +631,7 @@ void CMethView::OnUpdateApp32Col(CCmdUI *pCmdUI)
 }
 
 //------------------------------------------------------------------------------
-// Menu "RVideo"
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Menu "RVideo"
 //------------------------------------------------------------------------------
 void CMethView::OnUpdateAppRVideo(CCmdUI *pCmdUI)
 {
@@ -686,24 +639,15 @@ void CMethView::OnUpdateAppRVideo(CCmdUI *pCmdUI)
 }
 
 //------------------------------------------------------------------------------
-// Menu "Mono"
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Menu "Mono"
 //------------------------------------------------------------------------------
 void CMethView::OnUpdateAppMono(CCmdUI *pCmdUI)
 {
 	pCmdUI->SetCheck( m_Mono );
 }
 
-
 //------------------------------------------------------------------------------
-// Menu "Toggle" player graphic
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Menu "Toggle" player graphic
 //------------------------------------------------------------------------------
 void CMethView::OnUpdateAppToggle(CCmdUI *pCmdUI)
 {

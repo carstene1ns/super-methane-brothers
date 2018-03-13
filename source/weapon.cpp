@@ -5,7 +5,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- * Program WebSite: http://www.methane.fsnet.co.uk/index.html              *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
  * Email: rombust@postmaster.co.uk                                         *
  *                                                                         *
  ***************************************************************************/
@@ -36,11 +36,7 @@ static OBJSIZE mbugweapon_size = {7,0,18,24};
 static OBJMOVE mbugweapon_move = {240,240/2,11*256,11*256,265,11*256,11*256};
 
 //------------------------------------------------------------------------------
-// Initialise the weapon object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the weapon object
 //------------------------------------------------------------------------------
 CMBugWeapon::CMBugWeapon()
 {
@@ -48,11 +44,7 @@ CMBugWeapon::CMBugWeapon()
 }
 
 //------------------------------------------------------------------------------
-// Destroy the weapon object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Destroy the weapon object
 //------------------------------------------------------------------------------
 CMBugWeapon::~CMBugWeapon()
 {
@@ -64,11 +56,7 @@ CMBugWeapon::~CMBugWeapon()
 }
 
 //------------------------------------------------------------------------------
-// Draw the weapon object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the weapon object
 //------------------------------------------------------------------------------
 void CMBugWeapon::Draw( void )
 {
@@ -76,11 +64,7 @@ void CMBugWeapon::Draw( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the object (object members)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
 void CMBugWeapon::Reset( void )
 {
@@ -93,28 +77,41 @@ void CMBugWeapon::Reset( void )
 }
 
 //------------------------------------------------------------------------------
-// Control the weapon animation (AN AMIGA DIRECT PORT)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Control the weapon animation (AN AMIGA DIRECT PORT)
 //------------------------------------------------------------------------------
 void CMBugWeapon::ControlAnim( void )
 {
+	int flag;
 	int p1xpos = 2000;
+	int p2xpos = 2000;
 	int xpos ;
 	CPlayerObj *play1;
+	CPlayerObj *play2;
 
 	play1 = m_pGame->GetPlayer(OBJ_PLAYER_ONE);
+	play2 = m_pGame->GetPlayer(OBJ_PLAYER_TWO);
 
 	if (play1) p1xpos = play1->m_XPos + 16;
+	if (play2) p2xpos = play2->m_XPos + 16;
 	xpos = m_XPos + 16;
 
 	p1xpos = p1xpos & (~0x1f);
+	p2xpos = p2xpos & (~0x1f);
 
 	xpos = xpos & (~0x1f);
 
-	if ( (p1xpos == xpos) )					// is player underneath?
+	flag = 0;
+	if (play1)
+	{
+		if (p1xpos == xpos) flag = 1;
+	}
+
+	if (play2)
+	{
+		if (p2xpos == xpos) flag = 1;
+	}
+
+	if ( flag )					// is player underneath?
 	{				// --- Close chute
 		if (m_Frame == SPR_MBUG_BOMB2)
 		{
@@ -151,11 +148,7 @@ void CMBugWeapon::ControlAnim( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CMBugWeapon::Do( void )
 {
@@ -183,16 +176,6 @@ void CMBugWeapon::Do( void )
 
 	}
 }
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 // Animation
@@ -233,11 +216,7 @@ static OBJSIZE clownweapon_movesize =
 		{8,8,16,16};
 
 //------------------------------------------------------------------------------
-// Initialise the weapon object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the weapon object
 //------------------------------------------------------------------------------
 CClownWeapon::CClownWeapon()
 {
@@ -245,11 +224,7 @@ CClownWeapon::CClownWeapon()
 }
 
 //------------------------------------------------------------------------------
-// Destroy the weapon object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Destroy the weapon object
 //------------------------------------------------------------------------------
 CClownWeapon::~CClownWeapon()
 {
@@ -261,11 +236,7 @@ CClownWeapon::~CClownWeapon()
 }
 
 //------------------------------------------------------------------------------
-// Draw the weapon object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the weapon object
 //------------------------------------------------------------------------------
 void CClownWeapon::Draw( void )
 {
@@ -273,11 +244,7 @@ void CClownWeapon::Draw( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the object (object members)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
 void CClownWeapon::Reset( void )
 {
@@ -287,11 +254,7 @@ void CClownWeapon::Reset( void )
 }
 
 //------------------------------------------------------------------------------
-// Match the weapon size to the weapons graphic frame
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Match the weapon size to the weapons graphic frame
 //------------------------------------------------------------------------------
 void CClownWeapon::MatchSizeToFrame( void )
 {
@@ -303,11 +266,7 @@ void CClownWeapon::MatchSizeToFrame( void )
 }
 
 //------------------------------------------------------------------------------
-// Move the weapon
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Move the weapon
 //------------------------------------------------------------------------------
 void CClownWeapon::MoveWeapon( void )
 {
@@ -329,11 +288,7 @@ void CClownWeapon::MoveWeapon( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CClownWeapon::Do( void )
 {
@@ -348,17 +303,6 @@ void CClownWeapon::Do( void )
 	MoveWeapon();
 	MatchSizeToFrame();
 }
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 // Animation
@@ -400,11 +344,7 @@ static OBJSIZE dwarfweapon_movesize =
 		{8,8,16,16};
 
 //------------------------------------------------------------------------------
-// Initialise the weapon object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the weapon object
 //------------------------------------------------------------------------------
 CDwarfWeapon::CDwarfWeapon()
 {
@@ -412,11 +352,7 @@ CDwarfWeapon::CDwarfWeapon()
 }
 
 //------------------------------------------------------------------------------
-// Destroy the weapon object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Destroy the weapon object
 //------------------------------------------------------------------------------
 CDwarfWeapon::~CDwarfWeapon()
 {
@@ -428,11 +364,7 @@ CDwarfWeapon::~CDwarfWeapon()
 }
 
 //------------------------------------------------------------------------------
-// Draw the weapon object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the weapon object
 //------------------------------------------------------------------------------
 void CDwarfWeapon::Draw( void )
 {
@@ -440,11 +372,7 @@ void CDwarfWeapon::Draw( void )
 }
 
 //------------------------------------------------------------------------------
-// Reset the object (object members)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
 void CDwarfWeapon::Reset( void )
 {
@@ -454,11 +382,7 @@ void CDwarfWeapon::Reset( void )
 }
 
 //------------------------------------------------------------------------------
-// Match the weapon size to the weapons graphic frame
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Match the weapon size to the weapons graphic frame
 //------------------------------------------------------------------------------
 void CDwarfWeapon::MatchSizeToFrame( void )
 {
@@ -470,12 +394,11 @@ void CDwarfWeapon::MatchSizeToFrame( void )
 }
 
 //------------------------------------------------------------------------------
-// Setup the weapon for throwing
-// On Entry:
-// 	xpos,ypos = weapon position
-//		dir = weapon direction (IE DIR_LEFT)
-// On Exit:
-// 	Not Used
+//! \brief Setup the weapon for throwing
+//!
+//! 	\param xpos = weapon position X
+//! 	\param ypos = weapon position Y
+//!	\param dir = weapon direction (IE DIR_LEFT)
 //------------------------------------------------------------------------------
 void CDwarfWeapon::InitThrow( int xpos, int ypos, int dir )
 {
@@ -490,11 +413,7 @@ void CDwarfWeapon::InitThrow( int xpos, int ypos, int dir )
 }
 
 //------------------------------------------------------------------------------
-// Drop the weapon when in the air (ie when the baddie is gassed)
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Drop the weapon when in the air (ie when the baddie is gassed)
 //------------------------------------------------------------------------------
 void CDwarfWeapon::DropWeapon( void )
 {
@@ -503,11 +422,7 @@ void CDwarfWeapon::DropWeapon( void )
 }
 
 //------------------------------------------------------------------------------
-// Move the weapon
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Move the weapon
 //------------------------------------------------------------------------------
 void CDwarfWeapon::MoveWeapon( void )
 {
@@ -549,11 +464,7 @@ void CDwarfWeapon::MoveWeapon( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CDwarfWeapon::Do( void )
 {
@@ -581,14 +492,6 @@ void CDwarfWeapon::Do( void )
 	}
 
 }
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 // The Generator Object
@@ -637,11 +540,7 @@ static int gen_xtab[GEN_NUMX] = {0,1,2,3,4,3,2,1};
 static int gen_ytab[GEN_NUMY] = {4,3,2,1,0,1,2,3,2,1,0,1,2,3};
 
 //------------------------------------------------------------------------------
-// Initialise the generator
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the generator
 //------------------------------------------------------------------------------
 CGeneratorObj::CGeneratorObj()
 {
@@ -668,11 +567,7 @@ CGeneratorObj::CGeneratorObj()
 }
 
 //------------------------------------------------------------------------------
-// Draw the generator object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Draw the generator object
 //------------------------------------------------------------------------------
 void CGeneratorObj::Draw( void )
 {
@@ -688,24 +583,15 @@ void CGeneratorObj::Draw( void )
 	if (m_NumFrame) m_pGame->m_Sprites.Draw( m_NumFrame, m_NumXPos, m_NumYPos, sprcolour );
 }
 
-
 //------------------------------------------------------------------------------
-// Setup the generator
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Setup the generator
 //------------------------------------------------------------------------------
 void CGeneratorObj::Setup( void )
 {
 }
 
 //------------------------------------------------------------------------------
-// Load the object graphics
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Load the object graphics
 //------------------------------------------------------------------------------
 void CGeneratorObj::LoadGfx( void )
 {
@@ -713,11 +599,7 @@ void CGeneratorObj::LoadGfx( void )
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CGeneratorObj::Do( void )
 {
@@ -731,12 +613,9 @@ void CGeneratorObj::Do( void )
 }
 
 //------------------------------------------------------------------------------
-// Check to see if the object has a baddie thrown at it
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	0 = Ok
-//		Else This object was deleted
+//! \brief Check to see if the object has a baddie thrown at it
+//!
+//! 	\return 0 = Ok. Else This object was deleted
 //------------------------------------------------------------------------------
 int CGeneratorObj::CheckHitByBaddie( void )
 {
@@ -771,12 +650,9 @@ int CGeneratorObj::CheckHitByBaddie( void )
 	}
 	return 0;
 }
+
 //------------------------------------------------------------------------------
-// Check able to release a baddie
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Check able to release a baddie
 //------------------------------------------------------------------------------
 void CGeneratorObj::CheckReleaseBaddie(void)
 {
@@ -826,11 +702,7 @@ void CGeneratorObj::CheckReleaseBaddie(void)
 }
 
 //------------------------------------------------------------------------------
-// Create the baddie to eject
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Create the baddie to eject
 //------------------------------------------------------------------------------
 void CGeneratorObj::CreateBaddie(void)
 {
@@ -861,12 +733,9 @@ void CGeneratorObj::CreateBaddie(void)
 		m_pGame->m_BaddieList.Attach(Suckable, gen_id[m_BaddieID], m_pGame);
 	}
 }
+
 //------------------------------------------------------------------------------
-// Find the baddie id - to be ejected from the generator
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Find the baddie id - to be ejected from the generator
 //------------------------------------------------------------------------------
 void CGeneratorObj::FindTheBaddieID(void)
 {
@@ -886,11 +755,7 @@ void CGeneratorObj::FindTheBaddieID(void)
 }
 
 //------------------------------------------------------------------------------
-// Explode in loads of toys
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Explode in loads of toys
 //------------------------------------------------------------------------------
 void CGeneratorObj::ExplodeToys( void )
 {
@@ -902,11 +767,7 @@ void CGeneratorObj::ExplodeToys( void )
 }
 
 //------------------------------------------------------------------------------
-// Control the number above the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Control the number above the object
 //------------------------------------------------------------------------------
 void CGeneratorObj::ControlTimer( void )
 {
@@ -928,14 +789,6 @@ void CGeneratorObj::ControlTimer( void )
 }
 
 //------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-
-//------------------------------------------------------------------------------
 // The BombObj Object
 //------------------------------------------------------------------------------
 
@@ -955,11 +808,7 @@ static OBJSIZE bomb_size = {0,0,16,18};
 static OBJMOVE bomb_move = {130,0x32,5*256,11*256,0x80,11*256,11*256};
 
 //------------------------------------------------------------------------------
-// Initialise the BombObj
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Initialise the BombObj
 //------------------------------------------------------------------------------
 CBombObj::CBombObj()
 {
@@ -971,11 +820,7 @@ CBombObj::CBombObj()
 }
 
 //------------------------------------------------------------------------------
-// Do the object
-// On Entry:
-// 	Not Used
-// On Exit:
-// 	Not Used
+//! \brief Do the object
 //------------------------------------------------------------------------------
 void CBombObj::Do( void )
 {
