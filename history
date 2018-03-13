@@ -10,7 +10,8 @@ The Version numbers are written as: major.minor.patch
 The version number of the game is contained in:
 	source/game.cpp : GameVersionNumber[]
 	source/win32/mfc/methane.rc : VALUE "FileVersion"
-
+V1.4.8 (Released 23 April 2007)
+       Linux: Compatible with ClanLib V0.8.0
 V1.4.7 (Released 20 January 2005)
        All: Added 2 player mode.
        All: Changed comments to be doxygen compatible

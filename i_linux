@@ -3,7 +3,7 @@ Linux Installation Instructions
 
 Note: This game assumes sizeof(int) = sizeof(int *) = 4
 
-The ClanLib v0.7.8 library is required - http://www.clanlib.org
+The ClanLib v0.8.0 library is required - http://www.clanlib.org
 
 Optional: The MikMod library 3.1.11 - See http://mikmod.raphnet.net
 
