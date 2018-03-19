@@ -47,8 +47,8 @@ typedef struct _PLAYER_STATUS {
 typedef struct _PARTYOFFS
 {
 	int	frame;
-	int	xoffset;
-	int	yoffset;
+	unsigned int xoffset;
+	unsigned int yoffset;
 } PARTYOFFS;
 
 typedef struct _ENDGROUP

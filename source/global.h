@@ -91,12 +91,11 @@ typedef struct _JOYSTICK {
 	char next_level;
 	} JOYSTICK;
 
-// Palette RGB Colours structure - Equalivent to the WIN32 RGBQUAD structure
+// Palette RGB Colours structure
 typedef struct _METHANE_RGB {
 	unsigned char blue;
 	unsigned char green;
 	unsigned char red;
-	unsigned char buffer;
 	} METHANE_RGB;
 
 typedef struct _MCOORDS {
