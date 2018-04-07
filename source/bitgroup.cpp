@@ -19,12 +19,11 @@
 //------------------------------------------------------------------------------
 // Sprite offset fixes
 //------------------------------------------------------------------------------
-#define FCMD_GROUP	0	// Command - New Group
-#define FCMD_RANGE	1	// Command - Use from a to b
-#define FCMD_ITEMS	2	// Command - Use from a list
 #define FCMD_END	0	// End of List
-
-#define FCMD_EOL	3	// (Internal Use Only)
+#define FCMD_GROUP	1	// Command - New Group
+#define FCMD_RANGE	2	// Command - Use from a to b
+#define FCMD_ITEMS	3	// Command - Use from a list
+#define FCMD_EOL	4	// (Internal Use Only)
 
 static int fixoffs[] =
 	{
@@ -274,6 +273,7 @@ void CBitmapGroup::FixOffsets(void)
 				break;
 			}
 
+			case (FCMD_END):
 			default:		// End of the list
 			{
 				return;
