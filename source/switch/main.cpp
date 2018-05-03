@@ -36,10 +36,12 @@ int main (int argc, char *argv[]) {
 	(void) argc;
 	(void) argv;
 
-	u32 fbwidth, fbheight;
-
 	// init
 	gfxInitDefault();
+	gfxSetMode(GfxMode_TiledDouble);
+	// wide screen, keep aspect ratio
+	gfxConfigureResolution(SCR_WIDTH + 136, SCR_HEIGHT);
+
 	u32* gamebuf = (u32*) malloc(SCR_HEIGHT * SCR_WIDTH * sizeof(u32));
 
 	Game.InitSoundDriver();
@@ -82,32 +84,19 @@ int main (int argc, char *argv[]) {
 		// Execute game logic
 		Game.MainLoop(gamebuf, game_paused);
 
-		// Draw to screen
-		u32 *framebuf = (u32*) gfxGetFramebuffer(&fbwidth, &fbheight);
-
-		// scale: simple2x
-		int offsetx = (fbwidth - SCR_WIDTH * 2) / 2;
-		int offsety = (fbheight - SCR_HEIGHT * 2) / 2;
-
+		// Draw to screen, upscaling in hardware
+		u32 *framebuf = (u32*) gfxGetFramebuffer(NULL, NULL);
 		for (int y = 0; y < SCR_HEIGHT; y++)
-			for (int x = 0; x < SCR_WIDTH; x++) {
-				u32 pixel = gamebuf[y * SCR_WIDTH + x];
-				u32 ypos = (y * 2 + offsety) * fbwidth;
-				u32 xpos = x * 2 + offsetx;
-
-				framebuf[ypos + xpos] = pixel;
-				framebuf[ypos + xpos + 1] = pixel;
-				framebuf[ypos + fbwidth + xpos] = pixel;
-				framebuf[ypos + fbwidth + xpos + 1] = pixel;
-			}
+			for (int x = 0; x < SCR_WIDTH; x++)
+				framebuf[gfxGetFramebufferDisplayOffset(x + 68, y)] = gamebuf[y * SCR_WIDTH + x];
 
 		gfxFlushBuffers();
 		gfxSwapBuffers();
 		gfxWaitForVsync();
 
-		// Add a delay, FIXME: caculate this with:
+		// Add a delay, FIXME: calculate this with:
 		//u64 time_now = svcGetSystemTick();
-		svcSleepThread(30000000);
+		svcSleepThread(40000000);
 	}
 
 	Game.SaveScores();
