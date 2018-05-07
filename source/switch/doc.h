@@ -20,8 +20,10 @@
 
 #include "game.h"
 #include "target.h"
-#include "audiodrv.h"
 
+#ifdef METHANE_MIKMOD
+class CMikModDrv;
+#endif
 class CMethDoc
 {
 
@@ -53,7 +55,7 @@ public:
     void LoadScores(void);
 
 private:
-    CAudioDrv *m_pAudioDrv;
+    CMikModDrv *m_pMikModDrv;
     void DrawScreen( void *screen_ptr, int paused_flag );
 
 };

@@ -32,6 +32,7 @@ public:
 	void PlayModule(int id);
 	void Update(void);
 	void UpdateModule(int id);
+	void ChangeVolume(int s, int m);
 
 private:
 	void RemoveModules(void);

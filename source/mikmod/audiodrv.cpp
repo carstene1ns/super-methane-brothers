@@ -125,7 +125,15 @@ void CMikModDrv::InitDriver(void)
 {
 	RemoveDriver();
 
-#ifdef WIN32	// Should be Windows
+#ifdef __SWITCH__
+	if (drv_switch.Name) {
+		MikMod_InitThreads();
+
+		MikMod_RegisterDriver(&drv_switch);
+		md_mixfreq = 48000;
+	}
+	MikMod_RegisterDriver(&drv_nos);
+#elif defined(WIN32)	// Should be Windows
 	if (drv_ds.Name)	// Valid DS driver
 	{
 		if (drv_ds.CommandLine)	// Valid Commandline
@@ -426,6 +434,9 @@ void CMikModDrv::UpdateModule(int id)
 	}
 }
 
+void CMikModDrv::ChangeVolume(int s, int m)
+{
+	//TODO
+}
 
 #endif // (METHANE_MIKMOD)
-

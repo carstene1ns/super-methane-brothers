@@ -18,21 +18,42 @@
 #include <cstdlib>
 #include <cstdio>
 
+#include <switch.h>
+
 #include "doc.h"
 #include "target.h"
+#ifdef METHANE_MIKMOD
+#include "../mikmod/audiodrv.h"
+#endif
 
 //------------------------------------------------------------------------------
 // The Screen, fixed video mode 320 x 256
 //------------------------------------------------------------------------------
 static char TheScreen[SCR_WIDTH * SCR_HEIGHT];
 
+#ifdef METHANE_MIKMOD
+
+int done = 0;
+Thread mikModThread = { 0 };
+
+static void AudioChannelThread(void *args) {
+    CMikModDrv *m_pMikModDrv = (CMikModDrv *)args;
+    while (!done) {
+        m_pMikModDrv->Update();
+        svcSleepThread(20000000);
+    }
+    return;
+}
+
+#endif
+
 //------------------------------------------------------------------------------
 //! \brief Initialise Document
 //------------------------------------------------------------------------------
 CMethDoc::CMethDoc()
 {
-#ifdef SWITCH_AUDIO
-    SMB_NEW(m_pAudioDrv, CAudioDrv);
+#ifdef METHANE_MIKMOD
+    SMB_NEW(m_pMikModDrv, CMikModDrv);
 #endif
 
     m_GameTarget.Init(this);
@@ -44,10 +65,10 @@ CMethDoc::CMethDoc()
 //------------------------------------------------------------------------------
 CMethDoc::~CMethDoc()
 {
-#ifdef SWITCH_AUDIO
-    if (m_pAudioDrv) {
-        delete(m_pAudioDrv);
-        m_pAudioDrv = 0;
+#ifdef METHANE_MIKMOD
+    if (m_pMikModDrv) {
+        delete(m_pMikModDrv);
+        m_pMikModDrv = 0;
     }
 #endif
 }
@@ -58,10 +79,7 @@ CMethDoc::~CMethDoc()
 void CMethDoc::InitGame(void)
 {
     m_GameTarget.InitGame(TheScreen);
-
-#ifdef SWITCH_AUDIO
     m_GameTarget.PrepareSoundDriver();
-#endif
 }
 
 //------------------------------------------------------------------------------
@@ -69,8 +87,12 @@ void CMethDoc::InitGame(void)
 //------------------------------------------------------------------------------
 void CMethDoc::InitSoundDriver(void)
 {
-#ifdef SWITCH_AUDIO
-    m_pAudioDrv->InitDriver();
+#ifdef METHANE_MIKMOD
+    m_pMikModDrv->InitDriver();
+
+    // update audio in a separate thread
+    if (threadCreate(&mikModThread, AudioChannelThread, m_pMikModDrv, 0x5000, 0x1C, -2) == 0)
+        threadStart(&mikModThread);
 #endif
 }
 
@@ -79,8 +101,15 @@ void CMethDoc::InitSoundDriver(void)
 //------------------------------------------------------------------------------
 void CMethDoc::RemoveSoundDriver(void)
 {
-#ifdef SWITCH_AUDIO
-    m_pAudioDrv->RemoveDriver();
+#ifdef METHANE_MIKMOD
+    /* allow audio thread to terminate cleanly */
+    done = 1;
+    if (mikModThread.handle) {
+        threadWaitForExit(&mikModThread);
+        threadClose(&mikModThread);
+    }
+
+    m_pMikModDrv->RemoveDriver();
 #endif
 }
 
@@ -166,10 +195,6 @@ void CMethDoc::MainLoop( void *screen_ptr, int paused_flag )
         m_GameTarget.MainLoop();
 
     DrawScreen(screen_ptr, paused_flag);
-
-#ifdef SWITCH_AUDIO
-    m_pAudioDrv->Update();
-#endif
 }
 
 //------------------------------------------------------------------------------
@@ -181,8 +206,8 @@ void CMethDoc::MainLoop( void *screen_ptr, int paused_flag )
 //------------------------------------------------------------------------------
 void CMethDoc::PlaySample(int id, int pos, int rate)
 {
-#ifdef SWITCH_AUDIO
-    m_pAudioDrv->PlaySample(id, pos, rate);
+#ifdef METHANE_MIKMOD
+    m_pMikModDrv->PlaySample(id, pos, rate);
 #endif
 }
 
@@ -191,8 +216,8 @@ void CMethDoc::PlaySample(int id, int pos, int rate)
 //------------------------------------------------------------------------------
 void CMethDoc::StopModule(void)
 {
-#ifdef SWITCH_AUDIO
-    m_pAudioDrv->StopModule();
+#ifdef METHANE_MIKMOD
+    m_pMikModDrv->StopModule();
 #endif
 }
 
@@ -203,8 +228,8 @@ void CMethDoc::StopModule(void)
 //------------------------------------------------------------------------------
 void CMethDoc::PlayModule(int id)
 {
-#ifdef SWITCH_AUDIO
-    m_pAudioDrv->PlayModule(id);
+#ifdef METHANE_MIKMOD
+    m_pMikModDrv->PlayModule(id);
 #endif
 }
 
@@ -213,9 +238,11 @@ void CMethDoc::PlayModule(int id)
 //!
 //! 	\param id = SMOD_xxx id (The module that should be playing)
 //------------------------------------------------------------------------------
-void CMethDoc::UpdateModule(int)
+void CMethDoc::UpdateModule(int id)
 {
-
+#ifdef METHANE_MIKMOD
+    m_pMikModDrv->UpdateModule(id);
+#endif
 }
 
 // Not implemented yet, needs function to insert name using controller first
@@ -242,7 +269,7 @@ void CMethDoc::SaveScores(void)
 //------------------------------------------------------------------------------
 void CMethDoc::ChangeVolume(int s, int m)
 {
-#ifdef SWITCH_AUDIO
-    m_pAudioDrv->ChangeVolume(s, m);
+#ifdef METHANE_MIKMOD
+    m_pMikModDrv->ChangeVolume(s, m);
 #endif
 }
