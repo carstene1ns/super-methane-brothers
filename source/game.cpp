@@ -32,7 +32,7 @@
 //------------------------------------------------------------------------------
 // The Game Version Number
 //------------------------------------------------------------------------------
-static char GameVersionNumber[] = "VERSION 1.4";
+static char GameVersionNumber[] = "VER 2022/12/09";
 
 #define DELAY_BEFORE_NEXT_LEVEL 140
 
@@ -2112,14 +2112,12 @@ void CGame::TitleScreenLoop(void)
 		// If fading, stop redrawing the window (save bus cycles)
 		m_Map.Draw(m_pBitmap);
 
-		DrawScrFont( 116, GameVersionNumber, 200);
-		DrawScrFont( 116+14, "GAMECUBE/WII", 200+10);
-		DrawScrFont( 116+28, "PORT BY", 200+25);
-		DrawScrFont( 116+42, "INFACT", 200+40);
-		DrawScrFont( 200, "GAME LICENSE:");
-		DrawScrFont( 200+12, "GNU GENERAL PUBLIC LICENSE VERSION 2");
+		DrawScrFont( 116, "HOMEBREW", 220);
+		DrawScrFont( 130, GameVersionNumber, 200);
+		DrawScrFont( 200, "GAME LICENSE: GPL2");
 
-		DrawScrFont( 232, "HTTP://METHANE.SOURCEFORGE.NET" );
+		DrawScrFont( 220, "PORTS: HTTPS://GIT.IO/METHANE");
+		DrawScrFont( 232, "ORIGINAL: HTTP://METHANE.SF.NET");
 		m_pGameTarget->RedrawScreen();
 	}
 }

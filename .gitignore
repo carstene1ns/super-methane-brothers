@@ -1,14 +1,22 @@
 
-# files
+# built files
 
 *.dol
 *.elf
-*.o
-*.d
-*.map
+*.3dsx
+*.cia
+*.cxi
+*.smdh
+*.nacp
+*.nro
 *.zip
 
-# folders
+# build folders
 
-build-wii/
-build-gc/
+build-*/
+
+# debug
+
+.gdb_history
+*.map
+*.lst
