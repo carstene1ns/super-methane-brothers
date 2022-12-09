@@ -20,9 +20,9 @@ which baddies become active again and extremely annoyed.
 * Throw baddies at the wall to destroy them.
 
 
-| Button | GameCube | Wii | Switch |
-|--------|----------|-----|--------|
-| Fire   | A        |     |        |
+| Button | GameCube | Wii | Switch | 3DS |
+|--------|----------|-----|--------|-----|
+| Fire   | A        |     |        |     |
 | Start Game, single player | A (controller 1) |
 | Start Game, 2 players | A (controller 2) |
 | Pause Game | START |
@@ -41,12 +41,16 @@ which baddies become active again and extremely annoyed.
 * Press START button to exit the game.
 * Press X button to switch player graphics.
 
+### 3DS port:
+
+
 See [docs/info.html](docs/info.html) for further instructions on how to play
 the game.
 
 ## Building
 
 ```bash
+make -f Makefile.3ds          # for the 3DS version
 make -f Makefile.switch       # for the Switch version
 make -f Makefile.gx           # for the Wii version
 make -f Makefile.gx DEVICE=gc # for the GameCube version
@@ -55,13 +59,12 @@ make -f Makefile.oldgc        # for the outdated GameCube port.
 
 ## Port history
 
-| Platform | Date    | Notes                                |
-|----------|--------:|--------------------------------------|
-| GameCube | 11/2012 | Using DevkitPPC, libogc, cubeSDL,
-                       libaesnd and libmodplay              |
-| Wii/GC   |    2012 |                                      |
-| Switch   | 04/2018 | Using DevkitA64 and libnx            |
-| 3DS      | 07/2019 | Using DevkitARM and libctru          |
+| Platform | Date    | Notes                                                     |
+|----------|--------:|-----------------------------------------------------------|
+| GameCube | 11/2012 | Using DevkitPPC, libogc, cubeSDL, libaesnd and libmodplay |
+| Wii/GC   |    2012 |                                                           |
+| Switch   | 04/2018 | Using DevkitA64 and libnx                                 |
+| 3DS      | 07/2019 | Using DevkitARM and libctru                               |
 
 ## License
 
