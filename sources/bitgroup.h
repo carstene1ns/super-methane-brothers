@@ -26,19 +26,19 @@ public:
 	CBitmapGroup();
 	~CBitmapGroup();
 	CBitmapGroup( CGame *gptr );
-	void DeleteAll(void);
+	void DeleteAll();
 	void Load(int sprid);
 	void LoadRange(int sprid1, int sprid2);
 	void Draw(int sprid, int xpos, int ypos, int flags = 0);
 	CBitmapItem * GetItem(int sprid);
-	void InitPurge(void);
-	void DoPurge(void);
+	void InitPurge();
+	void DoPurge();
 	CGame	*m_pGame;
 private:
-	void FixOffsets(void);
+	void FixOffsets();
 	int *FixGroup(int *fixptr);
 	int MinGroup(int *fixptr);
-	void Init(void);
+	void Init();
 
 	CBitmapItem *m_ItemList[SPR_SIZE];
 };

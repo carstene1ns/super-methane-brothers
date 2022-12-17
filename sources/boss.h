@@ -26,11 +26,11 @@ class CClownBoss : public CLinkObject
 {
 public:
 	CClownBoss();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx( void );
-	void CollisionCheck( void );
-	void TomatoCollision( void );
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
+	void CollisionCheck();
+	void TomatoCollision();
 	int HitBody( CTomatoObj *tobj, OBJSIZE *pcb );
 	int HitHead( CTomatoObj *tobj, OBJSIZE *pcb );
 public:
@@ -47,19 +47,19 @@ class CCrabBoss : public CLinkObject
 {
 public:
 	CCrabBoss();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx( void );
-	void CollisionCheck( void );
-	void DoPattern( void );
-	void PatDump( void );
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
+	void CollisionCheck();
+	void DoPattern();
+	void PatDump();
 	void PatRight( int destpos );
 	void PatLeft( int destpos );
 	void PatDown( int destpos );
 	void PatUp( int destpos );
 	int HitBody( CSpikeObj *tobj, OBJSIZE *pcb );
 	int HitHead( CSpikeObj *tobj, OBJSIZE *pcb );
-	void BossCollision( void );
+	void BossCollision();
 public:
 	int m_ClawCounter;
 	int m_WhiteFlag;
@@ -90,14 +90,14 @@ class CClockBoss : public CLinkObject
 {
 public:
 	CClockBoss();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx( void );
-	void CollisionCheck( void );
-	void BallCollision( void );
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
+	void CollisionCheck();
+	void BallCollision();
 	int HitBody( CBowlingObj *tobj, OBJSIZE *pcb );
 	int HitHead( CBowlingObj *tobj, OBJSIZE *pcb );
-	void ControlHands( void );
+	void ControlHands();
 public:
 	int m_WhiteFlag;
 	int m_Command;
@@ -115,13 +115,13 @@ class CEndBoss : public CSuckable
 public:
 	CEndBoss();
 	virtual ~CEndBoss();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx( void );
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
 	void Setup( int seg );
-	virtual void SetupCaught( void );
-	void ControlDay( void );
-	virtual void SetExplode( void );
+	virtual void SetupCaught();
+	void ControlDay();
+	virtual void SetExplode();
 public:
 	int	m_Segment;
 	CEndBoss *m_pLastSeg;
@@ -134,8 +134,8 @@ class CKillBossObj : public CLinkObject
 {
 public:
 	CKillBossObj();
-	virtual void Do( void );
-	virtual void Draw( void );
+	virtual void Do();
+	virtual void Draw();
 public:
 	int m_BossNumber;
 	int m_Counter;

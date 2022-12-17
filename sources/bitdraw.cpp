@@ -13,6 +13,7 @@
 // Methane Brothers Bitmap Draw (Source File)
 //------------------------------------------------------------------------------
 
+#include "precomp.h"
 #include "global.h"
 #include "bitdraw.h"
 #include "gfxdef.h"
@@ -52,7 +53,7 @@ int CBitmapDraw::Load(int rid)
 //------------------------------------------------------------------------------
 //! \brief UnLoad a graphic
 //------------------------------------------------------------------------------
-void CBitmapDraw::UnLoad(void)
+void CBitmapDraw::UnLoad()
 {
 }
 

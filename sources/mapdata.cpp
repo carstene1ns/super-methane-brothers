@@ -14,6 +14,7 @@
 // Maps Data File
 //------------------------------------------------------------------------------
 
+#include "precomp.h"
 #include "global.h"
 #include "mapdef.h"
 

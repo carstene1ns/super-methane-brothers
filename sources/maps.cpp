@@ -13,6 +13,7 @@
 // Methane Brothers Maps Control (Source File)
 //------------------------------------------------------------------------------
 
+#include "precomp.h"
 #include "global.h"
 #include "maps.h"
 #include "mapdef.h"
@@ -206,7 +207,7 @@ CMap::CMap()
 //------------------------------------------------------------------------------
 //! \brief Zero all the map data
 //------------------------------------------------------------------------------
-void CMap::ZeroMap(void)
+void CMap::ZeroMap()
 {
 	memset(m_MapData, 0, sizeof(m_MapData));
 	memset(m_BoxData, 0, sizeof(m_BoxData));
@@ -333,7 +334,7 @@ void CMap::LoadBox( int id )
 //!
 //! (to fix comparing problems when an object is moving off screen)
 //------------------------------------------------------------------------------
-void CMap::ExtendBox( void )
+void CMap::ExtendBox()
 {
 	int cnt;
 	int box_x1,box_y1,box_x2,box_y2;
@@ -364,7 +365,7 @@ void CMap::ExtendBox( void )
 //! (to fix problems - which I cannot currently remember) (well I coded it years ago!)\n
 //! This uses a slow sort algorithm - A fast one is not needed
 //------------------------------------------------------------------------------
-void CMap::SortBox( void )
+void CMap::SortBox()
 {
 	int cnt;
 	int box_x1,box_y1,box_x2,box_y2,box_type;
@@ -700,7 +701,7 @@ int CMap::GetRightEdge(BOXPOS *bpos)
 //!
 //! 	\return The box. 0 = Error occured (too many boxes on screen)
 //------------------------------------------------------------------------------
-BOXPOS *CMap::GetBox( void )
+BOXPOS *CMap::GetBox()
 {
 	BOXPOS *bpos;
 
@@ -717,7 +718,7 @@ BOXPOS *CMap::GetBox( void )
 //------------------------------------------------------------------------------
 //! \brief Cycle the map borders
 //------------------------------------------------------------------------------
-void CMap::CycleBorder(void)
+void CMap::CycleBorder()
 {
 	int cnt;
 	short first_item;

@@ -13,6 +13,7 @@
 // Methane Brothers Bitmap Item (Source File)
 //------------------------------------------------------------------------------
 
+#include "precomp.h"
 #include "bitdraw.h"
 #include "bititem.h"
 #include "global.h"
@@ -45,7 +46,7 @@ CBitmapItem::~CBitmapItem()
 //------------------------------------------------------------------------------
 //! \brief Init the bitmap item (called from the constructor)
 //------------------------------------------------------------------------------
-void CBitmapItem::Init(void)
+void CBitmapItem::Init()
 {
 	m_Width = m_Height = m_XOff = m_YOff = 0;	// Clear public data
 	m_pGfx = 0;		// Clear sprite pointer

@@ -23,10 +23,10 @@ class CMBugWeapon : public CLinkObject
 public:
 	CMBugWeapon();
 	virtual ~CMBugWeapon();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void Reset( void );
-	void ControlAnim( void );
+	virtual void Do();
+	virtual void Draw();
+	void Reset();
+	void ControlAnim();
 public:
 	CMBugObj *m_pBaddie;
 	int m_Exploding;
@@ -38,11 +38,11 @@ class CClownWeapon : public CLinkObject
 public:
 	CClownWeapon();
 	virtual ~CClownWeapon();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void Reset( void );
-	void MatchSizeToFrame( void );
-	void MoveWeapon( void );
+	virtual void Do();
+	virtual void Draw();
+	void Reset();
+	void MatchSizeToFrame();
+	void MoveWeapon();
 public:
 	CClownObj *m_pBaddie;
 };
@@ -56,13 +56,13 @@ class CDwarfWeapon : public CLinkObject
 public:
 	CDwarfWeapon();
 	virtual ~CDwarfWeapon();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void Reset( void );
-	void MatchSizeToFrame( void );
-	void MoveWeapon( void );
+	virtual void Do();
+	virtual void Draw();
+	void Reset();
+	void MatchSizeToFrame();
+	void MoveWeapon();
 	void InitThrow( int xpos, int ypos, int dir );
-	void DropWeapon( void );
+	void DropWeapon();
 public:
 	CDwarfObj *m_pBaddie;
 	int m_Command;
@@ -75,16 +75,16 @@ class CGeneratorObj : public CLinkObject
 {
 public:
 	CGeneratorObj();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx(void);
-	void Setup( void );
-	int CheckHitByBaddie( void );
-	void CheckReleaseBaddie(void);
-	void CreateBaddie(void);
-	void FindTheBaddieID(void);
-	void ExplodeToys( void );
-	void ControlTimer( void );
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
+	void Setup();
+	int CheckHitByBaddie();
+	void CheckReleaseBaddie();
+	void CreateBaddie();
+	void FindTheBaddieID();
+	void ExplodeToys();
+	void ControlTimer();
 public:
 	int m_WhiteFlashCnt;
 	int m_HitCnt;
@@ -107,7 +107,7 @@ class CBombObj : public CLinkObject
 {
 public:
 	CBombObj();
-	virtual void Do( void );
+	virtual void Do();
 public:
 };
 

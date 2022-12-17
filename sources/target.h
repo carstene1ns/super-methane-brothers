@@ -22,13 +22,11 @@
 #include <ClanLib/gl.h>
 
 #include <ClanLib/sound.h>
-#include <ClanLib/mikmod.h>
 
 #include "game.h"
 
+class RenderBatchTriangle;
 class CMethDoc;
-class CL_DisplayWindow;
-
 class CGameTarget
 {
 private:
@@ -36,14 +34,14 @@ private:
 
 public:
 	CGameTarget();
-	void Init(CMethDoc *pdoc, CL_DisplayWindow &window);
+	void Init(CMethDoc *pdoc, clan::Canvas &canvas);
 	void InitGame();
-	void RedrawScreen(void);
-	void StartGame(void);
-	void MainLoop(void);
-	void PrepareSoundDriver(void);
+	void RedrawScreen();
+	void StartGame();
+	void MainLoop();
+	void PrepareSoundDriver();
 	void PlayModule(int id);
-	void StopModule(void);
+	void StopModule();
 	void PlaySample(int id, int pos, int rate);
 	void UpdateModule(int id);
 	void Draw(int dest_xpos, int dest_ypos, int width, int height, int texture_number, int texture_xpos, int texture_ypos, bool draw_white);
@@ -56,68 +54,59 @@ public:
 	float m_Lighting;	// -1 = Black. 0 = Normal. 1 = White
 
 private:
-	CL_DisplayWindow *m_pWindow;	//!< The window (always valid)
+	clan::Canvas m_Canvas;	//!< The canvas
 
 	static const int m_NumTextures = 5;
-	CL_Texture m_Texture[m_NumTextures];
+	clan::Texture2D m_Texture[m_NumTextures];
 
-	CL_ProgramObject m_Shader_DrawWhite;
-	CL_ProgramObject m_Shader_Standard;
+	clan::SoundBuffer m_WAV_blow;
+	clan::SoundBuffer m_WAV_bowling;
+	clan::SoundBuffer m_WAV_candle;
+	clan::SoundBuffer m_WAV_card;
+	clan::SoundBuffer m_WAV_car;
+	clan::SoundBuffer m_WAV_chicken;
+	clan::SoundBuffer m_WAV_cookie;
+	clan::SoundBuffer m_WAV_crying;
+	clan::SoundBuffer m_WAV_day;
+	clan::SoundBuffer m_WAV_die2;
+	clan::SoundBuffer m_WAV_duck;
+	clan::SoundBuffer m_WAV_feather;
+	clan::SoundBuffer m_WAV_finlev1;
+	clan::SoundBuffer m_WAV_hurry;
+	clan::SoundBuffer m_WAV_marble;
+	clan::SoundBuffer m_WAV_mask;
+	clan::SoundBuffer m_WAV_moon;
+	clan::SoundBuffer m_WAV_oil;
+	clan::SoundBuffer m_WAV_pickup1;
+	clan::SoundBuffer m_WAV_pstar;
+	clan::SoundBuffer m_WAV_redstar;
+	clan::SoundBuffer m_WAV_spiningtop;
+	clan::SoundBuffer m_WAV_spit;
+	clan::SoundBuffer m_WAV_splat;
+	clan::SoundBuffer m_WAV_tap;
+	clan::SoundBuffer m_WAV_train;
+	clan::SoundBuffer m_WAV_tribble;
+	clan::SoundBuffer m_WAV_turbo;
+	clan::SoundBuffer m_WAV_twinkle;
+	clan::SoundBuffer m_WAV_wings;
+	clan::SoundBuffer m_WAV_wpotion;
+	clan::SoundBuffer m_WAV_xylo;
+	clan::SoundBuffer m_MOD_boss;
+	clan::SoundBuffer m_MOD_complete;
+	clan::SoundBuffer m_MOD_empty;
+	clan::SoundBuffer m_MOD_title;
+	clan::SoundBuffer m_MOD_tune1;
+	clan::SoundBuffer m_MOD_tune2;
 
-	enum ShaderType
-	{
-		shader_none,
-		shader_drawwhite,
-		shader_standard
-	};
-	ShaderType m_LastShaderType;
-
-	CL_SoundBuffer m_WAV_blow;
-	CL_SoundBuffer m_WAV_bowling;
-	CL_SoundBuffer m_WAV_candle;
-	CL_SoundBuffer m_WAV_card;
-	CL_SoundBuffer m_WAV_car;
-	CL_SoundBuffer m_WAV_chicken;
-	CL_SoundBuffer m_WAV_cookie;
-	CL_SoundBuffer m_WAV_crying;
-	CL_SoundBuffer m_WAV_day;
-	CL_SoundBuffer m_WAV_die2;
-	CL_SoundBuffer m_WAV_duck;
-	CL_SoundBuffer m_WAV_feather;
-	CL_SoundBuffer m_WAV_finlev1;
-	CL_SoundBuffer m_WAV_hurry;
-	CL_SoundBuffer m_WAV_marble;
-	CL_SoundBuffer m_WAV_mask;
-	CL_SoundBuffer m_WAV_moon;
-	CL_SoundBuffer m_WAV_oil;
-	CL_SoundBuffer m_WAV_pickup1;
-	CL_SoundBuffer m_WAV_pstar;
-	CL_SoundBuffer m_WAV_redstar;
-	CL_SoundBuffer m_WAV_spiningtop;
-	CL_SoundBuffer m_WAV_spit;
-	CL_SoundBuffer m_WAV_splat;
-	CL_SoundBuffer m_WAV_tap;
-	CL_SoundBuffer m_WAV_train;
-	CL_SoundBuffer m_WAV_tribble;
-	CL_SoundBuffer m_WAV_turbo;
-	CL_SoundBuffer m_WAV_twinkle;
-	CL_SoundBuffer m_WAV_wings;
-	CL_SoundBuffer m_WAV_wpotion;
-	CL_SoundBuffer m_WAV_xylo;
-	CL_SoundBuffer m_MOD_boss;
-	CL_SoundBuffer m_MOD_complete;
-	CL_SoundBuffer m_MOD_empty;
-	CL_SoundBuffer m_MOD_title;
-	CL_SoundBuffer m_MOD_tune1;
-	CL_SoundBuffer m_MOD_tune2;
-
-	CL_SoundBuffer_Session m_Session;
+	clan::SoundBuffer_Session m_Session;
 	bool m_bSessionActive;
+
+	std::shared_ptr<RenderBatchTriangle> m_Batcher;
+
 };
 
 extern CGameTarget *GLOBAL_GameTarget;
 
-extern RenderTarget GLOBAL_RenderTarget;
 extern bool GLOBAL_SoundEnable;
 
 #endif

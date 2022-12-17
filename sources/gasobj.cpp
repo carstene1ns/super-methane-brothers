@@ -13,6 +13,7 @@
 // Methane Brothers Gas Object lists (Source File)
 //------------------------------------------------------------------------------
 
+#include "precomp.h"
 #include "stdio.h"
 #include "stdlib.h"
 #include "gasobj.h"
@@ -90,7 +91,7 @@ CGasObj::~CGasObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the gas object
 //------------------------------------------------------------------------------
-void CGasObj::Draw( void )
+void CGasObj::Draw()
 {
 	int toggle;
 	int frame;
@@ -112,7 +113,7 @@ void CGasObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
-void CGasObj::Reset( void )
+void CGasObj::Reset()
 {
 	m_pPlayer = 0;
 	m_GasCmd = GAS_START;
@@ -149,7 +150,7 @@ void CGasObj::SetupEject( CPlayerObj *player )
 //------------------------------------------------------------------------------
 //! \brief Do the gas leaving the gun
 //------------------------------------------------------------------------------
-void CGasObj::DoLeaveGun( void )
+void CGasObj::DoLeaveGun()
 {
 	m_Dir = m_pPlayer->m_Dir;	// Copy direction facing
 	AnimateDir(anm_gas_left, anm_gas_right, 256,ANMFLG_NORESTART);
@@ -185,7 +186,7 @@ void CGasObj::DoLeaveGun( void )
 //------------------------------------------------------------------------------
 //! \brief Set the gas to fadeout
 //------------------------------------------------------------------------------
-void CGasObj::SetFade( void )
+void CGasObj::SetFade()
 {
 	m_Flags = 0;
 	SetAnim(anm_gas_fade);
@@ -199,7 +200,7 @@ void CGasObj::SetFade( void )
 //!
 //! 	\return 0 = No baddie collected
 //------------------------------------------------------------------------------
-int CGasObj::CheckCollect( void )
+int CGasObj::CheckCollect()
 {
 	CLinkObject *pobj;
 	CSuckable *psuck;
@@ -232,7 +233,7 @@ int CGasObj::CheckCollect( void )
 //------------------------------------------------------------------------------
 //! \brief Do the gas fading away
 //------------------------------------------------------------------------------
-void CGasObj::DoGasFade( void )
+void CGasObj::DoGasFade()
 {
 	Animate(256);
 	if (m_State&STATE_ANM_RESTART)	// Anim finished?
@@ -247,7 +248,7 @@ void CGasObj::DoGasFade( void )
 //!
 //! 	\return 0 = Did not hit the wall
 //------------------------------------------------------------------------------
-int CGasObj::HitWall( void )
+int CGasObj::HitWall()
 {
 	if (m_pGame->m_Map.CheckHitWall( m_XPos+m_X1+3, m_YPos+m_Y1,
 		m_X2-6, m_Y2 - 8)) return 1;
@@ -257,7 +258,7 @@ int CGasObj::HitWall( void )
 //------------------------------------------------------------------------------
 //! \brief Do the gas moving away from the gun
 //------------------------------------------------------------------------------
-void CGasObj::DoGasMove( void )
+void CGasObj::DoGasMove()
 {
 	int step;
 	Animate(256);
@@ -287,7 +288,7 @@ void CGasObj::DoGasMove( void )
 //------------------------------------------------------------------------------
 //! \brief Release a baddie from the bubble
 //------------------------------------------------------------------------------
-void CGasObj::ReleaseBaddie( void )
+void CGasObj::ReleaseBaddie()
 {
 	m_pBaddie->m_OldXPos = m_pBaddie->m_XPos = m_XPos;
 	m_pBaddie->m_OldYPos = m_pBaddie->m_YPos = m_YPos-HATCH_OFFSETY;
@@ -322,7 +323,7 @@ CSuckable *CGasObj::GrabBaddie( CPlayerObj *pptr )
 //------------------------------------------------------------------------------
 //! \brief Do the gas floating around the screen
 //------------------------------------------------------------------------------
-void CGasObj::DoGasFloat( void )
+void CGasObj::DoGasFloat()
 {
 	int wind;
 	int offsetx;
@@ -385,7 +386,7 @@ void CGasObj::DoGasFloat( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CGasObj::Do( void )
+void CGasObj::Do()
 {
 	if (!m_pPlayer) return;	// Should never happen
 
@@ -438,7 +439,7 @@ CCloudObj::CCloudObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the cloud object
 //------------------------------------------------------------------------------
-void CCloudObj::Draw( void )
+void CCloudObj::Draw()
 {
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos, GFX_COL0 );
 }
@@ -459,7 +460,7 @@ void CCloudObj::Setup(int xpos, int ypos)
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CCloudObj::Do( void )
+void CCloudObj::Do()
 {
 	Animate(256);
 	if (m_State&STATE_ANM_RESTART)	// Anim finished
@@ -534,7 +535,7 @@ void CFireLRObj::Setup(int xpos, int ypos, int dir)
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CFireLRObj::Do( void )
+void CFireLRObj::Do()
 {
 	int rcode;
 	Animate(256);

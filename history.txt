@@ -10,6 +10,8 @@ The Version numbers are written as: major.minor.patch
 The version number of the game is contained in:
 	source/game.cpp : GameVersionNumber[]
 
+V2.0.0 (Released 1 April 2021)
+       Linux and Win32: Compatible with ClanLib V4.1.x
 V1.5.1 (Released 5 April 2011)
        Linux and Win32: Compatible with ClanLib V2.2.x
 V1.5.0 (Released 22 October 2009)

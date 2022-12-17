@@ -12,6 +12,7 @@
 //------------------------------------------------------------------------------
 // Methane Brothers Document (Source File)
 //------------------------------------------------------------------------------
+#include "precomp.h"
 #include "doc.h"
 #include "target.h"
 #include "snddef.h"
@@ -19,11 +20,11 @@
 //------------------------------------------------------------------------------
 //! \brief Initialise Document
 //!
-//!	\param window = Screen to draw to
+//!	\param canvas = Screen to draw to
 //------------------------------------------------------------------------------
-CMethDoc::CMethDoc(CL_DisplayWindow &window)
+CMethDoc::CMethDoc(clan::Canvas &canvas)
 {
-	m_GameTarget.Init(this, window);
+	m_GameTarget.Init(this, canvas);
 }
 
 //------------------------------------------------------------------------------
@@ -36,7 +37,7 @@ CMethDoc::~CMethDoc()
 //------------------------------------------------------------------------------
 //! \brief Initialise the game
 //------------------------------------------------------------------------------
-void CMethDoc::InitGame(void)
+void CMethDoc::InitGame()
 {
 	m_GameTarget.InitGame();
 	m_GameTarget.PrepareSoundDriver();
@@ -45,7 +46,7 @@ void CMethDoc::InitGame(void)
 //------------------------------------------------------------------------------
 //! \brief Start the game
 //------------------------------------------------------------------------------
-void CMethDoc::StartGame(void)
+void CMethDoc::StartGame()
 {
 	m_GameTarget.StartGame();
 }
@@ -63,58 +64,31 @@ void CMethDoc::MainLoop()
 //------------------------------------------------------------------------------
 //! \brief The Display Options screen
 //!
-//!	\param window = Current window
-//!	\param page_no	= Instruction page number
+//!	\param canvas = Current Canvas
 //------------------------------------------------------------------------------
-void CMethDoc::DisplayOptions( CL_DisplayWindow &window, CL_Font &font, int page_no )
+void CMethDoc::DisplayOptions( clan::Canvas &canvas, clan::Font &font )
 {
-
-	CL_GraphicContext gc = window.get_gc();
-
-	if (page_no == 0)
-	{
-		font.draw_text(gc, 32, 2*32, "INSTRUCTIONS:");
-		font.draw_text(gc, 32, 4*32, "FIRE TO START");
-		font.draw_text(gc, 32, 5*32, "TYPE PLAYER NAMES");
-		font.draw_text(gc, 32, 6*32, "TAP FIRE TO GAS");
-		font.draw_text(gc, 32, 7*32, "HOLD FIRE TO SUCK");
-		font.draw_text(gc, 32, 8*32, "RELEASE FIRE THROW");
-		font.draw_text(gc, 32, 9*32, "THROW AT THE WALL");
-	}
-	if (page_no == 1)
-	{
-		font.draw_text(gc, 32, 2*32, "PLAYER ONE:");
-		font.draw_text(gc, 32, 3*32, "USE CURSOR KEYS");
-		font.draw_text(gc, 32, 4*32, "CTRL TO FIRE.");
-		font.draw_text(gc, 32, 6*32, "PLAYER TWO:");
-		font.draw_text(gc, 32, 7*32, "USE A W S D");
-		font.draw_text(gc, 32, 8*32, "SHIFT TO FIRE");
-
-	}
-	if (page_no == 2)
-	{
-		font.draw_text(gc, 32, 2*32, "KEYS:");
-		font.draw_text(gc, 32, 4*32, "F9 INCREASE SPEED");
-		font.draw_text(gc, 32, 5*32, "F10 DECREASE SPEED");
-		//font.draw_text(gc, 32, 6*32, "F11 SKIP LEVEL");
-		font.draw_text(gc, 32, 7*32, "TAB CHANGE GRAPHIC");
-		font.draw_text(gc, 32, 8*32, "ESC EXIT PROGRAM");
-	}
-
-	font.draw_text(gc, 32, 12*32, "(PRESS SPACE)");
-
+	clan::SpanLayout layout;
+	layout.add_text("Player One: Use Cursor Keys. CTRL to fire\n", font, clan::Colorf::white);
+	layout.add_text("Player Two: Use A,W,S,D. SHIFT to fire\n \n", font, clan::Colorf::white);
+	layout.add_text("TAB - Toggles Player graphics\n", font, clan::Colorf::white);
+	layout.add_text("ESC - Exit game\n \n", font, clan::Colorf::white);
+	layout.add_text("Game - Fire to Start. Type Player Names. Tap Fire to Gas. Hold Fire to Suck. Release Fire Throw. Throw at the wall.\n \n", font, clan::Colorf::white);
+	layout.add_text("Press any key to continue", font, clan::Colorf::white);
+	layout.layout(canvas, canvas.get_width());
+	layout.draw_layout(canvas);
 }
 
 //------------------------------------------------------------------------------
 //! \brief Load the high scores
 //------------------------------------------------------------------------------
-void CMethDoc::LoadScores(void)
+void CMethDoc::LoadScores()
 {
-	CL_String dirname = CL_Directory::get_appdata("clanlib", "methane", "1.5", false);
+	std::string dirname = clan::Directory::get_appdata("clanlib", "methane", "2.0", false);
 
 	try
 	{
-		CL_File file(dirname+"highscores");
+		clan::File file(dirname+"highscores");
 		HISCORES *hs;
 		int cnt;
 		for (cnt=0, hs=m_GameTarget.m_Game.m_HiScores; cnt<MAX_HISCORES; cnt++, hs++)
@@ -128,7 +102,7 @@ void CMethDoc::LoadScores(void)
 
 		}
 	}
-	catch(CL_Exception& exception)
+	catch(clan::Exception& exception)
 	{
 	}
 
@@ -137,13 +111,13 @@ void CMethDoc::LoadScores(void)
 //------------------------------------------------------------------------------
 //! \brief Save the high scores
 //------------------------------------------------------------------------------
-void CMethDoc::SaveScores(void)
+void CMethDoc::SaveScores()
 {
-	CL_String dirname = CL_Directory::get_appdata("clanlib", "methane", "1.5");
+	std::string dirname = clan::Directory::get_appdata("clanlib", "methane", "2.0");
 
 	try
 	{
-		CL_File file(dirname+"highscores", CL_File::create_always, CL_File::access_write);
+		clan::File file(dirname+"highscores", clan::File::create_always, clan::File::access_write);
 		HISCORES *hs;
 		int cnt;
 		for (cnt=0, hs=m_GameTarget.m_Game.m_HiScores; cnt<MAX_HISCORES; cnt++, hs++)
@@ -152,7 +126,7 @@ void CMethDoc::SaveScores(void)
 			file.write_int32(hs->score);
 		}
 	}
-	catch(CL_Exception& exception)
+	catch(clan::Exception& exception)
 	{
 	}
 }

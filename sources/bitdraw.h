@@ -24,7 +24,7 @@ public:
 	CBitmapDraw();
 	~CBitmapDraw();
 	int Load(int rid);
-	void UnLoad(void);
+	void UnLoad();
 	void Draw16( int xpos, int ypos, int block_offset );
 	void Draw(int xpos, int ypos, bool draw_white = false );
 	void DrawColour(int xpos, int ypos );

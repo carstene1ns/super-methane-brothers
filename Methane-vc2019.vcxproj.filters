@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{36982b36-259b-489e-b288-bbfe75ada94d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{c6d8633e-18a1-4954-af38-e974cc97116b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\ClanMikmod">
+      <UniqueIdentifier>{d6457936-9a21-43ff-89c1-c848e027e3f3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="sources\baddie.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\bitdraw.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\bitgroup.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\bititem.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\boss.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\doc.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\game.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\gasobj.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\gfxoff.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\global.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\goodie.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\mapdata.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\maps.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\methane.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\misc.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\objlist.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\player.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\power.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\sound.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\suck.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\target.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\weapon.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ClanMikmod\module_reader.cpp">
+      <Filter>Sources\ClanMikmod</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ClanMikmod\setupmikmod.cpp">
+      <Filter>Sources\ClanMikmod</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ClanMikmod\soundprovider_mikmod.cpp">
+      <Filter>Sources\ClanMikmod</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ClanMikmod\soundprovider_mikmod_session.cpp">
+      <Filter>Sources\ClanMikmod</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\precomp.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\render_batch_triangle.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sources\baddie.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\bitdraw.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\bitgroup.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\bititem.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\boss.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\doc.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\game.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\gasobj.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\gfxdef.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\global.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\goodie.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\mapdef.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\maps.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\misc.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\objlist.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\objtypes.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\player.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\power.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\snddef.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\sound.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\suck.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\target.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\weapon.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ClanMikmod\module_reader.h">
+      <Filter>Sources\ClanMikmod</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ClanMikmod\setupmikmod.h">
+      <Filter>Sources\ClanMikmod</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ClanMikmod\soundprovider_mikmod.h">
+      <Filter>Sources\ClanMikmod</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ClanMikmod\soundprovider_mikmod_impl.h">
+      <Filter>Sources\ClanMikmod</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ClanMikmod\soundprovider_mikmod_session.h">
+      <Filter>Sources\ClanMikmod</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\precomp.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\render_batch_triangle.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

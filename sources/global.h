@@ -16,13 +16,6 @@
 #ifndef _global_h
 #define _global_h 1
 
-enum RenderTarget
-{
-	opengl2,
-	opengl1,
-	swrender
-};
-
 // Standard Screen Size
 #define SCR_WIDTH	320
 #define SCR_HEIGHT	256

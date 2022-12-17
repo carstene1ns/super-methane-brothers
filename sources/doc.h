@@ -23,22 +23,20 @@
 class CMikModDrv;
 #endif
 
-class CL_DisplayWindow;
-
 class CMethDoc
 {
 
 public:
-	CMethDoc(CL_DisplayWindow &window);
+	CMethDoc(clan::Canvas& canvas);
 	~CMethDoc();
 
-	void InitGame(void);
-	void StartGame(void);
+	void InitGame();
+	void StartGame();
 	void MainLoop();
-	void DisplayOptions( CL_DisplayWindow &window, CL_Font &font, int page_no );
+	void DisplayOptions(clan::Canvas& canvas, clan::Font &font);
 
-	void SaveScores(void);
-	void LoadScores(void);
+	void SaveScores();
+	void LoadScores();
 
 private:
 #ifdef METHANE_MIKMOD

@@ -28,10 +28,10 @@ class CBugObj : public CSuckable
 {
 public:
 	CBugObj();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx( void );
-	void Reset( void );
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
+	void Reset();
 };
 
 
@@ -39,10 +39,10 @@ class CWhirlyObj : public CSuckable
 {
 public:
 	CWhirlyObj();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx( void );
-	void Reset( void );
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
+	void Reset();
 public:
 };
 
@@ -51,10 +51,10 @@ class CDoofusObj : public CSuckable
 {
 public:
 	CDoofusObj();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx( void );
-	void Reset( void );
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
+	void Reset();
 public:
 };
 
@@ -63,10 +63,10 @@ class CJumpObj : public CSuckable
 {
 public:
 	CJumpObj();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx( void );
-	void Reset( void );
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
+	void Reset();
 	void DoJump( int frmoffset );
 public:
 	int m_FixFlag;
@@ -89,11 +89,11 @@ class CMBugObj : public CSuckable
 public:
 	CMBugObj();
 	virtual ~CMBugObj();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx( void );
-	void Reset( void );
-	void CheckWeapon( void );
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
+	void Reset();
+	void CheckWeapon();
 public:
 	CMBugWeapon *m_pWeapon;
 };
@@ -104,11 +104,11 @@ class CClownObj : public CSuckable
 public:
 	CClownObj();
 	virtual ~CClownObj();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx( void );
-	void Reset( void );
-	void WalkClown( void );
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
+	void Reset();
+	void WalkClown();
 	int CheckToShoot( CPlayerObj *play );
 public:
 	CClownWeapon *m_pWeapon;
@@ -121,13 +121,13 @@ class CDwarfObj : public CSuckable
 public:
 	CDwarfObj();
 	virtual ~CDwarfObj();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx( void );
-	void Reset( void );
-	void WalkDwarf( void );
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
+	void Reset();
+	void WalkDwarf();
 	int CheckToShoot( CPlayerObj *play );
-	virtual void SetupCaught( void );
+	virtual void SetupCaught();
 public:
 	CDwarfWeapon *m_pWeapon;
 };
@@ -138,10 +138,10 @@ class CZoomObj : public CSuckable
 {
 public:
 	CZoomObj();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx( void );
-	void Reset( void );
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
+	void Reset();
 };
 
 
@@ -149,12 +149,12 @@ class CSpikeObj : public CSuckable
 {
 public:
 	CSpikeObj();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx( void );
-	void Reset( void );
-	void SpikeInAir( void );
-	void SpikeOnGround( void );
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
+	void Reset();
+	void SpikeInAir();
+	void SpikeOnGround();
 	void Setup( int dir, int xpos, int ypos );
 public:
 	int m_Length;
@@ -169,15 +169,15 @@ class CSuckerObj : public CSuckable
 {
 public:
 	CSuckerObj();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx( void );
-	void Reset( void );
-	void MoveSucker( void );
-	void SuckMoveRight( void );
-	void SuckMoveLeft( void );
-	void SuckMoveDown( void );
-	void SuckMoveUp( void );
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
+	void Reset();
+	void MoveSucker();
+	void SuckMoveRight();
+	void SuckMoveLeft();
+	void SuckMoveDown();
+	void SuckMoveUp();
 public:
 	int m_Direction;
 };

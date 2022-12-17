@@ -13,8 +13,7 @@
 // Methane Brothers Goodie Object (Source File)
 //------------------------------------------------------------------------------
 
-#include "stdio.h"
-#include "stdlib.h"
+#include "precomp.h"
 #include "goodie.h"
 #include "global.h"
 #include "bitgroup.h"
@@ -563,7 +562,7 @@ CGoodieObj::CGoodieObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the goodie object
 //------------------------------------------------------------------------------
-void CGoodieObj::Draw( void )
+void CGoodieObj::Draw()
 {
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
 }
@@ -571,7 +570,7 @@ void CGoodieObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
-void CGoodieObj::Reset( void )
+void CGoodieObj::Reset()
 {
 	m_Y_Flag = -1;
 	m_GScore = m_GFlags = 0;
@@ -604,7 +603,7 @@ void CGoodieObj::SetStruct( GOODIE_TYPE *group )
 //------------------------------------------------------------------------------
 //! \brief Check to see if the object is stuck inside the wall - If it is make the object jump
 //------------------------------------------------------------------------------
-void CGoodieObj::CheckStuckInWall( void )
+void CGoodieObj::CheckStuckInWall()
 {
 	int xrand, yrand;
 	if ( (m_XInert) || (m_Y_Flag) ) return;	// Only if object is stopped
@@ -633,7 +632,7 @@ void CGoodieObj::CheckStuckInWall( void )
 //------------------------------------------------------------------------------
 //! \brief Move the goodie - bouncing on the floor
 //------------------------------------------------------------------------------
-void CGoodieObj::MoveGoodie( void )
+void CGoodieObj::MoveGoodie()
 {
 	int oldyinert;
 
@@ -657,7 +656,7 @@ void CGoodieObj::MoveGoodie( void )
 //------------------------------------------------------------------------------
 //! \brief Set the goodie to explode
 //------------------------------------------------------------------------------
-void CGoodieObj::Explode( void )
+void CGoodieObj::Explode()
 {
 	m_YPos = m_YPos + m_Y1 + m_Y2 - 16;	// Fix the y position
 	m_Y1 = 0; m_Y2 = 16;
@@ -668,7 +667,7 @@ void CGoodieObj::Explode( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object driving (IE car/train)
 //------------------------------------------------------------------------------
-void CGoodieObj::DriveGoodie( void )
+void CGoodieObj::DriveGoodie()
 {
 	DirWalk();
 	AnimateXInert(m_ppAnimSeq[0], m_ppAnimSeq[1]);
@@ -677,7 +676,7 @@ void CGoodieObj::DriveGoodie( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object flowering
 //------------------------------------------------------------------------------
-void CGoodieObj::FlowerGoodie( void )
+void CGoodieObj::FlowerGoodie()
 {
 	m_pSequence = m_ppAnimSeq[0];
 	if (!m_Y_Flag)	// Landed?
@@ -692,7 +691,7 @@ void CGoodieObj::FlowerGoodie( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object sausaging!
 //------------------------------------------------------------------------------
-void CGoodieObj::SausageGoodie( void )
+void CGoodieObj::SausageGoodie()
 {
 	int rndval;
 	if (!m_Y_Flag)	// Landed?
@@ -721,7 +720,7 @@ void CGoodieObj::SausageGoodie( void )
 //!
 //! 	\return 0 = Not Picked Up
 //------------------------------------------------------------------------------
-int CGoodieObj::CheckPickedUp( void )
+int CGoodieObj::CheckPickedUp()
 {
 	CPlayerObj *pobj;
 
@@ -755,7 +754,7 @@ int CGoodieObj::CheckPickedUp( void )
 //------------------------------------------------------------------------------
 //! \brief Do the normal object
 //------------------------------------------------------------------------------
-void CGoodieObj::DoNormal( void )
+void CGoodieObj::DoNormal()
 {
 	if (m_PickUpDelay>=0) m_PickUpDelay--;	// Delay before you can pick the object up
 	else if (CheckPickedUp()) return;
@@ -793,7 +792,7 @@ void CGoodieObj::DoNormal( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object exploding
 //------------------------------------------------------------------------------
-void CGoodieObj::DoExplode( void )
+void CGoodieObj::DoExplode()
 {
 	Animate(256);
 	if (m_State&STATE_ANM_RESTART)	// Anim finished
@@ -804,7 +803,7 @@ void CGoodieObj::DoExplode( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CGoodieObj::Do( void )
+void CGoodieObj::Do()
 {
 	switch (m_Command)
 	{
@@ -864,14 +863,14 @@ CHotSpotObj::CHotSpotObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the HotSpot object
 //------------------------------------------------------------------------------
-void CHotSpotObj::Draw( void )
+void CHotSpotObj::Draw()
 {
 }
 
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CHotSpotObj::Do( void )
+void CHotSpotObj::Do()
 {
 	CPlayerObj *pobj;
 
@@ -968,7 +967,7 @@ CTomatoObj::CTomatoObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the tomato object
 //------------------------------------------------------------------------------
-void CTomatoObj::Draw( void )
+void CTomatoObj::Draw()
 {
 	if (RunDrawSuck()) return;
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos, GFX_NOWRAP );
@@ -978,7 +977,7 @@ void CTomatoObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CTomatoObj::LoadGfx( void )
+void CTomatoObj::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_TOMATO_SPLAT1, SPR_TOMATO_SUCKR6);
 }
@@ -986,7 +985,7 @@ void CTomatoObj::LoadGfx( void )
 //------------------------------------------------------------------------------
 //! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
-void CTomatoObj::Reset( void )
+void CTomatoObj::Reset()
 {
 	m_OldXPos = m_XPos = m_OrigXPos;
 	m_OldYPos = m_YPos = m_OrigYPos;
@@ -1005,7 +1004,7 @@ void CTomatoObj::Reset( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CTomatoObj::Do( void )
+void CTomatoObj::Do()
 {
 	if (RunDoSuck()) return;
 
@@ -1026,7 +1025,7 @@ void CTomatoObj::Do( void )
 //------------------------------------------------------------------------------
 //! \brief Set the tomato to explode
 //------------------------------------------------------------------------------
-void CTomatoObj::SetExplode( void )
+void CTomatoObj::SetExplode()
 {
 	m_SuckCmd = SUCK_NONE;
 	m_Flags = 0;
@@ -1105,7 +1104,7 @@ CBowlingObj::CBowlingObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the bowling object
 //------------------------------------------------------------------------------
-void CBowlingObj::Draw( void )
+void CBowlingObj::Draw()
 {
 	if (RunDrawSuck()) return;
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
@@ -1115,7 +1114,7 @@ void CBowlingObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CBowlingObj::LoadGfx( void )
+void CBowlingObj::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_BOWLING_ROLL1, SPR_BOWLING_SUCKR1);
 }
@@ -1123,7 +1122,7 @@ void CBowlingObj::LoadGfx( void )
 //------------------------------------------------------------------------------
 //! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
-void CBowlingObj::Reset( void )
+void CBowlingObj::Reset()
 {
 	m_Frame = SPR_BOWLING_ROLL1;
 
@@ -1139,7 +1138,7 @@ void CBowlingObj::Reset( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CBowlingObj::Do( void )
+void CBowlingObj::Do()
 {
 	if (RunDoSuck()) return;
 
@@ -1149,7 +1148,7 @@ void CBowlingObj::Do( void )
 //------------------------------------------------------------------------------
 //! \brief Set the bowling to explode
 //------------------------------------------------------------------------------
-void CBowlingObj::SetExplode( void )
+void CBowlingObj::SetExplode()
 {
 	m_SuckCmd = SUCK_NONE;
 	m_Flags = FLAG_SUCKABLE | FLAG_WEAPON;
@@ -1233,7 +1232,7 @@ CBlockObj::CBlockObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the block object
 //------------------------------------------------------------------------------
-void CBlockObj::Draw( void )
+void CBlockObj::Draw()
 {
 	if (RunDrawSuck()) return;
 	m_pGame->m_Sprites.Draw( wink_frames[m_WinkOffset], m_XPos, m_YPos );
@@ -1242,7 +1241,7 @@ void CBlockObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Setup the object getting caught
 //------------------------------------------------------------------------------
-void CBlockObj::SetupCaught( void )
+void CBlockObj::SetupCaught()
 {
 	CSuckable::SetupCaught();	// Must call virtual member
 	ClearBoxPos();
@@ -1251,7 +1250,7 @@ void CBlockObj::SetupCaught( void )
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CBlockObj::LoadGfx( void )
+void CBlockObj::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_BLOCK_1, SPR_BLOCK_SUCKR6);
 }
@@ -1259,7 +1258,7 @@ void CBlockObj::LoadGfx( void )
 //------------------------------------------------------------------------------
 //! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
-void CBlockObj::Reset( void )
+void CBlockObj::Reset()
 {
 	m_Frame = SPR_BLOCK_1;
 
@@ -1277,7 +1276,7 @@ void CBlockObj::Reset( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CBlockObj::Do( void )
+void CBlockObj::Do()
 {
 	if (RunDoSuck())
 	{
@@ -1293,7 +1292,7 @@ void CBlockObj::Do( void )
 //------------------------------------------------------------------------------
 //! \brief Set the collision box position
 //------------------------------------------------------------------------------
-void CBlockObj::SetBoxPos( void )
+void CBlockObj::SetBoxPos()
 {
 	// Because - Cannot allocate in the constructor
 	if (!m_pBox) m_pBox = m_pGame->m_Map.GetBox();
@@ -1311,7 +1310,7 @@ void CBlockObj::SetBoxPos( void )
 //------------------------------------------------------------------------------
 //! \brief Clear the collision box position
 //------------------------------------------------------------------------------
-void CBlockObj::ClearBoxPos( void )
+void CBlockObj::ClearBoxPos()
 {
 	if (m_pBox)
 	{
@@ -1325,7 +1324,7 @@ void CBlockObj::ClearBoxPos( void )
 //------------------------------------------------------------------------------
 //! \brief Do the block's animation
 //------------------------------------------------------------------------------
-void CBlockObj::DoTheAnim( void )
+void CBlockObj::DoTheAnim()
 {
 	if (m_WinkInterval < 0)
 	{
@@ -1344,7 +1343,7 @@ void CBlockObj::DoTheAnim( void )
 //------------------------------------------------------------------------------
 //! \brief Set the block to explode
 //------------------------------------------------------------------------------
-void CBlockObj::SetExplode( void )
+void CBlockObj::SetExplode()
 {
 	m_SuckCmd = SUCK_NONE;
 	m_Flags = FLAG_SUCKABLE;
@@ -1432,7 +1431,7 @@ CSpringObj::CSpringObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the spring object
 //------------------------------------------------------------------------------
-void CSpringObj::Draw( void )
+void CSpringObj::Draw()
 {
 	if (RunDrawSuck()) return;
 	m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
@@ -1442,7 +1441,7 @@ void CSpringObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CSpringObj::LoadGfx( void )
+void CSpringObj::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_SPRING_1, SPR_SPRING_SUCKR6);
 }
@@ -1450,7 +1449,7 @@ void CSpringObj::LoadGfx( void )
 //------------------------------------------------------------------------------
 //! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
-void CSpringObj::Reset( void )
+void CSpringObj::Reset()
 {
 	m_Frame = SPR_SPRING_1;
 
@@ -1466,7 +1465,7 @@ void CSpringObj::Reset( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CSpringObj::Do( void )
+void CSpringObj::Do()
 {
 	if (RunDoSuck())
 	{
@@ -1484,7 +1483,7 @@ void CSpringObj::Do( void )
 //------------------------------------------------------------------------------
 //! \brief Set the collision box position
 //------------------------------------------------------------------------------
-void CSpringObj::SetBoxPos( void )
+void CSpringObj::SetBoxPos()
 {
 	// Because - Cannot allocate in the constructor
 	if (!m_pBox) m_pBox = m_pGame->m_Map.GetBox();
@@ -1502,7 +1501,7 @@ void CSpringObj::SetBoxPos( void )
 //------------------------------------------------------------------------------
 //! \brief Clear the collision box position
 //------------------------------------------------------------------------------
-void CSpringObj::ClearBoxPos( void )
+void CSpringObj::ClearBoxPos()
 {
 	if (m_pBox)
 	{
@@ -1516,7 +1515,7 @@ void CSpringObj::ClearBoxPos( void )
 //------------------------------------------------------------------------------
 //! \brief Set the spring to explode
 //------------------------------------------------------------------------------
-void CSpringObj::SetExplode( void )
+void CSpringObj::SetExplode()
 {
 	m_SuckCmd = SUCK_NONE;
 	m_Flags = FLAG_SUCKABLE;
@@ -1527,7 +1526,7 @@ void CSpringObj::SetExplode( void )
 //------------------------------------------------------------------------------
 //! \brief Setup the object getting caught
 //------------------------------------------------------------------------------
-void CSpringObj::SetupCaught( void )
+void CSpringObj::SetupCaught()
 {
 	CSuckable::SetupCaught();	// Must call virtual member
 	ClearBoxPos();
@@ -1536,7 +1535,7 @@ void CSpringObj::SetupCaught( void )
 //------------------------------------------------------------------------------
 //! \brief Check to see if player will bounce on this object
 //------------------------------------------------------------------------------
-void CSpringObj::CheckBouncePlayer( void )
+void CSpringObj::CheckBouncePlayer()
 {
 	CPlayerObj *pobj;
 
@@ -1583,7 +1582,7 @@ CSkittleObj::CSkittleObj()
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CSkittleObj::Do( void )
+void CSkittleObj::Do()
 {
 	MoveObject();
 	if (CheckHitFlag( m_pGame->m_GasList, FLAG_WEAPON ))
@@ -1621,7 +1620,7 @@ CChickenEggObj::CChickenEggObj()
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CChickenEggObj::Do( void )
+void CChickenEggObj::Do()
 {
 	MoveObject();
 	if (CheckHitFlag( m_pGame->m_PlayerList, FLAG_ACCURATE ))	// Ie Player
@@ -1657,7 +1656,7 @@ CCarryDoorObj::CCarryDoorObj()
 //------------------------------------------------------------------------------
 //! \brief Load the carrydoor gfx
 //------------------------------------------------------------------------------
-void CCarryDoorObj::LoadGfx(void)
+void CCarryDoorObj::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_DOOR_FULL, SPR_DOOR_OUTLINE );
 }
@@ -1665,7 +1664,7 @@ void CCarryDoorObj::LoadGfx(void)
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CCarryDoorObj::Do( void )
+void CCarryDoorObj::Do()
 {
 
 	CPlayerObj *pobj;
@@ -1713,7 +1712,7 @@ CBigCheeseObj::CBigCheeseObj()
 //------------------------------------------------------------------------------
 //! \brief Load the bigcheese gfx
 //------------------------------------------------------------------------------
-void CBigCheeseObj::LoadGfx(void)
+void CBigCheeseObj::LoadGfx()
 {
 	m_pGame->m_Sprites.Load(SPR_TREAS_CHEESE);
 	m_pGame->m_Sprites.LoadRange(SPR_TREAS_BIGCHEESE1, SPR_TREAS_CHEESEB3);
@@ -1722,7 +1721,7 @@ void CBigCheeseObj::LoadGfx(void)
 //------------------------------------------------------------------------------
 //! \brief Draw the goodie object
 //------------------------------------------------------------------------------
-void CBigCheeseObj::Draw( void )
+void CBigCheeseObj::Draw()
 {
 	if (m_Frame)
 	{
@@ -1734,7 +1733,7 @@ void CBigCheeseObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Explode the big cheese into smaller cheeses
 //------------------------------------------------------------------------------
-void CBigCheeseObj::ExplodeCheese(void)
+void CBigCheeseObj::ExplodeCheese()
 {
 	int cnt;
 	for (cnt=0;cnt<40;cnt++)
@@ -1746,7 +1745,7 @@ void CBigCheeseObj::ExplodeCheese(void)
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CBigCheeseObj::Do( void )
+void CBigCheeseObj::Do()
 {
 
 	CPlayerObj *pobj;
@@ -1792,7 +1791,7 @@ CChestObj::CChestObj()
 //------------------------------------------------------------------------------
 //! \brief Load the chest gfx
 //------------------------------------------------------------------------------
-void CChestObj::LoadGfx(void)
+void CChestObj::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_TREAS_CHEST1L, SPR_TREAS_CHEST4R);
 	switch (m_ReleaseType)
@@ -1812,9 +1811,9 @@ void CChestObj::LoadGfx(void)
 //------------------------------------------------------------------------------
 //! \brief Draw the goodie object
 //------------------------------------------------------------------------------
-void CChestObj::Draw( void )
+void CChestObj::Draw()
 {
-	int frm1,frm2;
+	int xfrm1,xfrm2;
 
 	m_pGame->m_Sprites.Draw( SPR_TREAS_CHEST1L, m_XPos, m_YPos );
 	m_pGame->m_Sprites.Draw( SPR_TREAS_CHEST1R, m_XPos+32, m_YPos );
@@ -1822,28 +1821,28 @@ void CChestObj::Draw( void )
 	switch (m_LiftPos)
 	{
 		case 0:
-			frm1 = SPR_TREAS_CHEST4L;
-			frm2 = SPR_TREAS_CHEST4R;
+			xfrm1 = SPR_TREAS_CHEST4L;
+			xfrm2 = SPR_TREAS_CHEST4R;
 			break;
 		case 1:
 		case 2:
 		case 3:
-			frm1 = SPR_TREAS_CHEST3L;
-			frm2 = SPR_TREAS_CHEST3R;
+			xfrm1 = SPR_TREAS_CHEST3L;
+			xfrm2 = SPR_TREAS_CHEST3R;
 			break;
 		default:
-			frm1 = SPR_TREAS_CHEST2L;
-			frm2 = SPR_TREAS_CHEST2R;
+			xfrm1 = SPR_TREAS_CHEST2L;
+			xfrm2 = SPR_TREAS_CHEST2R;
 	}
-	m_pGame->m_Sprites.Draw( frm1, m_XPos, m_YPos );
-	m_pGame->m_Sprites.Draw( frm2, m_XPos+32, m_YPos );
+	m_pGame->m_Sprites.Draw( xfrm1, m_XPos, m_YPos );
+	m_pGame->m_Sprites.Draw( xfrm2, m_XPos+32, m_YPos );
 
 }
 
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CChestObj::Do( void )
+void CChestObj::Do()
 {
 	MoveObject();
 	switch (m_LiftPos)
@@ -1865,7 +1864,7 @@ void CChestObj::Do( void )
 //------------------------------------------------------------------------------
 //! \brief Release the toys from the chest
 //------------------------------------------------------------------------------
-void CChestObj::ReleaseToys(void)
+void CChestObj::ReleaseToys()
 {
 	if (m_pGame->m_MainCounter&1) return;
 	if (m_ToysCnt>0)
@@ -1879,7 +1878,7 @@ void CChestObj::ReleaseToys(void)
 //------------------------------------------------------------------------------
 //! \brief Check to see if a player has hit the chest
 //------------------------------------------------------------------------------
-void CChestObj::CheckToOpen(void)
+void CChestObj::CheckToOpen()
 {
 	CPlayerObj *pobj;
 
@@ -1894,7 +1893,7 @@ void CChestObj::CheckToOpen(void)
 //------------------------------------------------------------------------------
 //! \brief Check to see if the bonus level has finished
 //------------------------------------------------------------------------------
-void CChestObj::CheckEndBonusLevel(void)
+void CChestObj::CheckEndBonusLevel()
 {
 	if (!m_BonusRoomFlag) return;
 

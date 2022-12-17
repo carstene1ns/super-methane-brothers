@@ -33,19 +33,19 @@ class CGasObj : public CLinkObject
 public:
 	CGasObj();
 	virtual ~CGasObj();
-	virtual void Draw( void );
-	void Setup( void );
-	void Reset( void );
-	virtual void Do( void );
-	void DoLeaveGun( void );
-	void DoGasMove( void );
-	void DoGasFade( void );
-	void DoGasFloat( void );
+	virtual void Draw();
+	void Setup();
+	void Reset();
+	virtual void Do();
+	void DoLeaveGun();
+	void DoGasMove();
+	void DoGasFade();
+	void DoGasFloat();
 	void SetupEject( CPlayerObj *player );
-	void SetFade( void );
-	int  HitWall( void );
-	int  CheckCollect( void );
-	void ReleaseBaddie( void );
+	void SetFade();
+	int  HitWall();
+	int  CheckCollect();
+	void ReleaseBaddie();
 	CSuckable *GrabBaddie( CPlayerObj *pptr );
 public:
 	CPlayerObj *m_pPlayer;
@@ -59,9 +59,9 @@ class CCloudObj : public CLinkObject
 {
 public:
 	CCloudObj();
-	virtual void Do( void );
+	virtual void Do();
 	void Setup(int xpos, int ypos);
-	virtual void Draw( void );
+	virtual void Draw();
 public:
 };
 
@@ -69,7 +69,7 @@ class CFireLRObj : public CLinkObject
 {
 public:
 	CFireLRObj();
-	virtual void Do( void );
+	virtual void Do();
 	void Setup(int xpos, int ypos, int dir);
 public:
 };

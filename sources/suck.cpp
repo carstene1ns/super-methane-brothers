@@ -13,6 +13,7 @@
 // Methane Brothers Suckable object (Source File)
 //------------------------------------------------------------------------------
 
+#include "precomp.h"
 #include "suck.h"
 #include "global.h"
 #include "bitgroup.h"
@@ -50,7 +51,7 @@ CSuckable::CSuckable()
 //------------------------------------------------------------------------------
 //! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
-void CSuckable::Reset( void )
+void CSuckable::Reset()
 {
 	m_pSuckFrames = 0;
 	m_SFrame = 0;
@@ -63,7 +64,7 @@ void CSuckable::Reset( void )
 //------------------------------------------------------------------------------
 //! \brief Setup the object getting caught
 //------------------------------------------------------------------------------
-void CSuckable::SetupCaught( void )
+void CSuckable::SetupCaught()
 {
 	m_SFrame = m_pSuckFrames->rollanimseq[0];
 	m_Y_Flag = -1;
@@ -74,7 +75,7 @@ void CSuckable::SetupCaught( void )
 //------------------------------------------------------------------------------
 //! \brief Setup the object getting sucked up to the gun
 //------------------------------------------------------------------------------
-void CSuckable::SetupSuck( void )
+void CSuckable::SetupSuck()
 {
 	// Get baddie x,y position and turn into a fraction
 	m_BadXPosFract = m_XPos<<16;
@@ -237,7 +238,7 @@ void CSuckable::EnterBaddie( int gun_xpos, int gun_ypos, int dir )
 //------------------------------------------------------------------------------
 //! \brief Draw the baddie being sucked
 //------------------------------------------------------------------------------
-void CSuckable::DrawSuck( void )
+void CSuckable::DrawSuck()
 {
 	if (m_SFrame) m_pGame->m_Sprites.Draw( m_SFrame, m_XPos, m_YPos );
 }
@@ -286,7 +287,7 @@ void CSuckable::SetRoll( int dir, int rollsize )
 //!
 //! The object will be deleted
 //------------------------------------------------------------------------------
-void CSuckable::SetExplode( void )
+void CSuckable::SetExplode()
 {
 	int cnt;
 
@@ -317,7 +318,7 @@ void CSuckable::SetExplode( void )
 //! 	\return 0 = No Suck frames to draw\n
 //!		Else = The suck frames have been drawn
 //------------------------------------------------------------------------------
-int CSuckable::RunDrawSuck( void )
+int CSuckable::RunDrawSuck()
 {
 	if (!m_SuckCmd) return 0;	// Not Drawing
 	if (m_SuckCmd==SUCK_GLIDE)
@@ -337,7 +338,7 @@ int CSuckable::RunDrawSuck( void )
 //!
 //! 	\return 0 = Wall not hit
 //------------------------------------------------------------------------------
-int CSuckable::TestRollWall( void )
+int CSuckable::TestRollWall()
 {
 	BOXPOS *xp;
 
@@ -372,7 +373,7 @@ int CSuckable::TestRollWall( void )
 //------------------------------------------------------------------------------
 //! \brief Do the rolling code
 //------------------------------------------------------------------------------
-void CSuckable::DoSuckRoll( void )
+void CSuckable::DoSuckRoll()
 {
 
 	if (m_Dir==DIR_LEFT)
@@ -416,7 +417,7 @@ void CSuckable::DoSuckRoll( void )
 //------------------------------------------------------------------------------
 //! \brief Release the baddie from the rolling state - to it's normal state
 //------------------------------------------------------------------------------
-void CSuckable::ReleaseFromRoll( void )
+void CSuckable::ReleaseFromRoll()
 {
 	m_SuckCmd = SUCK_NONE;
 	m_Flags = m_Flags | (FLAG_CATCHABLE);	// Allow catching
@@ -431,7 +432,7 @@ void CSuckable::ReleaseFromRoll( void )
 //! 	\return 0 = No Suck code present\n
 //!		Else = The suck code has been complete
 //------------------------------------------------------------------------------
-int CSuckable::RunDoSuck( void )
+int CSuckable::RunDoSuck()
 {
 	if (!m_SuckCmd) return 0;	// No Command
 
@@ -453,7 +454,7 @@ int CSuckable::RunDoSuck( void )
 //!
 //! (Note: The baddies movement MUST be reset before this function is called
 //------------------------------------------------------------------------------
-void CSuckable::CheckOil( void )
+void CSuckable::CheckOil()
 {
 	if (CheckHitFlag( m_pGame->m_GoodieList, FLAG_STICKY ))
 	{
@@ -468,7 +469,7 @@ void CSuckable::CheckOil( void )
 //!
 //! 	\return 0 = Okay. Else Baddie was deleted
 //------------------------------------------------------------------------------
-int CSuckable::CheckExtra(void)
+int CSuckable::CheckExtra()
 {
 	CLinkObject *obj;
 	obj = CheckHitFlag( m_pGame->m_GoodieList, FLAG_WEAPON );
@@ -500,7 +501,7 @@ int CSuckable::CheckExtra(void)
 //------------------------------------------------------------------------------
 //! \brief Prepare the baddie gliding down the screen in level initialisation
 //------------------------------------------------------------------------------
-void CSuckable::PrepareGlide(void)
+void CSuckable::PrepareGlide()
 {
 	m_SuckCmd = SUCK_GLIDE;
 	m_GlideDest = m_YPos;
@@ -511,7 +512,7 @@ void CSuckable::PrepareGlide(void)
 //------------------------------------------------------------------------------
 //! \brief Do the baddie gliding down the screen
 //------------------------------------------------------------------------------
-void CSuckable::DoGlide(void)
+void CSuckable::DoGlide()
 {
 	int offset;
 

@@ -44,11 +44,11 @@ class CPowerUpObj : public CLinkObject
 {
 public:
 	CPowerUpObj();
-	virtual void Do( void );
-	virtual void Draw( void );
+	virtual void Do();
+	virtual void Draw();
 	void Setup(int type);
 	void ConvertBaddies( int objtype );
-	void DestroyAllBaddies(void);
+	void DestroyAllBaddies();
 public:
 	int m_PowerUpType;
 	int m_PowerCnt;

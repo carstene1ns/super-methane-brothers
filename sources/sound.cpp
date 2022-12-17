@@ -13,6 +13,7 @@
 // Methane Brothers Sound Control (Source File)
 //------------------------------------------------------------------------------
 
+#include "precomp.h"
 #include "sound.h"
 #include "target.h"
 
@@ -34,14 +35,14 @@ CSoundDrv::~CSoundDrv()
 //------------------------------------------------------------------------------
 //! \brief Prepare all audio to play
 //------------------------------------------------------------------------------
-void CSoundDrv::PrepareAudio(void)
+void CSoundDrv::PrepareAudio()
 {
 }
 
 //------------------------------------------------------------------------------
 //! \brief Stop the module from playing
 //------------------------------------------------------------------------------
-void CSoundDrv::StopModule(void)
+void CSoundDrv::StopModule()
 {
 	GLOBAL_GameTarget->StopModule();
 	m_CurrentModule = 0;
@@ -185,7 +186,7 @@ void CSoundDrv::PlaySample(int id, int pos, int rate)
 //------------------------------------------------------------------------------
 //! \brief Update the current module (ie restart the module if it has stopped)
 //------------------------------------------------------------------------------
-void CSoundDrv::UpdateModule(void)
+void CSoundDrv::UpdateModule()
 {
 	if (m_CurrentModule)	// Is something playing
 	{

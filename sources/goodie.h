@@ -67,19 +67,19 @@ class CGoodieObj : public CLinkObject
 {
 public:
 	CGoodieObj();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void Reset( void );
+	virtual void Do();
+	virtual void Draw();
+	void Reset();
 	void SetStruct( GOODIE_TYPE *group );
-	void CheckStuckInWall( void );
-	void MoveGoodie( void );
-	void Explode( void );
-	void DoNormal( void );
-	void DoExplode( void );
-	void DriveGoodie( void );
-	void FlowerGoodie( void );
-	void SausageGoodie( void );
-	int CheckPickedUp( void );
+	void CheckStuckInWall();
+	void MoveGoodie();
+	void Explode();
+	void DoNormal();
+	void DoExplode();
+	void DriveGoodie();
+	void FlowerGoodie();
+	void SausageGoodie();
+	int CheckPickedUp();
 	void ChkSpecial( int *cntptr, int toynumber, int max, const char *text );
 public:
 	int m_GFlags;
@@ -97,19 +97,19 @@ class CHotSpotObj : public CLinkObject
 {
 public:
 	CHotSpotObj();
-	virtual void Do( void );
-	virtual void Draw( void );
+	virtual void Do();
+	virtual void Draw();
 };
 
 class CTomatoObj : public CSuckable
 {
 public:
 	CTomatoObj();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx( void );
-	void Reset( void );
-	virtual void SetExplode( void );
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
+	void Reset();
+	virtual void SetExplode();
 public:
 	int	m_ExplodeFlag;
 	int	m_OrigXPos;
@@ -121,11 +121,11 @@ class CBowlingObj : public CSuckable
 {
 public:
 	CBowlingObj();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx( void );
-	void Reset( void );
-	virtual void SetExplode( void );
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
+	void Reset();
+	virtual void SetExplode();
 public:
 };
 
@@ -134,15 +134,15 @@ class CBlockObj : public CSuckable
 {
 public:
 	CBlockObj();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx( void );
-	void Reset( void );
-	virtual void SetExplode( void );
-	void DoTheAnim( void );
-	void SetBoxPos( void );
-	void ClearBoxPos( void );
-	virtual void SetupCaught( void );
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
+	void Reset();
+	virtual void SetExplode();
+	void DoTheAnim();
+	void SetBoxPos();
+	void ClearBoxPos();
+	virtual void SetupCaught();
 public:
 	int m_WinkInterval;
 	int m_WinkOffset;
@@ -153,15 +153,15 @@ class CSpringObj : public CSuckable
 {
 public:
 	CSpringObj();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx( void );
-	void Reset( void );
-	virtual void SetExplode( void );
-	void SetBoxPos( void );
-	void ClearBoxPos( void );
-	void CheckBouncePlayer( void );
-	virtual void SetupCaught( void );
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
+	void Reset();
+	virtual void SetExplode();
+	void SetBoxPos();
+	void ClearBoxPos();
+	void CheckBouncePlayer();
+	virtual void SetupCaught();
 public:
 	BOXPOS *m_pBox;
 };
@@ -170,7 +170,7 @@ class CSkittleObj : public CSuckable
 {
 public:
 	CSkittleObj();
-	virtual void Do( void );
+	virtual void Do();
 public:
 	int m_BounceCnt;
 };
@@ -179,7 +179,7 @@ class CChickenEggObj : public CSuckable
 {
 public:
 	CChickenEggObj();
-	virtual void Do( void );
+	virtual void Do();
 public:
 	int m_BounceCnt;
 };
@@ -189,8 +189,8 @@ class CCarryDoorObj : public CSuckable
 {
 public:
 	CCarryDoorObj();
-	virtual void Do( void );
-	void LoadGfx(void);
+	virtual void Do();
+	void LoadGfx();
 public:
 	int m_Pause;
 	int m_LifeTime;
@@ -200,10 +200,10 @@ class CBigCheeseObj : public CSuckable
 {
 public:
 	CBigCheeseObj();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx(void);
-	void ExplodeCheese(void);
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
+	void ExplodeCheese();
 public:
 	int m_MainCheeseFlag;
 	int m_CheeseCounter;
@@ -213,12 +213,12 @@ class CChestObj : public CSuckable
 {
 public:
 	CChestObj();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx(void);
-	void ReleaseToys(void);
-	void CheckToOpen(void);
-	void CheckEndBonusLevel(void);
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
+	void ReleaseToys();
+	void CheckToOpen();
+	void CheckEndBonusLevel();
 
 public:
 	int m_BonusRoomFlag;

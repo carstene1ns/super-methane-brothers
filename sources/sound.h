@@ -23,15 +23,15 @@ class CSoundDrv
 public:
 	CSoundDrv();
 	~CSoundDrv();
-	void Init(void);
+	void Init();
 
 	void PlayModule(int id);
-	void StopModule(void);
+	void StopModule();
 
-	void Update(void);
+	void Update();
 	void PlaySample(int id, int pos = (SCR_WIDTH/2), int rate = 0 );
-	void PrepareAudio(void);
-	void UpdateModule(void);
+	void PrepareAudio();
+	void UpdateModule();
 
 	int m_CurrentModule;	// SMOD_xxx id (0 = Unknown)
 

@@ -14,6 +14,7 @@
 // gfxdef.h gfxdata.cpp (gfxoff.cpp)
 //------------------------------------------------------------------------------
 
+#include "precomp.h"
 #include "global.h"
 
 MCOORDS MainOffsets[]={

@@ -49,7 +49,7 @@ public:
 private:
 	void DrawIt( int xpos, int ypos, int flags );
 	void DrawWrap( int xpos, int ypos, int flags );
-	void Init(void);
+	void Init();
 
 };
 

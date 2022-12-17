@@ -73,7 +73,7 @@ class CMap
 {
 public:
 	CMap();
-	void ZeroMap(void);
+	void ZeroMap();
 	void GetMap( int mapid );
 	void Amiga2PC(short *data, int items);
 	void Draw();
@@ -82,8 +82,8 @@ public:
 	void LoadBox( int id );
 	void LoadWind( int id );
 	void LoadFrk( int id );
-	void ExtendBox( void );
-	void SortBox( void );
+	void ExtendBox();
+	void SortBox();
 	int CheckDown(int xpos, int ypos, int width, int ydelta);
 	int CheckUp(int xpos, int ypos, int width, int ydelta, int hardwallflag=0);
 	int CheckLeft(int xpos, int ypos, int height, int xdelta, int hardwallflag=0);
@@ -91,8 +91,8 @@ public:
 	BOXPOS *CheckHitWall(int xpos, int ypos, int width, int height, int hardwallflag=0);
 	int GetLeftEdge(BOXPOS *bpos);
 	int GetRightEdge(BOXPOS *bpos);
-	BOXPOS *GetBox( void );
-	void CycleBorder(void);
+	BOXPOS *GetBox();
+	void CycleBorder();
 	void LoadSwapMap( int mapid );
 private:
 	void LoadData(int id, void *dest, int len);
