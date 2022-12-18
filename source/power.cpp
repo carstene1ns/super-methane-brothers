@@ -5,14 +5,15 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
 // Methane Brothers PowerUp Object (Source File)
 //------------------------------------------------------------------------------
 
-#include <cstdio>
-#include <cstdlib>
+#include "precomp.h"
 #include "misc.h"
 #include "global.h"
 #include "bitgroup.h"
@@ -90,7 +91,7 @@ CPowerUpObj::CPowerUpObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the spring object
 //------------------------------------------------------------------------------
-void CPowerUpObj::Draw( void )
+void CPowerUpObj::Draw()
 {
 	if (!m_PowerDelay)
 	{
@@ -229,7 +230,7 @@ void CPowerUpObj::Setup(int type)
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CPowerUpObj::Do( void )
+void CPowerUpObj::Do()
 {
 	CPlayerObj *pobj;
 	int cnt;
@@ -451,7 +452,7 @@ void CPowerUpObj::ConvertBaddies( int objtype )
 //------------------------------------------------------------------------------
 //! \brief Cookie - Destroy All Baddies
 //------------------------------------------------------------------------------
-void CPowerUpObj::DestroyAllBaddies(void)
+void CPowerUpObj::DestroyAllBaddies()
 {
 	CLinkObject *pobj;
 	CSuckable *nobj;

@@ -5,14 +5,15 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
 // Methane Brothers Weapons Object (Source File)
 //------------------------------------------------------------------------------
 
-#include <cstdio>
-#include <cstdlib>
+#include "precomp.h"
 #include "weapon.h"
 #include "global.h"
 #include "baddie.h"
@@ -51,7 +52,7 @@ CMBugWeapon::~CMBugWeapon()
 //------------------------------------------------------------------------------
 //! \brief Draw the weapon object
 //------------------------------------------------------------------------------
-void CMBugWeapon::Draw( void )
+void CMBugWeapon::Draw()
 {
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
 }
@@ -59,7 +60,7 @@ void CMBugWeapon::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
-void CMBugWeapon::Reset( void )
+void CMBugWeapon::Reset()
 {
 	m_pBaddie = 0;
 	m_Frame = SPR_MBUG_BOMB1;
@@ -72,7 +73,7 @@ void CMBugWeapon::Reset( void )
 //------------------------------------------------------------------------------
 //! \brief Control the weapon animation (AN AMIGA DIRECT PORT)
 //------------------------------------------------------------------------------
-void CMBugWeapon::ControlAnim( void )
+void CMBugWeapon::ControlAnim()
 {
 	int flag;
 	int p1xpos = 2000;
@@ -143,7 +144,7 @@ void CMBugWeapon::ControlAnim( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CMBugWeapon::Do( void )
+void CMBugWeapon::Do()
 {
 	int flag;
 	if (m_Exploding)
@@ -231,7 +232,7 @@ CClownWeapon::~CClownWeapon()
 //------------------------------------------------------------------------------
 //! \brief Draw the weapon object
 //------------------------------------------------------------------------------
-void CClownWeapon::Draw( void )
+void CClownWeapon::Draw()
 {
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
 }
@@ -239,7 +240,7 @@ void CClownWeapon::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
-void CClownWeapon::Reset( void )
+void CClownWeapon::Reset()
 {
 	m_pBaddie = 0;
 	m_Frame = SPR_CLOWN_BAT8;
@@ -249,7 +250,7 @@ void CClownWeapon::Reset( void )
 //------------------------------------------------------------------------------
 //! \brief Match the weapon size to the weapons graphic frame
 //------------------------------------------------------------------------------
-void CClownWeapon::MatchSizeToFrame( void )
+void CClownWeapon::MatchSizeToFrame()
 {
 	int frmno;
 
@@ -261,7 +262,7 @@ void CClownWeapon::MatchSizeToFrame( void )
 //------------------------------------------------------------------------------
 //! \brief Move the weapon
 //------------------------------------------------------------------------------
-void CClownWeapon::MoveWeapon( void )
+void CClownWeapon::MoveWeapon()
 {
 	m_OldXPos = m_XPos;
 	if (m_Dir==DIR_LEFT)
@@ -283,7 +284,7 @@ void CClownWeapon::MoveWeapon( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CClownWeapon::Do( void )
+void CClownWeapon::Do()
 {
 	if (CheckKillPlayer())
 	{
@@ -359,7 +360,7 @@ CDwarfWeapon::~CDwarfWeapon()
 //------------------------------------------------------------------------------
 //! \brief Draw the weapon object
 //------------------------------------------------------------------------------
-void CDwarfWeapon::Draw( void )
+void CDwarfWeapon::Draw()
 {
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
 }
@@ -367,7 +368,7 @@ void CDwarfWeapon::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
-void CDwarfWeapon::Reset( void )
+void CDwarfWeapon::Reset()
 {
 	m_pBaddie = 0;
 	InitSize(dwarfweapon_size[0]);
@@ -377,7 +378,7 @@ void CDwarfWeapon::Reset( void )
 //------------------------------------------------------------------------------
 //! \brief Match the weapon size to the weapons graphic frame
 //------------------------------------------------------------------------------
-void CDwarfWeapon::MatchSizeToFrame( void )
+void CDwarfWeapon::MatchSizeToFrame()
 {
 	int frmno;
 
@@ -408,7 +409,7 @@ void CDwarfWeapon::InitThrow( int xpos, int ypos, int dir )
 //------------------------------------------------------------------------------
 //! \brief Drop the weapon when in the air (ie when the baddie is gassed)
 //------------------------------------------------------------------------------
-void CDwarfWeapon::DropWeapon( void )
+void CDwarfWeapon::DropWeapon()
 {
 	m_Command = DWEAPON_STOP;
 	m_Frame = 0;
@@ -417,7 +418,7 @@ void CDwarfWeapon::DropWeapon( void )
 //------------------------------------------------------------------------------
 //! \brief Move the weapon
 //------------------------------------------------------------------------------
-void CDwarfWeapon::MoveWeapon( void )
+void CDwarfWeapon::MoveWeapon()
 {
 	m_OldXPos = m_XPos;
 	if (m_Dir==DIR_LEFT)
@@ -459,7 +460,7 @@ void CDwarfWeapon::MoveWeapon( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CDwarfWeapon::Do( void )
+void CDwarfWeapon::Do()
 {
 	if (m_Command == DWEAPON_GO)
 	{
@@ -544,7 +545,7 @@ CGeneratorObj::CGeneratorObj()
 	m_Flags = FLAG_BADDIE;
 	m_WhiteFlashCnt = 0;
 	m_HitCnt = 3;	// Number of hits needed to kill this object
-	m_ReleaseDelay = ( rand() & 0x3f ) + 60;
+	m_ReleaseDelay = ( ::rand() & 0x3f ) + 60;
 	m_EjectDir = 0;
 	m_EjectXOff = 0;
 	m_EjectYOff = 0;
@@ -562,7 +563,7 @@ CGeneratorObj::CGeneratorObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the generator object
 //------------------------------------------------------------------------------
-void CGeneratorObj::Draw( void )
+void CGeneratorObj::Draw()
 {
 	int sprcolour;
 	if (m_WhiteFlashCnt) sprcolour = GFX_WHITE; else sprcolour = 0;
@@ -579,14 +580,14 @@ void CGeneratorObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Setup the generator
 //------------------------------------------------------------------------------
-void CGeneratorObj::Setup( void )
+void CGeneratorObj::Setup()
 {
 }
 
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CGeneratorObj::LoadGfx( void )
+void CGeneratorObj::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_GEN_1, SPR_GEN_4);
 }
@@ -594,7 +595,7 @@ void CGeneratorObj::LoadGfx( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CGeneratorObj::Do( void )
+void CGeneratorObj::Do()
 {
 	FindTheBaddieID();
 	if (m_WhiteFlashCnt) m_WhiteFlashCnt--;
@@ -610,7 +611,7 @@ void CGeneratorObj::Do( void )
 //!
 //! 	\return 0 = Ok. Else This object was deleted
 //------------------------------------------------------------------------------
-int CGeneratorObj::CheckHitByBaddie( void )
+int CGeneratorObj::CheckHitByBaddie()
 {
 	CSuckable *pobj;
 	int thetype;
@@ -647,7 +648,7 @@ int CGeneratorObj::CheckHitByBaddie( void )
 //------------------------------------------------------------------------------
 //! \brief Check able to release a baddie
 //------------------------------------------------------------------------------
-void CGeneratorObj::CheckReleaseBaddie(void)
+void CGeneratorObj::CheckReleaseBaddie()
 {
 	int numbaddies;
 	SUCKANIM *sanim;
@@ -697,7 +698,7 @@ void CGeneratorObj::CheckReleaseBaddie(void)
 //------------------------------------------------------------------------------
 //! \brief Create the baddie to eject
 //------------------------------------------------------------------------------
-void CGeneratorObj::CreateBaddie(void)
+void CGeneratorObj::CreateBaddie()
 {
 	CSuckable *Suckable;
 
@@ -730,7 +731,7 @@ void CGeneratorObj::CreateBaddie(void)
 //------------------------------------------------------------------------------
 //! \brief Find the baddie id - to be ejected from the generator
 //------------------------------------------------------------------------------
-void CGeneratorObj::FindTheBaddieID(void)
+void CGeneratorObj::FindTheBaddieID()
 {
 	int cnt;
 	int id;
@@ -750,7 +751,7 @@ void CGeneratorObj::FindTheBaddieID(void)
 //------------------------------------------------------------------------------
 //! \brief Explode in loads of toys
 //------------------------------------------------------------------------------
-void CGeneratorObj::ExplodeToys( void )
+void CGeneratorObj::ExplodeToys()
 {
 	int cnt;
 
@@ -762,7 +763,7 @@ void CGeneratorObj::ExplodeToys( void )
 //------------------------------------------------------------------------------
 //! \brief Control the number above the object
 //------------------------------------------------------------------------------
-void CGeneratorObj::ControlTimer( void )
+void CGeneratorObj::ControlTimer()
 {
 	int togo;
 
@@ -815,7 +816,7 @@ CBombObj::CBombObj()
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CBombObj::Do( void )
+void CBombObj::Do()
 {
 	MoveObject();
 

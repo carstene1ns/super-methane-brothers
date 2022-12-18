@@ -5,12 +5,15 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
 // For global functions (Source File)
 //------------------------------------------------------------------------------
 
+#include "precomp.h"
 #include "global.h"   
 
 //------------------------------------------------------------------------------

@@ -5,12 +5,15 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
 // Methane Brothers Sound Control (Source File)
 //------------------------------------------------------------------------------
 
+#include "precomp.h"
 #include "sound.h"
 #include "target.h"
 
@@ -32,14 +35,14 @@ CSoundDrv::~CSoundDrv()
 //------------------------------------------------------------------------------
 //! \brief Prepare all audio to play
 //------------------------------------------------------------------------------
-void CSoundDrv::PrepareAudio(void)
+void CSoundDrv::PrepareAudio()
 {
 }
 
 //------------------------------------------------------------------------------
 //! \brief Stop the module from playing
 //------------------------------------------------------------------------------
-void CSoundDrv::StopModule(void)
+void CSoundDrv::StopModule()
 {
 	GLOBAL_GameTarget->StopModule();
 	m_CurrentModule = 0;
@@ -65,14 +68,110 @@ void CSoundDrv::PlayModule(int id)
 //------------------------------------------------------------------------------
 void CSoundDrv::PlaySample(int id, int pos, int rate)
 {
-#ifdef METHANE_MIKMOD
-	int offset;
-
-	if ( (id<SND_START_NUMBER) || (id>SND_END_NUMBER) ) return;
-	offset = id - SND_START_NUMBER;
-
-	if (!rate) rate = MethaneSampleData[offset].rate;
-#endif
+	if (!rate)
+{
+		switch (id)
+		{
+			case SND_CAR:
+				rate = SRATE_1e0;
+				break;
+			case SND_TRAIN:
+				rate = SRATE_1e0;
+				break;
+			case SND_DUCK:
+				rate = SRATE_1e0;
+				break;
+			case SND_PICKUP1:
+				rate = SRATE_1e0;
+				break;
+			case SND_TRIBBLE:
+				rate = SRATE_1e0;
+				break;
+			case SND_HURRY:
+				rate = SRATE_1e0;
+				break;
+			case SND_DAY:
+				rate = SRATE_300;
+				break;
+			case SND_CRYING:
+				rate = SRATE_1e0;
+				break;
+			case SND_DIE2:	
+				rate = SRATE_1e0;
+				break;
+			case SND_SPIT:
+				rate = SRATE_1e0;
+				break;
+			case SND_SPLAT:
+				rate = SRATE_1e0;
+				break;
+			case SND_BLOW:
+				rate = SRATE_a0;
+				break;
+			case SND_TWINKLE:
+				rate = SRATE_1e0;
+				break;
+			case SND_FINLEV1:
+				rate = SRATE_1e0;
+				break;
+			case SND_PSTAR:
+				rate = SRATE_150;
+				break;
+			case SND_XYLO:
+				rate = SRATE_200;
+				break;
+			case SND_CARDSOUND:
+				rate = SRATE_150;
+				break;
+			case SND_BOWLINGSOUND:
+				rate = SRATE_160;
+				break;
+			case SND_CANDLESOUND:
+				rate = SRATE_1e0;
+				break;
+			case SND_MARBLESOUND:
+				rate = SRATE_1e0;
+				break;
+			case SND_TAPSOUND:
+				rate = SRATE_1e0;
+				break;
+			case SND_OILSOUND:
+				rate = SRATE_ae0;
+				break;
+			case SND_SPININGTOPSOUND:
+				rate = SRATE_160;
+				break;
+			case SND_WINGSSOUND:
+				rate = SRATE_1e0;
+				break;
+			case SND_MOONSOUND:
+				rate = SRATE_1e0;
+				break;
+			case SND_MASKSOUND:
+				rate = SRATE_170;
+				break;
+			case SND_REDSTARSOUND:
+				rate = SRATE_a0;
+				break;
+			case SND_TURBOSOUND:
+				rate = SRATE_150;
+				break;
+			case SND_CHICKENSOUND:
+				rate = SRATE_1e0;
+				break;
+			case SND_FEATHERSOUND:
+				rate = SRATE_150;
+				break;
+			case SND_WPOTIONSOUND:
+				rate = SRATE_280;
+				break;
+			case SND_COOKIESOUND:
+				rate = SRATE_1e0;
+				break;
+			default:
+				rate = SRATE_1e0;
+		}
+	}
 
 	// Scale the position from 0 to 255
 	if (pos<0) pos = 0;
@@ -86,7 +185,7 @@ void CSoundDrv::PlaySample(int id, int pos, int rate)
 //------------------------------------------------------------------------------
 //! \brief Update the current module (ie restart the module if it has stopped)
 //------------------------------------------------------------------------------
-void CSoundDrv::UpdateModule(void)
+void CSoundDrv::UpdateModule()
 {
 	if (m_CurrentModule)	// Is something playing
 	{

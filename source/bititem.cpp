@@ -5,12 +5,15 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
 // Methane Brothers Bitmap Item (Source File)
 //------------------------------------------------------------------------------
 
+#include "precomp.h"
 #include "bitdraw.h"
 #include "bititem.h"
 #include "global.h"
@@ -43,7 +46,7 @@ CBitmapItem::~CBitmapItem()
 //------------------------------------------------------------------------------
 //! \brief Init the bitmap item (called from the constructor)
 //------------------------------------------------------------------------------
-void CBitmapItem::Init(void)
+void CBitmapItem::Init()
 {
 	m_Width = m_Height = m_XOff = m_YOff = 0;	// Clear public data
 	m_pGfx = 0;		// Clear sprite pointer
@@ -102,8 +105,10 @@ void CBitmapItem::Load(int nIdResource)
 			m_pGfx = 0;
 			return;
 		}
-		m_Width = m_pGfx->m_Width;
-		m_Height = m_pGfx->m_Height;
+		
+		m_Width = m_pGfx->mcoord_ptr->width;
+		m_Height = m_pGfx->mcoord_ptr->height;
+		
 	}
 }
 
@@ -116,18 +121,17 @@ void CBitmapItem::Load(int nIdResource)
 //------------------------------------------------------------------------------
 void CBitmapItem::DrawIt(int xpos, int ypos, int flags)
 {
-	if (!(flags&GFX_NODAMAGE))m_pGame->m_Map.Damage(xpos, ypos, m_Width, m_Height);
 	if (flags&GFX_WHITE)
 	{
-		m_pGfx->DrawWhite( m_pGame->m_pBitmap, xpos, ypos );
+		m_pGfx->Draw(xpos, ypos, true );
 		return;
 	}
 	if (flags&GFX_COL0)
 	{
-		m_pGfx->DrawColour( m_pGame->m_pBitmap, xpos, ypos );
+		m_pGfx->DrawColour( xpos, ypos );
 		return;
 	}
-	m_pGfx->Draw( m_pGame->m_pBitmap, xpos, ypos );
+	m_pGfx->Draw( xpos, ypos, false );
 }
 
 //------------------------------------------------------------------------------

@@ -5,13 +5,14 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
 // Methane Brothers Baddie Objects (Source File)
 //------------------------------------------------------------------------------
-#include <cstdio>
-#include <cstdlib>
+#include "precomp.h"
 #include "baddie.h"
 #include "global.h"
 #include "bitgroup.h"
@@ -107,7 +108,7 @@ CBugObj::CBugObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the bug object
 //------------------------------------------------------------------------------
-void CBugObj::Draw( void )
+void CBugObj::Draw()
 {
 	if (RunDrawSuck()) return;
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
@@ -117,7 +118,7 @@ void CBugObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CBugObj::LoadGfx( void )
+void CBugObj::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_BUG_LEFT1, SPR_BUG_INGUN);
 }
@@ -125,7 +126,7 @@ void CBugObj::LoadGfx( void )
 //------------------------------------------------------------------------------
 //! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
-void CBugObj::Reset( void )
+void CBugObj::Reset()
 {
 	m_DieScore = 1000;
 	m_DieScoreFrame = SPR_NUM_1000;
@@ -146,7 +147,7 @@ void CBugObj::Reset( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CBugObj::Do( void )
+void CBugObj::Do()
 {
 	if (RunDoSuck()) return;
 	ControlSpeedUp( bug_move_slow, bug_move_fast );
@@ -250,7 +251,7 @@ CWhirlyObj::CWhirlyObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the whirly object
 //------------------------------------------------------------------------------
-void CWhirlyObj::Draw( void )
+void CWhirlyObj::Draw()
 {
 	if (RunDrawSuck()) return;
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
@@ -260,7 +261,7 @@ void CWhirlyObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CWhirlyObj::LoadGfx( void )
+void CWhirlyObj::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_WHIRLY_LEFT1, SPR_WHIRLY_SUCKR6);
 }
@@ -268,7 +269,7 @@ void CWhirlyObj::LoadGfx( void )
 //------------------------------------------------------------------------------
 //! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
-void CWhirlyObj::Reset( void )
+void CWhirlyObj::Reset()
 {
 	m_DieScore = 1000;
 	m_DieScoreFrame = SPR_NUM_1000;
@@ -293,7 +294,7 @@ void CWhirlyObj::Reset( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CWhirlyObj::Do( void )
+void CWhirlyObj::Do()
 {
 	if (RunDoSuck()) return;
 	ControlSpeedUp( whirly_move_slow, whirly_move_fast );
@@ -392,7 +393,7 @@ CDoofusObj::CDoofusObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the doofus object
 //------------------------------------------------------------------------------
-void CDoofusObj::Draw( void )
+void CDoofusObj::Draw()
 {
 	if (RunDrawSuck()) return;
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
@@ -401,7 +402,7 @@ void CDoofusObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CDoofusObj::LoadGfx( void )
+void CDoofusObj::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_DOOFUS_LEFT1, SPR_DOOFUS_SUCKR6);
 }
@@ -409,7 +410,7 @@ void CDoofusObj::LoadGfx( void )
 //------------------------------------------------------------------------------
 //! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
-void CDoofusObj::Reset( void )
+void CDoofusObj::Reset()
 {
 	m_DieScore = 5000;
 	m_DieScoreFrame = SPR_NUM_5000;
@@ -431,7 +432,7 @@ void CDoofusObj::Reset( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CDoofusObj::Do( void )
+void CDoofusObj::Do()
 {
 	if (RunDoSuck()) return;
 	if (CheckExtra()) return;
@@ -561,7 +562,7 @@ CJumpObj::CJumpObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the jump object
 //------------------------------------------------------------------------------
-void CJumpObj::Draw( void )
+void CJumpObj::Draw()
 {
 	if (RunDrawSuck()) return;
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
@@ -570,7 +571,7 @@ void CJumpObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CJumpObj::LoadGfx( void )
+void CJumpObj::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_JUMP_LJUMP1, SPR_JUMP_SSUCKR4);
 }
@@ -578,7 +579,7 @@ void CJumpObj::LoadGfx( void )
 //------------------------------------------------------------------------------
 //! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
-void CJumpObj::Reset( void )
+void CJumpObj::Reset()
 {
 	m_DieScore = 4000;
 	m_DieScoreFrame = SPR_NUM_4000;
@@ -659,7 +660,7 @@ void CJumpObj::DoJump( int frmoffset )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CJumpObj::Do( void )
+void CJumpObj::Do()
 {
 	if (RunDoSuck())
 	{
@@ -783,7 +784,7 @@ CMBugObj::~CMBugObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the mbug object
 //------------------------------------------------------------------------------
-void CMBugObj::Draw( void )
+void CMBugObj::Draw()
 {
 	if (RunDrawSuck()) return;
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
@@ -793,7 +794,7 @@ void CMBugObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CMBugObj::LoadGfx( void )
+void CMBugObj::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_MBUG_LEFT1, SPR_MBUG_BANG);
 }
@@ -801,7 +802,7 @@ void CMBugObj::LoadGfx( void )
 //------------------------------------------------------------------------------
 //! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
-void CMBugObj::Reset( void )
+void CMBugObj::Reset()
 {
 	m_DieScore = 1000;
 	m_DieScoreFrame = SPR_NUM_1000;
@@ -823,7 +824,7 @@ void CMBugObj::Reset( void )
 //------------------------------------------------------------------------------
 //! \brief Check to see if the weapon needs to be created
 //------------------------------------------------------------------------------
-void CMBugObj::CheckWeapon( void )
+void CMBugObj::CheckWeapon()
 {
 	if (!m_pWeapon)
 	{
@@ -841,7 +842,7 @@ void CMBugObj::CheckWeapon( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CMBugObj::Do( void )
+void CMBugObj::Do()
 {
 	if (RunDoSuck()) return;
 	ControlSpeedUp( mbug_move_slow, mbug_move_fast );
@@ -966,7 +967,7 @@ CClownObj::~CClownObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the clown object
 //------------------------------------------------------------------------------
-void CClownObj::Draw( void )
+void CClownObj::Draw()
 {
 	if (RunDrawSuck()) return;
 	m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
@@ -976,7 +977,7 @@ void CClownObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CClownObj::LoadGfx( void )
+void CClownObj::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_CLOWN_RIGHT1, SPR_CLOWN_BAT8);
 }
@@ -984,7 +985,7 @@ void CClownObj::LoadGfx( void )
 //------------------------------------------------------------------------------
 //! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
-void CClownObj::Reset( void )
+void CClownObj::Reset()
 {
 	m_DieScore = 3000;
 	m_DieScoreFrame = SPR_NUM_3000;
@@ -1056,7 +1057,7 @@ int CClownObj::CheckToShoot( CPlayerObj *play )
 //------------------------------------------------------------------------------
 //! \brief Walk the clown object
 //------------------------------------------------------------------------------
-void CClownObj::WalkClown( void )
+void CClownObj::WalkClown()
 {
 	CPlayerObj *pobj;
 
@@ -1085,7 +1086,7 @@ void CClownObj::WalkClown( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CClownObj::Do( void )
+void CClownObj::Do()
 {
 	if (RunDoSuck()) return;
 	ControlSpeedUp( clown_move_slow, clown_move_fast );
@@ -1205,7 +1206,7 @@ CDwarfObj::~CDwarfObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the dwarf object
 //------------------------------------------------------------------------------
-void CDwarfObj::Draw( void )
+void CDwarfObj::Draw()
 {
 	if (RunDrawSuck()) return;
 
@@ -1231,7 +1232,7 @@ void CDwarfObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CDwarfObj::LoadGfx( void )
+void CDwarfObj::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_DWARF_RIGHT1, SPR_DWARF_INGUN);
 }
@@ -1239,7 +1240,7 @@ void CDwarfObj::LoadGfx( void )
 //------------------------------------------------------------------------------
 //! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
-void CDwarfObj::Reset( void )
+void CDwarfObj::Reset()
 {
 	m_DieScore = 2000;
 	m_DieScoreFrame = SPR_NUM_2000;
@@ -1303,7 +1304,7 @@ int CDwarfObj::CheckToShoot( CPlayerObj *play )
 //------------------------------------------------------------------------------
 //! \brief Walk the dwarf
 //------------------------------------------------------------------------------
-void CDwarfObj::WalkDwarf( void )
+void CDwarfObj::WalkDwarf()
 {
 	CPlayerObj *pobj;
 
@@ -1331,7 +1332,7 @@ void CDwarfObj::WalkDwarf( void )
 //------------------------------------------------------------------------------
 //! \brief Setup the object getting caught
 //------------------------------------------------------------------------------
-void CDwarfObj::SetupCaught( void )
+void CDwarfObj::SetupCaught()
 {
 	CSuckable::SetupCaught();	// Must call virtual member
  	if (m_pWeapon)
@@ -1346,7 +1347,7 @@ void CDwarfObj::SetupCaught( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CDwarfObj::Do( void )
+void CDwarfObj::Do()
 {
 
 	// The below cannot be called in the constructor because m_pGame does not exist
@@ -1464,7 +1465,7 @@ CZoomObj::CZoomObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the zoom object
 //------------------------------------------------------------------------------
-void CZoomObj::Draw( void )
+void CZoomObj::Draw()
 {
 	if (RunDrawSuck()) return;
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
@@ -1473,7 +1474,7 @@ void CZoomObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CZoomObj::LoadGfx( void )
+void CZoomObj::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_ZOOM_LEFT1, SPR_ZOOM_SUCKR6);
 }
@@ -1481,7 +1482,7 @@ void CZoomObj::LoadGfx( void )
 //------------------------------------------------------------------------------
 //! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
-void CZoomObj::Reset( void )
+void CZoomObj::Reset()
 {
 	m_DieScore = 1000;
 	m_DieScoreFrame = SPR_NUM_1000;
@@ -1502,7 +1503,7 @@ void CZoomObj::Reset( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CZoomObj::Do( void )
+void CZoomObj::Do()
 {
 	if (RunDoSuck()) return;
 	ControlSpeedUp( zoom_move_slow, zoom_move_fast );
@@ -1607,7 +1608,7 @@ CSpikeObj::CSpikeObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the spike object
 //------------------------------------------------------------------------------
-void CSpikeObj::Draw( void )
+void CSpikeObj::Draw()
 {
 	if (RunDrawSuck()) return;
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
@@ -1631,7 +1632,7 @@ void CSpikeObj::Setup( int dir, int xpos, int ypos )
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CSpikeObj::LoadGfx( void )
+void CSpikeObj::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_SPIKE_LEFT1, SPR_SPIKE_SUCKR6);
 }
@@ -1639,7 +1640,7 @@ void CSpikeObj::LoadGfx( void )
 //------------------------------------------------------------------------------
 //! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
-void CSpikeObj::Reset( void )
+void CSpikeObj::Reset()
 {
 	m_DieScore = 4000;
 	m_DieScoreFrame = SPR_NUM_4000;
@@ -1661,7 +1662,7 @@ void CSpikeObj::Reset( void )
 //------------------------------------------------------------------------------
 //! \brief Do the spike on the ground (AN EXACT AMIGA CONVERSION)
 //------------------------------------------------------------------------------
-void CSpikeObj::SpikeOnGround( void )
+void CSpikeObj::SpikeOnGround()
 {
 
 	InitMovement(spike_move);
@@ -1695,7 +1696,7 @@ void CSpikeObj::SpikeOnGround( void )
 //------------------------------------------------------------------------------
 //! \brief Do the spike in the air (AN EXACT AMIGA CONVERSION)
 //------------------------------------------------------------------------------
-void CSpikeObj::SpikeInAir( void )
+void CSpikeObj::SpikeInAir()
 {
 	if (m_Seq_Offset >= 2) m_Seq_Offset = 0;
 	else m_Seq_Offset = 1;
@@ -1704,7 +1705,7 @@ void CSpikeObj::SpikeInAir( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CSpikeObj::Do( void )
+void CSpikeObj::Do()
 {
 	if (RunDoSuck()) return;
 	if (CheckExtra()) return;
@@ -1824,7 +1825,7 @@ CSuckerObj::CSuckerObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the sucker object
 //------------------------------------------------------------------------------
-void CSuckerObj::Draw( void )
+void CSuckerObj::Draw()
 {
 	if (RunDrawSuck()) return;
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
@@ -1833,7 +1834,7 @@ void CSuckerObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CSuckerObj::LoadGfx( void )
+void CSuckerObj::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_SUCKER_MOVE1, SPR_SUCKER_SUCKR6);
 }
@@ -1841,7 +1842,7 @@ void CSuckerObj::LoadGfx( void )
 //------------------------------------------------------------------------------
 //! \brief Reset the object (object members)
 //------------------------------------------------------------------------------
-void CSuckerObj::Reset( void )
+void CSuckerObj::Reset()
 {
 	m_DieScore = 2000;
 	m_DieScoreFrame = SPR_NUM_2000;
@@ -1863,7 +1864,7 @@ void CSuckerObj::Reset( void )
 //------------------------------------------------------------------------------
 //! \brief Move the sucker right
 //------------------------------------------------------------------------------
-void CSuckerObj::SuckMoveRight( void )
+void CSuckerObj::SuckMoveRight()
 {
 	int rcode;
 	m_XPos += m_Max_XSpeed;
@@ -1888,7 +1889,7 @@ void CSuckerObj::SuckMoveRight( void )
 //------------------------------------------------------------------------------
 //! \brief Move the sucker left
 //------------------------------------------------------------------------------
-void CSuckerObj::SuckMoveLeft( void )
+void CSuckerObj::SuckMoveLeft()
 {
 	int rcode;
 	m_XPos -= m_Max_XSpeed;
@@ -1914,7 +1915,7 @@ void CSuckerObj::SuckMoveLeft( void )
 //------------------------------------------------------------------------------
 //! \brief Move the sucker down
 //------------------------------------------------------------------------------
-void CSuckerObj::SuckMoveDown( void )
+void CSuckerObj::SuckMoveDown()
 {
 	int rcode;
 	m_YPos += m_Max_XSpeed;
@@ -1954,7 +1955,7 @@ void CSuckerObj::SuckMoveDown( void )
 //------------------------------------------------------------------------------
 //! \brief Move the sucker up
 //------------------------------------------------------------------------------
-void CSuckerObj::SuckMoveUp( void )
+void CSuckerObj::SuckMoveUp()
 {
 	int rcode;
 	m_YPos -= m_Max_XSpeed;
@@ -1979,7 +1980,7 @@ void CSuckerObj::SuckMoveUp( void )
 //------------------------------------------------------------------------------
 //! \brief Do the sucker movement
 //------------------------------------------------------------------------------
-void CSuckerObj::MoveSucker( void )
+void CSuckerObj::MoveSucker()
 {
 	m_OldXPos = m_XPos;
 	m_OldYPos = m_YPos;
@@ -2015,7 +2016,7 @@ void CSuckerObj::MoveSucker( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CSuckerObj::Do( void )
+void CSuckerObj::Do()
 {
 	if (RunDoSuck()) return;
 	if (CheckExtra()) return;

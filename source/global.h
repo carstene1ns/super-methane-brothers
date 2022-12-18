@@ -5,6 +5,8 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
@@ -17,12 +19,6 @@
 // Standard Screen Size
 #define SCR_WIDTH	320
 #define SCR_HEIGHT	256
-
-// Number of colours in sprites
-#define SCR_COLS	64
-
-// Number of colours on the screen
-#define PALETTE_SIZE	64
 
 // Standard Map Size
 #define MAP_WIDTH	(SCR_WIDTH/16)
@@ -91,20 +87,14 @@ typedef struct _JOYSTICK {
 	char next_level;
 	} JOYSTICK;
 
-// Palette RGB Colours structure
-typedef struct _METHANE_RGB {
-	unsigned char blue;
-	unsigned char green;
-	unsigned char red;
-	} METHANE_RGB;
-
 typedef struct _MCOORDS {
 	int xoff;
 	int yoff;
 	int width;
 	int height;
-	int datafile_offset;
-	int data_size;
+	int texture_number;
+	int texture_xpos;
+	int texture_ypos;
 	} MCOORDS;
 
 typedef struct _MAP_RESOURCE_DATA {
@@ -124,9 +114,6 @@ typedef struct _MODULE_RESOURCE_DATA {
 	int length;
 	void *handle;	// Used by the target sound driver
 	} MODULE_RESOURCE_DATA;
-
-extern METHANE_RGB StdPalette[SCR_COLS];
-extern METHANE_RGB TitlePalette[32];
 
 // Global Functions
 void CheckPos(int &xpos, int &ypos);

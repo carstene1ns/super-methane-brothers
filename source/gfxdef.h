@@ -5,6 +5,8 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
@@ -26,12 +28,6 @@
 #else
 #define RISCOS_FIX(name) ,
 #endif
-
-extern unsigned char MethaneGraphicData_Bank1[];
-extern unsigned char MethaneGraphicData_Bank2[];
-extern unsigned char MethaneGraphicData_Bank3[];
-extern int MethaneGraphicData_Bank2_Sprite;
-extern int MethaneGraphicData_Bank3_Sprite;
 
 extern MCOORDS MainOffsets[];
 

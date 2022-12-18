@@ -5,6 +5,8 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
@@ -65,8 +67,8 @@ class CNumRiseObj : public CLinkObject
 {
 public:
 	CNumRiseObj();
-	virtual void Do( void );
-	virtual void Draw( void );
+	virtual void Do();
+	virtual void Draw();
 };
 
 extern PLAYER_STATUS pstat1;
@@ -76,13 +78,13 @@ class CRFontObj : public CLinkObject
 {
 public:
 	CRFontObj();
-	virtual void Do( void );
-	virtual void Draw( void );
+	virtual void Do();
+	virtual void Draw();
 	void SetRiser( int frame, int xpos, int yoffset, int delay );
 private:
-	void DoCmdUp1(void);
-	void DoCmdUp2(void);
-	void DoCmdWobble(void);
+	void DoCmdUp1();
+	void DoCmdUp2();
+	void DoCmdWobble();
 public:
 	int m_Command;
 };
@@ -94,7 +96,7 @@ class CTubeObj : public CLinkObject
 {
 public:
 	CTubeObj();
-	void LoadGfx( void );
+	void LoadGfx();
 };
 
 class CRealDayObj : public CLinkObject
@@ -102,8 +104,8 @@ class CRealDayObj : public CLinkObject
 public:
 	CRealDayObj();
 	void Setup( int xpos, int ypos );
-	virtual void Draw( void );
-	virtual void Do( void );
+	virtual void Draw();
+	virtual void Do();
 };
 
 
@@ -111,7 +113,7 @@ class CDayObj : public CLinkObject
 {
 public:
 	CDayObj();
-	virtual void Do( void );
+	virtual void Do();
 	void Setup(int xpos, int ypos);
 public:
 };
@@ -120,8 +122,8 @@ class CCardObj : public CLinkObject
 {
 public:
 	CCardObj();
-	virtual void Do( void );
-	int GetCardMask( void );
+	virtual void Do();
+	int GetCardMask();
 public:
 	int m_CardType;
 };
@@ -131,7 +133,7 @@ class COilObj : public CLinkObject
 {
 public:
 	COilObj();
-	virtual void Do( void );
+	virtual void Do();
 	void Setup(int xpos, int ypos);
 public:
 	int m_Offset;
@@ -142,7 +144,7 @@ class CWaterObj : public CLinkObject
 {
 public:
 	CWaterObj();
-	virtual void Do( void );
+	virtual void Do();
 	void Setup(int xpos, int ypos);
 public:
 	int m_Fix;
@@ -152,7 +154,7 @@ class CFireObj : public CLinkObject
 {
 public:
 	CFireObj();
-	virtual void Do( void );
+	virtual void Do();
 	void Setup(int xpos, int ypos);
 public:
 	int m_Offset;
@@ -164,7 +166,7 @@ class CMarbleObj : public CLinkObject
 {
 public:
 	CMarbleObj();
-	virtual void Do( void );
+	virtual void Do();
 	void Setup(int xpos, int ypos);
 public:
 };
@@ -173,9 +175,9 @@ class CNoteManObj : public CLinkObject
 {
 public:
 	CNoteManObj();
-	virtual void Do( void );
-	void LoadGfx(void);
-	void ReleaseNotes( void );
+	virtual void Do();
+	void LoadGfx();
+	void ReleaseNotes();
 public:
 	int m_ReleaseDelay;
 	int m_TickTock;
@@ -188,7 +190,7 @@ class CTreasSpotObj : public CLinkObject
 {
 public:
 	CTreasSpotObj();
-	virtual void Do( void );
+	virtual void Do();
 public:
 };
 
@@ -196,9 +198,9 @@ class CCardRoomObj : public CLinkObject
 {
 public:
 	CCardRoomObj();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx(void);
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
 public:
 	int m_FrameOffset1;
 	int m_FrameOffset2;
@@ -211,7 +213,7 @@ class CSwitchObj : public CLinkObject
 {
 public:
 	CSwitchObj();
-	virtual void Do( void );
+	virtual void Do();
 public:
 	int m_HitFlag;
 };
@@ -221,9 +223,9 @@ class CKeyRoomObj : public CLinkObject
 {
 public:
 	CKeyRoomObj();
-	virtual void Do( void );
-	virtual void Draw( void );
-	void LoadGfx(void);
+	virtual void Do();
+	virtual void Draw();
+	void LoadGfx();
 	void Setup( int keytype );
 public:
 	int m_Counter;
@@ -234,8 +236,8 @@ class CDropOffObj : public CLinkObject
 {
 public:
 	CDropOffObj();
-	virtual void Do( void );
-	virtual void Draw( void );
+	virtual void Do();
+	virtual void Draw();
 public:
 };
 
@@ -243,8 +245,8 @@ class CBalloonObj : public CLinkObject
 {
 public:
 	CBalloonObj();
-	virtual void Do( void );
-	virtual void Draw( void );
+	virtual void Do();
+	virtual void Draw();
 public:
 	int	m_Rate;
 };

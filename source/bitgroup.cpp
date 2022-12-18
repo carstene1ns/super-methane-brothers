@@ -5,12 +5,15 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
 // Methane Brothers Bitmap Grouping (Source File)
 //------------------------------------------------------------------------------
 
+#include "precomp.h"
 #include "bitgroup.h"
 #include "global.h"
 #include "bititem.h"
@@ -112,7 +115,7 @@ CBitmapGroup::CBitmapGroup()
 //------------------------------------------------------------------------------
 //! \brief Initialise the bitmap group
 //------------------------------------------------------------------------------
-void CBitmapGroup::Init(void)
+void CBitmapGroup::Init()
 {
 	int cnt;
 
@@ -146,7 +149,7 @@ CBitmapGroup::~CBitmapGroup()
 //------------------------------------------------------------------------------
 //! \brief Delete all the bitmap items in the list
 //------------------------------------------------------------------------------
-void CBitmapGroup::DeleteAll(void)
+void CBitmapGroup::DeleteAll()
 {
 	int cnt;
 	CBitmapItem *itemptr;
@@ -256,7 +259,7 @@ void CBitmapGroup::LoadRange(int sprid1, int sprid2)
 //------------------------------------------------------------------------------
 //! \brief Fix the sprite offset list
 //------------------------------------------------------------------------------
-void CBitmapGroup::FixOffsets(void)
+void CBitmapGroup::FixOffsets()
 {
 	int cmd;
 	int *fixptr;
@@ -415,7 +418,7 @@ int *CBitmapGroup::FixGroup(int *fixptr)
 //!
 //! (Sets a flag on each sprite)
 //------------------------------------------------------------------------------
-void CBitmapGroup::InitPurge(void)
+void CBitmapGroup::InitPurge()
 {
 	int cnt;
 	CBitmapItem *itemptr;
@@ -435,7 +438,7 @@ void CBitmapGroup::InitPurge(void)
 //!
 //! (Removes unused graphics)
 //------------------------------------------------------------------------------
-void CBitmapGroup::DoPurge(void)
+void CBitmapGroup::DoPurge()
 {
 	int cnt;
 	CBitmapItem *itemptr;

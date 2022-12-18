@@ -1,11 +1,11 @@
-This is a stable version of the Linux conversion of the
-Super Methane Brothers game.
+This is the ClanLib 4.1 version of the Super Methane Brothers game.
+
+Linux
+  make
+  ./methane
 
 WebSite:
 http://methane.sourceforge.net/index.html
-
-Email:
-rombust at postmaster.co.uk
 
 -------------------------------------------------------
 IMPORTANT NOTE:
@@ -19,6 +19,8 @@ I (Mark Page) am the programmer of the Amiga version of
 Super Methane Brothers.
 -------------------------------------------------------
 
+-------------------------------------------------------
+
 Quick Instructions
 ===================
 
@@ -29,14 +31,5 @@ Hold the CTRL key to suck a trapped baddie into the gun.
 Release the CTRL key to throw the trapped baddie from the gun.
 Throw baddies at the wall to destroy them.
 
-(Linux Only) Press Escape to quit the game
 
-See "docs/info.html" for further instructions on how to play the game.
-See "COPYING" for GPL licence
 
-TODO
-====
-
-Implement these:
-(ALL)	SPR_POWER_HARDHAT (Jump on player 2 to reduce his height)
-(ALL)	SPR_POWER_PINKFROG (Swap player 1 and player 2 for that level)

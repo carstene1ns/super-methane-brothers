@@ -5,6 +5,8 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
@@ -13,7 +15,7 @@
 
 #ifndef _bitdraw_h
 #define _bitdraw_h
-
+#include "global.h"
 class CBitmapDraw
 {
 private:
@@ -22,15 +24,12 @@ public:
 	CBitmapDraw();
 	~CBitmapDraw();
 	int Load(int rid);
-	void UnLoad(void);
-	void Draw16( char *dest, int block_offset );
-	void Draw(char *dest, int xpos, int ypos );
-	void DrawWhite(char *dest, int xpos, int ypos );
-	void DrawColour(char *dest, int xpos, int ypos );
+	void UnLoad();
+	void Draw16( int xpos, int ypos, int block_offset );
+	void Draw(int xpos, int ypos, bool draw_white = false );
+	void DrawColour(int xpos, int ypos );
 
-	char	*m_pBitmap;
-	short	m_Width;
-	short	m_Height;
+	MCOORDS *mcoord_ptr;
 };
 
 #endif // _bitdraw_h

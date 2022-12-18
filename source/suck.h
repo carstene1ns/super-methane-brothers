@@ -5,6 +5,8 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
@@ -63,23 +65,23 @@ class CSuckable : public CLinkObject
 {
 public:
 	CSuckable();
-	void Reset( void );
-	virtual void SetupCaught( void );
-	void DrawSuck( void );
-	void SetupSuck( void );
+	void Reset();
+	virtual void SetupCaught();
+	void DrawSuck();
+	void SetupSuck();
 	int SuckBaddie( int gun_xpos, int gun_ypos );
 	void EnterBaddie( int gun_xpos, int gun_ypos, int dir );
 	void SetRoll( int dir, int rollsize );
-	int RunDrawSuck( void );
-	int RunDoSuck( void );
-	void DoSuckRoll( void );
-	int TestRollWall( void );
-	virtual void SetExplode( void );
-	void ReleaseFromRoll( void );
-	void CheckOil( void );
-	int CheckExtra(void);
-	void PrepareGlide(void);
-	void DoGlide(void);
+	int RunDrawSuck();
+	int RunDoSuck();
+	void DoSuckRoll();
+	int TestRollWall();
+	virtual void SetExplode();
+	void ReleaseFromRoll();
+	void CheckOil();
+	int CheckExtra();
+	void PrepareGlide();
+	void DoGlide();
 public:
 	SUCKFRAMES	*m_pSuckFrames;
 	CPlayerObj	*m_pPlayer;	//!< Player that sucked this object

@@ -5,6 +5,8 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
@@ -71,20 +73,17 @@ class CMap
 {
 public:
 	CMap();
-	void Draw( void );
-	void ZeroMap(void);
+	void ZeroMap();
 	void GetMap( int mapid );
 	void Amiga2PC(short *data, int items);
-	void Draw( char *sptr );
+	void Draw();
 	void LoadBlockSet( int rid );
-	void Damage(int xpos, int ypos, int width, int height);
-	void DamageAll(void);
 	void LoadMap( int id );
 	void LoadBox( int id );
 	void LoadWind( int id );
 	void LoadFrk( int id );
-	void ExtendBox( void );
-	void SortBox( void );
+	void ExtendBox();
+	void SortBox();
 	int CheckDown(int xpos, int ypos, int width, int ydelta);
 	int CheckUp(int xpos, int ypos, int width, int ydelta, int hardwallflag=0);
 	int CheckLeft(int xpos, int ypos, int height, int xdelta, int hardwallflag=0);
@@ -92,15 +91,14 @@ public:
 	BOXPOS *CheckHitWall(int xpos, int ypos, int width, int height, int hardwallflag=0);
 	int GetLeftEdge(BOXPOS *bpos);
 	int GetRightEdge(BOXPOS *bpos);
-	BOXPOS *GetBox( void );
-	void CycleBorder(void);
+	BOXPOS *GetBox();
+	void CycleBorder();
 	void LoadSwapMap( int mapid );
 private:
 	void LoadData(int id, void *dest, int len);
 			
 public:
 	short		m_MapData[MAP_SIZE];
-	char		m_Damage[MAP_SIZE];
 	char		m_WindData[MAP_SIZE];
 	short		m_FrkData[FRK_SIZE/2];
 	CBitmapDraw	m_BlockSet;

@@ -10,49 +10,42 @@
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
-// Methane Brothers Bitmap Item (Header File)
+// Methane Brothers Document (Header File)
 //------------------------------------------------------------------------------
 
-#ifndef _bititem_h
-#define _bititem_h
+#ifndef _doc_h
+#define _doc_h 1
 
-class CBitmapDraw;
+#include "game.h"
+#include "target.h"
 
-//------------------------------------------------------------------------------
-// Bitmaps flags (Bitmask)
-//------------------------------------------------------------------------------
-#define GFX_WHITE	2	// Draw the bitmap in white
-#define GFX_NOWRAP	4	// Disable sprite screen wrapping
-#define GFX_COL0	8	// Alternate Colour (Used with gas clouds)
+#ifdef METHANE_MIKMOD
+class CMikModDrv;
+#endif
 
-class CGame;
-
-class CBitmapItem
+class CMethDoc
 {
-public:
-	CBitmapItem();	// See warning in the code
-	~CBitmapItem();
-	CBitmapItem( CGame *gptr );
-	void Draw(int xpos, int ypos, int flags = 0);
-	void Load(int nIdResource);
 
 public:
-	int	m_Width;
-	int	m_Height;
-	int	m_XOff;
-	int	m_YOff;
+	CMethDoc(clan::Canvas& canvas);
+	~CMethDoc();
 
-	CBitmapDraw	*m_pGfx;
-	CGame		*m_pGame;
+	void InitGame();
+	void StartGame();
+	void MainLoop();
+	void DisplayOptions(clan::Canvas& canvas, clan::Font &font);
 
-	int	m_PurgeFlag;
+	void SaveScores();
+	void LoadScores();
+
 private:
-	void DrawIt( int xpos, int ypos, int flags );
-	void DrawWrap( int xpos, int ypos, int flags );
-	void Init();
+#ifdef METHANE_MIKMOD
+	CMikModDrv	*m_pMikModDrv;
+#endif
+public:
+	CGameTarget	m_GameTarget;
 
 };
 
-#endif // _bititem_h
-
+#endif
 

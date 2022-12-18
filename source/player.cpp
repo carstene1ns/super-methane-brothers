@@ -5,12 +5,15 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
 // Methane Brothers Object lists (Source File)
 //------------------------------------------------------------------------------
 
+#include "precomp.h"
 #include "player.h"
 #include "objlist.h"
 #include "gasobj.h"
@@ -224,7 +227,7 @@ CPlayerObj::~CPlayerObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the player object
 //------------------------------------------------------------------------------
-void CPlayerObj::Draw( void )
+void CPlayerObj::Draw()
 {
 	switch (m_Command)
 	{
@@ -244,7 +247,7 @@ void CPlayerObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Draw the player - During normal gameplay
 //------------------------------------------------------------------------------
-void CPlayerObj::DrawNormal( void )
+void CPlayerObj::DrawNormal()
 {
 	int frm;
 	CBitmapGroup *sptr;
@@ -288,7 +291,7 @@ void CPlayerObj::DrawNormal( void )
 //------------------------------------------------------------------------------
 //! \brief Load the player graphics
 //------------------------------------------------------------------------------
-void CPlayerObj::LoadGfx( void )
+void CPlayerObj::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_PUFF_LEFT1, SPR_PUFF_HANDLE_L);
 	m_pGame->m_Sprites.LoadRange(SPR_BLOW_LEFT1, SPR_BLOW_HANDLE_L);
@@ -304,7 +307,7 @@ void CPlayerObj::LoadGfx( void )
 //! (Used when game restarts)\n
 //! This function calls ResetAll()
 //------------------------------------------------------------------------------
-void CPlayerObj::Reset( void )
+void CPlayerObj::Reset()
 {
 	m_Score = 0;
 	m_ExtraLifeCount = 0;
@@ -325,7 +328,7 @@ void CPlayerObj::Reset( void )
 //!
 //! 	\return The joystick
 //------------------------------------------------------------------------------
-JOYSTICK *CPlayerObj::GetJoy(void)
+JOYSTICK *CPlayerObj::GetJoy()
 {
 	JOYSTICK *jptr;
 	if (m_Type == OBJ_PLAYER_ONE)
@@ -338,7 +341,7 @@ JOYSTICK *CPlayerObj::GetJoy(void)
 //------------------------------------------------------------------------------
 //! \brief Move the player using the joystick values
 //------------------------------------------------------------------------------
-void CPlayerObj::MovePlayer( void )
+void CPlayerObj::MovePlayer()
 {
 	JOYSTICK *jptr;
 
@@ -417,7 +420,7 @@ void CPlayerObj::MovePlayer( void )
 //------------------------------------------------------------------------------
 //! \brief Control the player animation
 //------------------------------------------------------------------------------
-void CPlayerObj::ControlAnim( void )
+void CPlayerObj::ControlAnim()
 {
 	if ((m_XInert<=-256) || (m_XInert>=256))	// Is moving?
 	{
@@ -501,7 +504,7 @@ void CPlayerObj::GunAnim( int old_inertx, int old_inerty )
 //------------------------------------------------------------------------------
 //! \brief Eject the gas from the gun
 //------------------------------------------------------------------------------
-void CPlayerObj::EjectGas(void)
+void CPlayerObj::EjectGas()
 {
 	m_pGame->m_pSound->PlaySample(SND_BLOW, m_XPos);
 	AddScore( 1 );
@@ -529,7 +532,7 @@ void CPlayerObj::EjectGas(void)
 //------------------------------------------------------------------------------
 //! \brief Check to see if able to suck a baddie
 //------------------------------------------------------------------------------
-void CPlayerObj::CheckSuck( void )
+void CPlayerObj::CheckSuck()
 {
 	CLinkObject *pobj;
 	CSuckable *psuckobj;
@@ -688,7 +691,7 @@ void CPlayerObj::InitSuck(CSuckable *pnearest)
 //------------------------------------------------------------------------------
 //! \brief Setup suck a baddie to the gun
 //------------------------------------------------------------------------------
-void CPlayerObj::SetupSuckBaddie( void )
+void CPlayerObj::SetupSuckBaddie()
 {
 	m_GunFlag = GUN_SUCK;
 	m_pBaddie->SetupSuck();
@@ -716,7 +719,7 @@ void CPlayerObj::CalcSuckGun( int &gun_xpos, int &gun_ypos )
 //------------------------------------------------------------------------------
 //! \brief Suck a baddie to the gun
 //------------------------------------------------------------------------------
-void CPlayerObj::SuckBaddie( void )
+void CPlayerObj::SuckBaddie()
 {
 	int gun_xpos,gun_ypos;
 	CalcSuckGun(gun_xpos, gun_ypos);
@@ -733,7 +736,7 @@ void CPlayerObj::SuckBaddie( void )
 //------------------------------------------------------------------------------
 //! \brief Suck a baddie inside the gun
 //------------------------------------------------------------------------------
-void CPlayerObj::EnterBaddie( void )
+void CPlayerObj::EnterBaddie()
 {
 	int suckfrm;
 	int gun_xpos,gun_ypos;
@@ -797,7 +800,7 @@ void CPlayerObj::EnterBaddie( void )
 //------------------------------------------------------------------------------
 //! \brief Control the players gun
 //------------------------------------------------------------------------------
-void CPlayerObj::ControlGun( void )
+void CPlayerObj::ControlGun()
 {
 	switch (m_GunFlag)
 	{
@@ -850,7 +853,7 @@ void CPlayerObj::ControlGun( void )
 //------------------------------------------------------------------------------
 //! \brief Do the player object
 //------------------------------------------------------------------------------
-void CPlayerObj::Do( void )
+void CPlayerObj::Do()
 {
 	m_NumFrame = 0;
 	switch (m_Command)
@@ -871,7 +874,7 @@ void CPlayerObj::Do( void )
 //------------------------------------------------------------------------------
 //! \brief Do the player - During normal gameplay
 //------------------------------------------------------------------------------
-void CPlayerObj::DoNormal( void )
+void CPlayerObj::DoNormal()
 {
 	int old_inertx;
 	int old_inerty;
@@ -919,7 +922,7 @@ void CPlayerObj::DoNormal( void )
 //------------------------------------------------------------------------------
 //! \brief Delete the baddie if it is held in the players gun
 //------------------------------------------------------------------------------
-void CPlayerObj::DeleteBaddie( void )
+void CPlayerObj::DeleteBaddie()
 {
 	if (m_pBaddie)	// Is still containing a baddie?
 	{
@@ -933,7 +936,7 @@ void CPlayerObj::DeleteBaddie( void )
 //!
 //! (Used when the player dies)
 //------------------------------------------------------------------------------
-void CPlayerObj::ReleaseBaddie( void )
+void CPlayerObj::ReleaseBaddie()
 {
 	if (m_pBaddie)	// Is still containing a baddie?
 	{
@@ -952,7 +955,7 @@ void CPlayerObj::ReleaseBaddie( void )
 //! (Used when progressing to the next level)\n
 //! - Reset the player position and size
 //------------------------------------------------------------------------------
-void CPlayerObj::ResetStd( void )
+void CPlayerObj::ResetStd()
 {
 	m_OldXPos = m_XPos;
 	m_OldYPos = m_YPos;
@@ -1024,7 +1027,7 @@ void CPlayerObj::ResetStd( void )
 //! (Used when the player is killed)\n
 //! This function calls ResetStd()
 //------------------------------------------------------------------------------
-void CPlayerObj::ResetAll( void )
+void CPlayerObj::ResetAll()
 {
 	InitMovement(player_move);
 
@@ -1038,7 +1041,7 @@ void CPlayerObj::ResetAll( void )
 //------------------------------------------------------------------------------
 //! \brief Initialise the player when it enters a new level
 //------------------------------------------------------------------------------
-void CPlayerObj::NewLevel( void )
+void CPlayerObj::NewLevel()
 {
 	DeleteBaddie();
 	ResetStd();
@@ -1048,7 +1051,7 @@ void CPlayerObj::NewLevel( void )
 //------------------------------------------------------------------------------
 //! \brief Kill the player - IE loose a live
 //------------------------------------------------------------------------------
-void CPlayerObj::KillPlayer( void )
+void CPlayerObj::KillPlayer()
 {
 	int sample;
 	if (m_pGame->m_MainCounter&1) sample = SND_CRYING; else sample = SND_DIE2;
@@ -1067,7 +1070,7 @@ void CPlayerObj::KillPlayer( void )
 //------------------------------------------------------------------------------
 //! \brief Do the player - During dying
 //------------------------------------------------------------------------------
-void CPlayerObj::DoDie( void )
+void CPlayerObj::DoDie()
 {
 	m_pGame->SetAngryBaddies(0);
 	m_DeadPause++;
@@ -1103,7 +1106,7 @@ void CPlayerObj::DoDie( void )
 //------------------------------------------------------------------------------
 //! \brief Draw the player - During dying
 //------------------------------------------------------------------------------
-void CPlayerObj::DrawDie( void )
+void CPlayerObj::DrawDie()
 {
 	CBitmapGroup *sptr;
 
@@ -1122,7 +1125,7 @@ void CPlayerObj::DrawDie( void )
 //------------------------------------------------------------------------------
 //! \brief Set the player rising up, out of the screen
 //------------------------------------------------------------------------------
-void CPlayerObj::SetRiseUp( void )
+void CPlayerObj::SetRiseUp()
 {
 	m_AtTopFlag = 0;
 	m_Command = PCMD_RISEUP;
@@ -1148,7 +1151,7 @@ void CPlayerObj::SetRiseUp( void )
 //! NOTE - THE VALUES IN THIS FUNCTION have been set to the 'best looking'
 //!  graphic results - Ajust them - it looks daft (ie. a sinus table is needed)
 //------------------------------------------------------------------------------
-void CPlayerObj::DoRiseUp( void )
+void CPlayerObj::DoRiseUp()
 {
 	int max;
 	if (!m_GoingUpFlag)
@@ -1187,7 +1190,7 @@ void CPlayerObj::DoRiseUp( void )
 //!
 //! Very yucky code!!! - but it works
 //------------------------------------------------------------------------------
-void CPlayerObj::DrawRiseUp( void )
+void CPlayerObj::DrawRiseUp()
 {
 	int seg_xpos;
 	int seg_ypos;
@@ -1227,7 +1230,7 @@ void CPlayerObj::DrawRiseUp( void )
 //------------------------------------------------------------------------------
 //! \brief Control the number above the object
 //------------------------------------------------------------------------------
-void CPlayerObj::ControlTimer( void )
+void CPlayerObj::ControlTimer()
 {
 	int togo;
 	int cnt;
@@ -1260,7 +1263,7 @@ void CPlayerObj::ControlTimer( void )
 //------------------------------------------------------------------------------
 //! \brief Initialise the number above the player
 //------------------------------------------------------------------------------
-void CPlayerObj::InitTimer( void )
+void CPlayerObj::InitTimer()
 {
 	int cnt;
 	for (cnt=0; cnt<PNUM_DELAY; cnt++)
@@ -1284,7 +1287,7 @@ void CPlayerObj::AddScore( int value )
 //------------------------------------------------------------------------------
 //! \brief Check to see if the player should gain an extra life
 //------------------------------------------------------------------------------
-void CPlayerObj::CheckExtraLife( void )
+void CPlayerObj::CheckExtraLife()
 {
 
 	unsigned int value;
@@ -1301,7 +1304,7 @@ void CPlayerObj::CheckExtraLife( void )
 //------------------------------------------------------------------------------
 //! \brief Toggle the Puff and Blow graphics
 //------------------------------------------------------------------------------
-void CPlayerObj::TogglePuffBlow( void )
+void CPlayerObj::TogglePuffBlow()
 {
 	if (m_BlowFlag)
 	{

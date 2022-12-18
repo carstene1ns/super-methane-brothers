@@ -5,12 +5,15 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
 // Methane Brothers Boss Baddies (Source File)
 //------------------------------------------------------------------------------
 
+#include "precomp.h"
 #include "boss.h"
 #include "global.h"
 #include "bitgroup.h"
@@ -64,7 +67,7 @@ CClownBoss::CClownBoss()
 //------------------------------------------------------------------------------
 //! \brief Draw the number rising object
 //------------------------------------------------------------------------------
-void CClownBoss::Draw( void )
+void CClownBoss::Draw()
 {
 	int xframe;
 	int sprcolour;
@@ -95,7 +98,7 @@ void CClownBoss::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Do the collision detection between player and object
 //------------------------------------------------------------------------------
-void CClownBoss::CollisionCheck( void )
+void CClownBoss::CollisionCheck()
 {
 	InitSize(cb_col_head);
 	CheckKillPlayer();
@@ -111,7 +114,7 @@ void CClownBoss::CollisionCheck( void )
 //------------------------------------------------------------------------------
 //! \brief Do the collision detection between tomatos and this object
 //------------------------------------------------------------------------------
-void CClownBoss::TomatoCollision( void )
+void CClownBoss::TomatoCollision()
 {
 	CTomatoObj *pobj;
 
@@ -192,7 +195,7 @@ int CClownBoss::HitBody( CTomatoObj *tobj, OBJSIZE *pcb )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CClownBoss::Do( void )
+void CClownBoss::Do()
 {
 	switch (m_Command)
 	{
@@ -220,7 +223,7 @@ void CClownBoss::Do( void )
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CClownBoss::LoadGfx( void )
+void CClownBoss::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_CB_LEFTPART, SPR_CB_DAY3);
 	m_pGame->m_Sprites.LoadRange(SPR_COMP_01, SPR_COMP_20);
@@ -319,7 +322,7 @@ CCrabBoss::CCrabBoss()
 //------------------------------------------------------------------------------
 //! \brief Draw the number rising object
 //------------------------------------------------------------------------------
-void CCrabBoss::Draw( void )
+void CCrabBoss::Draw()
 {
 	int xframe;
 	int sprcolour;
@@ -365,7 +368,7 @@ void CCrabBoss::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Do the collision detection between player and object
 //------------------------------------------------------------------------------
-void CCrabBoss::CollisionCheck( void )
+void CCrabBoss::CollisionCheck()
 {
 	InitSize(crab_col_head);
 	CheckKillPlayer();
@@ -379,7 +382,7 @@ void CCrabBoss::CollisionCheck( void )
 //------------------------------------------------------------------------------
 //! \brief Do the crabboss pattern
 //------------------------------------------------------------------------------
-void CCrabBoss::DoPattern( void )
+void CCrabBoss::DoPattern()
 {
 	int cmd;
 	int value;
@@ -467,7 +470,7 @@ void CCrabBoss::PatRight( int destpos )
 //------------------------------------------------------------------------------
 //! \brief Make the crab boss baddie
 //------------------------------------------------------------------------------
-void CCrabBoss::PatDump( void )
+void CCrabBoss::PatDump()
 {
 	switch (m_PipeCmd)
 	{
@@ -544,7 +547,7 @@ void CCrabBoss::PatDump( void )
 //------------------------------------------------------------------------------
 //! \brief Do the collision detection between the baddie and this object
 //------------------------------------------------------------------------------
-void CCrabBoss::BossCollision( void )
+void CCrabBoss::BossCollision()
 {
 	CSpikeObj *pobj;
 
@@ -626,7 +629,7 @@ int CCrabBoss::HitBody( CSpikeObj *tobj, OBJSIZE *pcb )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CCrabBoss::Do( void )
+void CCrabBoss::Do()
 {
 	switch (m_Command)
 	{
@@ -653,7 +656,7 @@ void CCrabBoss::Do( void )
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CCrabBoss::LoadGfx( void )
+void CCrabBoss::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_CRAB_LCLAW1, SPR_CRAB_SEG);
 	m_pGame->m_Sprites.LoadRange(SPR_CB_DAY1, SPR_CB_DAY3);
@@ -738,7 +741,7 @@ CClockBoss::CClockBoss()
 //------------------------------------------------------------------------------
 //! \brief Draw the number rising object
 //------------------------------------------------------------------------------
-void CClockBoss::Draw( void )
+void CClockBoss::Draw()
 {
 	int xframe;
 	int sprcolour;
@@ -774,7 +777,7 @@ void CClockBoss::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Do the collision detection between player and object
 //------------------------------------------------------------------------------
-void CClockBoss::CollisionCheck( void )
+void CClockBoss::CollisionCheck()
 {
 	InitSize(clock_col_head);
 	CheckKillPlayer();
@@ -786,7 +789,7 @@ void CClockBoss::CollisionCheck( void )
 //------------------------------------------------------------------------------
 //! \brief Do the collision detection between bowling ball and this object
 //------------------------------------------------------------------------------
-void CClockBoss::BallCollision( void )
+void CClockBoss::BallCollision()
 {
 	CBowlingObj *pobj;
 
@@ -865,7 +868,7 @@ int CClockBoss::HitBody( CBowlingObj *tobj, OBJSIZE *pcb )
 //------------------------------------------------------------------------------
 //! \brief Control the clock hands
 //------------------------------------------------------------------------------
-void CClockBoss::ControlHands( void )
+void CClockBoss::ControlHands()
 {
 	m_HandCntS++;
 	if (m_HandCntS>=CLOCK_S_FRMS) m_HandCntS = 0;
@@ -881,7 +884,7 @@ void CClockBoss::ControlHands( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CClockBoss::Do( void )
+void CClockBoss::Do()
 {
 	switch (m_Command)
 	{
@@ -908,7 +911,7 @@ void CClockBoss::Do( void )
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CClockBoss::LoadGfx( void )
+void CClockBoss::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_CB_DAY1, SPR_CB_DAY3);
 	m_pGame->m_Sprites.LoadRange(SPR_CLOCK_LEFT, SPR_CLOCK_S16);
@@ -1032,7 +1035,7 @@ CEndBoss::~CEndBoss()
 //------------------------------------------------------------------------------
 //! \brief Draw the object
 //------------------------------------------------------------------------------
-void CEndBoss::Draw( void )
+void CEndBoss::Draw()
 {
 	int yoffset;
 	if (RunDrawSuck()) return;
@@ -1085,7 +1088,7 @@ void CEndBoss::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Setup the object getting caught
 //------------------------------------------------------------------------------
-void CEndBoss::SetupCaught( void )
+void CEndBoss::SetupCaught()
 {
 	CSuckable::SetupCaught();	// Must call virtual member
 
@@ -1106,7 +1109,7 @@ void CEndBoss::SetupCaught( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CEndBoss::Do( void )
+void CEndBoss::Do()
 {
 	if (RunDoSuck()) return;
 
@@ -1139,7 +1142,7 @@ void CEndBoss::Do( void )
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CEndBoss::LoadGfx( void )
+void CEndBoss::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_CB_DAY1, SPR_CB_DAY3);
 	m_pGame->m_Sprites.LoadRange(SPR_LBOSS_L1, SPR_LBOSS_BOOM);
@@ -1159,7 +1162,7 @@ void CEndBoss::Setup( int seg )
 //------------------------------------------------------------------------------
 //! \brief Control do dah day in the back of the train
 //------------------------------------------------------------------------------
-void CEndBoss::ControlDay( void )
+void CEndBoss::ControlDay()
 {
 	m_BombPause++;
 	if (m_BombPause>=BOSS_FIRE_RATE)
@@ -1180,7 +1183,7 @@ void CEndBoss::ControlDay( void )
 //------------------------------------------------------------------------------
 //! \brief Set the object to explode
 //------------------------------------------------------------------------------
-void CEndBoss::SetExplode( void )
+void CEndBoss::SetExplode()
 {
 	if (!m_Segment)
 	{
@@ -1219,7 +1222,7 @@ CKillBossObj::CKillBossObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the object
 //------------------------------------------------------------------------------
-void CKillBossObj::Draw( void )
+void CKillBossObj::Draw()
 {
 	switch (m_BossNumber)
 	{
@@ -1250,7 +1253,7 @@ void CKillBossObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CKillBossObj::Do( void )
+void CKillBossObj::Do()
 {
 	m_Counter++;
 	if (!(m_Counter&3))

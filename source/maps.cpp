@@ -5,14 +5,15 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
 // Methane Brothers Maps Control (Source File)
 //------------------------------------------------------------------------------
 
-#include <cstdlib>
-#include <cstring>
+#include "precomp.h"
 #include "global.h"
 #include "maps.h"
 #include "mapdef.h"
@@ -201,13 +202,12 @@ static int cycle_table[NUM_CYCLES] =
 CMap::CMap()
 {
 	ZeroMap();
-	DamageAll();
 }
 
 //------------------------------------------------------------------------------
 //! \brief Zero all the map data
 //------------------------------------------------------------------------------
-void CMap::ZeroMap(void)
+void CMap::ZeroMap()
 {
 	memset(m_MapData, 0, sizeof(m_MapData));
 	memset(m_BoxData, 0, sizeof(m_BoxData));
@@ -232,9 +232,6 @@ void CMap::GetMap( int mapid )
 	LoadBox( ld->pos_id );
 	LoadWind( ld->wnd_id );
 	LoadFrk( ld->frk_id );
-
-	DamageAll();
-
 }
 
 //------------------------------------------------------------------------------
@@ -337,7 +334,7 @@ void CMap::LoadBox( int id )
 //!
 //! (to fix comparing problems when an object is moving off screen)
 //------------------------------------------------------------------------------
-void CMap::ExtendBox( void )
+void CMap::ExtendBox()
 {
 	int cnt;
 	int box_x1,box_y1,box_x2,box_y2;
@@ -368,7 +365,7 @@ void CMap::ExtendBox( void )
 //! (to fix problems - which I cannot currently remember) (well I coded it years ago!)\n
 //! This uses a slow sort algorithm - A fast one is not needed
 //------------------------------------------------------------------------------
-void CMap::SortBox( void )
+void CMap::SortBox()
 {
 	int cnt;
 	int box_x1,box_y1,box_x2,box_y2,box_type;
@@ -425,32 +422,19 @@ void CMap::Amiga2PC(short *data, int items)
 //! \brief Draw the map onto the screen (Coded for speed - not safety)
 //!
 //! (using the damage list)
-//!
-//! 	\param sptr = The screen address to draw to
 //------------------------------------------------------------------------------
-void CMap::Draw( char *sptr )
+void CMap::Draw( )
 {
 	int x,y;
-	char *damageptr;
 	short *mapptr;
 
-	if (m_BlockSet.m_pBitmap)		// Only if the blockset is valid
+	mapptr = m_MapData;
+	for (y = 0; y < MAP_HEIGHT; y++)
 	{
-		mapptr = m_MapData;
-		damageptr = m_Damage;
-		for (y = 0; y < MAP_HEIGHT; y++)
+		for (x = 0; x < MAP_WIDTH; x++)
 		{
-			for (x = 0; x < MAP_WIDTH; x++)
-			{
-				if (*(damageptr++))		// Need repairing?
-				{
-					*(damageptr-1) = 0;	// Clear Flag
-					m_BlockSet.Draw16( sptr, *mapptr );
-				}
-				mapptr++;
-				sptr+=16;
-			}
-			sptr+=(SCR_WIDTH * (16-1));	// Next block down
+			m_BlockSet.Draw16( x*16, y*16, *mapptr );
+			mapptr++;
 		}
 	}
 }
@@ -463,65 +447,6 @@ void CMap::Draw( char *sptr )
 void CMap::LoadBlockSet( int rid )
 {
 	m_BlockSet.Load(rid);
-}
-
-//------------------------------------------------------------------------------
-//! \brief Damage the entire map
-//------------------------------------------------------------------------------
-void CMap::DamageAll(void)
-{
-	int cnt;
-
-	for (cnt = 0; cnt < (MAP_SIZE); cnt++)
-	{
-		m_Damage[cnt] = -1;
-	}
-}
-
-//------------------------------------------------------------------------------
-//! \brief Damage a part of the map
-//!
-//! 	\param xpos = xpos
-//!	\param ypos = ypos
-//!	\param width = width size (In pixels)
-//!	\param height = height size (In pixels)
-//------------------------------------------------------------------------------
-void CMap::Damage(int xpos, int ypos, int width, int height)
-{
-	// Validate offsets!
-	int y2;
-	int x2;
-	int xc;
-
-	x2 = xpos + width;// + 15;
-	y2 = ypos + height;// + 15;
-
-	xpos = xpos >>4;		// Convert to blocks
-	ypos = ypos >>4;	
-	x2 = x2 >>4;
-	y2 = y2 >>4;
-
-	if (x2<0) return;
-	if (y2<0) return;
-	if (xpos<0) xpos = 0;	// Validate Left/Up Edge
-	if (ypos<0) ypos = 0;
-
-	if (xpos>=MAP_WIDTH) return;		// Validate Right/Down Edge
-	if (ypos>=MAP_HEIGHT) return;
-	if (x2>=MAP_WIDTH) x2 = MAP_WIDTH-1;
-	if (y2>=MAP_HEIGHT) y2 = MAP_HEIGHT-1;
-
-	ypos *= MAP_WIDTH;	// Get map offset
-	y2 *= MAP_WIDTH;
-
-	for (; ypos<= y2; ypos+=MAP_WIDTH)	// Do Y
-	{
-
-		for (xc = xpos; xc <= x2; xc++)	// Do X
-		{
-			m_Damage[ypos+xc] = -1;			// Damage Part
-		}
-	}
 }
 
 //------------------------------------------------------------------------------
@@ -776,7 +701,7 @@ int CMap::GetRightEdge(BOXPOS *bpos)
 //!
 //! 	\return The box. 0 = Error occured (too many boxes on screen)
 //------------------------------------------------------------------------------
-BOXPOS *CMap::GetBox( void )
+BOXPOS *CMap::GetBox()
 {
 	BOXPOS *bpos;
 
@@ -793,7 +718,7 @@ BOXPOS *CMap::GetBox( void )
 //------------------------------------------------------------------------------
 //! \brief Cycle the map borders
 //------------------------------------------------------------------------------
-void CMap::CycleBorder(void)
+void CMap::CycleBorder()
 {
 	int cnt;
 	short first_item;
@@ -809,13 +734,6 @@ void CMap::CycleBorder(void)
 		last_pos = this_pos;
 	}
 	m_MapData[last_pos] = first_item;
-
-	// Damage the items
-	for (cnt=0; cnt<(NUM_CYCLES); cnt++)
-	{
-		m_Damage[cycle_table[cnt]] = -1;
-	}
-
 }
 
 //------------------------------------------------------------------------------
@@ -832,8 +750,5 @@ void CMap::LoadSwapMap( int mapid )
 
 	LoadMap( ld->alt_map_id );
 	LoadBox( ld->alt_pos_id );
-
-	DamageAll();
-
 }
 

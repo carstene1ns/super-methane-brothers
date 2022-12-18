@@ -5,14 +5,15 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
 // Methane Brothers Object lists (Source File)
 //------------------------------------------------------------------------------
 
-#include <cstdio>
-#include <cstdlib>
+#include "precomp.h"
 #include "objlist.h"
 #include "global.h"
 #include "player.h"
@@ -43,7 +44,7 @@ CLinkObject::~CLinkObject()
 //!
 //! (Object links are not cleared)
 //------------------------------------------------------------------------------
-void CLinkObject::Reset( void )
+void CLinkObject::Reset()
 {
 	m_XPos = m_YPos = m_OldXPos = m_OldYPos = m_Dir = 0;
 	m_Frame = m_XInert = m_XPower = m_XMass = m_Max_XSpeed = 0;
@@ -60,7 +61,7 @@ void CLinkObject::Reset( void )
 //------------------------------------------------------------------------------
 //! \brief Delete this object. (Use this is preference of clearing obj_type)
 //------------------------------------------------------------------------------
-void CLinkObject::DeleteObject(void)
+void CLinkObject::DeleteObject()
 {
 	m_Type = OBJ_DEAD;
 // The below line was removed because, in certain cases, the object is
@@ -74,7 +75,7 @@ void CLinkObject::DeleteObject(void)
 //!
 //! DOES NOTHING
 //------------------------------------------------------------------------------
-void CLinkObject::Do(void)
+void CLinkObject::Do()
 {
 
 }
@@ -84,7 +85,7 @@ void CLinkObject::Do(void)
 //!
 //! DRAWS m_Frame
 //------------------------------------------------------------------------------
-void CLinkObject::Draw(void)
+void CLinkObject::Draw()
 {
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
 
@@ -98,7 +99,7 @@ void CLinkObject::Draw(void)
 //! Only use this function to destroy an object if the main objectlist
 //!  is also being cleared.
 //------------------------------------------------------------------------------
-void CLinkObject::UnLink( void )
+void CLinkObject::UnLink()
 {
 	if (m_pListBase)
 	{
@@ -127,7 +128,7 @@ void CLinkObject::UnLink( void )
 //! This function uses m_pListBase to attach to\n
 //! (This object MUST already be unlinked)
 //------------------------------------------------------------------------------
-void CLinkObject::Link( void )
+void CLinkObject::Link()
 {
 	if (m_pListBase)					// Must be valid
 	{
@@ -299,7 +300,7 @@ void CLinkObject::Animate( int rate )
 //------------------------------------------------------------------------------
 //! \brief Set an object to move left
 //------------------------------------------------------------------------------
-void CLinkObject::SetMoveLeft( void )
+void CLinkObject::SetMoveLeft()
 {
 	m_XInert = m_XInert - m_XPower;
 	if (m_XInert < (-m_Max_XSpeed) )
@@ -312,7 +313,7 @@ void CLinkObject::SetMoveLeft( void )
 //------------------------------------------------------------------------------
 //! \brief Set an object to move right
 //------------------------------------------------------------------------------
-void CLinkObject::SetMoveRight( void )
+void CLinkObject::SetMoveRight()
 {
 	m_XInert = m_XInert + m_XPower;
 	if (m_XInert > m_Max_XSpeed )
@@ -326,7 +327,7 @@ void CLinkObject::SetMoveRight( void )
 //------------------------------------------------------------------------------
 //! \brief Set an object to move up (Sets m_Y_Flag)
 //------------------------------------------------------------------------------
-void CLinkObject::SetMoveUp( void )
+void CLinkObject::SetMoveUp()
 {
 	m_YInert = m_YInert - m_YPower;
 	if (m_YInert < (-m_Max_YSpeed) )
@@ -339,7 +340,7 @@ void CLinkObject::SetMoveUp( void )
 //------------------------------------------------------------------------------
 //! \brief Set an object to move down
 //------------------------------------------------------------------------------
-void CLinkObject::SetMoveDown( void )
+void CLinkObject::SetMoveDown()
 {
 	m_YInert = m_YInert + m_YPower;
 	if (m_YInert > m_Max_YSpeed )
@@ -351,7 +352,7 @@ void CLinkObject::SetMoveDown( void )
 //------------------------------------------------------------------------------
 //! \brief Move the object using the inertias (Y Axis)
 //------------------------------------------------------------------------------
-void CLinkObject::DoYInertia( void )
+void CLinkObject::DoYInertia()
 {
 	int delta;
 	if (m_YInert != m_YCentre)			// is not terminal velocity?
@@ -377,7 +378,7 @@ void CLinkObject::DoYInertia( void )
 //------------------------------------------------------------------------------
 //! \brief Move the object using the inertias (X Axis)
 //------------------------------------------------------------------------------
-void CLinkObject::DoXInertia( void )
+void CLinkObject::DoXInertia()
 {
 	int delta;
 	if (m_XInert)		// Only need to do if the object is moving
@@ -405,7 +406,7 @@ void CLinkObject::DoXInertia( void )
 //! The oldxpos, xpos, oldypos, ypos members are used for the check\n
 //! m_State flags used: UP,DOWN
 //------------------------------------------------------------------------------
-void CLinkObject::DoYCheck( void )
+void CLinkObject::DoYCheck()
 {
 	int delta;
 	m_State = m_State & (~STATE_VERT);
@@ -444,7 +445,7 @@ void CLinkObject::DoYCheck( void )
 //! The oldxpos, xpos, oldypos, ypos members are used for the check\n
 //! m_State flags used: LEFT,RIGHT
 //------------------------------------------------------------------------------
-void CLinkObject::DoXCheck( void )
+void CLinkObject::DoXCheck()
 {
 	int delta;
 	m_State = m_State & (~STATE_HORIZ);
@@ -476,7 +477,7 @@ void CLinkObject::DoXCheck( void )
 //! This function calls ::CheckPos on completion\n
 //! m_State flags used: LEFT,RIGHT,UP,DOWN
 //------------------------------------------------------------------------------
-void CLinkObject::MoveObject( void )
+void CLinkObject::MoveObject()
 {
 	m_OldXPos = m_XPos;
 	m_OldYPos = m_YPos;
@@ -519,7 +520,7 @@ void CLinkObject::MoveObject( void )
 //! This function calls ::CheckPos() on completion\n
 //! m_State flags used: UP,DOWN
 //------------------------------------------------------------------------------
-void CLinkObject::MoveObject_Y( void )
+void CLinkObject::MoveObject_Y()
 {
 	m_OldYPos = m_YPos;
 
@@ -536,7 +537,7 @@ void CLinkObject::MoveObject_Y( void )
 //!	\return New m_YPos to place the object\n
 //!		CBM_NOTINWALL = Did not hit a wall
 //------------------------------------------------------------------------------
-int CLinkObject::CheckDown( void )
+int CLinkObject::CheckDown()
 {
 	int yp;
 
@@ -555,7 +556,7 @@ int CLinkObject::CheckDown( void )
 //!	\return New m_YPos to place the object\n
 //!	CBM_NOTINWALL = Did not hit a wall
 //------------------------------------------------------------------------------
-int CLinkObject::CheckUp( void )
+int CLinkObject::CheckUp()
 {
 	int yp;
 
@@ -573,7 +574,7 @@ int CLinkObject::CheckUp( void )
 //!	\return New m_XPos to place the object\n
 //!	CBM_NOTINWALL = Did not hit a wall
 //------------------------------------------------------------------------------
-int CLinkObject::CheckLeft( void )
+int CLinkObject::CheckLeft()
 {
 	int xp;
 
@@ -592,7 +593,7 @@ int CLinkObject::CheckLeft( void )
 //!	\return New m_XPos to place the object\n
 //!	CBM_NOTINWALL = Did not hit a wall
 //------------------------------------------------------------------------------
-int CLinkObject::CheckRight( void )
+int CLinkObject::CheckRight()
 {
 	int xp;
 
@@ -610,7 +611,7 @@ int CLinkObject::CheckRight( void )
 //!
 //! 	\return 0 = Did not hit a wall
 //------------------------------------------------------------------------------
-BOXPOS *CLinkObject::CheckHitWall( void )
+BOXPOS *CLinkObject::CheckHitWall()
 {
 	return m_pGame->m_Map.CheckHitWall(m_XPos+m_X1,
 		m_YPos+m_Y1, m_X2, m_Y2, m_Flags & FLAG_HARDWALL);
@@ -744,7 +745,7 @@ void CLinkObject::InitMovement( OBJMOVE &zmove )
 //------------------------------------------------------------------------------
 //! \brief Move the object left and right, turning at walls
 //------------------------------------------------------------------------------
-void CLinkObject::DirWalk( void )
+void CLinkObject::DirWalk()
 {
 	if (m_State&STATE_LEFT) m_Dir = DIR_RIGHT;
 	if (m_State&STATE_RIGHT) m_Dir = DIR_LEFT;
@@ -761,7 +762,7 @@ void CLinkObject::DirWalk( void )
 //------------------------------------------------------------------------------
 //! \brief Fly the object left and right, up and down, turning at walls
 //------------------------------------------------------------------------------
-void CLinkObject::DirFly( void )
+void CLinkObject::DirFly()
 {
 	if (!m_YDir)	// Going Up?
 	{
@@ -864,7 +865,7 @@ CPlayerObj* CLinkObject::HitPlayer( int immune_flag )
 //!
 //! 	\return Pointer to the link object (IE the player)
 //------------------------------------------------------------------------------
-CPlayerObj* CLinkObject::CheckKillPlayer( void )
+CPlayerObj* CLinkObject::CheckKillPlayer()
 {
 	CPlayerObj *pobj = HitPlayer(1);
 	if (pobj)
@@ -1002,7 +1003,7 @@ CObjectList::~CObjectList()
 //------------------------------------------------------------------------------
 //! \brief Delete all the objects in the objectlist
 //------------------------------------------------------------------------------
-void CObjectList::DeleteAll( void )
+void CObjectList::DeleteAll()
 {
 	CLinkObject *pobj;
 	CLinkObject *pnext;
@@ -1046,7 +1047,7 @@ void CObjectList::Attach(CLinkObject *objptr, int type, CGame *gptr )
 //! Calls CLinkObject->Draw()\n
 //! DO NOT CLEAR m_Type
 //------------------------------------------------------------------------------
-void CObjectList::DrawAll( void )
+void CObjectList::DrawAll()
 {
 
 	CLinkObject *pobj;
@@ -1067,7 +1068,7 @@ void CObjectList::DrawAll( void )
 //! Calls CLinkObject->Do()\n
 //! Clear m_Type to delete an object (the object will be automaticaly unlinked)
 //------------------------------------------------------------------------------
-void CObjectList::DoAll( void )
+void CObjectList::DoAll()
 {
 	CLinkObject *pobj;
 	CLinkObject *pnext;
@@ -1107,7 +1108,7 @@ CLinkObject *CObjectList::FindFirst(int type)
 //------------------------------------------------------------------------------
 //! \brief Fly to the closest player
 //------------------------------------------------------------------------------
-void CLinkObject::Fly2ClosestPlayer( void )
+void CLinkObject::Fly2ClosestPlayer()
 {
 	CPlayerObj *pobj;
 	int diff_x;

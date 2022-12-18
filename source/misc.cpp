@@ -5,14 +5,15 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
 // Methane Brothers Misc Objects (Source File)
 //------------------------------------------------------------------------------
 
-#include <cstdio>
-#include <cstdlib>
+#include "precomp.h"
 #include "misc.h"
 #include "global.h"
 #include "bitgroup.h"
@@ -21,61 +22,6 @@
 #include "player.h"
 #include "goodie.h"
 #include "gasobj.h"
-
-//------------------------------------------------------------------------------
-// Misc Global Data
-//------------------------------------------------------------------------------
-METHANE_RGB StdPalette[SCR_COLS] =
-	{
-		{0x00,0x00,0x00},{0x53,0xCF,0xFF},
-		{0x43,0xAF,0xEF},{0x33,0x8F,0xDF},
-		{0xE3,0xB7,0xDF},{0xB7,0x6F,0xB7},
-		{0x87,0x37,0x8F},{0x53,0x13,0x67},
-		{0x57,0xFF,0x00},{0x27,0x6F,0xCF},
-		{0x33,0xC7,0x00},{0x1B,0x53,0xBF},
-		{0x17,0x93,0x00},{0x13,0x3B,0xB3},
-		{0x07,0x5F,0x00},{0x0B,0x23,0x93},
-		{0xF3,0xCF,0xD7},{0x07,0x13,0x73},
-		{0x00,0x07,0x53},{0x00,0x00,0x33},
-		{0xDB,0x93,0x9B},{0x00,0x2B,0x00},
-		{0x9B,0x37,0x17},{0x83,0x27,0x0F},
-		{0xC7,0x63,0x63},{0x6F,0x17,0x07},
-		{0x5B,0x0B,0x07},{0x47,0x07,0x00},
-		{0xAF,0x47,0x37},{0x00,0x00,0x00},
-		{0x2B,0x00,0x3F},{0xFF,0xFF,0xFF},
-
-
-{0x00,0x00,0x00},{0x00,0xA3,0xFF},{0x00,0x93,0xE7},{0x00,0x83,0xCF},
-{0xB3,0x73,0xDF},{0x8B,0x4B,0xBF},{0x67,0x27,0xA3},{0x47,0x0F,0x87},
-{0x8B,0xBF,0x00},{0x00,0x73,0xB7},{0x5F,0x97,0x00},{0x00,0x63,0x9F},
-{0x3F,0x73,0x00},{0x00,0x53,0x87},{0x23,0x4F,0x00},{0x00,0x43,0x6F},
-{0xF3,0xCF,0x97},{0x00,0x33,0x57},{0x00,0x23,0x3F},{0x00,0x17,0x27},
-{0xDB,0xB3,0x77},{0x0F,0x2B,0x00},{0x8F,0x6F,0x2B},{0x73,0x57,0x17},
-{0xC7,0x9F,0x5B},{0x57,0x43,0x0B},{0x3B,0x2F,0x00},{0x23,0x1B,0x00},
-{0xAB,0x87,0x3F},{0x00,0x00,0x00},{0x2B,0x00,0x6B},{0xFF,0xFF,0xFF}
-	
-	};
-
-
-METHANE_RGB TitlePalette[32] =
-	{
-		{0x4B,0x00,0x5B},{0x53,0xC3,0xF3},
-		{0x43,0xA3,0xE3},{0x33,0x83,0xD3},
-		{0x23,0x63,0xC3},{0x13,0x53,0xB3},
-		{0x13,0x33,0xB3},{0x00,0x23,0x93},
-		{0x00,0x13,0x73},{0x00,0x00,0x53},
-		{0x00,0x00,0x33},{0x00,0xB7,0x00},
-		{0x00,0x8F,0x00},{0x00,0x6B,0x00},
-		{0x00,0x47,0x00},{0x00,0x23,0x00},
-		{0xF3,0xC3,0xD3},{0xD3,0x93,0x93},
-		{0xC3,0x63,0x63},{0xA3,0x43,0x33},
-		{0x93,0x33,0x13},{0x83,0x23,0x00},
-		{0x63,0x13,0x00},{0x53,0x00,0x00},
-		{0x00,0x73,0x00},{0x00,0x00,0x00},
-		{0x93,0x43,0x93},{0x83,0x33,0x83},
-		{0x73,0x23,0x73},{0x53,0x13,0x63},
-		{0x33,0x13,0x43},{0xFF,0xFF,0xFF}
-	};
 
 //------------------------------------------------------------------------------
 // The End Credits
@@ -310,7 +256,7 @@ CNumRiseObj::CNumRiseObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the number rising object
 //------------------------------------------------------------------------------
-void CNumRiseObj::Draw( void )
+void CNumRiseObj::Draw()
 {
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos );
 }
@@ -318,7 +264,7 @@ void CNumRiseObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CNumRiseObj::Do( void )
+void CNumRiseObj::Do()
 {
 	m_Delay++;
 	if (m_Delay>=NUMRISELENGTH)
@@ -360,7 +306,7 @@ CRFontObj::CRFontObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the rainbow font object
 //------------------------------------------------------------------------------
-void CRFontObj::Draw( void )
+void CRFontObj::Draw()
 {
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos, GFX_NOWRAP );
 }
@@ -368,7 +314,7 @@ void CRFontObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CRFontObj::Do( void )
+void CRFontObj::Do()
 {
 	switch (m_Command)
 	{
@@ -407,7 +353,7 @@ void CRFontObj::SetRiser( int frame, int xpos, int yoffset, int delay )
 //------------------------------------------------------------------------------
 //! \brief Do the object initial rising to the centre of the screen
 //------------------------------------------------------------------------------
-void CRFontObj::DoCmdUp1(void)
+void CRFontObj::DoCmdUp1()
 {
 	if (m_Delay)	// On pause?
 	{
@@ -430,7 +376,7 @@ void CRFontObj::DoCmdUp1(void)
 //------------------------------------------------------------------------------
 //! \brief Do the object wobbling
 //------------------------------------------------------------------------------
-void CRFontObj::DoCmdWobble(void)
+void CRFontObj::DoCmdWobble()
 {
 	int offset;
 
@@ -449,7 +395,7 @@ void CRFontObj::DoCmdWobble(void)
 //------------------------------------------------------------------------------
 //! \brief Do the object rising off the screen
 //------------------------------------------------------------------------------
-void CRFontObj::DoCmdUp2(void)
+void CRFontObj::DoCmdUp2()
 {
 	m_YInert++;
 	if (m_YInert>RFONT_RISE_RATE) m_YInert = RFONT_RISE_RATE;		// Speed up to 8
@@ -477,7 +423,7 @@ CTubeObj::CTubeObj()
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CTubeObj::LoadGfx( void )
+void CTubeObj::LoadGfx()
 {
 	m_pGame->m_Sprites.Load(SPR_TUBE);
 }
@@ -512,7 +458,7 @@ void CRealDayObj::Setup( int xpos, int ypos )
 //------------------------------------------------------------------------------
 //! \brief Draw the sucker object
 //------------------------------------------------------------------------------
-void CRealDayObj::Draw( void )
+void CRealDayObj::Draw()
 {
 	m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos, GFX_NOWRAP );
 }
@@ -520,7 +466,7 @@ void CRealDayObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CRealDayObj::Do( void )
+void CRealDayObj::Do()
 {
 	SetMoveUp();
 	DoYInertia();
@@ -585,7 +531,7 @@ void CDayObj::Setup(int xpos, int ypos)
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CDayObj::Do( void )
+void CDayObj::Do()
 {
 	int flag;
 	CPlayerObj *pobj;
@@ -741,7 +687,7 @@ CCardObj::CCardObj()
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CCardObj::Do( void )
+void CCardObj::Do()
 {
 
 	CPlayerObj *pobj;
@@ -775,7 +721,7 @@ void CCardObj::Do( void )
 //!
 //! 	\return the mask (1,2,4,8)
 //------------------------------------------------------------------------------
-int CCardObj::GetCardMask( void )
+int CCardObj::GetCardMask()
 {
 	return (conv_card_id[m_CardType]);
 }
@@ -844,7 +790,7 @@ void COilObj::Setup(int xpos, int ypos)
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void COilObj::Do( void )
+void COilObj::Do()
 {
 	int offset;
 	MoveObject();
@@ -937,7 +883,7 @@ void CWaterObj::Setup(int xpos, int ypos)
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CWaterObj::Do( void )
+void CWaterObj::Do()
 {
 	MoveObject();
 	if (m_State&STATE_LEFT) SetMoveRight();
@@ -1025,7 +971,7 @@ void CFireObj::Setup(int xpos, int ypos)
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CFireObj::Do( void )
+void CFireObj::Do()
 {
 	int offset;
 	MoveObject();
@@ -1124,7 +1070,7 @@ void CMarbleObj::Setup(int xpos, int ypos)
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CMarbleObj::Do( void )
+void CMarbleObj::Do()
 {
 	MoveObject();
 	if (m_State&STATE_LEFT) SetMoveRight();
@@ -1201,7 +1147,7 @@ CNoteManObj::CNoteManObj()
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CNoteManObj::LoadGfx( void )
+void CNoteManObj::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_NOTES_G1, SPR_NOTES_MAN2);
 }
@@ -1209,7 +1155,7 @@ void CNoteManObj::LoadGfx( void )
 //------------------------------------------------------------------------------
 //! \brief Do the noteman releasing notes
 //------------------------------------------------------------------------------
-void CNoteManObj::ReleaseNotes( void )
+void CNoteManObj::ReleaseNotes()
 {
 	m_pGame->RandGoodie( m_XPos, m_YPos, GOODIE_NOTES, m_TickTock );
 	m_TickTock^=1;
@@ -1219,7 +1165,7 @@ void CNoteManObj::ReleaseNotes( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CNoteManObj::Do( void )
+void CNoteManObj::Do()
 {
 
 	CPlayerObj *pobj;
@@ -1276,7 +1222,7 @@ CTreasSpotObj::CTreasSpotObj()
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CTreasSpotObj::Do( void )
+void CTreasSpotObj::Do()
 {
 	int type;
 	CGasObj *pobj;
@@ -1326,7 +1272,7 @@ CCardRoomObj::CCardRoomObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the bug object
 //------------------------------------------------------------------------------
-void CCardRoomObj::Draw( void )
+void CCardRoomObj::Draw()
 {
 	m_pGame->m_Sprites.Draw( anm_card_spade[m_FrameOffset1], 16*2, 112 );
 	m_pGame->m_Sprites.Draw( anm_card_heart[m_FrameOffset2], 16*7, 112 );
@@ -1337,14 +1283,14 @@ void CCardRoomObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CCardRoomObj::LoadGfx( void )
+void CCardRoomObj::LoadGfx()
 {
 }
 
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CCardRoomObj::Do( void )
+void CCardRoomObj::Do()
 {
 	int delay;
 	m_Counter--;
@@ -1402,7 +1348,7 @@ CSwitchObj::CSwitchObj()
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CSwitchObj::Do( void )
+void CSwitchObj::Do()
 {
 	CPlayerObj *pobj;
 
@@ -1469,7 +1415,7 @@ CKeyRoomObj::CKeyRoomObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the bug object
 //------------------------------------------------------------------------------
-void CKeyRoomObj::Draw( void )
+void CKeyRoomObj::Draw()
 {
 	m_pGame->m_Sprites.Draw( SPR_KEY_1, 0x80, 0x50 );
 	if (m_KeyType>=2)
@@ -1514,7 +1460,7 @@ void CKeyRoomObj::Setup( int keytype )
 //------------------------------------------------------------------------------
 //! \brief Load the object graphics
 //------------------------------------------------------------------------------
-void CKeyRoomObj::LoadGfx( void )
+void CKeyRoomObj::LoadGfx()
 {
 	m_pGame->m_Sprites.LoadRange(SPR_KEY_1, SPR_KEY_4);
 }
@@ -1522,7 +1468,7 @@ void CKeyRoomObj::LoadGfx( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CKeyRoomObj::Do( void )
+void CKeyRoomObj::Do()
 {
 	m_Counter--;
 
@@ -1553,7 +1499,7 @@ CDropOffObj::CDropOffObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the object
 //------------------------------------------------------------------------------
-void CDropOffObj::Draw( void )
+void CDropOffObj::Draw()
 {
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos, GFX_NOWRAP );
 }
@@ -1561,7 +1507,7 @@ void CDropOffObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CDropOffObj::Do( void )
+void CDropOffObj::Do()
 {
 	m_YPos+=8;
 	if (m_YPos > (SCR_HEIGHT+16))
@@ -1585,7 +1531,7 @@ CBalloonObj::CBalloonObj()
 //------------------------------------------------------------------------------
 //! \brief Draw the object
 //------------------------------------------------------------------------------
-void CBalloonObj::Draw( void )
+void CBalloonObj::Draw()
 {
 	if (m_Frame) m_pGame->m_Sprites.Draw( m_Frame, m_XPos, m_YPos, GFX_NOWRAP );
 }
@@ -1593,7 +1539,7 @@ void CBalloonObj::Draw( void )
 //------------------------------------------------------------------------------
 //! \brief Do the object
 //------------------------------------------------------------------------------
-void CBalloonObj::Do( void )
+void CBalloonObj::Do()
 {
 	m_YPos-=m_Rate;
 	if (m_YPos < (-64))

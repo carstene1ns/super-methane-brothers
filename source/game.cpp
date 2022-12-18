@@ -5,16 +5,15 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
 // Methane Brothers Main Game (Source File)
 //------------------------------------------------------------------------------
 
-#include <cstdlib>
-#include <cstdio>
-#include <cctype>
-#include <cstring>
+#include "precomp.h"
 #include "global.h"
 #include "gfxdef.h"
 #include "game.h"
@@ -72,14 +71,12 @@ CGame::CGame()
 //! (This function MUST be called before other CGame functions)
 //!
 //! 	\param tptr = The main target
-//!	\param sptr = The main screen bitmap
 //!	\param jptr1 = Joystick 1
 //!	\param jptr2 = Joystick 2
 //------------------------------------------------------------------------------
-void CGame::Init(CGameTarget *tptr, char *sptr, JOYSTICK *jptr1, JOYSTICK *jptr2)
+void CGame::Init(CGameTarget *tptr, JOYSTICK *jptr1, JOYSTICK *jptr2)
 {
 	m_pGameTarget = tptr;
-	m_pBitmap = sptr;
 	m_pJoy1 = jptr1;
 	m_pJoy2 = jptr2;
 	m_Sprites.m_pGame = this;
@@ -92,7 +89,7 @@ void CGame::Init(CGameTarget *tptr, char *sptr, JOYSTICK *jptr1, JOYSTICK *jptr2
 //------------------------------------------------------------------------------
 //! \brief Start the main game 
 //------------------------------------------------------------------------------
-void CGame::StartGame(void)
+void CGame::StartGame()
 {
 	m_LevelNumber = 1;
 	m_CurrentTune = -1;
@@ -103,7 +100,7 @@ void CGame::StartGame(void)
 //------------------------------------------------------------------------------
 //! \brief The Program Main Loop 
 //------------------------------------------------------------------------------
-void CGame::MainLoop(void)
+void CGame::MainLoop()
 {
 	m_pSound->UpdateModule();
 
@@ -135,7 +132,7 @@ void CGame::MainLoop(void)
 //------------------------------------------------------------------------------
 //! \brief The Game Loop
 //------------------------------------------------------------------------------
-void CGame::GameLoop(void)
+void CGame::GameLoop()
 {
 	// Cheat Mode Controller
 
@@ -170,7 +167,7 @@ void CGame::GameLoop(void)
 		if (m_FadeFlag==FADE_FLAG_WAIT) return;
 	}
 
-	m_Map.Draw(m_pBitmap);
+	m_Map.Draw();
 
 	m_ExtraList.DrawAll();
 	m_GoodieList.DrawAll();
@@ -669,7 +666,7 @@ void CGame::StartFRKObject(int type, int xpos, int ypos)
 //------------------------------------------------------------------------------
 //! \brief Initialise the powerup list (used by MakePowerUp and UsePowerUp)
 //------------------------------------------------------------------------------
-void CGame::InitPowerUp(void)
+void CGame::InitPowerUp()
 {
 	m_PUP_Cnt = 0;
 }
@@ -699,7 +696,7 @@ void CGame::MakePowerUp(int type, int xpos, int ypos)
 //------------------------------------------------------------------------------
 //! \brief Choose which powerup to use in the level
 //------------------------------------------------------------------------------
-void CGame::UsePowerUp(void)
+void CGame::UsePowerUp()
 {
 	int power_num;
 	PUPTYPE *pptr;
@@ -757,7 +754,7 @@ void CGame::MakeNumRise(int xpos, int ypos, int frame)
 //------------------------------------------------------------------------------
 //! \brief Load the goodie graphics
 //------------------------------------------------------------------------------
-void CGame::LoadGoodieGfx( void )
+void CGame::LoadGoodieGfx()
 {
 	m_Sprites.LoadRange(SPR_GOOD_BOAT, SPR_GOOD_KITE);
 	m_Sprites.LoadRange(SPR_FOOD_1, SPR_FOOD_13);
@@ -941,7 +938,7 @@ CPlayerObj *CGame::GetPlayer( int player_object_id)
 //! NOTE: The Player Objects must already exist.\n
 //! The sprite graphics are also loaded
 //------------------------------------------------------------------------------
-void CGame::InitSpriteList(void)
+void CGame::InitSpriteList()
 {
 	int tune;
 	int xpos,ypos,type;
@@ -1088,7 +1085,7 @@ void CGame::DrawPlayerInfo( CPlayerObj *pobj, PLAYER_STATUS *play )
 //------------------------------------------------------------------------------
 //! \brief Draw the players information (ie score, lives)
 //------------------------------------------------------------------------------
-void CGame::DrawPlayersInfo(void)
+void CGame::DrawPlayersInfo()
 {
 	CPlayerObj *play;
 	int lower;
@@ -1185,7 +1182,7 @@ void CGame::SetLevelName( int id )
 //------------------------------------------------------------------------------
 //! \brief Check to see if the level has been completed
 //------------------------------------------------------------------------------
-void CGame::CheckComplete(void)
+void CGame::CheckComplete()
 {
 	int nextlev;
 	CPlayerObj *pobj;
@@ -1289,7 +1286,7 @@ void CGame::CheckComplete(void)
 //------------------------------------------------------------------------------
 //! \brief Go to the next level
 //------------------------------------------------------------------------------
-void CGame::NextLevel(void)
+void CGame::NextLevel()
 {
 	int num;
 	CPlayerObj *pobj;
@@ -1370,7 +1367,7 @@ void CGame::NextLevel(void)
 //!
 //! 	\return 0 = Not Completed. Else = Has been Completed
 //------------------------------------------------------------------------------
-int CGame::IsComplete(void)
+int CGame::IsComplete()
 {
 	CGasObj *gasobj;
 	CLinkObject *linkobj;
@@ -1468,7 +1465,7 @@ void CGame::CreateCloud( int xpos, int ypos )
 //------------------------------------------------------------------------------
 //! \brief Check to see if doo dah day should appear if the player takes too long
 //------------------------------------------------------------------------------
-void CGame::CheckDooDahDay(void)
+void CGame::CheckDooDahDay()
 {
 	if (m_BonusLevelFlag || m_BossLevel) return;
 
@@ -1526,7 +1523,7 @@ void CGame::CheckDooDahDay(void)
 //------------------------------------------------------------------------------
 //! \brief Check for extra things
 //------------------------------------------------------------------------------
-void CGame::CheckExtras(void)
+void CGame::CheckExtras()
 {
 	if (m_FlowerFlag)
 	{
@@ -1629,7 +1626,7 @@ void CGame::DrawScrFont(int ypos, const char *text, int xpos)
 //------------------------------------------------------------------------------
 //! \brief Check for extra things version2 (called in a different place)
 //------------------------------------------------------------------------------
-void CGame::CheckExtras2(void)
+void CGame::CheckExtras2()
 {
 	if (m_CountDown>=0)		// Number countdown wanted?
 	{
@@ -1679,7 +1676,7 @@ void CGame::SetBonusLevel( int lvl_id )
 //------------------------------------------------------------------------------
 //! \brief Enter a bonus level
 //------------------------------------------------------------------------------
-void CGame::EnterBonusLevel(void)
+void CGame::EnterBonusLevel()
 {
 	int oldlevel;
 	int old_boss_flag;
@@ -1788,7 +1785,7 @@ void CGame::SetTreasure(int xpos, int ypos, int rtype)
 //!
 //! 	\return The number of baddies
 //------------------------------------------------------------------------------
-int CGame::CountBaddies(void)
+int CGame::CountBaddies()
 {
 	CGasObj *gasobj;
 	CLinkObject *linkobj;
@@ -1823,7 +1820,7 @@ int CGame::CountBaddies(void)
 //------------------------------------------------------------------------------
 //! \brief Check to see if the players should be egged (ie player missed the card)
 //------------------------------------------------------------------------------
-void CGame::CheckForEgg(void)
+void CGame::CheckForEgg()
 {
 	int cards;
 	int thecard;
@@ -1865,51 +1862,42 @@ void CGame::PlayModule(int id)
 }
 
 //------------------------------------------------------------------------------
-//! \brief Reset the palette back to normal
-//------------------------------------------------------------------------------
-void CGame::PalReset(void)
-{
-	FadePalette( 0, SCR_COLS, StdPalette, 256 );
-}
-
-//------------------------------------------------------------------------------
 //! \brief Control the colour fading
 //!
 //! 	\return 0 = Do not run the game main loop
 //------------------------------------------------------------------------------
-int CGame::ControlFade(void)
+int CGame::ControlFade()
 {
 	if (m_FadeType==FADE_COMPLETE) return 1;
 	switch (m_FadeType)
 	{
 		case FADE_NORMAL:
-			if (FadePalette( 0, SCR_COLS, StdPalette, 32 ))
+			if (Fade( 0.0f, 32 ))
 			{
 				m_FadeType = FADE_COMPLETE;
 			}
 			break;
 		case FADE_BLACK:
-			if (FadePaletteTo( 0, SCR_COLS, 0,0,0,32 ))
+			if (Fade( -1.0f,32 ))
 			{
 				m_FadeType = FADE_COMPLETE;
 			}
 			break;
 		case FADE_WHITE:
-			if (FadePaletteTo( 32, 32,255,255,255, 64 ))
+			if (Fade( 1.0f, 64 ))
 			{
 				m_FadeType = FADE_COMPLETE;
 			}
 			break;
 		case FADE_LEVELFADE:
-			if (FadePaletteTo( 0, SCR_COLS, 0,0,0,32 ))
+			if (Fade( -1.0f, 32 ))
 			{
 				m_FadeType = FADE_NORMAL;
 				m_FadeFlag = FADE_FLAG_CONTINUE;
-				FadePalette( 0, SCR_COLS, StdPalette, 16 );
 			}
 			break;
 		case FADE_TITLESCREEN:
-			if (FadePalette( 0, 32, TitlePalette, 32 ))
+			if (Fade( 0.0f, 32 ))
 			{
 				m_FadeType = FADE_COMPLETE;
 			}
@@ -1932,7 +1920,7 @@ int CGame::ControlFade(void)
 //------------------------------------------------------------------------------
 //! \brief The Completed game screen - main loop
 //------------------------------------------------------------------------------
-void CGame::CompletedLoop(void)
+void CGame::CompletedLoop()
 {
 	// -------
 
@@ -1966,7 +1954,7 @@ void CGame::CompletedLoop(void)
 		if (m_FadeFlag==FADE_FLAG_WAIT) return;
 	}
 
-	m_Map.Draw(m_pBitmap);
+	m_Map.Draw();
 
 	CreateBalloons();
 
@@ -1978,7 +1966,7 @@ void CGame::CompletedLoop(void)
 //------------------------------------------------------------------------------
 //! \brief Create the balloons for the completed screen
 //------------------------------------------------------------------------------
-void CGame::CreateBalloons(void)
+void CGame::CreateBalloons()
 {
 	m_BonusDelay--;
 	if (m_BonusDelay>0) return;
@@ -2017,7 +2005,7 @@ void CGame::DrawEndGfxItems(int xpos, int ypos, PARTYOFFS **party)
 //------------------------------------------------------------------------------
 //! \brief Draw the end credits
 //------------------------------------------------------------------------------
-void CGame::DrawEndCredits(void)
+void CGame::DrawEndCredits()
 {
 	int xpos;
 	int ypos;
@@ -2066,7 +2054,7 @@ void CGame::DrawEndCredits(void)
 //------------------------------------------------------------------------------
 //! \brief Initialise the title screen
 //------------------------------------------------------------------------------
-void CGame::InitTitleScreen(void)
+void CGame::InitTitleScreen()
 {
 	m_Map.LoadBlockSet(SPR_TITLE_DATA);
 	m_MainCommand = MC_TITLE;
@@ -2087,7 +2075,7 @@ void CGame::InitTitleScreen(void)
 //------------------------------------------------------------------------------
 //! \brief The title screen main loop
 //------------------------------------------------------------------------------
-void CGame::TitleScreenLoop(void)
+void CGame::TitleScreenLoop()
 {
 	m_MainCounter++;
 	if ( (m_pJoy1->fire) || (m_pJoy2->fire) )	// Game start?
@@ -2095,6 +2083,15 @@ void CGame::TitleScreenLoop(void)
 		InitGetPlayerNameScreen(m_pJoy2->fire);
 		return;
 	}
+
+	m_Map.Draw();
+	DrawScrFont( 116, "HOMEBREW", 220);
+	DrawScrFont( 130, GameVersionNumber, 200);
+	DrawScrFont( 200, "GAME LICENSE: GPL2");
+
+	DrawScrFont( 220, "PORTS: HTTPS://GIT.IO/METHANE");
+	DrawScrFont( 232, "ORIGINAL: HTTP://METHANE.SF.NET");
+	m_pGameTarget->RedrawScreen();
 
 	if (m_MainCounter == HISCREEN_SHOW_DELAY)	// Finished showing hiscores
 	{
@@ -2106,26 +2103,12 @@ void CGame::TitleScreenLoop(void)
 		InitHighScreen();
 	}
 
-	// When fading is not completed
-	if (m_FadeType!=FADE_COMPLETE)
-	{
-		// If fading, stop redrawing the window (save bus cycles)
-		m_Map.Draw(m_pBitmap);
-
-		DrawScrFont( 116, "HOMEBREW", 220);
-		DrawScrFont( 130, GameVersionNumber, 200);
-		DrawScrFont( 200, "GAME LICENSE: GPL2");
-
-		DrawScrFont( 220, "PORTS: HTTPS://GIT.IO/METHANE");
-		DrawScrFont( 232, "ORIGINAL: HTTP://METHANE.SF.NET");
-		m_pGameTarget->RedrawScreen();
-	}
 }
 
 //------------------------------------------------------------------------------
 //! \brief Initialise the game over (Called from the player object)
 //------------------------------------------------------------------------------
-void CGame::InitGameOver(void)
+void CGame::InitGameOver()
 {
 	m_GameOverFlag = 1;
 	m_FontList.DeleteAll();	// Delete all the fonts
@@ -2136,7 +2119,7 @@ void CGame::InitGameOver(void)
 //------------------------------------------------------------------------------
 //! \brief Do the game over loop
 //------------------------------------------------------------------------------
-void CGame::DoGameOverLoop(void)
+void CGame::DoGameOverLoop()
 {
 	m_GameOverFlag++;
 
@@ -2162,7 +2145,7 @@ void CGame::DoGameOverLoop(void)
 //------------------------------------------------------------------------------
 //! \brief A new game is about to start
 //------------------------------------------------------------------------------
-void CGame::InitNewGame(void)
+void CGame::InitNewGame()
 {
 	CPlayerObj *pobj;
 
@@ -2205,7 +2188,7 @@ void CGame::InitNewGame(void)
 //------------------------------------------------------------------------------
 //! \brief Initialise the high score table screen
 //------------------------------------------------------------------------------
-void CGame::InitHighScreen(void)
+void CGame::InitHighScreen()
 {
 	m_Map.LoadBlockSet(SPR_ENDBLOX_DATA);
 	m_MainCommand = MC_HIGHSCREEN;
@@ -2270,7 +2253,7 @@ HISCORES *CGame::InsertHiScore(int score, char *name)
 //------------------------------------------------------------------------------
 //! \brief Draw the high score table
 //------------------------------------------------------------------------------
-void CGame::DrawHighTable(void)
+void CGame::DrawHighTable()
 {
 	char text[32];
 	int cnt;
@@ -2291,7 +2274,7 @@ void CGame::DrawHighTable(void)
 //------------------------------------------------------------------------------
 //! \brief Redraw the screen only when needed
 //------------------------------------------------------------------------------
-void CGame::RedrawScrIfNeeded(void)
+void CGame::RedrawScrIfNeeded()
 {
 	if ( (m_FadeType!=FADE_COMPLETE) || (m_ScrChgFlag) )
 	{
@@ -2307,11 +2290,11 @@ void CGame::RedrawScrIfNeeded(void)
 //------------------------------------------------------------------------------
 //! \brief The high score screen main loop
 //------------------------------------------------------------------------------
-void CGame::HighScreenLoop(void)
+void CGame::HighScreenLoop()
 {
 	m_MainCounter++;
 
-	m_Map.Draw(m_pBitmap);
+	m_Map.Draw();
 
 	if ( (m_pJoy1->fire) || (m_pJoy2->fire) )	// Game start?
 	{
@@ -2335,132 +2318,39 @@ void CGame::HighScreenLoop(void)
 
 }
 
-//------------------------------------------------------------------------------
-//! \brief Fade a colour
-//!
-//! 	\param col_dest = Destination colour
-//! 	\param col_current = Current colour
-//!	\param speed = Fade speed
-//!
-//! 	\return The new colour
-//------------------------------------------------------------------------------
-unsigned char CGame::FadeColour( int col_dest, int col_current, int speed )
-{
-	if (col_current < col_dest)
-	{
-		col_current += speed;
-		if (col_current > col_dest) col_current = col_dest;
-	}else
-	{
-		col_current -= speed;
-		if (col_current < col_dest) col_current = col_dest;
-	}
-	return (unsigned char) col_current;
-}
 
 //------------------------------------------------------------------------------
-//! \brief Fade the palette
+//! \brief Control the global lighting
 //!
-//!	\param offset = colour offset
-//!	\param size = how many entries (must be less than the length of PALETTE_SIZE)
-//! 	\param srcpal = What to fade it to
+//! 	\param desired_light = Colour to fade to (-1.0 = Black. 0 = Normal. 1.0 = White)
 //!	\param speed = Fade speed 1 (slow) to 256 (fast)
 //!
 //! 	\return 0 = Still fading. Else Fade Completed
 //------------------------------------------------------------------------------
-int CGame::FadePalette( int offset, int size, METHANE_RGB *srcpal, int speed )
+int CGame::Fade( float desired_light, int speed )
 {
-	METHANE_RGB *destpal;
-	unsigned char col_src;
-	unsigned char col_dest;
 	int changeflag;
-	int cnt;
 
-	destpal = m_pGameTarget->m_rgbPalette + offset;
 	changeflag = 1;
-	for (cnt=0; cnt<size; cnt++, srcpal++, destpal++)
+
+	if (m_pGameTarget->m_Lighting < desired_light)
 	{
-		col_src = srcpal->red;
-		col_dest = destpal->red;
-
-		if (col_src!=col_dest)
+		m_pGameTarget->m_Lighting += (speed/256.0f);
+		if (m_pGameTarget->m_Lighting >=desired_light)
 		{
-			destpal->red = FadeColour( col_src, col_dest, speed );
+			m_pGameTarget->m_Lighting = desired_light;
+		}else
+		{
 			changeflag = 0;
 		}
-
-		col_src = srcpal->green;
-		col_dest = destpal->green;
-
-		if (col_src!=col_dest)
-		{
-			destpal->green = FadeColour( col_src, col_dest, speed );
-			changeflag = 0;
-		}
-
-		col_src = srcpal->blue;
-		col_dest = destpal->blue;
-
-		if (col_src!=col_dest)
-		{
-			destpal->blue = FadeColour( col_src, col_dest, speed );
-			changeflag = 0;
-		}
-	}
-
-	if (changeflag) m_pGameTarget->m_FadeChangeFlag = 0; else m_pGameTarget->m_FadeChangeFlag = 1;
-	return changeflag;
-}
-
-//------------------------------------------------------------------------------
-//! \brief Fade the palette Version 2
-//!
-//!	\param offset = colour offset
-//!	\param size = how many entries (must be less than the length of PALETTE_SIZE)
-//! 	\param red = Colour to fade to
-//! 	\param green = Colour to fade to
-//! 	\param blue = Colour to fade to
-//!	\param speed = Fade speed 1 (slow) to 256 (fast)
-//!
-//! 	\return 0 = Still fading. Else Fade Completed
-//------------------------------------------------------------------------------
-int CGame::FadePaletteTo( int offset, int size, unsigned char red,
-	unsigned char green,unsigned char blue, int speed )
-{
-	METHANE_RGB *destpal;
-	unsigned char col_src;
-	unsigned char col_dest;
-	int changeflag;
-	int cnt;
-
-	destpal = m_pGameTarget->m_rgbPalette + offset;
-	changeflag = 1;
-	for (cnt=0; cnt<size; cnt++, destpal++)
+	}else	if (m_pGameTarget->m_Lighting > desired_light)
 	{
-		col_src = red;
-		col_dest = destpal->red;
-
-		if (col_src!=col_dest)
+		m_pGameTarget->m_Lighting -= (speed/256.0f);
+		if (m_pGameTarget->m_Lighting <=desired_light)
 		{
-			destpal->red = FadeColour( col_src, col_dest, speed );
-			changeflag = 0;
-		}
-
-		col_src = green;
-		col_dest = destpal->green;
-
-		if (col_src!=col_dest)
+			m_pGameTarget->m_Lighting = desired_light;
+		}else
 		{
-			destpal->green = FadeColour( col_src, col_dest, speed );
-			changeflag = 0;
-		}
-
-		col_src = blue;
-		col_dest = destpal->blue;
-
-		if (col_src!=col_dest)
-		{
-			destpal->blue = FadeColour( col_src, col_dest, speed );
 			changeflag = 0;
 		}
 	}
@@ -2472,7 +2362,7 @@ int CGame::FadePaletteTo( int offset, int size, unsigned char red,
 //------------------------------------------------------------------------------
 //! \brief Toggle the Puff and Blow graphics.
 //------------------------------------------------------------------------------
-void CGame::TogglePuffBlow(void)
+void CGame::TogglePuffBlow()
 {
 	CPlayerObj *pobj;
 
@@ -2522,7 +2412,7 @@ void CGame::InitGetPlayerNameScreen(int player_two_flag)
 //------------------------------------------------------------------------------
 //! \brief Prepare editing name
 //------------------------------------------------------------------------------
-void CGame::PrepareEditName(void)
+void CGame::PrepareEditName()
 {
 	m_HiOffset = 0;
 	m_pJoy1->key = 0;
@@ -2536,13 +2426,13 @@ void CGame::PrepareEditName(void)
 //------------------------------------------------------------------------------
 //! \brief The get player name screen main loop
 //------------------------------------------------------------------------------
-void CGame::GetPlayerNameLoop(void)
+void CGame::GetPlayerNameLoop()
 {
 	char *nptr;
 	char let;
 	m_MainCounter++;
 
-	m_Map.Draw(m_pBitmap);
+	m_Map.Draw();
 
 	if (m_NameEditFadeUpFlag)
 	{
@@ -2658,7 +2548,7 @@ void CGame::EditName(JOYSTICK *pjoy, char *nptr)
 //------------------------------------------------------------------------------
 //! \brief Test to see if "Game Over" needs to be displayed
 //------------------------------------------------------------------------------
-void CGame::CheckForGameOver( void )
+void CGame::CheckForGameOver()
 {
 	if (m_GameOverFlag) return;
 	if (m_PlayerList.m_pFirst) return;	// Player still alive

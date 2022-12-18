@@ -5,6 +5,8 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
@@ -67,18 +69,18 @@ class CGame
 {
 public:
 	CGame();
-	void Init(CGameTarget *tptr, char *sptr, JOYSTICK *jptr1, JOYSTICK *jptr2);
-	void StartGame(void);
-	void MainLoop(void);
+	void Init(CGameTarget *tptr, JOYSTICK *jptr1, JOYSTICK *jptr2);
+	void StartGame();
+	void MainLoop();
 	void StartFRKObject(int type, int xpos, int ypos);
 	void MakeNumRise(int xpos, int ypos, int frame);
-	void LoadGoodieGfx( void );
+	void LoadGoodieGfx();
 	void RandGoodie(int xpos, int ypos, int gtype, int xinert, int yinert);
 	void RandGoodie(int xpos, int ypos, int gtype, int dir);
 	void MakeGoodie(int xpos, int ypos, int gtype, int gid, int xinert, int yinert);
 	void SetJumpExplode(int xpos, int ypos, int dir);
 	CPlayerObj *GetPlayer( int player_object_id );
-	void InitSpriteList(void);
+	void InitSpriteList();
 	int CreateMessage(int yoffset, const char *txt, int delay);
 	void SetLevelName( int id );
 	void SetBossDie( int xpos, int ypos );
@@ -86,60 +88,55 @@ public:
 	void SetAngryBaddies(int flag);
 	void InitFrkObject(CLinkObject *ptr, int type, int xpos, int ypos, CObjectList *objlist);
 	void SetBonusLevel( int lvl_id );
-	int CountBaddies(void);
-	void InitGameOver(void);
-	void InitHighScreen(void);
+	int CountBaddies();
+	void InitGameOver();
+	void InitHighScreen();
 	HISCORES *InsertHiScore(int score, char *name);
-	void TogglePuffBlow(void);
-	void InitGetPlayerNameScreen(int player_two_flag);
+	void TogglePuffBlow();
 
 private:
-	int FadePalette( int offset, int size, METHANE_RGB *srcpal, int speed );
-	unsigned char FadeColour( int col_dest, int col_current, int speed );
-	int FadePaletteTo( int offset, int size, unsigned char red,
-		unsigned char green,unsigned char blue, int speed );
-	void CheckForEgg(void);
-	void NextLevel(void);
-	void EnterBonusLevel(void);
+	int Fade( float desired_light, int speed );
+	void CheckForEgg();
+	void NextLevel();
+	void EnterBonusLevel();
 	void CreateSmallJump(int xpos, int ypos, int xinert, int yinert);
 	void DrawPlayerInfo( CPlayerObj *pobj, PLAYER_STATUS *play );
-	void DrawPlayersInfo(void);
-	void CheckComplete(void);
-	int IsComplete(void);
-	void CheckDooDahDay(void);
+	void DrawPlayersInfo();
+	void CheckComplete();
+	int IsComplete();
+	void CheckDooDahDay();
 	void MakePowerUp(int type, int xpos, int ypos);
-	void UsePowerUp(void);
-	void InitPowerUp(void);
-	void CheckExtras(void);
-	void CheckExtras2(void);
+	void UsePowerUp();
+	void InitPowerUp();
+	void CheckExtras();
+	void CheckExtras2();
 	void SetTreasure(int xpos, int ypos, int rtype);
 	void PlayModule(int id);
-	void PalReset(void);
-	void GameLoop(void);
-	int ControlFade(void);
-	void CompletedLoop(void);
-	void CreateBalloons(void);
-	void DrawEndCredits(void);
+	void GameLoop();
+	int ControlFade();
+	void CompletedLoop();
+	void CreateBalloons();
+	void DrawEndCredits();
 	void DrawEndGfxItems(int xpos, int ypos, PARTYOFFS **party);
 	void InitNewGame(int player_two_flag);
-	void InitTitleScreen(void);
-	void TitleScreenLoop(void);
-	void DoGameOverLoop(void);
-	void InitNewGame(void);
-	void HighScreenLoop(void);
+	void InitTitleScreen();
+	void TitleScreenLoop();
+	void DoGameOverLoop();
+	void InitNewGame();
+	void HighScreenLoop();
 	void DrawFont(int ypos, const char *text);
 	void DrawScrFont(int ypos, const char *text, int xpos = 0);
-	void DrawHighTable(void);
-	void RedrawScrIfNeeded(void);
-	void GetPlayerNameLoop(void);
+	void DrawHighTable();
+	void RedrawScrIfNeeded();
+	void InitGetPlayerNameScreen(int player_two_flag);
+	void GetPlayerNameLoop();
 	void EditName(JOYSTICK *pjoy, char *nptr);
-	void PrepareEditName(void);
-	void CheckForGameOver( void );
+	void PrepareEditName();
+	void CheckForGameOver();
 
 public:
 
 	CGameTarget	*m_pGameTarget;
-	char 		*m_pBitmap;
 	JOYSTICK	*m_pJoy1;
 	JOYSTICK	*m_pJoy2;
 	CSoundDrv	*m_pSound;

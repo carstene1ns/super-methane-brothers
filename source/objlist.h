@@ -5,6 +5,8 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
+ * Program WebSite: http://methane.sourceforge.net/index.html              *
+ *                                                                         *
  ***************************************************************************/
 
 //------------------------------------------------------------------------------
@@ -88,47 +90,47 @@ class CLinkObject
 public:
 	CLinkObject();
 	virtual ~CLinkObject();
-	void UnLink( void );
-	void Link( void );
+	void UnLink();
+	void Link();
 	void LinkBefore( CLinkObject *linkto );
 	void LinkAfter( CLinkObject *linkto );
-	void Reset( void );
-	void DeleteObject(void);
-	virtual void Do(void);
-	virtual void Draw(void);
+	void Reset();
+	void DeleteObject();
+	virtual void Do();
+	virtual void Draw();
 	void Animate( int rate );
 	void AnimateDir( int *seq_left, int *seq_right, int rate, int flags = 0 );
 	void AnimateXInert( int *seq_left, int *seq_right, int scale = 2 );
 	void SetAnim(int *seq_ptr);
-	void SetMoveLeft( void );
-	void SetMoveRight( void );
-	void SetMoveUp( void );
-	void SetMoveDown( void );
-	void MoveObject( void );
-	int CheckDown( void );
-	int CheckUp( void );
-	int CheckLeft( void );
-	int CheckRight( void );
-	BOXPOS *CheckHitWall( void );
+	void SetMoveLeft();
+	void SetMoveRight();
+	void SetMoveUp();
+	void SetMoveDown();
+	void MoveObject();
+	int CheckDown();
+	int CheckUp();
+	int CheckLeft();
+	int CheckRight();
+	BOXPOS *CheckHitWall();
 	int CheckHit( CLinkObject *pobj );
 	int CheckHit(int b_x1,int b_y1, int b_width, int b_height );
-	void DoXCheck( void );
-	void DoYCheck( void );
-	void DoXInertia( void );
-	void DoYInertia( void );
+	void DoXCheck();
+	void DoYCheck();
+	void DoXInertia();
+	void DoYInertia();
 	void InitSize( OBJSIZE &zsize );
 	void InitMovement( OBJMOVE &zmove );
-	void DirWalk( void );
+	void DirWalk();
 	void Jump2Player( int rndmask, int yoff );
 	CPlayerObj* HitPlayer( int immune_flag = 0 );
-	CPlayerObj* CheckKillPlayer( void );
-	void MoveObject_Y( void );
-	void DirFly( void );
+	CPlayerObj* CheckKillPlayer();
+	void MoveObject_Y();
+	void DirFly();
 	void GetFly2Player( CPlayerObj *play, int *pdiff_x, int *pdiff_y );
 
 	int ControlSpeedUp( OBJMOVE &slow_move, OBJMOVE &fast_move );
 	CLinkObject *CheckHitFlag( CObjectList &base, int flag );
-	void Fly2ClosestPlayer( void );
+	void Fly2ClosestPlayer();
 public:
 	CLinkObject *m_pNext;
 	CLinkObject *m_pPrev;
@@ -180,10 +182,10 @@ class CObjectList
 public:
 	CObjectList();
 	~CObjectList();
-	void DeleteAll( void );
+	void DeleteAll();
 	void Attach(CLinkObject *objptr, int type, CGame *gptr );
-	void DoAll( void );
-	void DrawAll( void );
+	void DoAll();
+	void DrawAll();
 	void SetAnim(int *seq_ptr);
 	CLinkObject *FindFirst(int type);
 	CLinkObject *m_pFirst;
