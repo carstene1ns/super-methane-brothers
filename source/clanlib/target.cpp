@@ -64,7 +64,7 @@ void CGameTarget::InitGame()
 
 	// Find the resources directory:
 	std::string resource_dir = clan::Directory::get_resourcedata("methane");
-	std::string dataname("page_01.png");
+	std::string dataname("graphics/page_01.png");
 	std::string filename = resource_dir + dataname;
 	if (!clan::FileHelp::file_exists(filename))
 	{
@@ -91,35 +91,35 @@ void CGameTarget::InitGame()
 	}
 	
 
-	filename = resource_dir + "page_01.png";
+	filename = resource_dir + "graphics/page_01.png";
 	clan::PixelBuffer image = clan::ImageProviderFactory::load(filename);
 	m_Texture[0] = clan::Texture2D(m_Canvas, image.get_width(), image.get_height());
 	m_Texture[0].set_image(m_Canvas, image);
 	m_Texture[0].set_min_filter(clan::TextureFilter::nearest);
 	m_Texture[0].set_mag_filter(clan::TextureFilter::nearest);
 
-	filename = resource_dir + "page_02.png";
+	filename = resource_dir + "graphics/page_02.png";
 	image = clan::ImageProviderFactory::load(filename);
 	m_Texture[1] = clan::Texture2D(m_Canvas, image.get_width(), image.get_height());
 	m_Texture[1].set_image(m_Canvas, image);
 	m_Texture[1].set_min_filter(clan::TextureFilter::nearest);
 	m_Texture[1].set_mag_filter(clan::TextureFilter::nearest);
 
-	filename = resource_dir + "page_03.png";
+	filename = resource_dir + "graphics/page_03.png";
 	image = clan::ImageProviderFactory::load(filename);
 	m_Texture[2] = clan::Texture2D(m_Canvas, image.get_width(), image.get_height());
 	m_Texture[2].set_image(m_Canvas, image);
 	m_Texture[2].set_min_filter(clan::TextureFilter::nearest);
 	m_Texture[2].set_mag_filter(clan::TextureFilter::nearest);
 
-	filename = resource_dir + "page_04.png";
+	filename = resource_dir + "graphics/page_04.png";
 	image = clan::ImageProviderFactory::load(filename);
 	m_Texture[3] = clan::Texture2D(m_Canvas, image.get_width(), image.get_height());
 	m_Texture[3].set_image(m_Canvas, image);
 	m_Texture[3].set_min_filter(clan::TextureFilter::nearest);
 	m_Texture[3].set_mag_filter(clan::TextureFilter::nearest);
 
-	filename = resource_dir + "page_05.png";
+	filename = resource_dir + "graphics/page_05.png";
 	image = clan::ImageProviderFactory::load(filename);
 	m_Texture[4] = clan::Texture2D(m_Canvas, image.get_width(), image.get_height());
 	m_Texture[4].set_image(m_Canvas, image);
@@ -129,118 +129,118 @@ void CGameTarget::InitGame()
 	if (GLOBAL_SoundEnable)
 	{
 
-		filename = resource_dir + "blow.wav";
+		filename = resource_dir + "sounds/blow.wav";
 		m_WAV_blow = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "bowling.wav";
+		filename = resource_dir + "sounds/bowling.wav";
 		m_WAV_bowling = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "candle.wav";
+		filename = resource_dir + "sounds/candle.wav";
 		m_WAV_candle = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "card.wav";
+		filename = resource_dir + "sounds/card.wav";
 		m_WAV_card = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "car.wav";
+		filename = resource_dir + "sounds/car.wav";
 		m_WAV_car = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "chicken.wav";
+		filename = resource_dir + "sounds/chicken.wav";
 		m_WAV_chicken = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "cookie.wav";
+		filename = resource_dir + "sounds/cookie.wav";
 		m_WAV_cookie = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "crying.wav";
+		filename = resource_dir + "sounds/crying.wav";
 		m_WAV_crying = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "day.wav";
+		filename = resource_dir + "sounds/day.wav";
 		m_WAV_day = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "die2.wav";
+		filename = resource_dir + "sounds/die2.wav";
 		m_WAV_die2 = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "duck.wav";
+		filename = resource_dir + "sounds/duck.wav";
 		m_WAV_duck = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "feather.wav";
+		filename = resource_dir + "sounds/feather.wav";
 		m_WAV_feather = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "finlev1.wav";
+		filename = resource_dir + "sounds/finlev1.wav";
 		m_WAV_finlev1 = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "hurry.wav";
+		filename = resource_dir + "sounds/hurry.wav";
 		m_WAV_hurry = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "marble.wav";
+		filename = resource_dir + "sounds/marble.wav";
 		m_WAV_marble = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "mask.wav";
+		filename = resource_dir + "sounds/mask.wav";
 		m_WAV_mask = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "moon.wav";
+		filename = resource_dir + "sounds/moon.wav";
 		m_WAV_moon = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "oil.wav";
+		filename = resource_dir + "sounds/oil.wav";
 		m_WAV_oil = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "pickup1.wav";
+		filename = resource_dir + "sounds/pickup1.wav";
 		m_WAV_pickup1 = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "pstar.wav";
+		filename = resource_dir + "sounds/pstar.wav";
 		m_WAV_pstar = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "redstar.wav";
+		filename = resource_dir + "sounds/redstar.wav";
 		m_WAV_redstar = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "spiningtop.wav";
+		filename = resource_dir + "sounds/spiningtop.wav";
 		m_WAV_spiningtop = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "spit.wav";
+		filename = resource_dir + "sounds/spit.wav";
 		m_WAV_spit = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "splat.wav";
+		filename = resource_dir + "sounds/splat.wav";
 		m_WAV_splat = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "tap.wav";
+		filename = resource_dir + "sounds/tap.wav";
 		m_WAV_tap = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "train.wav";
+		filename = resource_dir + "sounds/train.wav";
 		m_WAV_train = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "tribble.wav";
+		filename = resource_dir + "sounds/tribble.wav";
 		m_WAV_tribble = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "turbo.wav";
+		filename = resource_dir + "sounds/turbo.wav";
 		m_WAV_turbo = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "twinkle.wav";
+		filename = resource_dir + "sounds/twinkle.wav";
 		m_WAV_twinkle = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "wings.wav";
+		filename = resource_dir + "sounds/wings.wav";
 		m_WAV_wings = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "wpotion.wav";
+		filename = resource_dir + "sounds/wpotion.wav";
 		m_WAV_wpotion = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "xylo.wav";
+		filename = resource_dir + "sounds/xylo.wav";
 		m_WAV_xylo = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "boss.mod";
+		filename = resource_dir + "music/boss.mod";
 		m_MOD_boss = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "complete.mod";
+		filename = resource_dir + "music/complete.mod";
 		m_MOD_complete = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "empty.mod";
+		filename = resource_dir + "music/empty.mod";
 		m_MOD_empty = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "title.mod";
+		filename = resource_dir + "music/title.mod";
 		m_MOD_title = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "tune1.mod";
+		filename = resource_dir + "music/tune1.mod";
 		m_MOD_tune1 = clan::SoundBuffer(filename);
 
-		filename = resource_dir + "tune2.mod";
+		filename = resource_dir + "music/tune2.mod";
 		m_MOD_tune2 = clan::SoundBuffer(filename);
 	}
 
