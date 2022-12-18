@@ -1,0 +1,69 @@
+# carstene1ns, 2017-2022
+
+# reasonable defaults
+cmake_minimum_required(VERSION 3.18)
+set(CMAKE_CXX_STANDARD 11)
+
+# set build type to debug, if not set
+if(DEFINED CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} CACHE STRING "Choose the type of build, options are: None(CMAKE_CXX_FLAGS or CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel.")
+else()
+  set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build, options are: None(CMAKE_CXX_FLAGS or CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel.")
+endif()
+
+project(super-methane-brothers VERSION 2.0.1 LANGUAGES CXX)
+
+# be verbose
+#set(CMAKE_VERBOSE_MAKEFILE on)
+
+# for c++ files
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+
+# pkg-config finds our needed libraries
+include(FindPkgConfig)
+
+# needed libraries
+pkg_check_modules(CL REQUIRED clanCore-4.1 clanDisplay-4.1 clanApp-4.1 clanGL-4.1 clanSound-4.1)
+pkg_check_modules(MIKMOD REQUIRED libmikmod)
+
+# programs
+add_executable(smb
+  source/global.cpp
+  source/mapdata.cpp
+  source/maps.cpp
+  source/misc.cpp
+  source/boss.cpp
+  source/baddie.cpp
+  source/goodie.cpp
+  source/bitdraw.cpp
+  source/bitgroup.cpp
+  source/bititem.cpp
+  source/gasobj.cpp
+  source/gfxoff.cpp
+  source/objlist.cpp
+  source/power.cpp
+  source/sound.cpp
+  source/suck.cpp
+  source/weapon.cpp
+  source/player.cpp
+  source/game.cpp
+  source/clanlib/doc.cpp
+  source/clanlib/target.cpp
+  source/clanlib/precomp.cpp
+  source/clanlib/render_batch_triangle.cpp
+  source/clanlib/methane.cpp
+  source/clanlib/ClanMikmod/module_reader.cpp
+  source/clanlib/ClanMikmod/setupmikmod.cpp
+  source/clanlib/ClanMikmod/soundprovider_mikmod.cpp
+  source/clanlib/ClanMikmod/soundprovider_mikmod_session.cpp
+)
+target_include_directories(smb PUBLIC
+  source
+  source/clanlib
+  ${CL_INCLUDE_DIRS}
+  ${MIKMOD_INCLUDE_DIRS}
+)
+target_link_libraries(smb
+  ${CL_LIBRARIES}
+  ${MIKMOD_LIBRARIES}
+)
