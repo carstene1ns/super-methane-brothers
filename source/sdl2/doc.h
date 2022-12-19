@@ -27,6 +27,7 @@ public:
 	~CMethDoc();
 
 	void InitGame();
+	void DeinitGame();
 	void StartGame();
 	void MainLoop();
 	void DisplayOptions(SDL_Surface* canvas);

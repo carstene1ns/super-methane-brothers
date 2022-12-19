@@ -27,6 +27,10 @@
 //------------------------------------------------------------------------------
 CGameTarget *GLOBAL_GameTarget = 0;
 
+void sdl_audiocallback(void *, Uint8 *stream, int len) {
+	VC_WriteBytes((SBYTE *)stream, len);
+}
+
 //------------------------------------------------------------------------------
 //! \brief Constructor
 //------------------------------------------------------------------------------
@@ -66,18 +70,23 @@ void CGameTarget::InitGame()
 
 	// Find the resources directory:
 	std::string resource_dir = std::string("resources/");
+	if (access(resource_dir.c_str(), F_OK) != 0) {
+		throw std::runtime_error("Unable to locate resources");
+	}
 
-	for(int i=0; i<5; i++) {
+	for(int i = 0; i < 5; i++) {
 		std::string filename = resource_dir + "graphics/page_0" + std::to_string(i+1) + ".png";
-
-		if (access(filename.c_str(), F_OK) != 0) {
-			throw std::runtime_error("Unable to locate resources");
-		}
-
 		m_Spritesheet[i] = IMG_Load(filename.c_str());
 		if(!m_Spritesheet[i]) {
 			SDL_Log("Couldn't load %s: %s\n", filename.c_str(), SDL_GetError());
 		}
+	}
+}
+
+void CGameTarget::DeinitGame()
+{
+	for(int i = 0; i < 5; i++) {
+		SDL_FreeSurface(m_Spritesheet[i]);
 	}
 }
 
@@ -135,6 +144,79 @@ void CGameTarget::MainLoop()
 void CGameTarget::PrepareSoundDriver()
 {
 	m_Game.m_Sound.PrepareAudio();
+	std::string resource_dir = std::string("resources/");
+
+	if (GLOBAL_SoundEnable)	{
+		MikMod_InitThreads();
+		MikMod_RegisterDriver(&drv_nos);
+		MikMod_RegisterAllLoaders();
+
+		md_mode |= DMODE_SOFT_MUSIC | DMODE_SOFT_SNDFX | DMODE_NOISEREDUCTION;
+		md_mixfreq = 44100;
+		if (MikMod_Init("")) {
+			SDL_Log("Could not initialize MikMod, reason: %s\n", MikMod_strerror(MikMod_errno));
+		}
+
+		SDL_AudioSpec spec = {};
+		spec.freq = md_mixfreq;
+		spec.format = AUDIO_S16;
+		spec.channels = 2;
+		spec.samples = 2048;
+		spec.callback = sdl_audiocallback;
+		if (SDL_OpenAudio(&spec, NULL) < 0) {
+			SDL_Log("Could not initialize SDL audio: %s\n", SDL_GetError());
+		}
+
+		SDL_PauseAudio(0);
+
+		// load samples
+		const char *sample_files[SND_COUNT] = {
+			"car", "train", "duck", "pickup1", "tribble", "hurry", "day", "crying",
+			"die2", "spit", "splat", "blow", "twinkle", "finlev1", "pstar", "xylo",
+			"card", "bowling", "candle", "marble", "tap", "oil", "spiningtop",
+			"wings", "moon", "mask", "redstar", "turbo", "chicken", "feather",
+			"wpotion", "cookie"
+		};
+
+		for (int i = 0; i < SND_COUNT; i++) {
+			std::string filename = resource_dir + "sounds/" + sample_files[i] + ".wav";
+			m_Soundfile[i] = Sample_Load(filename.c_str());
+			if(!m_Soundfile[i]) {
+				SDL_Log("Couldn't load %s: %s\n", filename.c_str(), MikMod_strerror(MikMod_errno));
+			}
+		}
+
+		// load music
+		const char *music_files[MODULE_COUNT-1] = {
+			"tune1", "tune2", "boss", "complete", "title"
+		};
+
+		for (int i = 0; i < MODULE_COUNT-1; i++) {
+			std::string filename = resource_dir + "music/" + music_files[i] + ".mod";
+			m_Musicfile[i] = Player_Load(filename.c_str(), 64, 0);
+			if(!m_Musicfile[i]) {
+				SDL_Log("Couldn't load %s: %s\n", filename.c_str(), MikMod_strerror(MikMod_errno));
+			}
+			m_Musicfile[i]->wrap = true;
+		}
+
+		MikMod_SetNumVoices(-1, 16);
+	}
+}
+
+void CGameTarget::FreeSoundDriver()
+{
+	if (GLOBAL_SoundEnable)	{
+		SDL_PauseAudio(1);
+
+		for (int i = 0; i < SND_COUNT; i++)
+			Sample_Free(m_Soundfile[i]);
+		for (int i = 0; i < MODULE_COUNT-1; i++)
+			Player_Free(m_Musicfile[i]);
+
+		SDL_CloseAudio();
+		MikMod_Exit();
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -146,6 +228,27 @@ void CGameTarget::PlayModule(int id)
 {
 	if (!GLOBAL_SoundEnable)
 		return;
+
+	// no need to play empty music
+	if (id == SMOD_EMPTY) {
+		StopModule();
+		return;
+	}
+
+	// determine music
+	MODULE *old = Player_GetModule();
+	MODULE *music = m_Musicfile[id - MODULE_START_NUMBER];
+	if (!music) {
+		SDL_Log("PlayModule: Unknown module.");
+		return;
+	}
+
+	// keep playing, if next song is the same
+	if(old == music) return;
+
+	Player_SetPosition(0);
+	Player_Stop();
+	Player_Start(music);
 }
 
 //------------------------------------------------------------------------------
@@ -155,6 +258,8 @@ void CGameTarget::StopModule()
 {
 	if (!GLOBAL_SoundEnable)
 		return;
+
+	Player_Stop();
 }
 
 //------------------------------------------------------------------------------
@@ -169,14 +274,31 @@ void CGameTarget::PlaySample(int id, int pos, int rate)
 	if (!GLOBAL_SoundEnable)
 		return;
 
-	// Calculate panning from -1 to 1 (from 0 to 255)
-	float pan = pos - 128;
-	pan = pan / 128.0f;
-	if (pan < -1.0f)
-		pan = -1.0f;
-	if (pan > 1.0f)
-		pan = 1.0f;
+	// determine sample chunk
+	SAMPLE *sample = m_Soundfile[id - SND_START_NUMBER];
+	if (!sample) {
+		SDL_Log("PlaySample: Unknown sample.");
+		return;
+	}
 
+	// Assume centre position is critical (to fix fixed later)
+	int flags;
+	if ((pos >= 120) && (pos <= 130)) {
+		flags = 0;
+	} else {
+		flags = SFX_CRITICAL;
+	}
+
+	int channel = Sample_Play(sample, 0, flags);
+	Voice_SetFrequency(channel, rate);
+	Voice_SetPanning(channel, pos);
+
+	// The volume wants to be equal while panning left to right
+	int volume = 256-8;
+	pos = pos - 128; // Centre position
+	if (pos < 0) pos = -pos; // Check sign
+	volume = volume - pos;
+	Voice_SetVolume(channel, volume);
 }
 
 //------------------------------------------------------------------------------
@@ -203,7 +325,7 @@ void CGameTarget::Draw(int dest_xpos, int dest_ypos, int width, int height, int 
 	SDL_Rect dstrect = { dest_xpos, dest_ypos, 0, 0 };
 
 	if(draw_white) {
-		SDL_Log("No idea how to draw white\n");
+		SDL_Log("No idea how to draw white...\n");
 	}
 
 	if (SDL_BlitSurface(m_Spritesheet[spritesheet_number], &srcrect, m_Canvas, &dstrect) != 0) {

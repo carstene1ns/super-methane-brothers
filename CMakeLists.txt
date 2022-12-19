@@ -28,16 +28,18 @@ set(SDL2 1)
 # needed libraries
 if(CLANLIB)
   pkg_check_modules(CL REQUIRED clanCore-4.1 clanDisplay-4.1 clanApp-4.1 clanGL-4.1 clanSound-4.1)
-  pkg_check_modules(MIKMOD REQUIRED libmikmod)
   set(LOC_INCS source/clanlib)
-  set(EXT_INCS ${CL_INCLUDE_DIRS} ${MIKMOD_INCLUDE_DIRS})
-  set(EXT_LIBS ${CL_LIBRARIES} ${MIKMOD_LIBRARIES})
+  set(EXT_INCS ${CL_INCLUDE_DIRS})
+  set(EXT_LIBS ${CL_LIBRARIES})
 elseif(SDL2)
   pkg_check_modules(SDL2 REQUIRED sdl2 SDL2_image)
   set(LOC_INCS source/sdl2)
   set(EXT_INCS ${SDL2_INCLUDE_DIRS})
   set(EXT_LIBS ${SDL2_LIBRARIES})
 endif()
+pkg_check_modules(MIKMOD REQUIRED libmikmod)
+set(EXT_INCS ${EXT_INCS} ${MIKMOD_INCLUDE_DIRS})
+set(EXT_LIBS ${EXT_LIBS} ${MIKMOD_LIBRARIES})
 
 # programs
 add_executable(smb

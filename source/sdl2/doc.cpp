@@ -43,6 +43,12 @@ void CMethDoc::InitGame()
 	m_GameTarget.PrepareSoundDriver();
 }
 
+void CMethDoc::DeinitGame()
+{
+	m_GameTarget.FreeSoundDriver();
+	m_GameTarget.DeinitGame();
+}
+
 //------------------------------------------------------------------------------
 //! \brief Start the game
 //------------------------------------------------------------------------------

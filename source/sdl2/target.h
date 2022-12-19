@@ -30,10 +30,12 @@ public:
 	CGameTarget();
 	void Init(CMethDoc *pdoc, SDL_Renderer *renderer, SDL_Surface *canvas, SDL_Texture *texture);
 	void InitGame();
+	void DeinitGame();
 	void RedrawScreen();
 	void StartGame();
 	void MainLoop();
 	void PrepareSoundDriver();
+	void FreeSoundDriver();
 	void PlayModule(int id);
 	void StopModule();
 	void PlaySample(int id, int pos, int rate);
@@ -55,6 +57,8 @@ private:
 	static const int m_NumSpritesheets = 5;
 	SDL_Surface *m_Spritesheet[m_NumSpritesheets];
 
+	SAMPLE *m_Soundfile[SND_COUNT];
+	MODULE *m_Musicfile[MODULE_COUNT-1];
 };
 
 extern CGameTarget *GLOBAL_GameTarget;

@@ -32,8 +32,6 @@ std::shared_ptr<CMethDoc> m_Game;
 
 void init_game() {
 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
-	IMG_Init(IMG_INIT_PNG);
-
 	SDL_Window *sdlWindow = SDL_CreateWindow("Super Methane Brothers",
 	                                         SDL_WINDOWPOS_UNDEFINED,
 	                                         SDL_WINDOWPOS_UNDEFINED,
@@ -55,8 +53,9 @@ void init_game() {
 	                               SCR_WIDTH, SCR_HEIGHT);
 	if(!sdlTexture) SDL_Log("Couldn't create texture: %s\n", SDL_GetError());
 
-	m_Game = std::make_shared<CMethDoc>(sdlRenderer, sdlSurface, sdlTexture);
+	IMG_Init(IMG_INIT_PNG);
 
+	m_Game = std::make_shared<CMethDoc>(sdlRenderer, sdlSurface, sdlTexture);
 	m_Game->InitGame();
 	m_Game->LoadScores();
 	m_Game->StartGame();
@@ -64,6 +63,7 @@ void init_game() {
 
 void deinit_game() {
 	m_Game->SaveScores();
+	m_Game->DeinitGame();
 
 	SDL_FreeSurface(sdlSurface);
 	SDL_DestroyTexture(sdlTexture);
