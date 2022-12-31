@@ -30,6 +30,9 @@ public:
 	void DrawColour(int xpos, int ypos );
 
 	MCOORDS *mcoord_ptr;
+
+private:
+	int sprite_number;
 };
 
 #endif // _bitdraw_h

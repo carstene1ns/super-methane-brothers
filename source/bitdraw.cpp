@@ -45,7 +45,8 @@ CBitmapDraw::~CBitmapDraw()
 int CBitmapDraw::Load(int rid)
 {
 	if ((rid < SPR_START_NUMBER) || (rid > SPR_END_NUMBER) ) return 0;
-	mcoord_ptr = &MainOffsets[rid - SPR_START_NUMBER];
+	sprite_number = rid - SPR_START_NUMBER;
+	mcoord_ptr = &MainOffsets[sprite_number];
 
 	return 0;
 }
@@ -66,6 +67,9 @@ void CBitmapDraw::UnLoad()
 //------------------------------------------------------------------------------
 void CBitmapDraw::Draw(int xpos, int ypos, bool draw_white )
 {
+#if __3DS__
+	GLOBAL_GameTarget->Draw(xpos, ypos, sprite_number, draw_white);
+#else
 	int dest_xpos = xpos;
 	int dest_ypos = ypos;
 	int width = mcoord_ptr->width;
@@ -101,8 +105,10 @@ void CBitmapDraw::Draw(int xpos, int ypos, bool draw_white )
 
 	if ((width > 0) && (height > 0))
 	{
+
 		GLOBAL_GameTarget->Draw(dest_xpos, dest_ypos, width, height, mcoord_ptr->texture_number, tex_xpos, tex_ypos, draw_white);
 	}
+#endif
 }
 
 //------------------------------------------------------------------------------
@@ -127,6 +133,17 @@ void CBitmapDraw::DrawColour(int xpos, int ypos )
 //------------------------------------------------------------------------------
 void CBitmapDraw::Draw16( int xpos, int ypos, int block_offset )
 {
+#if __3DS__
+	int correct_offset = block_offset;
+	// endblox
+	if (sprite_number + SPR_START_NUMBER > SPR_BLOX_DATA)
+		correct_offset += BLOCK_OFFSET_ENDBLOX;
+	// title
+	if (sprite_number + SPR_START_NUMBER > SPR_ENDBLOX_DATA)
+		correct_offset += BLOCK_OFFSET_TITLE;
+
+	GLOBAL_GameTarget->Draw(xpos, ypos, correct_offset, false, true);
+#else
 	int tex_xpos = mcoord_ptr->texture_xpos;	
 	int tex_ypos = mcoord_ptr->texture_ypos;
 
@@ -141,5 +158,5 @@ void CBitmapDraw::Draw16( int xpos, int ypos, int block_offset )
 	tex_ypos -= (page_offset * 512);	// Fix y offset
 
 	GLOBAL_GameTarget->Draw(xpos, ypos, 16, 16,mcoord_ptr->texture_number + page_offset, tex_xpos, tex_ypos, false);
+#endif
 }
-

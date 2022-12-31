@@ -1087,6 +1087,11 @@ void CGame::DrawPlayerInfo( CPlayerObj *pobj, PLAYER_STATUS *play )
 //------------------------------------------------------------------------------
 void CGame::DrawPlayersInfo()
 {
+#ifdef __3DS__
+	// We draw this manually on bottom screen
+	return;
+#endif
+
 	CPlayerObj *play;
 	int lower;
 	int upper;
@@ -2080,7 +2085,14 @@ void CGame::TitleScreenLoop()
 	m_MainCounter++;
 	if ( (m_pJoy1->fire) || (m_pJoy2->fire) )	// Game start?
 	{
+#ifdef __3DS__
+		m_pGameTarget->GetName(m_PlayerNameBuff1);
+		m_MainCounter = HISCREEN_SHOW_DELAY;
+		m_pJoy1->fire = 0;
+		InitNewGame();
+#else
 		InitGetPlayerNameScreen(m_pJoy2->fire);
+#endif
 		return;
 	}
 
@@ -2298,7 +2310,14 @@ void CGame::HighScreenLoop()
 
 	if ( (m_pJoy1->fire) || (m_pJoy2->fire) )	// Game start?
 	{
+#ifdef __3DS__
+		m_pGameTarget->GetName(m_PlayerNameBuff1);
+		m_MainCounter = HISCREEN_SHOW_DELAY;
+		m_pJoy1->fire = 0;
+		InitNewGame();
+#else
 		InitGetPlayerNameScreen(m_pJoy2->fire);
+#endif
 		return;
 	}
 
@@ -2556,3 +2575,18 @@ void CGame::CheckForGameOver()
 	InitGameOver();
 }
 
+#ifdef __3DS__
+bool CGame::IsGameOver() {
+	return (m_GameOverFlag > 0 && m_GameOverFlag <= GAMEOVER_DELAY);
+}
+
+void CGame::ReturnToTitle() {
+	CPlayerObj *play1 = GetPlayer(OBJ_PLAYER_ONE);
+	if (play1) {
+		play1->m_Lives = 0;
+		play1->KillPlayer();
+	}
+	//m_GameOverFlag = GAMEOVER_DELAY-1;
+}
+
+#endif

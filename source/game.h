@@ -94,6 +94,14 @@ public:
 	HISCORES *InsertHiScore(int score, char *name);
 	void TogglePuffBlow();
 
+#ifdef __3DS__
+	inline bool IsInGame() {
+		return (m_MainCommand == MC_GAME);
+	}
+	bool IsGameOver();
+	void ReturnToTitle();
+#endif
+
 private:
 	int Fade( float desired_light, int speed );
 	void CheckForEgg();
